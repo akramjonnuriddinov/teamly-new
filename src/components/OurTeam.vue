@@ -31,7 +31,9 @@
             >
               <router-link :to="{ name: 'home' }">Serhii Ivanenko</router-link>
             </h3>
-            <span class="text-lg leadin-1 text-[#757589]">Abcmarket CTO</span>
+            <span class="text-lg leadin-1 text-tg-paragraph-color"
+              >Abcmarket CTO</span
+            >
           </div>
         </li>
         <li class="bg-trasnparent relative team-content rounded-[30px]">
@@ -52,7 +54,7 @@
             >
               <router-link :to="{ name: 'home' }">Alay Macdonald</router-link>
             </h3>
-            <span class="text-lg leadin-1 text-[#757589]"
+            <span class="text-lg leadin-1 text-tg-paragraph-color"
               >Marketing Strategist</span
             >
           </div>
@@ -75,7 +77,9 @@
             >
               <router-link :to="{ name: 'home' }">William Adams</router-link>
             </h3>
-            <span class="text-lg leadin-1 text-[#757589]">Marketologist</span>
+            <span class="text-lg leadin-1 text-tg-paragraph-color"
+              >Marketologist</span
+            >
           </div>
         </li>
         <li class="bg-trasnparent relative team-content rounded-[30px]">
@@ -96,7 +100,9 @@
             >
               <router-link :to="{ name: 'home' }">Alexey Sergienko</router-link>
             </h3>
-            <span class="text-lg leadin-1 text-[#757589]">Programmer</span>
+            <span class="text-lg leadin-1 text-tg-paragraph-color"
+              >Programmer</span
+            >
           </div>
         </li>
       </ul>
@@ -116,12 +122,12 @@
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07);
 }
 
-img {
+.team-content-img {
   transform: scale(1);
   transition: 0.5s ease-in-out;
 }
 
-.team-content:hover img {
+.team-content:hover .team-content-img {
   transform: scale(1.08);
 }
 </style>

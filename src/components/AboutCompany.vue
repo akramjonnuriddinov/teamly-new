@@ -18,7 +18,7 @@
             Creative Agency that Help you go <br />
             Ahead.
           </h2>
-          <p class="text-[#757589] leading-[1.8] mb-5">
+          <p class="text-tg-paragraph-color leading-[1.8] mb-5">
             Lorem ipsum dolor sit amet consectetur. Ut tellus suspendisse nulla
             aliquam. Risus rutrum tellus eget ultrices pretium nisi amet
             facilisis vulputate tortor egestas.
@@ -26,19 +26,19 @@
           <ul class="mb-14">
             <li class="mb-1 flex items-center">
               <img class="mr-3" src="@/assets/images/about/check.svg" alt="" />
-              <p class="text-[#757589] leading-[1.8]">
+              <p class="text-tg-paragraph-color leading-[1.8]">
                 Risus ultrices amet facilisis vulputate tortor egestas
               </p>
             </li>
             <li class="mb-1 flex items-center">
               <img class="mr-3" src="@/assets/images/about/check.svg" alt="" />
-              <p class="text-[#757589] leading-[1.8]">
+              <p class="text-tg-paragraph-color leading-[1.8]">
                 Pretium nisi amet vulputate tortor egestas.
               </p>
             </li>
             <li class="mb-1 flex items-center">
               <img class="mr-3" src="@/assets/images/about/check.svg" alt="" />
-              <p class="text-[#757589] leading-[1.8]">
+              <p class="text-tg-paragraph-color leading-[1.8]">
                 Tellus eget ultrices facilisis vulputate tortor egestas.
               </p>
             </li>

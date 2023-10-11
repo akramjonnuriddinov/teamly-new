@@ -1,5 +1,5 @@
 <template>
-  <header :class="header" class="z-50 w-full py-3">
+  <header :class="header" class="z-50 w-full py-5">
     <div class="container px-5 mx-auto max-w-7xl">
       <div class="flex items-center">
         <router-link class="mr-32" to="/">

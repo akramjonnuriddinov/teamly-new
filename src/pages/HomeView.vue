@@ -6,6 +6,8 @@
     <our-project />
     <client-testimonial />
     <our-team />
+    <our-blog />
+    <home-contact />
   </div>
 </template>
 
@@ -16,6 +18,8 @@ import AboutCompany from "@/components/AboutCompany.vue"
 import OurProject from "@/components/OurProject.vue"
 import ClientTestimonial from "@/components/ClientTestimonial.vue"
 import OurTeam from "@/components/OurTeam.vue"
+import OurBlog from "@/components/OurBlog.vue"
+import HomeContact from "@/components/HomeContact.vue"
 </script>
 
 <style>
