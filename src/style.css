@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "DM Sans";
+    src: url("@/assets/fonts/DMSans-Regular.woff2") format("woff2"),
+      url("@/assets/fonts/DMSans-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "DM Sans";
+    src: url("@/assets/fonts/DMSans-SemiBold.woff2") format("woff2"),
+      url("@/assets/fonts/DMSans-SemiBold.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "DM Sans";
+    src: url("@/assets/fonts/DMSans-Medium.woff2") format("woff2"),
+      url("@/assets/fonts/DMSans-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "DM Sans";
+    src: url("@/assets/fonts/DMSans-Bold.woff2") format("woff2"),
+      url("@/assets/fonts/DMSans-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  body {
+    font-family: "DM Sans", sans-serif;
+  }
+}
