@@ -42,4 +42,18 @@
   body {
     font-family: "DM Sans", sans-serif;
   }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    scrollbar-width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+  }
 }

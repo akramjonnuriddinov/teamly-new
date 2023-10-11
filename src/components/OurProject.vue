@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-[#EFF7FF] -mt-[620px] pt-[520px] pb-[70px]">
+  <section class="bg-[#EFF7FF] -mt-[620px] pt-[520px] pb-[105px]">
     <div class="container w-full px-5 mx-auto max-w-7xl">
       <div class="pb-[70px]">
         <span
@@ -36,9 +36,8 @@
               class="flex items-center justify-center p-3 transition-all duration-300 rounded-full opacity-0 project-wrapper-link hover:bg-tg-primary-color hover:text-tg-white text-tg-primary-color bg-tg-white"
               to="/"
             >
-              <!-- <arrow-right-icon class="w-5" /> -->
               <svg
-                class="w-5 h-5 font-bold"
+                class="w-6 h-6"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -75,9 +74,8 @@
               class="flex items-center justify-center p-3 transition-all duration-300 rounded-full opacity-0 project-wrapper-link hover:bg-tg-primary-color hover:text-tg-white text-tg-primary-color bg-tg-white"
               to="/"
             >
-              <!-- <arrow-right-icon class="w-5" /> -->
               <svg
-                class="w-5 h-5 font-bold"
+                class="w-6 h-6"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -114,9 +112,8 @@
               class="flex items-center justify-center p-3 transition-all duration-300 rounded-full opacity-0 project-wrapper-link hover:bg-tg-primary-color hover:text-tg-white text-tg-primary-color bg-tg-white"
               to="/"
             >
-              <!-- <arrow-right-icon class="w-5" /> -->
               <svg
-                class="w-5 h-5 font-bold"
+                class="w-6 h-6"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -153,9 +150,8 @@
               class="flex items-center justify-center p-3 transition-all duration-300 rounded-full opacity-0 project-wrapper-link hover:bg-tg-primary-color hover:text-tg-white text-tg-primary-color bg-tg-white"
               to="/"
             >
-              <!-- <arrow-right-icon class="w-5" /> -->
               <svg
-                class="w-5 h-5 font-bold"
+                class="w-6 h-6"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -173,9 +169,7 @@
   </section>
 </template>
 
-<script setup lang="ts">
-// import { ArrowRightIcon } from "@heroicons/vue/24/solid"
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .project-thumb::before {
