@@ -221,6 +221,7 @@
           </div>
         </swiper-slide>
       </swiper>
+      <!-- /SWIPER -->
     </div>
   </section>
 </template>
