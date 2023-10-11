@@ -1,6 +1,6 @@
 <template>
-  <header :class="header" class="w-full z-50">
-    <div class="container max-w-7xl mx-auto px-5">
+  <header :class="header" class="z-50 w-full py-3">
+    <div class="container px-5 mx-auto max-w-7xl">
       <div class="flex items-center">
         <router-link class="mr-32" to="/">
           <img
@@ -13,47 +13,47 @@
         </router-link>
         <nav>
           <ul class="flex">
-            <li class="mr-20 relative py-10">
+            <li class="relative mr-20">
               <router-link
-                class="font-medium py-0 text-tg-heading-font-color hover:text-tg-primary-color"
+                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
                 :to="{ name: 'home' }"
                 >Home</router-link
               >
             </li>
-            <li class="mr-20 relative py-10">
+            <li class="relative mr-20">
               <router-link
-                class="font-medium py-0 text-tg-heading-font-color hover:text-tg-primary-color"
+                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
                 :to="{ name: 'home' }"
                 >About</router-link
               >
             </li>
-            <li class="mr-20 relative py-10">
+            <li class="relative mr-20">
               <router-link
-                class="font-medium py-0 text-tg-heading-font-color hover:text-tg-primary-color"
+                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
                 :to="{ name: 'home' }"
                 >Service</router-link
               >
             </li>
-            <li class="mr-20 relative py-10">
+            <li class="relative mr-20">
               <router-link
-                class="font-medium py-0 text-tg-heading-font-color hover:text-tg-primary-color"
+                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
                 :to="{ name: 'home' }"
                 >Work</router-link
               >
             </li>
-            <li class="mr-20 relative py-10">
+            <li class="relative mr-20">
               <router-link
-                class="font-medium py-0 text-tg-heading-font-color hover:text-tg-primary-color"
+                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
                 :to="{ name: 'home' }"
                 >Career</router-link
               >
             </li>
           </ul>
         </nav>
-        <div class="ml-auto flex items-center">
+        <div class="flex items-center ml-auto">
           <div>
             <a
-              class="font-medium mr-10 py-0 text-tg-heading-font-color"
+              class="py-0 mr-10 font-medium text-tg-heading-font-color"
               href="tel://+998337737737"
               >+998337737737</a
             >

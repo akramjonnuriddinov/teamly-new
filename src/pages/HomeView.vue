@@ -4,6 +4,7 @@
     <the-service />
     <about-company />
     <our-project />
+    <client-testimonial />
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import BannerArea from "@/components/BannerArea.vue"
 import TheService from "@/components/TheService.vue"
 import AboutCompany from "@/components/AboutCompany.vue"
 import OurProject from "@/components/OurProject.vue"
+import ClientTestimonial from "@/components/ClientTestimonial.vue"
 </script>
 
 <style>
