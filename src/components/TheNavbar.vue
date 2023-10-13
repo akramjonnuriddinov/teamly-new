@@ -1,5 +1,5 @@
 <template>
-  <header :class="header" class="z-50 w-full py-5">
+  <header :class="header" class="fixed z-50 w-full py-5">
     <div class="container px-5 mx-auto max-w-7xl">
       <div class="flex items-center">
         <router-link class="mr-32" to="/">
@@ -55,7 +55,7 @@
             <a
               class="py-0 mr-10 font-medium text-tg-heading-font-color"
               href="tel://+998337737737"
-              >+998337737737</a
+              >+998 (33) 773 77 37</a
             >
           </div>
           <the-language />
@@ -69,14 +69,15 @@
 import { onMounted, ref } from "vue"
 import TheLanguage from "@/components/TheLanguage.vue"
 
-const header = ref("transparent absolute")
+const header = ref("transparent top-0 absolute")
 
 onMounted(() => {
   window.addEventListener("scroll", () => {
     if (window.scrollY >= 300) {
-      header.value = "bg-tg-white header-shadow fixed"
+      header.value =
+        "bg-tg-white header-shadow fixed transition-all top-0 duration-300 py-[20px]"
     } else {
-      header.value = "transparent absolute"
+      header.value = "transparent absolute transition-all top-0 duration-300"
     }
   })
 })

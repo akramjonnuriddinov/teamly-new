@@ -20,7 +20,7 @@
             class="w-[307px] h-[393px] object-cover rounded-[30px]"
             width="307"
             height="393"
-            src="../assets/images/our-project/project01.jpg"
+            src="@/assets/images/our-project/project01.jpg"
             alt=""
           />
           <div
@@ -58,7 +58,7 @@
             class="w-[307px] h-[393px] object-cover rounded-[30px]"
             width="307"
             height="393"
-            src="../assets/images/our-project/project02.jpg"
+            src="@/assets/images/our-project/project02.jpg"
             alt=""
           />
           <div
@@ -96,7 +96,7 @@
             class="w-[307px] h-[393px] object-cover rounded-[30px]"
             width="307"
             height="393"
-            src="../assets/images/our-project/project03.jpg"
+            src="@/assets/images/our-project/project03.jpg"
             alt=""
           />
           <div
@@ -134,7 +134,7 @@
             class="w-[307px] h-[393px] object-cover rounded-[30px]"
             width="307"
             height="393"
-            src="../assets/images/our-project/project04.jpg"
+            src="@/assets/images/our-project/project04.jpg"
             alt=""
           />
           <div

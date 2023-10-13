@@ -18,7 +18,7 @@
             <router-link :to="{ name: 'home' }">
               <img
                 class="team-content-img"
-                src="../assets/images/team/team_img01.jpg"
+                src="@/assets/images/team/team_img01.jpg"
                 alt=""
               />
             </router-link>
@@ -41,7 +41,7 @@
             <router-link :to="{ name: 'home' }">
               <img
                 class="team-content-img"
-                src="../assets/images/team/team_img02.jpg"
+                src="@/assets/images/team/team_img02.jpg"
                 alt=""
               />
             </router-link>
@@ -64,7 +64,7 @@
             <router-link :to="{ name: 'home' }">
               <img
                 class="team-content-img"
-                src="../assets/images/team/team_img03.jpg"
+                src="@/assets/images/team/team_img03.jpg"
                 alt=""
               />
             </router-link>
@@ -87,7 +87,7 @@
             <router-link :to="{ name: 'home' }">
               <img
                 class="team-content-img"
-                src="../assets/images/team/team_img04.jpg"
+                src="@/assets/images/team/team_img04.jpg"
                 alt=""
               />
             </router-link>

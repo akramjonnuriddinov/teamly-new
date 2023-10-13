@@ -13,7 +13,7 @@
       ></iframe>
       <img
         class="absolute w-full h-full rounded-[50px] -z-10"
-        src="../assets/images/about/video_img.jpg"
+        src="@/assets/images/about/video_img.jpg"
         alt=""
       />
       <a
@@ -31,7 +31,7 @@
       <div class="flex bg-tg-yellow rounded-[30px] px-7 py-10">
         <img
           class="mr-4"
-          src="../assets/images/about/counter_icon01.svg"
+          src="@/assets/images/about/counter_icon01.svg"
           alt=""
         />
         <div class="">
@@ -42,7 +42,7 @@
       <div class="flex bg-tg-pink rounded-[30px] px-7 py-10">
         <img
           class="mr-4"
-          src="../assets/images/about/counter_icon02.svg"
+          src="@/assets/images/about/counter_icon02.svg"
           alt=""
         />
         <div class="">
@@ -53,7 +53,7 @@
       <div class="flex bg-tg-indigo rounded-[30px] px-7 py-10">
         <img
           class="mr-4"
-          src="../assets/images/about/counter_icon03.svg"
+          src="@/assets/images/about/counter_icon03.svg"
           alt=""
         />
         <div class="">

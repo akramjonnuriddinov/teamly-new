@@ -23,7 +23,7 @@
         </div>
         <img
           class="absolute right-0 -top-20"
-          src="../assets/images/home-contact/newsletter_img.png"
+          src="@/assets/images/home-contact/newsletter_img.png"
           alt=""
         />
       </div>

@@ -24,7 +24,7 @@
           >Get Started</router-link
         >
       </div>
-      <img src="../assets/images/banner_img.png" alt="" />
+      <img src="@/assets/images/banner_img.png" alt="" />
     </div>
     <img
       class="absolute -left-5 -bottom-10"

@@ -15,7 +15,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img01.png"
+              src="@/assets/images/brand/brand_img01.png"
               alt=""
             />
           </div>
@@ -24,7 +24,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img04.png"
+              src="@/assets/images/brand/brand_img04.png"
               alt=""
             />
           </div>
@@ -33,7 +33,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img06.png"
+              src="@/assets/images/brand/brand_img06.png"
               alt=""
             />
           </div>
@@ -42,7 +42,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img01.png"
+              src="@/assets/images/brand/brand_img01.png"
               alt=""
             />
           </div>
@@ -51,7 +51,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img04.png"
+              src="@/assets/images/brand/brand_img04.png"
               alt=""
             />
           </div>
@@ -60,7 +60,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img06.png"
+              src="@/assets/images/brand/brand_img06.png"
               alt=""
             />
           </div>
@@ -69,7 +69,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img01.png"
+              src="@/assets/images/brand/brand_img01.png"
               alt=""
             />
           </div>
@@ -78,7 +78,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img04.png"
+              src="@/assets/images/brand/brand_img04.png"
               alt=""
             />
           </div>
@@ -87,7 +87,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img06.png"
+              src="@/assets/images/brand/brand_img06.png"
               alt=""
             />
           </div>
@@ -96,7 +96,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img01.png"
+              src="@/assets/images/brand/brand_img01.png"
               alt=""
             />
           </div>
@@ -105,7 +105,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img04.png"
+              src="@/assets/images/brand/brand_img04.png"
               alt=""
             />
           </div>
@@ -114,7 +114,7 @@
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="../assets/images/brand/brand_img06.png"
+              src="@/assets/images/brand/brand_img06.png"
               alt=""
             />
           </div>
@@ -125,7 +125,7 @@
   </section>
 </template>
 
-<script setup lang="">
+<script setup>
 import { Swiper, SwiperSlide } from "swiper/vue"
 </script>
 

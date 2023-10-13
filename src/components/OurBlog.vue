@@ -3,17 +3,17 @@
     <div class="">
       <img
         class="absolute left-[2%] bottom-2"
-        src="../assets/images/blog/blog_shape01.png"
+        src="@/assets/images/blog/blog_shape01.png"
         alt=""
       />
       <img
         class="absolute top-[20%] right-36"
-        src="../assets/images/blog/blog_shape02.png"
+        src="@/assets/images/blog/blog_shape02.png"
         alt=""
       />
       <img
         class="absolute top-[40%] right-10"
-        src="../assets/images/blog/blog_shape03.png"
+        src="@/assets/images/blog/blog_shape03.png"
         alt=""
       />
     </div>
@@ -36,7 +36,7 @@
               <router-link :to="{ name: 'home' }">
                 <img
                   class="blog-content-img max-w-[570px] w-full"
-                  src="../assets/images/blog/blog01.jpg"
+                  src="@/assets/images/blog/blog01.jpg"
                   alt=""
                 />
               </router-link>
@@ -61,7 +61,7 @@
                   <div class="flex mr-12">
                     <img
                       class="mr-2"
-                      src="../assets/images/blog/calendar.svg"
+                      src="@/assets/images/blog/calendar.svg"
                       alt=""
                     />
                     September 3, 2023
@@ -69,7 +69,7 @@
                   <div class="flex">
                     <img
                       class="mr-2"
-                      src="../assets/images/blog/comments.svg"
+                      src="@/assets/images/blog/comments.svg"
                       alt=""
                     />
                     No Comments
@@ -88,7 +88,7 @@
               <router-link :to="{ name: 'home' }">
                 <img
                   class="blog-content-img max-w-[570px] w-full"
-                  src="../assets/images/blog/blog02.jpg"
+                  src="@/assets/images/blog/blog02.jpg"
                   alt=""
                 />
               </router-link>
@@ -113,7 +113,7 @@
                   <div class="flex mr-12">
                     <img
                       class="mr-2"
-                      src="../assets/images/blog/calendar.svg"
+                      src="@/assets/images/blog/calendar.svg"
                       alt=""
                     />
                     September 3, 2023
@@ -121,7 +121,7 @@
                   <div class="flex">
                     <img
                       class="mr-2"
-                      src="../assets/images/blog/comments.svg"
+                      src="@/assets/images/blog/comments.svg"
                       alt=""
                     />
                     No Comments
