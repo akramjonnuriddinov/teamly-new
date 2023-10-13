@@ -75,7 +75,7 @@ onMounted(() => {
   window.addEventListener("scroll", () => {
     if (window.scrollY >= 300) {
       header.value =
-        "bg-tg-white header-shadow fixed transition-all top-0 duration-300 py-[20px]"
+        "bg-tg-white header-shadow fixed transition-all top-0 duration-300"
     } else {
       header.value = "transparent absolute transition-all top-0 duration-300"
     }

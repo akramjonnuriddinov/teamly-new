@@ -2,10 +2,10 @@
   <section
     class="bg-[#131313] pt-[115px] pb-[90px] relative z-10 text-tg-white"
   >
-    <div class="container max-w-7xl w-full mx-auto px-5">
+    <div class="container w-full px-5 mx-auto max-w-7xl">
       <div class="pb-[70px]">
         <span
-          class="text-center flex justify-center text-tg-primary-color mb-3 text-lg font-bold"
+          class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >We Can Do For You</span
         >
         <h2 class="text-center font-bold leading-[1.2] text-5xl">
@@ -16,6 +16,7 @@
 
       <ul class="flex gap-[30px] flex-wrap">
         <li
+          data-aos="fade-right"
           class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
         >
           <router-link
@@ -24,7 +25,7 @@
             >Product Research</router-link
           >
           <img
-            class="service-item-img mb-6"
+            class="mb-6 service-item-img"
             src="@/assets/images/service/services_icon01.png"
             width=""
             height=""
@@ -34,11 +35,12 @@
             Lorem ipsum dolor amet the any more dummy as consectetur.
             suspendisse a any aliquam tellus ultrices.
           </p>
-          <router-link class="hover:text-tg-primary-color font-medium" to="/"
+          <router-link class="font-medium hover:text-tg-primary-color" to="/"
             >Find out more</router-link
           >
         </li>
         <li
+          data-aos="fade-right"
           class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
         >
           <router-link
@@ -47,7 +49,7 @@
             >UI/UX Design</router-link
           >
           <img
-            class="service-item-img mb-6"
+            class="mb-6 service-item-img"
             src="@/assets/images/service/services_icon02.png"
             width=""
             height=""
@@ -57,11 +59,12 @@
             Lorem ipsum dolor amet the any more dummy as consectetur.
             suspendisse a any aliquam tellus ultrices.
           </p>
-          <router-link class="hover:text-tg-primary-color font-medium" to="/"
+          <router-link class="font-medium hover:text-tg-primary-color" to="/"
             >Find out more</router-link
           >
         </li>
         <li
+          data-aos="fade-right"
           class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
         >
           <router-link
@@ -70,7 +73,7 @@
             >Web Development</router-link
           >
           <img
-            class="service-item-img mb-6"
+            class="mb-6 service-item-img"
             src="@/assets/images/service/services_icon03.png"
             width=""
             height=""
@@ -80,11 +83,12 @@
             Lorem ipsum dolor amet the any more dummy as consectetur.
             suspendisse a any aliquam tellus ultrices.
           </p>
-          <router-link class="hover:text-tg-primary-color font-medium" to="/"
+          <router-link class="font-medium hover:text-tg-primary-color" to="/"
             >Find out more</router-link
           >
         </li>
         <li
+          data-aos="fade-right"
           class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
         >
           <router-link
@@ -93,7 +97,7 @@
             >SEO Analytics</router-link
           >
           <img
-            class="service-item-img mb-6"
+            class="mb-6 service-item-img"
             src="@/assets/images/service/services_icon04.png"
             width=""
             height=""
@@ -103,11 +107,12 @@
             Lorem ipsum dolor amet the any more dummy as consectetur.
             suspendisse a any aliquam tellus ultrices.
           </p>
-          <router-link class="hover:text-tg-primary-color font-medium" to="/"
+          <router-link class="font-medium hover:text-tg-primary-color" to="/"
             >Find out more</router-link
           >
         </li>
         <li
+          data-aos="fade-right"
           class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
         >
           <router-link
@@ -116,7 +121,7 @@
             >Online Marketing</router-link
           >
           <img
-            class="service-item-img mb-6"
+            class="mb-6 service-item-img"
             src="@/assets/images/service/services_icon05.png"
             width=""
             height=""
@@ -126,11 +131,12 @@
             Lorem ipsum dolor amet the any more dummy as consectetur.
             suspendisse a any aliquam tellus ultrices.
           </p>
-          <router-link class="hover:text-tg-primary-color font-medium" to="/"
+          <router-link class="font-medium hover:text-tg-primary-color" to="/"
             >Find out more</router-link
           >
         </li>
         <li
+          data-aos="fade-right"
           class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
         >
           <router-link
@@ -139,7 +145,7 @@
             >Support Team</router-link
           >
           <img
-            class="service-item-img mb-6"
+            class="mb-6 service-item-img"
             src="@/assets/images/service/services_icon06.png"
             width=""
             height=""
@@ -149,7 +155,7 @@
             Lorem ipsum dolor amet the any more dummy as consectetur.
             suspendisse a any aliquam tellus ultrices.
           </p>
-          <router-link class="hover:text-tg-primary-color font-medium" to="/"
+          <router-link class="font-medium hover:text-tg-primary-color" to="/"
             >Find out more</router-link
           >
         </li>

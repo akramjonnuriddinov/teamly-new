@@ -24,7 +24,12 @@
           >Get Started</router-link
         >
       </div>
-      <img src="@/assets/images/banner_img.png" alt="" />
+      <img
+        data-aos="fade-up"
+        data-aos-duration="3000"
+        src="@/assets/images/banner_img.png"
+        alt=""
+      />
     </div>
     <img
       class="absolute -left-5 -bottom-10"

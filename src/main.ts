@@ -8,6 +8,11 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css'
 SwiperClass.use([/* swiper modules... */])
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+// ..
+AOS.init();
+
 const app = createApp(App)
 app.use(VueAwesomeSwiper)
 
