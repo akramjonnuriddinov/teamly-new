@@ -24,34 +24,17 @@
               facilisis vulputate tortor egestas.
             </p>
             <ul class="mb-14">
-              <li class="flex items-center mb-1">
+              <li
+                v-for="aboutContent in aboutContents"
+                class="flex items-center mb-1"
+              >
                 <img
                   class="mr-3"
                   src="@/assets/images/about/check.svg"
                   alt=""
                 />
                 <p class="text-tg-paragraph-color leading-[1.8]">
-                  Risus ultrices amet facilisis vulputate tortor egestas
-                </p>
-              </li>
-              <li class="flex items-center mb-1">
-                <img
-                  class="mr-3"
-                  src="@/assets/images/about/check.svg"
-                  alt=""
-                />
-                <p class="text-tg-paragraph-color leading-[1.8]">
-                  Pretium nisi amet vulputate tortor egestas.
-                </p>
-              </li>
-              <li class="flex items-center mb-1">
-                <img
-                  class="mr-3"
-                  src="@/assets/images/about/check.svg"
-                  alt=""
-                />
-                <p class="text-tg-paragraph-color leading-[1.8]">
-                  Tellus eget ultrices facilisis vulputate tortor egestas.
+                  {{ aboutContent }}
                 </p>
               </li>
             </ul>
@@ -83,4 +66,11 @@
 
 <script setup lang="ts">
 import WatchVideo from "@/components/WatchVideo.vue"
+import { ref } from "vue"
+
+const aboutContents = ref([
+  "Risus ultrices amet facilisis vulputate tortor egestas.",
+  "Pretium nisi amet vulputate tortor egestas.",
+  "Tellus eget ultrices facilisis vulputate tortor egestas.",
+])
 </script>

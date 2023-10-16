@@ -7,7 +7,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('@/pages/HomeView.vue')
-    }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: import('@/pages/NotFound.vue')
+    },
   ]
 })
 

@@ -4,18 +4,18 @@
       class="container px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[990px]:max-w-3xl"
     >
       <div class="flex items-center justify-between">
-        <router-link class="mr-36 w-[150px] flex" to="/">
+        <router-link class="mr-20 w-[150px] flex" to="/">
           <img
             class="w-[150px] min-w-[150px]"
             width="150"
             height="36"
-            src="@/assets/images/logo-no-bg.svg"
+            src="@/assets/images/custom-logo.svg"
             alt="logo"
           />
         </router-link>
 
         <nav
-          class="mr-20 transition-all duration-300 navbar"
+          class="mr-20 transition-all duration-300 max-[990px]:overflow-y-auto navbar"
           :class="{
             'translate-x-full-custom transition-all duration-500': isHidden,
           }"
@@ -28,7 +28,7 @@
                 class="w-[150px] min-w-[150px]"
                 width="150"
                 height="36"
-                src="@/assets/images/logo-no-bg.svg"
+                src="@/assets/images/custom-logo.svg"
                 alt="logo"
               />
             </router-link>
@@ -50,8 +50,8 @@
               :key="index"
             >
               <router-link
-                class="py-0 font-medium transition-colors duration-200 navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
-                :to="{ name: 'home' }"
+                class="py-0 font-semibold transition-colors duration-200 nav-link navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
+                :to="link.url"
               >
                 {{ link.name }}
               </router-link>
@@ -141,7 +141,7 @@ const socials = [
 const links = ref([
   {
     name: "Home",
-    url: "home",
+    url: "/",
   },
   {
     name: "About",
@@ -163,7 +163,14 @@ const links = ref([
 
 const isHidden = ref(true)
 
-const toggleModal = () => (isHidden.value = !isHidden.value)
+const toggleModal = () => {
+  isHidden.value = !isHidden.value
+  if (isHidden.value == false) {
+    document.body.classList.add("overflow-hidden")
+  } else {
+    document.body.classList.remove("overflow-hidden")
+  }
+}
 
 onMounted(() => {
   window.addEventListener("scroll", () => {
@@ -185,6 +192,33 @@ onMounted(() => {
 
 .header {
   animation: 1000ms ease-in-out 0s normal none 1 running fadeInDown;
+}
+
+.router-link-active {
+  color: #7e54f8;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background-color: #7e54f8;
+  bottom: -6px;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-link:hover::before {
+  transform-origin: right;
+  transform: scaleX(0.8);
+}
+
+.router-link-active::before {
+  transform: scaleX(0.8);
 }
 
 @media (max-width: 990px) {
@@ -216,6 +250,10 @@ onMounted(() => {
   }
   .navbar__item:last-child {
     border-bottom: 1px solid rgb(0 0 0 / 10%);
+  }
+
+  .nav-link::before {
+    transform: scaleX(0) !important;
   }
 }
 
