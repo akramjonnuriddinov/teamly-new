@@ -3,7 +3,11 @@
     <div class="flex pt-[75px] items-center justify-between">
       <div class="relative w-full max-w-2xl">
         <img
-          class="absolute -top-10 -left-10"
+          class="absolute transition-all duration-1000 ease-out -top-10 -left-10"
+          :class="{
+            'translate-x-[50px]': customTranslateY,
+            'translate-x-[0]': !customTranslateY,
+          }"
           src="@/assets/images/banner_shape01.png"
           alt=""
         />
@@ -32,13 +36,40 @@
       />
     </div>
     <img
-      class="absolute -left-5 -bottom-10"
+      class="absolute transition-all duration-1000 ease-out -left-5 -bottom-0"
+      :class="{
+        'translate-y-[80px]': customTranslateY,
+        'translate-x-[0]': !customTranslateY,
+      }"
       src="@/assets/images/banner_shape03.png"
       alt=""
     />
     <div class="absolute banner-shaper"></div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { onMounted, ref } from "vue"
+
+const customTranslateY = ref(false)
+const customTranslateY2 = ref(false)
+
+onMounted(() => {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY >= 300) {
+      customTranslateY.value = true
+    } else {
+      customTranslateY.value = false
+    }
+
+    if (window.scrollY >= 500) {
+      customTranslateY2.value = true
+    } else {
+      customTranslateY2.value = false
+    }
+  })
+})
+</script>
 
 <style scoped>
 body {

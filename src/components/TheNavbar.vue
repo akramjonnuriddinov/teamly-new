@@ -50,7 +50,7 @@
               :key="index"
             >
               <router-link
-                class="py-0 font-medium navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
+                class="py-0 font-medium transition-colors duration-200 navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
                 :to="{ name: 'home' }"
               >
                 {{ link.name }}
@@ -81,8 +81,9 @@
 
         <div class="flex items-center ml-auto">
           <a
-            class="block py-0 mr-10 font-medium whitespace-nowrap text-tg-heading-font-color max-[1050px]:hidden"
-            href="tel://+998337737737"
+            class="block py-0 mr-10 font-medium whitespace-nowrap text-tg-heading-font-color hover:text-tg-primary-color transition-colors duration-200 max-[1050px]:hidden"
+            href="https://t.me/m_mirahmad"
+            target="_blank"
             >+998 (33) 773 77 37</a
           >
 

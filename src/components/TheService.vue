@@ -2,7 +2,12 @@
   <section
     class="bg-[#131313] pt-[115px] pb-[90px] relative z-10 text-tg-white"
   >
-    <div class="container w-full px-5 mx-auto max-w-7xl">
+    <div class="container relative w-full px-5 mx-auto max-w-7xl">
+      <div
+        class="absolute -z-50 transition-all duration-1000 right-[4%] top-[9%]"
+      >
+        <img src="@/assets/images/service/services_shape.png" alt="" />
+      </div>
       <div class="pb-[70px]">
         <span
           class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
@@ -16,153 +21,82 @@
 
       <ul class="flex gap-[30px] flex-wrap">
         <li
+          class="service-item flex flex-col max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
+          v-for="(service, index) in services"
+          :key="index"
           data-aos="fade-right"
-          class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
         >
           <router-link
-            class="mb-[22px] hover:text-tg-primary-color text-2xl font-bold"
+            class="mb-[22px] text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
             to="/"
-            >Product Research</router-link
+            >{{ service.title }}</router-link
           >
           <img
-            class="mb-6 service-item-img"
-            src="@/assets/images/service/services_icon01.png"
-            width=""
-            height=""
-            alt=""
+            class="mb-6 service-item-img w-[110px] h-[110px] object-cover"
+            :src="`src/assets/images/service/${service.img_url}.png`"
+            alt="img"
           />
           <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
-            Lorem ipsum dolor amet the any more dummy as consectetur.
-            suspendisse a any aliquam tellus ultrices.
+            {{ service.text }}
           </p>
-          <router-link class="font-medium hover:text-tg-primary-color" to="/"
-            >Find out more</router-link
-          >
-        </li>
-        <li
-          data-aos="fade-right"
-          class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
-        >
           <router-link
-            class="mb-[22px] hover:text-tg-primary-color text-2xl font-bold"
+            class="flex items-center gap-2 mt-auto font-medium transition-colors duration-300 hover:text-tg-primary-color"
             to="/"
-            >UI/UX Design</router-link
           >
-          <img
-            class="mb-6 service-item-img"
-            src="@/assets/images/service/services_icon02.png"
-            width=""
-            height=""
-            alt=""
-          />
-          <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
-            Lorem ipsum dolor amet the any more dummy as consectetur.
-            suspendisse a any aliquam tellus ultrices.
-          </p>
-          <router-link class="font-medium hover:text-tg-primary-color" to="/"
-            >Find out more</router-link
-          >
-        </li>
-        <li
-          data-aos="fade-right"
-          class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
-        >
-          <router-link
-            class="mb-[22px] hover:text-tg-primary-color text-2xl font-bold"
-            to="/"
-            >Web Development</router-link
-          >
-          <img
-            class="mb-6 service-item-img"
-            src="@/assets/images/service/services_icon03.png"
-            width=""
-            height=""
-            alt=""
-          />
-          <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
-            Lorem ipsum dolor amet the any more dummy as consectetur.
-            suspendisse a any aliquam tellus ultrices.
-          </p>
-          <router-link class="font-medium hover:text-tg-primary-color" to="/"
-            >Find out more</router-link
-          >
-        </li>
-        <li
-          data-aos="fade-right"
-          class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
-        >
-          <router-link
-            class="mb-[22px] hover:text-tg-primary-color text-2xl font-bold"
-            to="/"
-            >SEO Analytics</router-link
-          >
-          <img
-            class="mb-6 service-item-img"
-            src="@/assets/images/service/services_icon04.png"
-            width=""
-            height=""
-            alt=""
-          />
-          <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
-            Lorem ipsum dolor amet the any more dummy as consectetur.
-            suspendisse a any aliquam tellus ultrices.
-          </p>
-          <router-link class="font-medium hover:text-tg-primary-color" to="/"
-            >Find out more</router-link
-          >
-        </li>
-        <li
-          data-aos="fade-right"
-          class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
-        >
-          <router-link
-            class="mb-[22px] hover:text-tg-primary-color text-2xl font-bold"
-            to="/"
-            >Online Marketing</router-link
-          >
-          <img
-            class="mb-6 service-item-img"
-            src="@/assets/images/service/services_icon05.png"
-            width=""
-            height=""
-            alt=""
-          />
-          <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
-            Lorem ipsum dolor amet the any more dummy as consectetur.
-            suspendisse a any aliquam tellus ultrices.
-          </p>
-          <router-link class="font-medium hover:text-tg-primary-color" to="/"
-            >Find out more</router-link
-          >
-        </li>
-        <li
-          data-aos="fade-right"
-          class="service-item max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
-        >
-          <router-link
-            class="mb-[22px] hover:text-tg-primary-color text-2xl font-bold"
-            to="/"
-            >Support Team</router-link
-          >
-          <img
-            class="mb-6 service-item-img"
-            src="@/assets/images/service/services_icon06.png"
-            width=""
-            height=""
-            alt=""
-          />
-          <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
-            Lorem ipsum dolor amet the any more dummy as consectetur.
-            suspendisse a any aliquam tellus ultrices.
-          </p>
-          <router-link class="font-medium hover:text-tg-primary-color" to="/"
-            >Find out more</router-link
-          >
+            <span>Find out more</span>
+            <svg
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              height="1em"
+              viewBox="0 0 448 512"
+            >
+              <path
+                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+              />
+            </svg>
+          </router-link>
         </li>
       </ul>
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { ref } from "vue"
+
+const services = ref([
+  {
+    title: "Web Development",
+    text: "Build a site your customers love to use.",
+    img_url: "services_icon03",
+  },
+  {
+    title: "Mobile Development",
+    text: "Create a cross-platform mobile app with native functionality.",
+    img_url: "services_icon05",
+  },
+  {
+    title: "UX/UI Design",
+    text: "For the redesign of the web design and technique of your website or your brand.",
+    img_url: "services_icon02",
+  },
+  {
+    title: "Daily Updates",
+    text: "Stay Ahead of the Curve with IT Updates.",
+    img_url: "services_icon01",
+  },
+  {
+    title: "SEO Analytics",
+    text: "We help you analyze, and optimize your SEO strategy with our cutting-edge tools and expertise.",
+    img_url: "services_icon04",
+  },
+  {
+    title: "Support Team",
+    text: "We are always ready to help you with any IT issue. Contact us anytime, anywhere.",
+    img_url: "services_icon06",
+  },
+])
+</script>
 
 <style scoped>
 .service-item {
