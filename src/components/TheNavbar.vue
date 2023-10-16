@@ -1,64 +1,106 @@
 <template>
-  <header :class="header" class="fixed z-50 w-full py-5">
-    <div class="container px-5 mx-auto max-w-7xl">
-      <div class="flex items-center">
-        <router-link class="mr-32" to="/">
+  <header :class="header" class="fixed z-50 w-full py-5 home-header header">
+    <div
+      class="container px-5 mx-auto max-w-7xl max-[1200px]:max-w-[960px] max-[990px]:max-w-3xl"
+    >
+      <div class="flex items-center justify-between">
+        <router-link class="mr-36 w-[150px] flex" to="/">
           <img
-            class="max-w-[150px] w-full"
+            class="w-[150px] min-w-[150px]"
             width="150"
             height="36"
             src="@/assets/images/logo-no-bg.svg"
-            alt=""
+            alt="logo"
           />
         </router-link>
-        <nav>
-          <ul class="flex">
-            <li class="relative mr-20">
+
+        <nav
+          class="mr-20 transition-all duration-300 navbar"
+          :class="{
+            'translate-x-full-custom transition-all duration-500': isHidden,
+          }"
+        >
+          <div
+            class="hidden bg-tg-white w-full max-w-[300px] justify-between py-[30px] px-[25px] max-[990px]:flex"
+          >
+            <router-link class="mobile-logo w-[150px]" to="/">
+              <img
+                class="w-[150px] min-w-[150px]"
+                width="150"
+                height="36"
+                src="@/assets/images/logo-no-bg.svg"
+                alt="logo"
+              />
+            </router-link>
+            <button
+              class="flex items-center justify-center w-9 h-7"
+              @click="toggleModal"
+            >
+              <img
+                class="w-4 h-5"
+                src="@/assets/images/svg/close.svg"
+                alt="close-icon"
+              />
+            </button>
+          </div>
+          <ul class="flex justify-between top-[100px] navbar__list">
+            <li
+              class="relative mr-10 navbar__item"
+              v-for="(link, index) in links"
+              :key="index"
+            >
               <router-link
-                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
+                class="py-0 font-medium navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
                 :to="{ name: 'home' }"
-                >Home</router-link
               >
-            </li>
-            <li class="relative mr-20">
-              <router-link
-                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
-                :to="{ name: 'home' }"
-                >About</router-link
-              >
-            </li>
-            <li class="relative mr-20">
-              <router-link
-                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
-                :to="{ name: 'home' }"
-                >Service</router-link
-              >
-            </li>
-            <li class="relative mr-20">
-              <router-link
-                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
-                :to="{ name: 'home' }"
-                >Work</router-link
-              >
-            </li>
-            <li class="relative mr-20">
-              <router-link
-                class="py-0 font-medium text-tg-heading-font-color hover:text-tg-primary-color"
-                :to="{ name: 'home' }"
-                >Career</router-link
-              >
+                {{ link.name }}
+              </router-link>
             </li>
           </ul>
-        </nav>
-        <div class="flex items-center ml-auto">
-          <div>
+          <!-- SOCIALS -->
+          <div
+            class="hidden py-[30px] flex-wrap justify-center px-5 gap-2.5 max-[990px]:flex"
+          >
             <a
-              class="py-0 mr-10 font-medium text-tg-heading-font-color"
-              href="tel://+998337737737"
-              >+998 (33) 773 77 37</a
+              v-for="(social, index) in socials"
+              :key="index"
+              class="flex items-center justify-center w-10 text-base h-10 border rounded-[3px] border-[#e3e3e3] transition-all duration-300 hover:bg-tg-primary-color hover:text-white"
+              :href="social.url"
+              target="_blank"
             >
+              <span v-html="getSVG(social.name)" />
+            </a>
           </div>
-          <the-language />
+          <!-- /SOCIALS -->
+        </nav>
+        <div
+          @click="toggleModal"
+          v-if="!isHidden"
+          class="bg-[#00000080] h-[100vh] fixed top-0 left-0 w-[100vw] -z-50"
+        ></div>
+
+        <div class="flex items-center ml-auto">
+          <a
+            class="block py-0 mr-10 font-medium whitespace-nowrap text-tg-heading-font-color max-[1050px]:hidden"
+            href="tel://+998337737737"
+            >+998 (33) 773 77 37</a
+          >
+
+          <div class="max-[990px]:hidden">
+            <the-language />
+          </div>
+          <button
+            class="h-[30px] hidden w-[26px] max-[990px]:flex"
+            @click="toggleModal"
+          >
+            <img
+              class="w-[26px] block h-[30px]"
+              width="26"
+              height="30"
+              src="../assets/images/fontawesome/bars.svg"
+              alt=""
+            />
+          </button>
         </div>
       </div>
     </div>
@@ -68,8 +110,59 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 import TheLanguage from "@/components/TheLanguage.vue"
+import { getSVG } from "@/composables/getSVG"
 
 const header = ref("transparent top-0 absolute")
+
+const socials = [
+  {
+    name: "facebook",
+    url: "",
+  },
+  {
+    name: "twitter",
+    url: "",
+  },
+  {
+    name: "instagram",
+    url: "",
+  },
+  {
+    name: "linkedin",
+    url: "https://www.linkedin.com/company/teamly-uz/",
+  },
+  {
+    name: "telegram",
+    url: "https://t.me/teamly_uz",
+  },
+]
+
+const links = ref([
+  {
+    name: "Home",
+    url: "home",
+  },
+  {
+    name: "About",
+    url: "about",
+  },
+  {
+    name: "Service",
+    url: "service",
+  },
+  {
+    name: "Work",
+    url: "work",
+  },
+  {
+    name: "Career",
+    url: "career",
+  },
+])
+
+const isHidden = ref(true)
+
+const toggleModal = () => (isHidden.value = !isHidden.value)
 
 onMounted(() => {
   window.addEventListener("scroll", () => {
@@ -89,8 +182,40 @@ onMounted(() => {
   animation: 1000ms ease-in-out 0s normal none 1 running fadeInDown;
 }
 
-header {
+.header {
   animation: 1000ms ease-in-out 0s normal none 1 running fadeInDown;
+}
+
+@media (max-width: 990px) {
+  .translate-x-full-custom {
+    transform: translateX(100%);
+  }
+  .header {
+    z-index: 999;
+  }
+  .navbar {
+    position: fixed;
+    background-color: #fff;
+    right: 0;
+    top: 0;
+    margin-right: 0;
+    bottom: 0;
+    padding-bottom: 100px;
+  }
+
+  .navbar__list {
+    flex-direction: column;
+    justify-content: start;
+    width: 300px;
+  }
+  .navbar__item {
+    padding: 10px 60px 10px 25px;
+    width: 100%;
+    border-top: 1px solid rgb(0 0 0 / 10%);
+  }
+  .navbar__item:last-child {
+    border-bottom: 1px solid rgb(0 0 0 / 10%);
+  }
 }
 
 @keyframes fadeInDown {

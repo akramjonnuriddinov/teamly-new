@@ -25,7 +25,7 @@
         >
       </div>
       <img
-        data-aos="fade-up"
+        data-aos=""
         data-aos-duration="3000"
         src="@/assets/images/banner_img.png"
         alt=""
@@ -47,8 +47,6 @@ body {
 .banner-shaper::after {
   position: fixed;
   content: "";
-  /* right: -298px;
-  bottom: -647px; */
   right: -398px;
   bottom: -447px;
   width: 1035px;
