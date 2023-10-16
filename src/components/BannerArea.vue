@@ -1,58 +1,59 @@
 <template>
-  <div class="container relative px-5 mx-auto max-w-7xl">
-    <div class="flex pt-[75px] items-center justify-between">
-      <div class="relative w-full max-w-2xl">
+  <section class="banner-area">
+    <div class="container relative px-5 mx-auto max-w-7xl">
+      <div class="flex pt-[75px] items-center justify-between">
+        <div class="relative w-full max-w-2xl">
+          <img
+            class="absolute transition-all duration-1000 ease-out -top-10 -left-10"
+            :class="{
+              'translate-x-[50px]': customTranslateY,
+              'translate-x-[0]': !customTranslateY,
+            }"
+            src="@/assets/images/banner_shape01.png"
+            alt=""
+          />
+          <h1
+            style="line-height: 1.2"
+            class="mb-4 text-6xl font-bold text-tg-heading-font-color"
+          >
+            Shaping Digital Dreams
+          </h1>
+          <p class="mb-10 text-lg text-tg-heading-font-color">
+            We help you transform your ideas into reality. Contact us today and
+            let us shape your digital dreams.
+          </p>
+          <router-link
+            class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap"
+            style="padding: 18px 25px; letter-spacing: 0.5px"
+            to="/"
+            >Get Started</router-link
+          >
+        </div>
         <img
-          class="absolute transition-all duration-1000 ease-out -top-10 -left-10"
-          :class="{
-            'translate-x-[50px]': customTranslateY,
-            'translate-x-[0]': !customTranslateY,
-          }"
-          src="@/assets/images/banner_shape01.png"
+          data-aos=""
+          data-aos-duration="3000"
+          src="@/assets/images/banner_img.png"
           alt=""
         />
-        <h1
-          style="line-height: 1.2"
-          class="mb-4 text-6xl font-bold text-tg-heading-font-color"
-        >
-          Shaping Digital Dreams
-        </h1>
-        <p class="mb-10 text-lg text-tg-heading-font-color">
-          We help you transform your ideas into reality. Contact us today and
-          let us shape your digital dreams.
-        </p>
-        <router-link
-          class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap"
-          style="padding: 18px 25px; letter-spacing: 0.5px"
-          to="/"
-          >Get Started</router-link
-        >
       </div>
       <img
-        data-aos=""
-        data-aos-duration="3000"
-        src="@/assets/images/banner_img.png"
+        class="absolute transition-all duration-1000 ease-out -left-5 -bottom-0"
+        :class="{
+          'translate-y-[80px]': customTranslateY,
+          'translate-x-[0]': !customTranslateY,
+        }"
+        src="@/assets/images/banner_shape03.png"
         alt=""
       />
+      <div class="absolute banner-shaper"></div>
     </div>
-    <img
-      class="absolute transition-all duration-1000 ease-out -left-5 -bottom-0"
-      :class="{
-        'translate-y-[80px]': customTranslateY,
-        'translate-x-[0]': !customTranslateY,
-      }"
-      src="@/assets/images/banner_shape03.png"
-      alt=""
-    />
-    <div class="absolute banner-shaper"></div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 
 const customTranslateY = ref(false)
-const customTranslateY2 = ref(false)
 
 onMounted(() => {
   window.addEventListener("scroll", () => {
@@ -61,34 +62,29 @@ onMounted(() => {
     } else {
       customTranslateY.value = false
     }
-
-    if (window.scrollY >= 500) {
-      customTranslateY2.value = true
-    } else {
-      customTranslateY2.value = false
-    }
   })
 })
 </script>
 
 <style scoped>
-body {
+.banner-area {
+  position: relative;
+  z-index: 1;
   overflow: hidden;
 }
-.banner-shaper::after {
-  position: fixed;
+.banner-area::after {
   content: "";
-  right: -398px;
-  bottom: -447px;
+  position: absolute;
+  right: -389px;
+  bottom: -430px;
   width: 1035px;
   height: 950px;
+  background: #fa4729;
   border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
   will-change: border-radius, transform, opacity;
   animation: bannerShape 10s linear infinite;
   display: block;
   z-index: -1;
-  background: #fa4729;
-  overflow: hidden;
 }
 
 @keyframes bannerShape {

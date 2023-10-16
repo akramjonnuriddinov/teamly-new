@@ -1,5 +1,5 @@
 <template>
-  <div class="banner-area">
+  <div class="header-hero-wrapper">
     <banner-area />
     <the-service />
     <about-company />
@@ -24,8 +24,8 @@ import HomeContact from "@/components/HomeContact.vue"
 import TheBrand from "@/components/TheBrand.vue"
 </script>
 
-<style>
-.banner-area::before {
+<style scoped>
+.header-hero-wrapper::before {
   content: "";
   position: absolute;
   top: -195px;
