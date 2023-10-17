@@ -11,111 +11,12 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide>
+        <swiper-slide v-for="brand in brands">
           <div class="w-full">
             <img
               class="brand-item-img"
-              src="@/assets/images/brand/brand_img01.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img04.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img06.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img01.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img04.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img06.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img01.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img04.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img06.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img01.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img04.png"
-              alt=""
-            />
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="w-full">
-            <img
-              class="brand-item-img"
-              src="@/assets/images/brand/brand_img06.png"
-              alt=""
+              :src="`src/assets/images/brand/${brand}`"
+              alt="brand"
             />
           </div>
         </swiper-slide>
@@ -127,6 +28,19 @@
 
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue"
+import { ref } from "vue"
+
+const brands = [
+  "brand_img01.png",
+  "brand_img04.png",
+  "brand_img06.png",
+  "brand_img01.png",
+  "brand_img04.png",
+  "brand_img06.png",
+  "brand_img01.png",
+  "brand_img04.png",
+  "brand_img06.png",
+]
 </script>
 
 <style scoped>
