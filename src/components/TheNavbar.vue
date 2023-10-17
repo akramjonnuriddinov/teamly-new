@@ -99,7 +99,7 @@
               width="26"
               height="30"
               src="../assets/images/fontawesome/bars.svg"
-              alt=""
+              alt="bars_icon"
             />
           </button>
         </div>

@@ -29,7 +29,7 @@ import TheBrand from "@/components/TheBrand.vue"
   overflow-x: hidden;
 }
 .header-hero-wrapper::before {
-  /* content: "";
+  content: "";
   position: absolute;
   top: -195px;
   left: -117px;
@@ -41,6 +41,6 @@ import TheBrand from "@/components/TheBrand.vue"
     rgba(255, 0, 15, 0) 96.18%
   );
   filter: blur(150px);
-  z-index: -1; */
+  z-index: -1;
 }
 </style>
