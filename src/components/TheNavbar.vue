@@ -81,7 +81,7 @@
 
         <div class="flex items-center ml-auto">
           <a
-            class="block py-0 mr-10 font-medium whitespace-nowrap text-tg-heading-font-color hover:text-tg-primary-color transition-colors duration-200 max-[1050px]:hidden"
+            class="block py-0 mr-10 font-semibold whitespace-nowrap text-tg-heading-font-color hover:text-tg-primary-color transition-colors duration-200 max-[1050px]:hidden"
             href="https://t.me/m_mirahmad"
             target="_blank"
             >+998 (33) 773 77 37</a

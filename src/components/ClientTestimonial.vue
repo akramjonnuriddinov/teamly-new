@@ -1,5 +1,5 @@
 <template>
-  <section class="relative testimonial pt-16 pb-32 bg-tg-white">
+  <section class="relative pt-16 pb-32 testimonial bg-tg-white">
     <div class="absolute right-0 translate-y-1/4 -translate-x-1/4">
       <img src="@/assets/images/testimonials/testimonial_shape.png" alt="" />
     </div>
@@ -20,12 +20,15 @@
         :slidesPerView="3"
         :spaceBetween="600"
         :pagination="{
-          clickable: true,
+          clickable: false,
         }"
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide>
+        <swiper-slide
+          v-for="swiperContent in swiperContents"
+          :key="swiperContent.id"
+        >
           <div
             style="box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07)"
             class="bg-[#FAFCFF] rounded-[30px] max-w-[570px] min-w-[570px] w-full px-11 py-12"
@@ -33,8 +36,8 @@
             <div class="flex justify-center">
               <div class="relative inline-block">
                 <img
-                  src="@/assets/images/testimonials/testi_avatar02.png"
-                  alt=""
+                  :src="`src/assets/images/testimonials/${swiperContent.img_url}`"
+                  alt="testimonial_img"
                 />
                 <div
                   class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
@@ -47,176 +50,18 @@
               </div>
             </div>
             <p
-              class="mb-6 text-center text-lg italic font-medium leading-[1.66] text-tg-heading-font-color"
+              class="mb-6 text-center max-h-[112px] overflow-hidden text-lg italic font-medium line-clamp-4 leading-[1.66] text-tg-heading-font-color"
             >
-              Lorem ipsum dolor sit any amet consectetur. Ut as tellus that
-              suspendise nulla aliquam. Risus rutrum as tellus eget ultrices
-              pretium nisi amet facilisis. Augue vulputate egestas cursus.
+              {{ swiperContent.text }}
             </p>
             <h3
               class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color"
             >
-              Jenny Wilson
+              {{ swiperContent.name }}
             </h3>
             <span
               class="text-[#8C8C8C] font-medium text-[15px] text-center block"
-              >Director of Content</span
-            >
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div
-            style="box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07)"
-            class="bg-[#FAFCFF] rounded-[30px] max-w-[570px] min-w-[570px] w-full px-11 py-12"
-          >
-            <div class="flex justify-center">
-              <div class="relative inline-block">
-                <img
-                  src="@/assets/images/testimonials/testi_avatar01.png"
-                  alt=""
-                />
-                <div
-                  class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
-                >
-                  <img
-                    src="@/assets/images/testimonials/testimonial_icon.svg"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-            <p
-              class="mb-6 text-center text-lg italic font-medium leading-[1.66] text-tg-heading-font-color"
-            >
-              Lorem ipsum dolor sit any amet consectetur. Ut as tellus that
-              suspendise nulla aliquam. Risus rutrum as tellus eget ultrices
-              pretium nisi amet facilisis. Augue vulputate egestas cursus.
-            </p>
-            <h3
-              class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color"
-            >
-              Jenny Wilson
-            </h3>
-            <span
-              class="text-[#8C8C8C] font-medium text-[15px] text-center block"
-              >Director of Content</span
-            >
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div
-            style="box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07)"
-            class="bg-[#FAFCFF] rounded-[30px] max-w-[570px] min-w-[570px] w-full px-11 py-12"
-          >
-            <div class="flex justify-center">
-              <div class="relative inline-block">
-                <img
-                  src="@/assets/images/testimonials/testi_avatar02.png"
-                  alt=""
-                />
-                <div
-                  class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
-                >
-                  <img
-                    src="@/assets/images/testimonials/testimonial_icon.svg"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-            <p
-              class="mb-6 text-center text-lg italic font-medium leading-[1.66] text-tg-heading-font-color"
-            >
-              Lorem ipsum dolor sit any amet consectetur. Ut as tellus that
-              suspendise nulla aliquam. Risus rutrum as tellus eget ultrices
-              pretium nisi amet facilisis. Augue vulputate egestas cursus.
-            </p>
-            <h3
-              class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color"
-            >
-              Jenny Wilson
-            </h3>
-            <span
-              class="text-[#8C8C8C] font-medium text-[15px] text-center block"
-              >Director of Content</span
-            >
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div
-            style="box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07)"
-            class="bg-[#FAFCFF] rounded-[30px] max-w-[570px] min-w-[570px] w-full px-11 py-12"
-          >
-            <div class="flex justify-center">
-              <div class="relative inline-block">
-                <img
-                  src="@/assets/images/testimonials/testi_avatar01.png"
-                  alt=""
-                />
-                <div
-                  class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
-                >
-                  <img
-                    src="@/assets/images/testimonials/testimonial_icon.svg"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-            <p
-              class="mb-6 text-center text-lg italic font-medium leading-[1.66] text-tg-heading-font-color"
-            >
-              Lorem ipsum dolor sit any amet consectetur. Ut as tellus that
-              suspendise nulla aliquam. Risus rutrum as tellus eget ultrices
-              pretium nisi amet facilisis. Augue vulputate egestas cursus.
-            </p>
-            <h3
-              class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color"
-            >
-              Jenny Wilson
-            </h3>
-            <span
-              class="text-[#8C8C8C] font-medium text-[15px] text-center block"
-              >Director of Content</span
-            >
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div
-            style="box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07)"
-            class="bg-[#FAFCFF] rounded-[30px] max-w-[570px] min-w-[570px] w-full px-11 py-12"
-          >
-            <div class="flex justify-center">
-              <div class="relative inline-block">
-                <img
-                  src="@/assets/images/testimonials/testi_avatar02.png"
-                  alt=""
-                />
-                <div
-                  class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
-                >
-                  <img
-                    src="@/assets/images/testimonials/testimonial_icon.svg"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-            <p
-              class="mb-6 text-center text-lg italic font-medium leading-[1.66] text-tg-heading-font-color"
-            >
-              Lorem ipsum dolor sit any amet consectetur. Ut as tellus that
-              suspendise nulla aliquam. Risus rutrum as tellus eget ultrices
-              pretium nisi amet facilisis. Augue vulputate egestas cursus.
-            </p>
-            <h3
-              class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color"
-            >
-              Jenny Wilson
-            </h3>
-            <span
-              class="text-[#8C8C8C] font-medium text-[15px] text-center block"
-              >Director of Content</span
+              >{{ swiperContent.position }}</span
             >
           </div>
         </swiper-slide>
@@ -226,8 +71,54 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Swiper, SwiperSlide } from "swiper/vue"
+import { ref } from "vue"
+
+const swiperContents = ref([
+  {
+    id: "1",
+    img_url: "testi_avatar02.png",
+    text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.",
+    name: "John Doe",
+    position: "CTO",
+  },
+  {
+    id: "2",
+    img_url: "testi_avatar01.png",
+    text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
+    name: "Jenny Wilson",
+    position: "Director of Content",
+  },
+  {
+    id: "3",
+    img_url: "testi_avatar02.png",
+    text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.",
+    name: "John Doe",
+    position: "CEO",
+  },
+  {
+    id: "4",
+    img_url: "testi_avatar01.png",
+    text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
+    name: "Jenny Wilson",
+    position: "Director of Content",
+  },
+  {
+    id: "5",
+    img_url: "testi_avatar02.png",
+    text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
+    name: "Jenny Wilson",
+    position: "CTO",
+  },
+  {
+    id: "6",
+    img_url: "testi_avatar01.png",
+    text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money.",
+    name: "Jenny Wilson",
+    position: "Director of Content",
+  },
+])
 </script>
 
 <style scoped>
