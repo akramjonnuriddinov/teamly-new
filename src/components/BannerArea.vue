@@ -23,8 +23,7 @@
             let us shape your digital dreams.
           </p>
           <router-link
-            class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap"
-            style="padding: 18px 25px; letter-spacing: 0.5px"
+            class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[25px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
             to="/"
             >Get Started</router-link
           >

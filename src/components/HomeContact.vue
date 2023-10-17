@@ -15,7 +15,7 @@
           </h1>
 
           <router-link
-            class="bg-tg-white text-tg-black rounded-[10px] font-bold inline-block text-center whitespace-nowrap"
+            class="bg-tg-white text-tg-black rounded-[10px] font-bold inline-block text-center whitespace-nowrap transition-all duration-300 hover:bg-tg-secondary-color hover:text-tg-white"
             style="padding: 18px 25px; letter-spacing: 0.5px"
             to="/"
             >Estimate Project

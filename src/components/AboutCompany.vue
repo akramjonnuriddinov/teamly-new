@@ -39,7 +39,7 @@
               </li>
             </ul>
             <router-link
-              class="bg-tg-secondary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap"
+              class="bg-tg-secondary-color text-tg-white rounded-[10px] font-bold transition-all duration-300 inline-block text-center whitespace-nowrap hover:bg-tg-primary-color"
               style="padding: 18px 25px; letter-spacing: 0.5px"
               to="/"
               >Find Out More</router-link
