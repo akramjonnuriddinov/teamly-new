@@ -50,7 +50,7 @@
               </div>
             </div>
             <p
-              class="mb-6 text-center max-h-[112px] overflow-hidden text-lg italic font-medium line-clamp-4 leading-[1.66] text-tg-heading-font-color"
+              class="mb-6 text-center h-[112px] line-clamp-4 overflow-hidden text-lg italic font-medium leading-[1.66] text-tg-heading-font-color"
             >
               {{ swiperContent.text }}
             </p>
