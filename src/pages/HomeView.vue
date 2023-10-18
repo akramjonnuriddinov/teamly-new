@@ -33,14 +33,16 @@ import TheBrand from "@/components/TheBrand.vue"
   position: absolute;
   top: -195px;
   left: -117px;
-  width: 1077px;
+  max-width: 1077px;
+  width: 100%;
   height: 1077px;
-  background: linear-gradient(
+  background-image: linear-gradient(
     209.85deg,
     rgba(0, 178, 255, 0.1) 18.23%,
     rgba(255, 0, 15, 0) 96.18%
   );
   filter: blur(150px);
   z-index: -1;
+  background-size: cover;
 }
 </style>

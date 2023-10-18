@@ -1,10 +1,16 @@
 <template>
   <section class="banner-area">
-    <div class="container relative px-5 mx-auto max-w-7xl">
-      <div class="flex pt-[75px] items-center justify-between">
-        <div class="relative w-full max-w-2xl">
+    <div
+      class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+    >
+      <div
+        class="flex pt-[75px] justify-between max-[990px]:flex-wrap max-[990px]:flex-col-reverse max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
+      >
+        <div
+          class="relative pt-[100px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px]"
+        >
           <img
-            class="absolute transition-all duration-1000 ease-out -top-10 -left-10"
+            class="absolute transition-all duration-1000 ease-out top-10 -left-10 max-sm:top-0"
             :class="{
               'translate-x-[50px]': customTranslateY,
               'translate-x-[0]': !customTranslateY,
@@ -13,12 +19,13 @@
             alt=""
           />
           <h1
-            style="line-height: 1.2"
-            class="mb-4 text-6xl font-bold text-tg-heading-font-color"
+            class="mb-4 text-6xl font-bold leading-[1.2] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
           >
             Shaping Digital Dreams
           </h1>
-          <p class="mb-10 text-lg text-tg-heading-font-color">
+          <p
+            class="mb-10 text-lg text-tg-heading-font-color max-[990px]:text-center"
+          >
             We help you transform your ideas into reality. Contact us today and
             let us shape your digital dreams.
           </p>
@@ -29,6 +36,7 @@
           >
         </div>
         <img
+          class="max-w-[470px] w-full pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 pb-[130px]"
           data-aos=""
           data-aos-duration="3000"
           src="@/assets/images/banner_img.png"
@@ -84,6 +92,12 @@ onMounted(() => {
   animation: bannerShape 10s linear infinite;
   display: block;
   z-index: -1;
+}
+
+@media (max-width: 990px) {
+  .banner-area::after {
+    display: none;
+  }
 }
 
 @keyframes bannerShape {

@@ -1,7 +1,7 @@
 <template>
   <header :class="header" class="fixed z-50 w-full py-5 home-header header">
     <div
-      class="container px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[990px]:max-w-3xl"
+      class="container px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
       <div class="flex items-center justify-between">
         <router-link class="mr-20 w-[150px] flex" to="/">
@@ -76,7 +76,7 @@
         <div
           @click="toggleModal"
           v-if="!isHidden"
-          class="bg-[#00000080] h-[100vh] fixed top-0 left-0 w-[100vw] -z-50"
+          class="bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] -z-50"
         ></div>
 
         <div class="flex items-center ml-auto">

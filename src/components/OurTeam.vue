@@ -21,7 +21,7 @@
           <div class="rounded-[30px] overflow-hidden w-full">
             <router-link :to="{ name: 'home' }">
               <img
-                class="team-content-img"
+                class="object-cover team-content-img"
                 :src="`src/assets/images/team/${team.img_url}`"
                 alt=""
               />
