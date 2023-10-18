@@ -19,17 +19,16 @@
       </div>
       <!-- SWIPER -->
       <swiper
+        class="mySwiper"
         :slidesPerView="3"
-        :spaceBetween="600"
         :pagination="{
           clickable: false,
         }"
-        :modules="modules"
-        class="mySwiper"
       >
         <swiper-slide
           v-for="swiperContent in swiperContents"
           :key="swiperContent.id"
+          class="flex items-center justify-center mx-[100px] max-[1200px]:mx-[150px] max-[920px]:mx-[200px] max-[600px]:mx-[250px]"
         >
           <div
             style="box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07)"
@@ -122,12 +121,3 @@ const swiperContents = ref([
   },
 ])
 </script>
-
-<style scoped>
-.swiper-slide {
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>

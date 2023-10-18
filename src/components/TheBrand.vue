@@ -9,7 +9,6 @@
         :pagination="{
           clickable: true,
         }"
-        :modules="modules"
         class="mySwiper"
       >
         <swiper-slide v-for="brand in brands">
