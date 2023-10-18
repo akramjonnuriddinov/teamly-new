@@ -13,48 +13,54 @@
           class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >We Can Do For You</span
         >
-        <h2 class="text-center font-bold leading-[1.2] text-5xl">
+        <h2
+          class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
+        >
           Experts in every aspect <br />
           lifecycle
         </h2>
       </div>
 
-      <ul class="flex gap-[30px] flex-wrap">
+      <ul class="flex flex-wrap justify-between">
+        <!-- max-w-[390px] w-full -->
         <li
-          class="service-item flex flex-col max-w-[390px] w-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
+          class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
           v-for="(service, index) in services"
           :key="index"
-          data-aos="fade-right"
         >
-          <router-link
-            class="mb-[22px] text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
-            to="/"
-            >{{ service.title }}</router-link
+          <div
+            class="flex flex-col h-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
           >
-          <img
-            class="mb-6 service-item-img w-[110px] h-[110px] object-cover"
-            :src="`src/assets/images/service/${service.img_url}.png`"
-            alt="img"
-          />
-          <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
-            {{ service.text }}
-          </p>
-          <router-link
-            class="flex items-center gap-2 mt-auto font-medium transition-colors duration-300 hover:text-tg-primary-color"
-            to="/"
-          >
-            <span>Find out more</span>
-            <svg
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-              height="1em"
-              viewBox="0 0 448 512"
+            <router-link
+              class="mb-[22px] text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
+              to="/"
+              >{{ service.title }}</router-link
             >
-              <path
-                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
-              />
-            </svg>
-          </router-link>
+            <img
+              class="mb-6 service-item-img w-[110px] h-[110px] object-cover"
+              :src="`src/assets/images/service/${service.img_url}.png`"
+              alt="img"
+            />
+            <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
+              {{ service.text }}
+            </p>
+            <router-link
+              class="flex items-center gap-2 mt-auto font-medium transition-colors duration-300 hover:text-tg-primary-color"
+              to="/"
+            >
+              <span>Find out more</span>
+              <svg
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                height="1em"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                />
+              </svg>
+            </router-link>
+          </div>
         </li>
       </ul>
     </div>
