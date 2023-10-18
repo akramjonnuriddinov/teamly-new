@@ -10,28 +10,30 @@
           class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >Our Project
         </span>
-        <h2 class="text-center font-bold leading-[1.2] text-5xl">
+        <h2
+          class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
+        >
           Our Amazing <br />
           23 Creative Works.
         </h2>
       </div>
-      <ul class="flex items-center justify-between gap-[40px]">
+      <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-10">
         <li
           v-for="project in projects"
-          class="relative project-wrapper overflow-hidden border-red-400 rounded-[30px]"
+          class="relative project-wrapper overflow-hidden border-red-400 rounded-[30px] max-w-[290px] w-full max-[970px]:max-w-[40%] max-[760px]:max-w-[100%]"
         >
           <div class="project-thumb"></div>
           <img
-            class="w-[307px] h-[393px] object-cover rounded-[30px]"
+            class="w-full h-[393px] object-cover rounded-[30px]"
             width="307"
             height="393"
             :src="`src/assets/images/our-project/${project.img_url}`"
             alt="img"
           />
           <div
-            class="absolute bottom-0 left-0 flex items-center justify-between px-10 pb-10 capitalize text-tg-white"
+            class="absolute bottom-0 left-0 flex items-center justify-between px-10 pb-10 capitalize text-tg-white max-[760px]:w-full"
           >
-            <div class="max-w-[180px] w-full mr-2">
+            <div class="max-w-[180px] w-full mr-2 max-[760px]:max-w-full">
               <h3 class="mb-2 text-2xl font-bold leading-[1.2]">
                 <router-link to="/">{{ project.title }}</router-link>
               </h3>
