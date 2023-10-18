@@ -1,6 +1,6 @@
 <template>
-  <section class="relative pt-16 pb-32 testimonial bg-tg-white">
-    <div class="absolute right-0 translate-y-1/4 -translate-x-1/4">
+  <section class="relative pt-16 pb-32 testimonial">
+    <div class="absolute right-0 -z-10 translate-y-1/4 -translate-x-1/4">
       <img src="@/assets/images/testimonials/testimonial_shape.png" alt="" />
     </div>
     <div class="container w-full px-5 mx-auto max-w-7xl">
@@ -9,7 +9,9 @@
           class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >Client Testimonial
         </span>
-        <h2 class="text-center font-bold leading-[1.2] text-5xl">
+        <h2
+          class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
+        >
           What People are
           <br />
           Saying!
