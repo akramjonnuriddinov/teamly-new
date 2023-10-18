@@ -32,7 +32,7 @@
             class="flex flex-col h-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
           >
             <router-link
-              class="mb-[22px] text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
+              class="mb-[22px] text-2xl font-bold transition-colors duration-300 whitespace-nowrap hover:text-tg-primary-color"
               to="/"
               >{{ service.title }}</router-link
             >
