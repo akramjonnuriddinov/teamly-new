@@ -34,18 +34,16 @@ import { Swiper, SwiperSlide } from "swiper/vue"
 
 const count = ref(6)
 onMounted(() => {
-  window.addEventListener("resize", () => {
-    if (window.screen.availWidth <= 990 && window.screen.availWidth > 700) {
-      count.value = 3
-    } else if (
-      window.screen.availWidth <= 700 &&
-      window.screen.availWidth > 400
-    ) {
-      count.value = 2
-    } else if (window.screen.availWidth <= 400) {
-      count.value = 1
-    }
-  })
+  if (window.screen.availWidth <= 990 && window.screen.availWidth > 700) {
+    count.value = 3
+  } else if (
+    window.screen.availWidth <= 700 &&
+    window.screen.availWidth > 400
+  ) {
+    count.value = 2
+  } else if (window.screen.availWidth <= 400) {
+    count.value = 1
+  }
 })
 
 const brands = ref([
