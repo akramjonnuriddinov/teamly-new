@@ -42,7 +42,7 @@
               <router-link :to="{ name: 'home' }">
                 <img
                   class="blog-content-img max-w-[570px] w-full max-[1220px]:max-w-[470px] max-[1020px]:max-w-[400px] max-[880px]:max-w-full"
-                  :src="`src/assets/images/blog/${blog.img_url}`"
+                  :src="blog.img_url"
                   alt=""
                 />
               </router-link>
@@ -95,11 +95,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-
+import blog01 from "@/assets/images/blog/blog01.jpg"
+import blog02 from "@/assets/images/blog/blog02.jpg"
 const blogs = ref([
   {
     id: "1",
-    img_url: "blog01.jpg",
+    img_url: blog01,
     title: "Fintech Startup Will Finance The Women",
     topic: "DIGITAL MARKETING",
     text: "Women entrepreneurs face many challenges in accessing finance for their businesses. According to a report by the World Bank, women-owned businesses account for only 18% of the total small and medium enterprises (SMEs) in India, and they face a credit gap of US$ 116 billion",
@@ -108,7 +109,7 @@ const blogs = ref([
   },
   {
     id: "2",
-    img_url: "blog02.jpg",
+    img_url: blog02,
     title: "How Remarketing work any Get More",
     topic: "NEW IDEAS",
     text: "Remarketing, also known as retargeting, is a digital marketing strategy that allows you to show ads to people who have visited your website or interacted with your brand before. Remarketing helps you reconnect with your potential customers, remind them of your products or services, and persuade them to come back and convert.",

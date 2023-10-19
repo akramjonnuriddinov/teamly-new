@@ -16,9 +16,7 @@
           Players.
         </h2>
       </div>
-      <ul
-        class="flex gap-4 max-[1200px]:flex-wrap max-[1200px]:gap-y-20 max-[1200px]:justify-center"
-      >
+      <ul class="flex gap-4 flex-wrap gap-y-20 max-[1200px]:justify-center">
         <li
           class="bg-trasnparent relative team-content rounded-[30px] max-[700px]:max-w-full max-[700px]:w-full"
           v-for="(team, index) in teams"
@@ -27,8 +25,8 @@
           <div class="rounded-[30px] overflow-hidden w-full">
             <router-link :to="{ name: 'home' }">
               <img
-                class="object-cover max-w-[318px] h-[331px] scale-100 w-full team-content-img max-[700px]:max-w-full ease-in-out duration-75"
-                :src="`src/assets/images/team/${team.img_url}`"
+                class="object-cover max-w-[318px] h-[331px] scale-100 w-full team-content-img max-[700px]:max-w-full ease-in-out duration-700"
+                :src="team.img_url"
                 alt="user_img"
               />
             </router-link>
@@ -57,32 +55,38 @@
 <script setup lang="ts">
 import { ref } from "vue"
 
+import team_img01 from "@/assets/images/team/team_img01-removebg.png"
+import team_img02 from "@/assets/images/team/team_img02-removebg.png"
+import team_img03 from "@/assets/images/team/team_img03-removebg.png"
+import team_img04 from "@/assets/images/team/team_img01.jpg"
+// import team_img05 from "@/assets/images/team/team_img04.jpg"
+
 const teams = ref([
   {
     name: "Mirahmad Mirzajonov",
     position: "CTO",
-    img_url: "team_img01-removebg.png",
+    img_url: team_img01,
   },
   {
     name: "Doston Rustamov",
     position: "Frontend Developer",
-    img_url: "team_img02-removebg.png",
+    img_url: team_img02,
   },
   {
     name: "Diyorbek Rajabov",
     position: "Frontend Developer",
-    img_url: "team_img03-removebg.png",
+    img_url: team_img03,
   },
   {
     name: "Akramjon Nuriddinov",
     position: "Frontend Developer",
-    img_url: "team_img01.jpg",
+    img_url: team_img04,
   },
-  {
-    name: "Samandar Mirzarahmonov",
-    position: "Frontend Developer",
-    img_url: "team_img04.jpg",
-  },
+  // {
+  //   name: "Samandar Mirzarahmonov",
+  //   position: "Frontend Developer",
+  //   img_url: team_img05,
+  // },
 ])
 </script>
 

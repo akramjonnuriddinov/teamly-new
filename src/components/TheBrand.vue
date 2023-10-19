@@ -15,7 +15,7 @@
           <div class="w-full">
             <img
               class="block transition-all cursor-pointer brand-item-img opacity-60 hover:opacity-100 grayscale hover:grayscale-0"
-              :src="`src/assets/images/brand/${brand}`"
+              :src="getImageUrl(brand)"
               alt="brand"
             />
           </div>
@@ -40,4 +40,8 @@ const brands = ref([
   "brand_img04.png",
   "brand_img06.png",
 ])
+
+const getImageUrl = (name: any) => {
+  return new URL(`../assets/images/brand/${name}`, import.meta.url).href
+}
 </script>
