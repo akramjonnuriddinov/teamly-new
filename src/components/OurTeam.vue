@@ -1,34 +1,40 @@
 <template>
-  <section class="bg-[#EFF7FF] our-team pt-[135px] pb-[240px]">
+  <section
+    class="bg-[#EFF7FF] our-team bg-no-repeat bg-auto pt-[135px] pb-[240px]"
+  >
     <div class="container w-full max-w-full px-5 mx-auto">
       <div class="pb-[70px]">
         <span
           class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >Our Amazing Team
         </span>
-        <h2 class="text-center font-bold leading-[1.2] text-5xl">
+        <h2
+          class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
+        >
           Our Talented Team
           <br />
           Players.
         </h2>
       </div>
-      <ul class="flex gap-4">
+      <ul
+        class="flex gap-4 max-[1200px]:flex-wrap max-[1200px]:gap-y-20 max-[1200px]:justify-center"
+      >
         <li
-          class="bg-trasnparent relative team-content rounded-[30px]"
+          class="bg-trasnparent relative team-content rounded-[30px] max-[700px]:max-w-full max-[700px]:w-full"
           v-for="(team, index) in teams"
           :key="index"
         >
           <div class="rounded-[30px] overflow-hidden w-full">
             <router-link :to="{ name: 'home' }">
               <img
-                class="object-cover team-content-img"
+                class="object-cover max-w-[318px] h-[331px] scale-100 w-full team-content-img max-[700px]:max-w-full ease-in-out duration-75"
                 :src="`src/assets/images/team/${team.img_url}`"
-                alt=""
+                alt="user_img"
               />
             </router-link>
           </div>
           <div
-            class="flex flex-col absolute items-center p-[30px] max-w-[258px] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white"
+            class="flex flex-col absolute items-center p-[30px] max-w-[258px] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white max-[700px]:max-w-[80%]"
           >
             <h3
               class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300"
@@ -79,19 +85,10 @@ const teams = ref([
 .our-team {
   background-image: url("@/assets/images/team/team_shape.png");
   background-position: center 35px;
-  background-repeat: no-repeat;
-  background-size: auto;
 }
 
 .team-content {
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07);
-}
-
-.team-content-img {
-  width: 318px;
-  height: 331px;
-  transform: scale(1);
-  transition: 0.5s ease-in-out;
 }
 
 .team-content:hover .team-content-img {
