@@ -27,7 +27,7 @@
             class="w-full h-[393px] object-cover rounded-[30px]"
             width="307"
             height="393"
-            :src="project.img_url"
+            :src="getImageUrl(project.img_url)"
             alt="img"
           />
           <div
@@ -65,35 +65,33 @@
 <script setup lang="ts">
 import { ref } from "vue"
 
-// IMAGE URL
-import project01 from "@/assets/images/our-project/project01.jpg"
-import project02 from "@/assets/images/our-project/project02.jpg"
-import project03 from "@/assets/images/our-project/project03.jpg"
-import project04 from "@/assets/images/our-project/project04.jpg"
+const getImageUrl = (name: any) => {
+  return new URL(`../assets/images/our-project/${name}`, import.meta.url).href
+}
 
 const projects = ref([
   {
     id: "1",
     title: "Creative Design",
-    img_url: project01,
+    img_url: "project01.jpg",
     text: "Design",
   },
   {
     id: "2",
     title: "Business Idea",
-    img_url: project02,
+    img_url: "project02.jpg",
     text: "Business",
   },
   {
     id: "3",
     title: "Web Development",
-    img_url: project03,
+    img_url: "project03.jpg",
     text: "Development",
   },
   {
     id: "4",
     title: "Mobile Development",
-    img_url: project04,
+    img_url: "project04.jpg",
     text: "Mobile",
   },
 ])

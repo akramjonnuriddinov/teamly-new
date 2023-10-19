@@ -34,7 +34,11 @@
         :class="counter.bg_color"
         class="flex rounded-[30px] px-7 py-10 max-[1024px]:min-w-[323px] max-[710px]:w-[80%]"
       >
-        <img class="mr-4" :src="counter.img_url" alt="" />
+        <img
+          class="mr-4"
+          :src="getImageUrl(counter.img_url)"
+          alt="counter_icon"
+        />
         <div class="">
           <h4
             class="font-bold text-[40px] mb-2 leading-[0.7] max-[640px]:text-3xl"
@@ -52,31 +56,30 @@
 import { ref } from "vue"
 import { PlayIcon } from "@heroicons/vue/24/solid"
 
-// IMAGES
-import counter_icon01 from "@/assets/images/about/counter_icon01.svg"
-import counter_icon02 from "@/assets/images/about/counter_icon02.svg"
-import counter_icon03 from "@/assets/images/about/counter_icon03.svg"
+const getImageUrl = (name: any) => {
+  return new URL(`../assets/images/about/${name}`, import.meta.url).href
+}
 
 const counters = ref([
   {
     id: "1",
     count: "100 %",
     title: "Client Satisfaction",
-    img_url: counter_icon01,
+    img_url: "counter_icon01.svg",
     bg_color: "bg-tg-yellow",
   },
   {
     id: "2",
     count: "1150+",
     title: "Complete Project",
-    img_url: counter_icon02,
+    img_url: "counter_icon02.svg",
     bg_color: "bg-tg-pink",
   },
   {
     id: "3",
     count: "1320K",
     title: "Design Resource",
-    img_url: counter_icon03,
+    img_url: "counter_icon03.svg",
     bg_color: "bg-tg-indigo",
   },
 ])

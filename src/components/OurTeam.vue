@@ -26,7 +26,7 @@
             <router-link :to="{ name: 'home' }">
               <img
                 class="object-cover max-w-[318px] h-[331px] scale-100 w-full team-content-img max-[700px]:max-w-full ease-in-out duration-700"
-                :src="team.img_url"
+                :src="getImageUrl(team.img_url)"
                 alt="user_img"
               />
             </router-link>
@@ -35,7 +35,7 @@
             class="flex flex-col absolute items-center p-[30px] max-w-[258px] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white max-[700px]:max-w-[80%]"
           >
             <h3
-              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300 max-[480px]:text-xl"
+              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300 max-[480px]:text-xl max-w-[258px] overflow-hidden text-ellipsis text-center px-2 max-[700px]:max-w-[80%]"
             >
               <router-link class="whitespace-nowrap" :to="{ name: 'home' }">{{
                 team.name
@@ -55,38 +55,36 @@
 <script setup lang="ts">
 import { ref } from "vue"
 
-import team_img01 from "@/assets/images/team/team_img01-removebg.png"
-import team_img02 from "@/assets/images/team/team_img02-removebg.png"
-import team_img03 from "@/assets/images/team/team_img03-removebg.png"
-import team_img04 from "@/assets/images/team/team_img01.jpg"
-// import team_img05 from "@/assets/images/team/team_img04.jpg"
+const getImageUrl = (name: any) => {
+  return new URL(`../assets/images/team/${name}`, import.meta.url).href
+}
 
 const teams = ref([
   {
     name: "Mirahmad Mirzajonov",
     position: "CTO",
-    img_url: team_img01,
+    img_url: "team_img01-removebg.png",
   },
   {
     name: "Doston Rustamov",
     position: "Frontend Developer",
-    img_url: team_img02,
+    img_url: "team_img02-removebg.png",
   },
   {
     name: "Diyorbek Rajabov",
     position: "Frontend Developer",
-    img_url: team_img03,
+    img_url: "team_img03-removebg.png",
   },
   {
     name: "Akramjon Nuriddinov",
     position: "Frontend Developer",
-    img_url: team_img04,
+    img_url: "team_img01.jpg",
   },
-  // {
-  //   name: "Samandar Mirzarahmonov",
-  //   position: "Frontend Developer",
-  //   img_url: team_img05,
-  // },
+  {
+    name: "Samandar Mirzarahmonov",
+    position: "Frontend Developer",
+    img_url: "team_img04.jpg",
+  },
 ])
 </script>
 

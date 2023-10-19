@@ -36,7 +36,10 @@
           >
             <div class="flex justify-center">
               <div class="relative inline-block">
-                <img :src="swiperContent.img_url" alt="testimonial_img" />
+                <img
+                  :src="getImageUrl(swiperContent.img_url)"
+                  alt="testimonial_img"
+                />
                 <div
                   class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
                 >
@@ -73,48 +76,49 @@
 import { Swiper, SwiperSlide } from "swiper/vue"
 import { ref } from "vue"
 
-import testi_avatar01 from "@/assets/images/testimonials/testi_avatar01.png"
-import testi_avatar02 from "@/assets/images/testimonials/testi_avatar02.png"
+const getImageUrl = (name: any) => {
+  return new URL(`../assets/images/testimonials/${name}`, import.meta.url).href
+}
 
 const swiperContents = ref([
   {
     id: "1",
-    img_url: testi_avatar02,
+    img_url: "testi_avatar02.png",
     text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.",
     name: "John Doe",
     position: "CTO",
   },
   {
     id: "2",
-    img_url: testi_avatar01,
+    img_url: "testi_avatar01.png",
     text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
     name: "Jenny Wilson",
     position: "Director of Content",
   },
   {
     id: "3",
-    img_url: testi_avatar02,
+    img_url: "testi_avatar02.png",
     text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.",
     name: "John Doe",
     position: "CEO",
   },
   {
     id: "4",
-    img_url: testi_avatar01,
+    img_url: "testi_avatar01.png",
     text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
     name: "Jenny Wilson",
     position: "Director of Content",
   },
   {
     id: "5",
-    img_url: testi_avatar02,
+    img_url: "testi_avatar02.png",
     text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
     name: "Jenny Wilson",
     position: "CTO",
   },
   {
     id: "6",
-    img_url: testi_avatar01,
+    img_url: "testi_avatar01.png",
     text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money.",
     name: "Jenny Wilson",
     position: "Director of Content",

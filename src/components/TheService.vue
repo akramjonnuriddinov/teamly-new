@@ -38,7 +38,7 @@
             >
             <img
               class="mb-6 service-item-img w-[110px] h-[110px] object-cover"
-              :src="service.img_url"
+              :src="getImageUrl(service.img_url)"
               alt="img"
             />
             <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
@@ -69,43 +69,41 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-import services_icon01 from "@/assets/images/service/services_icon01.png"
-import services_icon02 from "@/assets/images/service/services_icon02.png"
-import services_icon03 from "@/assets/images/service/services_icon03.png"
-import services_icon04 from "@/assets/images/service/services_icon04.png"
-import services_icon05 from "@/assets/images/service/services_icon05.png"
-import services_icon06 from "@/assets/images/service/services_icon06.png"
+
+const getImageUrl = (name: any) => {
+  return new URL(`../assets/images/service/${name}`, import.meta.url).href
+}
 
 const services = ref([
   {
     title: "Web Development",
     text: "Build a site your customers love to use.",
-    img_url: services_icon01,
+    img_url: "services_icon01.png",
   },
   {
     title: "Mobile Development",
     text: "Create a cross-platform mobile app with native functionality.",
-    img_url: services_icon02,
+    img_url: "services_icon02.png",
   },
   {
     title: "UX/UI Design",
     text: "For the redesign of the web design and technique of your website or your brand.",
-    img_url: services_icon03,
+    img_url: "services_icon03.png",
   },
   {
     title: "Daily Updates",
     text: "Stay Ahead of the Curve with IT Updates.",
-    img_url: services_icon04,
+    img_url: "services_icon04.png",
   },
   {
     title: "SEO Analytics",
     text: "We help you analyze, and optimize your SEO strategy with our cutting-edge tools and expertise.",
-    img_url: services_icon05,
+    img_url: "services_icon05.png",
   },
   {
     title: "Support Team",
     text: "We are always ready to help you with any IT issue. Contact us anytime, anywhere.",
-    img_url: services_icon06,
+    img_url: "services_icon06.png",
   },
 ])
 </script>
