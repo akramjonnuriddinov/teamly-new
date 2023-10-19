@@ -2,7 +2,7 @@
   <section
     class="bg-[#EFF7FF] our-team bg-no-repeat bg-auto pt-[135px] pb-[240px]"
   >
-    <div class="container w-full max-w-full px-5 mx-auto">
+    <div class="container w-full px-5 mx-auto max-w-7xl">
       <div class="pb-[70px]">
         <span
           class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
