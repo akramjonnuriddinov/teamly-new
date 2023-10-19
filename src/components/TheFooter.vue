@@ -60,7 +60,7 @@
               Get in Touch
             </h4>
             <div class="xl:!pr-28 mb-5">
-              Moonshine St. 14/05 Light City, London, United Kingdom
+              12 Ulitsa Khudzhant, Fergana, Uzbekistan
             </div>
             <a
               to="#"
