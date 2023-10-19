@@ -2,7 +2,9 @@
   <footer class="footer py-[90px]">
     <div class="container w-full px-5 mx-auto max-w-7xl">
       <div class="teamly-container">
-        <div class="flex flex-col lg:!flex-row text-center lg:!text-start">
+        <div
+          class="flex flex-col lg:!flex-row text-center lg:!text-start max-[767px]:pt-[100px]"
+        >
           <router-link class="mr-32" to="/">
             <img
               class="max-w-[150px] w-full"
