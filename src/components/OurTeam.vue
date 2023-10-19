@@ -37,7 +37,7 @@
             class="flex flex-col absolute items-center p-[30px] max-w-[258px] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white max-[700px]:max-w-[80%]"
           >
             <h3
-              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300"
+              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300 max-[480px]:text-xl"
             >
               <router-link class="whitespace-nowrap" :to="{ name: 'home' }">{{
                 team.name
@@ -77,6 +77,11 @@ const teams = ref([
     name: "Akramjon Nuriddinov",
     position: "Frontend Developer",
     img_url: "team_img01.jpg",
+  },
+  {
+    name: "Samandar Mirzarahmonov",
+    position: "Frontend Developer",
+    img_url: "team_img04.jpg",
   },
 ])
 </script>

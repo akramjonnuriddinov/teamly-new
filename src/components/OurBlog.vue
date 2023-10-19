@@ -39,14 +39,14 @@
             <div class="rounded-[20px] overflow-hidden w-full">
               <router-link :to="{ name: 'home' }">
                 <img
-                  class="blog-content-img max-w-[570px] w-full"
+                  class="blog-content-img max-w-[570px] w-full max-[1220px]:max-w-[470px] max-[1020px]:max-w-[400px] max-[880px]:max-w-full"
                   :src="`src/assets/images/blog/${blog.img_url}`"
                   alt=""
                 />
               </router-link>
             </div>
             <div
-              class="blog-post-content flex-col absolute items-center py-[45px] px-[30px] max-w-[510px] w-full top-[100%] translate-y-[-100px] rounded-br-[100px] bg-tg-white"
+              class="blog-post-content flex-col absolute items-center py-[45px] px-[30px] max-w-[510px] w-full top-[100%] translate-y-[-100px] rounded-br-[100px] bg-tg-white max-[880px]:max-w-[90%] max-[880px]:rounded-br-[50px]"
             >
               <router-link
                 class="uppercase text-tg-primary-color font-bold hover:text-tg-secondary-color transition-color duration-300 mb-2.5 flex"
@@ -54,15 +54,15 @@
                 >{{ blog.topic }}</router-link
               >
               <h3
-                class="mb-5 text-[30px] font-bold transition-color duration-300 leading-[1.2] hover:text-tg-primary-color"
+                class="mb-5 text-[30px] font-bold transition-color duration-300 leading-[1.2] hover:text-tg-primary-color max-[1020px]:text-2xl"
               >
                 <router-link :to="{ name: 'home' }">
                   {{ blog.title }}
                 </router-link>
               </h3>
               <div class="text-tg-paragraph-color">
-                <div class="flex mb-4">
-                  <div class="flex mr-12">
+                <div class="flex mb-4 max-[500px]:flex-wrap">
+                  <div class="flex mr-12 max-[500px]:mr-0">
                     <img
                       class="mr-2"
                       src="@/assets/images/blog/calendar.svg"

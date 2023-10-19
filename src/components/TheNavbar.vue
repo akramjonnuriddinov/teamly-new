@@ -113,7 +113,7 @@ import { onMounted, ref } from "vue"
 import TheLanguage from "@/components/TheLanguage.vue"
 import { getSVG } from "@/composables/getSVG"
 
-const header = ref("transparent top-0 absolute")
+const header = ref("")
 
 const socials = [
   {
@@ -138,7 +138,7 @@ const socials = [
   },
 ]
 
-const links = ref([
+const links = [
   {
     name: "Home",
     url: "/",
@@ -159,27 +159,24 @@ const links = ref([
     name: "Career",
     url: "career",
   },
-])
+]
 
 const isHidden = ref(true)
 
 const toggleModal = () => {
   isHidden.value = !isHidden.value
-  if (isHidden.value == false) {
-    document.body.classList.add("overflow-hidden")
-  } else {
-    document.body.classList.remove("overflow-hidden")
-  }
+  isHidden.value
+    ? document.body.classList.remove("overflow-hidden")
+    : document.body.classList.add("overflow-hidden")
 }
 
 onMounted(() => {
   window.addEventListener("scroll", () => {
-    if (window.scrollY >= 300) {
-      header.value =
-        "bg-tg-white header-shadow fixed transition-all top-0 duration-300"
-    } else {
-      header.value = "transparent absolute transition-all top-0 duration-300"
-    }
+    const list =
+      window.scrollY >= 300
+        ? "bg-tg-white header-shadow fixed"
+        : "transparent absolute"
+    header.value = list + " transition-all top-0 duration-300"
   })
 })
 </script>
