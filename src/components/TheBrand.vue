@@ -35,7 +35,12 @@ import { Swiper, SwiperSlide } from "swiper/vue"
 const count = ref(3)
 onMounted(() => {
   window.addEventListener("resize", () => {
-    if (window.screen.availWidth <= 990 && window.screen.availWidth > 700) {
+    if (window.screen.availWidth > 990) {
+      count.value = 6
+    } else if (
+      window.screen.availWidth <= 990 &&
+      window.screen.availWidth > 700
+    ) {
       count.value = 3
     } else if (
       window.screen.availWidth <= 700 &&
