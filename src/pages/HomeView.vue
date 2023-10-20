@@ -8,7 +8,6 @@
     <our-team />
     <our-blog />
     <home-contact />
-    <the-brand />
   </div>
 </template>
 
@@ -21,7 +20,6 @@ import ClientTestimonial from "@/components/ClientTestimonial.vue"
 import OurTeam from "@/components/OurTeam.vue"
 import OurBlog from "@/components/OurBlog.vue"
 import HomeContact from "@/components/HomeContact.vue"
-import TheBrand from "@/components/TheBrand.vue"
 </script>
 
 <style scoped>
