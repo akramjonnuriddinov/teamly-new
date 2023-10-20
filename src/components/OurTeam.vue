@@ -2,7 +2,7 @@
   <section
     class="bg-[#EFF7FF] our-team bg-no-repeat bg-auto pt-[135px] pb-[240px]"
   >
-    <div class="container w-full px-5 mx-auto max-w-7xl">
+    <div class="container w-full max-w-full px-5 mx-auto">
       <div class="pb-[70px]">
         <span
           class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
@@ -16,7 +16,7 @@
           Players.
         </h2>
       </div>
-      <ul class="flex gap-4 flex-wrap gap-y-20 max-[1200px]:justify-center">
+      <ul class="flex flex-wrap justify-center gap-4 gap-y-20">
         <li
           class="bg-trasnparent relative team-content rounded-[30px] max-[700px]:max-w-full max-[700px]:w-full"
           v-for="(team, index) in teams"
