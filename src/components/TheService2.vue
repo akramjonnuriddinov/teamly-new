@@ -4,16 +4,16 @@
       <div class="pb-[70px]">
         <div class="flex justify-center">
           <span
-            class="mb-3 text-lg font-bold text-center sub-title text-tg-primary-color"
-            >TECHNOLOGY SOLUTIONS
+            class="mb-3 text-lg font-bold text-center uppercase sub-title text-tg-primary-color"
+            >Innovative Technology Services
           </span>
         </div>
         <h2
           class="text-center font-bold text-tg-heading-font-color leading-[1.2] text-5xl max-sm:text-4xl"
         >
-          Reach out to the world’s mos
+          Shaping Your Digital Future:
           <br class="max-[720px]:hidden" />
-          treliable IT services.
+          Our Services
         </h2>
       </div>
 
