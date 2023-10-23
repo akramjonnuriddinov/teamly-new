@@ -121,9 +121,6 @@ const services = ref([
   transition: 0.3s ease-in-out;
 }
 
-.service-item__inner {
-}
-
 .service-item:hover .service-item__inner {
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
   transition: all 0.5s ease-in-out;
