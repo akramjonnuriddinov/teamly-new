@@ -39,6 +39,11 @@
     font-display: swap;
   }
 
+  ::selection {
+    color: white;
+    background: #7e54f8;
+  }
+
   html {
     scroll-behavior: smooth;
   }

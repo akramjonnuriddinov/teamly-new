@@ -9,7 +9,7 @@
             class="w-[150px] min-w-[150px]"
             width="150"
             height="36"
-            src="@/assets/images/custom-logo4.svg"
+            src="@/assets/images/custom-logo12.png"
             alt="logo"
           />
         </router-link>
