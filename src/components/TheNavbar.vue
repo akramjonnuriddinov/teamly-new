@@ -1,5 +1,5 @@
 <template>
-  <header :class="header" class="static z-50 w-full py-5 home-header header">
+  <header :class="header" class="fixed z-50 w-full py-5 home-header header">
     <div
       class="container px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
@@ -175,7 +175,7 @@ onMounted(() => {
     const list =
       window.scrollY >= 300
         ? "bg-tg-white header-shadow fixed"
-        : "transparent static"
+        : "transparent absolute"
     header.value = list + " transition-all top-0 duration-300"
   })
 })
