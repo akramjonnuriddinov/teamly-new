@@ -1,5 +1,5 @@
 <template>
-  <section class="pt-[115px] pb-[90px] relative z-10">
+  <section class="pt-[115px] bg-[#F4F4F4] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <div class="pb-[70px]">
         <div class="flex justify-center">
@@ -24,7 +24,7 @@
           :key="index"
         >
           <div
-            class="service-item__inner flex flex-col h-full bg- px-[35px] py-[50px] rounded-[20px]"
+            class="service-item__inner bg-white flex flex-col h-full bg- px-[35px] py-[50px] rounded-[20px]"
           >
             <router-link
               class="mb-[22px] text-2xl font-bold text-tg-heading-font-color transition-colors duration-300 whitespace-nowrap hover:text-tg-primary-color"
@@ -119,6 +119,9 @@ const services = ref([
 .service-item:hover .service-item-text {
   color: #9c9c9c;
   transition: 0.3s ease-in-out;
+}
+
+.service-item__inner {
 }
 
 .service-item:hover .service-item__inner {

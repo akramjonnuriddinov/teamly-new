@@ -7,7 +7,7 @@
         class="flex justify-between max-[990px]:flex-wrap max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
       >
         <div
-          class="relative pt-[150px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px]"
+          class="relative pt-[150px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
         >
           <h1
             class="mb-4 text-[50px] font-semibold leading-[1.2] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
