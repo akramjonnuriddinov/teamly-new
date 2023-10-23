@@ -13,7 +13,7 @@
           class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
         >
           What People are
-          <br />
+          <br class="max-[500px]:hidden" />
           Saying!
         </h2>
       </div>

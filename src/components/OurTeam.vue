@@ -12,7 +12,7 @@
           class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
         >
           Our Talented Team
-          <br />
+          <br class="max-[500px]:hidden" />
           Players.
         </h2>
       </div>
@@ -32,10 +32,10 @@
             </router-link>
           </div>
           <div
-            class="flex flex-col absolute items-center p-[30px] max-w-[258px] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white max-[700px]:max-w-[80%]"
+            class="flex flex-col absolute items-center p-[30px] max-w-[258px] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white max-[700px]:max-w-[80%] max-[600px]:px-5 max-[400px]:max-w-[90%] max-[400px]:p-4"
           >
             <h3
-              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300 max-[480px]:text-xl max-w-[258px] overflow-hidden text-ellipsis text-center px-2 max-[700px]:max-w-[80%]"
+              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300 max-[480px]:text-xl max-w-[258px] overflow-hidden text-ellipsis text-center max-[700px]:max-w-full"
             >
               <router-link class="whitespace-nowrap" :to="{ name: 'home' }">{{
                 team.name

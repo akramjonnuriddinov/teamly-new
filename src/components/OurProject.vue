@@ -13,7 +13,7 @@
         <h2
           class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
         >
-          Our Amazing <br />
+          Our Amazing <br class="max-[500px]:hidden" />
           23 Creative Works.
         </h2>
       </div>

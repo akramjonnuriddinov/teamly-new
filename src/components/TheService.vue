@@ -16,7 +16,7 @@
         <h2
           class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
         >
-          Experts in every aspect <br />
+          Experts in every aspect <br class="max-[500px]:hidden" />
           lifecycle
         </h2>
       </div>
