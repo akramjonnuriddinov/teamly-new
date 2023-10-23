@@ -7,7 +7,10 @@
     <the-brand />
     <the-footer class="main-footer" />
     <scroll-top />
-    <div class="transition-all duration-500" :class="{ 'opacity-0': !isShow }">
+    <div
+      class="overflow-hidden transition-all duration-500"
+      :class="{ 'opacity-0 -z-50': !isShow }"
+    >
       <pre-loader />
     </div>
   </div>

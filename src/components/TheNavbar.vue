@@ -1,5 +1,5 @@
 <template>
-  <header :class="header" class="z-50 w-full py-5 home-header header">
+  <header :class="header" class="fixed z-50 w-full py-5 home-header header">
     <div
       class="container px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
@@ -9,13 +9,13 @@
             class="w-[150px] min-w-[150px]"
             width="150"
             height="36"
-            src="@/assets/images/custom-logo6.svg"
+            src="@/assets/images/custom-logo4.svg"
             alt="logo"
           />
         </router-link>
 
         <nav
-          class="mr-20 z-50 transition-all duration-300 max-[990px]:overflow-y-auto navbar"
+          class="mr-20 transition-all duration-300 max-[990px]:overflow-y-auto navbar"
           :class="{
             'translate-x-full-custom transition-all duration-500': isHidden,
           }"
@@ -76,7 +76,7 @@
         <div
           @click="toggleModal"
           v-if="!isHidden"
-          class="bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] z-40"
+          class="bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] -z-50"
         ></div>
 
         <div class="flex items-center ml-auto">
@@ -174,15 +174,9 @@ onMounted(() => {
   window.addEventListener("scroll", () => {
     const list =
       window.scrollY >= 300
-        ? "bg-tg-white header-shadow fixed translate-y-0"
-        : "transparent translate-y-[-100px]"
-    header.value =
-      list + "translate-y-[-100px] transition-all top-0 duration-700"
-
-    // header
-    if (window.scrollY >= 100 && window.scrollY < 300) {
-      header.value = "translate-y-[-100px]"
-    }
+        ? "bg-tg-white header-shadow fixed"
+        : "transparent absolute"
+    header.value = list + " transition-all top-0 duration-300"
   })
 })
 </script>
