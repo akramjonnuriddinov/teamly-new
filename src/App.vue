@@ -8,6 +8,7 @@
     <the-footer class="main-footer" />
     <scroll-top />
     <div
+      v-if="isShow"
       class="overflow-hidden transition-all duration-500"
       :class="{ 'opacity-0 -z-50': !isShow }"
     >

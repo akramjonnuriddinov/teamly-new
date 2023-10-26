@@ -156,8 +156,8 @@ const links = [
     url: "portfolio",
   },
   {
-    name: "Career",
-    url: "career",
+    name: "Vacancy",
+    url: "vacancy",
   },
 ]
 
