@@ -10,7 +10,7 @@
               class="max-w-[150px] w-full"
               width="150"
               height="36"
-              src="@/assets/images/white-logo-no-bg.svg"
+              src="@/assets/images/logos/white-logo-no-bg.svg"
               alt=""
             />
           </router-link>
