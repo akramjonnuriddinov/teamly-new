@@ -20,7 +20,7 @@
       <ul class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
         <li
           v-for="project in projects"
-          class="relative project-wrapper w-1/5 flex flex-col items-center overflow-hidden border max-[970px]:max-w-[40%] max-[760px]:max-w-[100%]"
+          class="relative project-wrapper w-1/5 flex flex-col items-center overflow-hidden max-[970px]:max-w-[40%] max-[760px]:max-w-[100%]"
         >
           <div
             class="w-[150px] bg-tg-white rounded-full h-[150px] flex items-center justify-center mb-5"
