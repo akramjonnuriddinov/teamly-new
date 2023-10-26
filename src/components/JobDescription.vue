@@ -7,22 +7,24 @@
           v-for="requirement in requirements"
           class="flex items-center gap-4 mb-2"
         >
-          <span
-            class="block w-2 h-2 text-transparent rounded-full bg-tg-primary-color"
-          >
-            a
-          </span>
+          <img
+            width="8"
+            height="8"
+            src="@/assets/images/circle.svg"
+            alt="circle"
+          />
           <span class="text-[#5B5A78]">{{ requirement.text }}</span>
         </li>
       </ul>
       <h2 class="text-xl font-semibold text-[#1C1C37] my-5">Tasks</h2>
       <ul class="flex flex-col">
         <li v-for="task in tasks" class="flex items-center gap-4 mb-2">
-          <span
-            class="block w-2 h-2 text-transparent rounded-full bg-tg-primary-color"
-          >
-            a
-          </span>
+          <img
+            width="8"
+            height="8"
+            src="@/assets/images/circle.svg"
+            alt="circle"
+          />
           <span class="text-[#5B5A78]">{{ task.text }}</span>
         </li>
       </ul>

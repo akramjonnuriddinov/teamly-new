@@ -13,7 +13,7 @@
             <span class="text-[#5B5A78] mb-5">{{ job.location }}</span>
             <router-link
               :to="{ name: 'vacancyDetail' }"
-              class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7"
+              class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7 transition-all duration-300 hover:text-tg-secondary-color"
             >
               {{ job.title }}
             </router-link>

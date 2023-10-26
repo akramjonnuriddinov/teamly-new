@@ -17,7 +17,12 @@
             class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5"
           >
             <span>{{ "Frontend" }}</span>
-            <span class="flex w-2 h-2 rounded-full bg-tg-primary-color"></span>
+            <img
+              width="8"
+              height="8"
+              src="@/assets/images/circle.svg"
+              alt="circle"
+            />
             <span>{{ "Fulltime remote" }}</span>
           </div>
         </div>

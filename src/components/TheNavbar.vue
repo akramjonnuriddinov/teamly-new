@@ -9,7 +9,7 @@
             class="w-[150px] min-w-[150px]"
             width="150"
             height="36"
-            src="@/assets/images/custom-logo11.svg"
+            src="@/assets/images/logos/custom-logo17.png"
             alt="logo"
           />
         </router-link>
@@ -28,7 +28,7 @@
                 class="w-[150px] min-w-[150px]"
                 width="150"
                 height="36"
-                src="@/assets/images/custom-logo14.png"
+                src="@/assets/images/logos/custom-logo17.png"
                 alt="logo"
               />
             </router-link>
