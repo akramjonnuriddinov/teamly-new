@@ -4,7 +4,7 @@
     @click="store.isShow = false"
     class="bottom-0 flex justify-center right-0 modal bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] z-[999]"
   >
-    <div class="w-[70%] flex flex-col pt-[100px]">
+    <div class="w-[70%] flex flex-col pt-[100px] max-[600px]:w-[90%]">
       <button
         class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
         @click="store.isShow = false"
@@ -26,7 +26,7 @@
           <div
             class="flex items-center justify-between gap-4 max-[800px]:flex-col"
           >
-            <div class="mb-6 w-[45%] max-[800px]:w-full">
+            <div class="mb-6 w-[45%] max-[800px]:w-full max-[800px]:mb-0">
               <label for="name" class="block mb-2">Full name</label>
               <input
                 type="text"
@@ -85,7 +85,9 @@
                 </li>
               </ul>
             </div>
-            <div class="mb-6 w-[45%] max-[800px]:w-full relative">
+            <div
+              class="mb-6 w-[45%] max-[800px]:w-full relative max-[800px]:mb-0"
+            >
               <label for="file-input" class="sr-only"></label>
               <input
                 type="file"
