@@ -1,5 +1,5 @@
 <template>
-  <section class="py-[140px]">
+  <section class="py-[140px] overflow-x-hidden">
     <div
       class="container w-full px-5 mx-auto max-w-7xl"
       data-aos="fade-up"
