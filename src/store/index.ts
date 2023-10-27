@@ -5,4 +5,9 @@ export const useColorStore = defineStore('color', {
     isShow: false,
     header_position: 'absolute'
   }),
+  actions: {
+    routerChange() {
+      console.log('action routerChange')
+    }
+  }
 })

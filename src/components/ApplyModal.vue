@@ -4,7 +4,9 @@
     @click="store.isShow = false"
     class="bottom-0 flex justify-center right-0 modal bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] z-[999]"
   >
-    <div class="w-[70%] flex flex-col pt-[100px] max-[600px]:w-[90%]">
+    <div
+      class="w-[70%] flex flex-col pt-[100px] max-[600px]:w-[90%] apply-form"
+    >
       <button
         class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
         @click="store.isShow = false"
@@ -50,7 +52,7 @@
             </div>
           </div>
           <div
-            class="flex items-start justify-between gap-4 max-[800px]:flex-col-reverse max-[800px]:flex-col"
+            class="flex items-start justify-between gap-4 max-[800px]:flex-col-reverse"
           >
             <div class="w-[45%] max-[800px]:w-full relative">
               <div class="w-full mb-6">
@@ -63,7 +65,8 @@
                 />
               </div>
               <ul
-                class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg overflow-y-auto"
+                v-if="!isShow"
+                class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg max-[990px]:overflow-y-auto"
               >
                 <li
                   class="flex items-center justify-between py-2 transition-all border-b cursor-pointer text-tg-heading-font-color hover:text-tg-body-font-color"
@@ -111,11 +114,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, onUpdated } from "vue"
 import { useColorStore } from "@/store"
 
 const store = useColorStore()
 
+const isShow = ref(false)
 const jobs = ref([
   {
     id: "1",
@@ -134,4 +138,23 @@ const jobs = ref([
     title: "HR manager",
   },
 ])
+
+onUpdated(() => {
+  if (store.isShow) {
+    document.body.classList.add("overflow-hidden")
+  } else {
+    document.body.classList.remove("overflow-hidden")
+  }
+})
 </script>
+
+<style scoped>
+.apply-form::-webkit-scrollbar {
+  display: none;
+}
+
+.apply-form {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+</style>
