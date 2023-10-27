@@ -54,36 +54,33 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-
-const getImageUrl = (name: any) => {
-  return new URL(`../assets/images/team/${name}`, import.meta.url).href
-}
+import { getImageUrl } from "@/composables/getImgUrl"
 
 const teams = ref([
   {
     name: "Mirahmad Mirzajonov",
     position: "CTO",
-    img_url: "team_img01-removebg.png",
+    img_url: "team/team_img01-removebg.png",
   },
   {
     name: "Doston Rustamov",
     position: "Frontend Developer",
-    img_url: "team_img02-removebg.png",
+    img_url: "team/team_img02-removebg.png",
   },
   {
     name: "Diyorbek Rajabov",
     position: "Frontend Developer",
-    img_url: "team_img03-removebg.png",
+    img_url: "team/team_img03-removebg.png",
   },
   {
     name: "Akramjon Nuriddinov",
     position: "Frontend Developer",
-    img_url: "team_img01.jpg",
+    img_url: "team/team_img01.jpg",
   },
   {
     name: "Samandar Mirzarahmonov",
     position: "Frontend Developer",
-    img_url: "team_img04.jpg",
+    img_url: "team/team_img04.jpg",
   },
 ])
 </script>

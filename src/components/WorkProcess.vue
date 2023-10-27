@@ -74,34 +74,31 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-
-const getImageUrl = (name: any) => {
-  return new URL(`../assets/images/about-view/${name}`, import.meta.url).href
-}
+import { getImageUrl } from "@/composables/getImgUrl"
 
 const projects = ref([
   {
     id: "1",
     title: "Step One",
-    img_url: "work_icon01.svg",
+    img_url: "about-view/work_icon01.svg",
     text: "Discover Plan",
   },
   {
     id: "2",
     title: "Step Two",
-    img_url: "work_icon02.svg",
+    img_url: "about-view/work_icon02.svg",
     text: "Prototype Project",
   },
   {
     id: "3",
     title: "Step Three",
-    img_url: "work_icon03.svg",
+    img_url: "about-view/work_icon03.svg",
     text: "Website Test",
   },
   {
     id: "4",
     title: "Step Four",
-    img_url: "work_icon04.svg",
+    img_url: "about-view/work_icon04.svg",
     text: "Build Website",
   },
 ])

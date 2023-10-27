@@ -98,7 +98,7 @@
               class="w-[26px] block h-[30px]"
               width="26"
               height="30"
-              src="../assets/images/fontawesome/bars.svg"
+              src="@/assets/images/fontawesome/bars.svg"
               alt="bars_icon"
             />
           </button>

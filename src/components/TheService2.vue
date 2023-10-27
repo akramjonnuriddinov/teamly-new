@@ -64,41 +64,38 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-
-const getImageUrl = (name: any) => {
-  return new URL(`../assets/images/service/${name}`, import.meta.url).href
-}
+import { getImageUrl } from "@/composables/getImgUrl"
 
 const services = ref([
   {
     title: "Web Development",
     text: "Build a site your customers love to use.",
-    img_url: "services_icon01.png",
+    img_url: "service/services_icon01.png",
   },
   {
     title: "Mobile Development",
     text: "Create a cross-platform mobile app with native functionality.",
-    img_url: "services_icon02.png",
+    img_url: "service/services_icon02.png",
   },
   {
     title: "UX/UI Design",
     text: "For the redesign of the web design and technique of your website or your brand.",
-    img_url: "services_icon03.png",
+    img_url: "service/services_icon03.png",
   },
   {
     title: "Daily Updates",
     text: "Stay Ahead of the Curve with IT Updates.",
-    img_url: "services_icon04.png",
+    img_url: "service/services_icon04.png",
   },
   {
     title: "SEO Analytics",
     text: "We help you analyze, and optimize your SEO strategy with our cutting-edge tools and expertise.",
-    img_url: "services_icon05.png",
+    img_url: "service/services_icon05.png",
   },
   {
     title: "Support Team",
     text: "We are always ready to help you with any IT issue. Contact us anytime, anywhere.",
-    img_url: "services_icon06.png",
+    img_url: "service/services_icon06.png",
   },
 ])
 </script>

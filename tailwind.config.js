@@ -46,6 +46,10 @@ export default {
       backgroundColor: {
         "tg-primary-color": "#7E54F8",
       },
+      backgroundImage: {
+        "hero-banner":
+          "url('@/assets/images/service-view/service_banner_bg.jpg')",
+      },
     },
   },
   // plugins: [require("@tailwindcss/line-clamp")],

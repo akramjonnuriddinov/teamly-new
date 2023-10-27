@@ -57,31 +57,28 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { PlayIcon } from "@heroicons/vue/24/solid"
-
-const getImageUrl = (name: any) => {
-  return new URL(`../assets/images/about/${name}`, import.meta.url).href
-}
+import { getImageUrl } from "@/composables/getImgUrl"
 
 const counters = ref([
   {
     id: "1",
     count: "100 %",
     title: "Client Satisfaction",
-    img_url: "counter_icon01.svg",
+    img_url: "about/counter_icon01.svg",
     bg_color: "bg-tg-yellow",
   },
   {
     id: "2",
     count: "1150+",
     title: "Complete Project",
-    img_url: "counter_icon02.svg",
+    img_url: "about/counter_icon02.svg",
     bg_color: "bg-tg-pink",
   },
   {
     id: "3",
     count: "1320K",
     title: "Design Resource",
-    img_url: "counter_icon03.svg",
+    img_url: "about/counter_icon03.svg",
     bg_color: "bg-tg-indigo",
   },
 ])

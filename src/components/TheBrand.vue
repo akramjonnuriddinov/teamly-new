@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
 import { Swiper, SwiperSlide } from "swiper/vue"
+import { getImageUrl } from "@/composables/getImgUrl"
 
 const count = ref(6)
 onMounted(() => {
@@ -47,18 +48,14 @@ onMounted(() => {
 })
 
 const brands = ref([
-  "brand_img01.png",
-  "brand_img04.png",
-  "brand_img06.png",
-  "brand_img01.png",
-  "brand_img04.png",
-  "brand_img06.png",
-  "brand_img01.png",
-  "brand_img04.png",
-  "brand_img06.png",
+  "brand/brand_img01.png",
+  "brand/brand_img04.png",
+  "brand/brand_img06.png",
+  "brand/brand_img01.png",
+  "brand/brand_img04.png",
+  "brand/brand_img06.png",
+  "brand/brand_img01.png",
+  "brand/brand_img04.png",
+  "brand/brand_img06.png",
 ])
-
-const getImageUrl = (name: any) => {
-  return new URL(`../assets/images/brand/${name}`, import.meta.url).href
-}
 </script>

@@ -1,13 +1,24 @@
 <template>
   <div class="mt-[86px]">
-    <portfolio-banner />
+    <hero-banner
+      :title="hero_content.title"
+      :text="hero_content.text"
+      :img_url="hero_content.img_url"
+    />
     <portfolio-list />
     <home-contact />
   </div>
 </template>
 
 <script setup lang="ts">
-import PortfolioBanner from "@/components/PortfolioBanner.vue"
+import HeroBanner from "@/components/reusables/HeroBanner.vue"
 import PortfolioList from "@/components/PortfolioList.vue"
 import HomeContact from "@/components/HomeContact.vue"
+import { getImageUrl } from "@/composables/getImgUrl"
+
+const hero_content = {
+  title: "Bringing Imagination to Life: Our Portfolio",
+  text: "Every project we embark on is a journey—a journey to shape digital dreams into tangible solutions",
+  img_url: getImageUrl("portfolio-view/breadcrumb_img03.png"),
+}
 </script>

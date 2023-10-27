@@ -64,34 +64,31 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-
-const getImageUrl = (name: any) => {
-  return new URL(`../assets/images/our-project/${name}`, import.meta.url).href
-}
+import { getImageUrl } from "@/composables/getImgUrl"
 
 const projects = ref([
   {
     id: "1",
     title: "Creative Design",
-    img_url: "project01.jpg",
+    img_url: "our-project/project01.jpg",
     text: "Design",
   },
   {
     id: "2",
     title: "Business Idea",
-    img_url: "project02.jpg",
+    img_url: "our-project/project02.jpg",
     text: "Business",
   },
   {
     id: "3",
     title: "Web Development",
-    img_url: "project03.jpg",
+    img_url: "our-project/project03.jpg",
     text: "Development",
   },
   {
     id: "4",
     title: "Mobile Development",
-    img_url: "project04.jpg",
+    img_url: "our-project/project04.jpg",
     text: "Mobile",
   },
 ])
