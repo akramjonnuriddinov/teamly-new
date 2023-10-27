@@ -2,7 +2,7 @@
   <section
     v-if="store.isShow"
     @click="store.isShow = false"
-    class="bottom-0 flex justify-center right-0 modal bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] z-[999]"
+    class="bottom-0 flex justify-center right-0 modal bg-[#00000080] h-[100vh] fixed top-0 left-0 w-[100vw] z-[999]"
   >
     <div
       class="w-[70%] flex flex-col pt-[100px] max-[600px]:w-[90%] apply-form"
