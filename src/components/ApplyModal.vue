@@ -2,7 +2,7 @@
   <section
     v-if="store.isShow"
     @click="store.isShow = false"
-    class="bottom-0 flex justify-center right-0 modal bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] z-50"
+    class="bottom-0 flex justify-center right-0 modal bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] z-[999]"
   >
     <div class="w-[70%] flex flex-col pt-[100px]">
       <button
@@ -23,8 +23,10 @@
       </button>
       <div @click.stop class="p-8 bg-white rounded-xl">
         <form>
-          <div class="flex items-center justify-between gap-4">
-            <div class="mb-6 w-[45%]">
+          <div
+            class="flex items-center justify-between gap-4 max-[800px]:flex-col"
+          >
+            <div class="mb-6 w-[45%] max-[800px]:w-full">
               <label for="name" class="block mb-2">Full name</label>
               <input
                 type="text"
@@ -35,7 +37,7 @@
                 required
               />
             </div>
-            <div class="mb-6 w-[45%]">
+            <div class="mb-6 w-[45%] max-[800px]:w-full">
               <label for="text" class="block mb-2">Phone number</label>
               <input
                 type="text"
@@ -47,8 +49,10 @@
               />
             </div>
           </div>
-          <div class="flex items-start justify-between gap-4">
-            <div class="w-[45%] relative">
+          <div
+            class="flex items-start justify-between gap-4 max-[800px]:flex-col-reverse max-[800px]:flex-col"
+          >
+            <div class="w-[45%] max-[800px]:w-full relative">
               <div class="w-full mb-6">
                 <input
                   type="text"
@@ -59,7 +63,7 @@
                 />
               </div>
               <ul
-                class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg"
+                class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg overflow-y-auto"
               >
                 <li
                   class="flex items-center justify-between py-2 transition-all border-b cursor-pointer text-tg-heading-font-color hover:text-tg-body-font-color"
@@ -81,7 +85,7 @@
                 </li>
               </ul>
             </div>
-            <div class="mb-6 w-[45%] relative">
+            <div class="mb-6 w-[45%] max-[800px]:w-full relative">
               <label for="file-input" class="sr-only"></label>
               <input
                 type="file"
