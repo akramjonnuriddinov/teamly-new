@@ -2,10 +2,10 @@
   <section
     v-if="store.isShow"
     @click="store.isShow = false"
-    class="bottom-0 flex justify-center right-0 modal bg-[#00000080] h-[100vh] fixed top-0 left-0 w-[100vw] z-[999]"
+    class="bottom-0 flex justify-center right-0 modal bg-[#00000080] fixed top-0 left-0 w-[100vw] z-[999]"
   >
     <div
-      class="w-[70%] flex flex-col pt-[100px] max-[600px]:w-[90%] apply-form"
+      class="w-[70%] flex flex-col pt-[100px] max-[600px]:w-[90%] apply-form max-[990px]:pb-[200px] max-[990px]:overflow-y-auto"
     >
       <button
         class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
