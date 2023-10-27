@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-[#EFF7FF] -mt-[620px] pt-[520px] pb-[105px]">
+  <section class="bg-[#EFF7FF] relative -mt-[620px] pt-[520px] pb-[105px]">
     <div class="container w-full px-5 mx-auto max-w-7xl">
       <div
         data-aos="fade-up"
@@ -20,7 +20,7 @@
       <ul class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
         <li
           v-for="project in projects"
-          class="relative project-wrapper w-1/5 flex flex-col items-center overflow-hidden max-[970px]:max-w-[40%] max-[760px]:max-w-[100%]"
+          class="relative project-wrapper w-1/5 flex flex-col items-center overflow-hidden max-[1000px]:w-[40%] max-[760px]:max-w-[100%] max-[530px]:w-full"
         >
           <div
             class="w-[150px] bg-tg-white rounded-full h-[150px] flex items-center justify-center mb-5"
@@ -36,10 +36,9 @@
         </li>
       </ul>
       <!-- ANIMATION-BG -->
-      <div>
+      <!-- <div class="absolute bottom-0 z-10">
         <svg
-          width="1169"
-          height="135"
+          class="max-w-[1169px] h-[135px] w-full"
           viewBox="0 0 1169 135"
           fill="none"
           preserveAspectRatio="none"
@@ -66,7 +65,7 @@
             ></path>
           </g>
         </svg>
-      </div>
+      </div> -->
       <!-- /ANIMATION-BG -->
       <div></div>
     </div>

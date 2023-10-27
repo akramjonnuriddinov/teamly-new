@@ -9,7 +9,6 @@
         class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
         @click="store.isShow = false"
       >
-        <!-- <img class="w-8 h-8" src="../assets/images/XMarkIcon.svg" alt="" /> -->
         <svg
           class="w-8 h-8"
           xmlns="http://www.w3.org/2000/svg"
@@ -49,14 +48,38 @@
             </div>
           </div>
           <div class="flex items-start justify-between gap-4">
-            <div class="mb-6 w-[45%]">
-              <input
-                type="text"
-                class="p-2.5 border rounded-lg w-full outline-none"
-                placeholder="VueJS"
-                autocomplete="off"
-                required
-              />
+            <div class="w-[45%] relative">
+              <div class="w-full mb-6">
+                <input
+                  type="text"
+                  class="p-2.5 border rounded-lg w-full outline-none"
+                  placeholder="VueJS"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+              <ul
+                class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg"
+              >
+                <li
+                  class="flex items-center justify-between py-2 transition-all border-b cursor-pointer text-tg-heading-font-color hover:text-tg-body-font-color"
+                  v-for="job in jobs"
+                >
+                  <span>{{ job.title }}</span>
+                  <svg
+                    width="18"
+                    height="14"
+                    viewBox="0 0 18 14"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6.00004 11.17L1.83004 6.99996L0.415039 8.41496L6.00004 14L18 1.99996L16.585 0.584961L6.00004 11.17Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </li>
+              </ul>
             </div>
             <div class="mb-6 w-[45%] relative">
               <label for="file-input" class="sr-only"></label>
@@ -82,7 +105,27 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue"
 import { useColorStore } from "@/store"
 
 const store = useColorStore()
+
+const jobs = ref([
+  {
+    id: "1",
+    title: "Frontend - VueJS",
+  },
+  {
+    id: "2",
+    title: "Backend - Python",
+  },
+  {
+    id: "3",
+    title: "UX/UI - Designer",
+  },
+  {
+    id: "4",
+    title: "HR manager",
+  },
+])
 </script>
