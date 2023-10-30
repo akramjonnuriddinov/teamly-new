@@ -17,6 +17,16 @@ import 'aos/dist/aos.css'
 AOS.init();
 
 const app = createApp(App)
+// import { VueFire, VueFireAuth } from 'vuefire'
+// // import { firebaseApp } from './firebase'
+// // import { FirebaseApp } from 'firebase/app'
+
+// app.use(VueFire, {
+//   firebaseApp,
+//   modules: [
+//   ],
+// })
+
 app.use(pinia)
 app.use(VueAwesomeSwiper)
 app.use(router)

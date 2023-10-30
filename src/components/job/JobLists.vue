@@ -53,7 +53,7 @@ const jobs = ref([
     location: "Fergana, Uzbekistan",
     category: "Product design",
     time: "Fulltime onsite",
-    text: "Tempor sed lectus mauris luctus euismod. At tristique sed ut suspendisse nam. Malesuada magna.",
+    text: "We are looking for professionals working in this field. You can apply...",
   },
   {
     id: "2",
@@ -61,7 +61,7 @@ const jobs = ref([
     location: "Fergana, Uzbekistan",
     category: "Frontend",
     time: "Fulltime onsite",
-    text: "Tempor sed lectus mauris luctus euismod. At tristique sed ut suspendisse nam. Malesuada magna.",
+    text: "We are looking for professionals working in this field. You can apply...",
   },
   {
     id: "3",
@@ -69,7 +69,7 @@ const jobs = ref([
     location: "Fergana, Uzbekistan",
     category: "Backend",
     time: "Fulltime onsite",
-    text: "Tempor sed lectus mauris luctus euismod. At tristique sed ut suspendisse nam. Malesuada magna.",
+    text: "We are looking for professionals working in this field. You can apply...",
   },
   {
     id: "4",
@@ -77,7 +77,7 @@ const jobs = ref([
     location: "Fergana, Uzbekistan",
     category: "Design",
     time: "Fulltime onsite",
-    text: "Tempor sed lectus mauris luctus euismod. At tristique sed ut suspendisse nam. Malesuada magna.",
+    text: "We are looking for professionals working in this field. You can apply...",
   },
   {
     id: "5",
@@ -85,7 +85,7 @@ const jobs = ref([
     location: "Fergana, Uzbekistan",
     category: "Mobile",
     time: "Fulltime onsite",
-    text: "Tempor sed lectus mauris luctus euismod. At tristique sed ut suspendisse nam. Malesuada magna.",
+    text: "We are looking for professionals working in this field. You can apply...",
   },
 ])
 </script>

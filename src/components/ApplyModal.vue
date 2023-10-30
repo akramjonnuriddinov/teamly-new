@@ -11,17 +11,7 @@
         class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
         @click="store.isShow = false"
       >
-        <svg
-          class="w-8 h-8"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          height="1em"
-          viewBox="0 0 384 512"
-        >
-          <path
-            d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
-          />
-        </svg>
+        <close-icon />
       </button>
       <div @click.stop class="p-8 bg-white rounded-xl">
         <form @submit.prevent="submitForm()">
@@ -76,18 +66,7 @@
                   v-for="job in jobs"
                 >
                   <span>{{ job.title }}</span>
-                  <svg
-                    width="18"
-                    height="14"
-                    viewBox="0 0 18 14"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.00004 11.17L1.83004 6.99996L0.415039 8.41496L6.00004 14L18 1.99996L16.585 0.584961L6.00004 11.17Z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
+                  <check-icon />
                 </li>
               </ul>
             </div>
@@ -118,6 +97,8 @@
 <script setup lang="ts">
 import { ref, onUpdated } from "vue"
 import { useColorStore } from "@/store"
+import CloseIcon from "@/components/icons/CloseIcon.vue"
+import CheckIcon from "@/components/icons/CheckIcon.vue"
 // import { v4 as uuidv4 } from "uuid"
 
 const store = useColorStore()

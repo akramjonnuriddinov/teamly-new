@@ -17,7 +17,8 @@
     "uuid": "^9.0.1",
     "vue": "^3.3.4",
     "vue-awesome-swiper": "^5.0.1",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuefire": "^3.1.17"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
