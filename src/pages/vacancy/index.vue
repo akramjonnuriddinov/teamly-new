@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-[86px]">
+  <div>
     <vacancy-banner />
     <job-lists />
     <apply-modal />

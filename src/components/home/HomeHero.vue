@@ -4,7 +4,7 @@
       class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
       <div
-        class="flex pt-[75px] justify-between max-[990px]:flex-wrap max-[990px]:flex-col-reverse max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
+        class="flex justify-between max-[990px]:flex-wrap max-[990px]:flex-col-reverse max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
       >
         <div
           class="relative pt-[100px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px]"
