@@ -177,7 +177,7 @@ onMounted(() => {
       window.scrollY >= 300
         ? "bg-tg-white header-shadow fixed"
         : "transparent absolute"
-    header.value = list + "transition-all top-0 duration-300"
+    header.value = list + " transition-all top-0 duration-300"
   })
 })
 </script>
