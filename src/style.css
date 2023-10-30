@@ -44,13 +44,17 @@
     background: #7e54f8;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: "DM Sans", sans-serif;
     background-color: white;
   }
 
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
     scrollbar-width: 5px;
   }
 
