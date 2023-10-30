@@ -1,5 +1,5 @@
 <template>
-  <section class="banner-area relative overflow-hidden z-[1]">
+  <section class="banner-area relative overflow-hidden z-[1] h-screen">
     <div
       class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >

@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router"
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior() {
+    return { top: 0, behavior: 'smooth' }
+  },
   routes: [
     {
       path: '/',
