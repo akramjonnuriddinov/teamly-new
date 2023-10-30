@@ -1,25 +1,23 @@
 <template>
   <div class="header-hero-wrapper">
-    <banner-area />
-    <the-service />
-    <about-company />
-    <our-project />
-    <client-testimonial />
-    <our-team />
-    <our-blog />
-    <home-contact />
+    <home-hero />
+    <Service />
+    <about-us />
+    <Project />
+    <Testimonial />
+    <Team />
+    <Blog />
   </div>
 </template>
 
 <script setup lang="ts">
-import BannerArea from "@/components/BannerArea.vue"
-import TheService from "@/components/TheService.vue"
-import AboutCompany from "@/components/AboutCompany.vue"
-import OurProject from "@/components/OurProject.vue"
-import ClientTestimonial from "@/components/ClientTestimonial.vue"
-import OurTeam from "@/components/OurTeam.vue"
-import OurBlog from "@/components/OurBlog.vue"
-import HomeContact from "@/components/HomeContact.vue"
+import HomeHero from "@/components/home/HomeHero.vue"
+import Service from "@/components/home/Service.vue"
+import AboutUs from "@/components/about/AboutUs.vue"
+import Project from "@/components/portfolio/Project.vue"
+import Testimonial from "@/components/static/Testimonial.vue"
+import Team from "@/components/team/Team.vue"
+import Blog from "@/components/blog/Blog.vue"
 </script>
 
 <style scoped>

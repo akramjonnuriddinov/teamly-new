@@ -5,15 +5,13 @@
       :text="hero_content.text"
       :img_url="hero_content.img_url"
     />
-    <the-service2 />
-    <home-contact />
+    <Service2 />
   </div>
 </template>
 
 <script setup lang="ts">
 import HeroBanner from "@/components/reusables/HeroBanner.vue"
-import TheService2 from "@/components/TheService2.vue"
-import HomeContact from "@/components/HomeContact.vue"
+import Service2 from "@/components/service/Service2.vue"
 import { getImageUrl } from "@/composables/getImgUrl"
 
 const hero_content = {

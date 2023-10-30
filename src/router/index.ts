@@ -14,27 +14,27 @@ const router = createRouter({
     {
       path: '/service',
       name: 'service',
-      component: () => import('@/pages/ServiceView.vue')
+      component: () => import('@/pages/service/index.vue')
     },
     {
       path: '/portfolio',
       name: 'portfolio',
-      component: () => import('@/pages/PortfolioView.vue')
+      component: () => import('@/pages/portfolio/index.vue')
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('@/pages/AboutView.vue')
+      component: () => import('@/pages/about/index.vue')
     },
     {
       path: '/vacancy',
       name: 'vacancy',
-      component: () => import('@/pages/VacancyView.vue')
+      component: () => import('@/pages/vacancy/index.vue')
     },
     {
-      path: '/vacancyDetail',
+      path: '/vacancy/detail',
       name: 'vacancyDetail',
-      component: () => import('@/pages/VacancyDetailView.vue')
+      component: () => import('@/pages/vacancy/Detail.vue')
     },
     {
       path: '/:pathMatch(.*)*',

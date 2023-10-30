@@ -1,11 +1,12 @@
 <template>
   <div class="flex flex-col min-h-screen" id="app">
-    <the-navbar />
+    <Navbar />
     <div class="flex-1">
       <router-view class="main-content" />
     </div>
-    <the-brand />
-    <the-footer class="main-footer" />
+    <contact-us />
+    <Brand />
+    <Footer class="main-footer" />
     <scroll-top />
     <div
       v-if="isShow"
@@ -19,11 +20,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
-import TheNavbar from "@/components/TheNavbar.vue"
-import TheFooter from "@/components/TheFooter.vue"
-import ScrollTop from "@/components/ScrollTop.vue"
-import TheBrand from "@/components/TheBrand.vue"
-import PreLoader from "@/components/PreLoader.vue"
+import Navbar from "@/components/static/Navbar.vue"
+import Footer from "@/components/static/Footer.vue"
+import ScrollTop from "@/components/static/ScrollTop.vue"
+import Brand from "@/components/static/Brand.vue"
+import PreLoader from "@/components/static/PreLoader.vue"
+import ContactUs from "@/components/static/ContactUs.vue"
 
 const isShow = ref(true)
 
@@ -31,7 +33,7 @@ onMounted(() => {
   window.addEventListener("load", () => {
     setTimeout(() => {
       isShow.value = false
-    }, 1500)
+    }, 800)
   })
 })
 </script>

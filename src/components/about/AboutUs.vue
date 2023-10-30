@@ -17,14 +17,14 @@
               >About Our Company</span
             >
             <h2 class="font-bold leading-[1.2] text-5xl mb-9 max-sm:text-4xl">
-              Creative Agency that Help you go
+              Teamly that Help you go
               <br class="max-[1024px]:hidden" />
               Ahead.
             </h2>
             <p class="text-tg-paragraph-color leading-[1.8] mb-5">
-              Lorem ipsum dolor sit amet consectetur. Ut tellus suspendisse
-              nulla aliquam. Risus rutrum tellus eget ultrices pretium nisi amet
-              facilisis vulputate tortor egestas.
+              Founded by a passionate team of tech enthusiasts, Teamly is a
+              leading IT solutions provider with a deep understanding of the
+              ever-evolving digital landscape.
             </p>
             <ul class="mb-14">
               <li
@@ -68,12 +68,8 @@
 </template>
 
 <script setup lang="ts">
-import WatchVideo from "@/components/WatchVideo.vue"
+import WatchVideo from "@/components/static/WatchVideo.vue"
 import { ref } from "vue"
 
-const aboutContents = ref([
-  "Risus ultrices amet facilisis vulputate tortor egestas.",
-  "Pretium nisi amet vulputate tortor egestas.",
-  "Tellus eget ultrices facilisis vulputate tortor egestas.",
-])
+const aboutContents = ref(["Web Development", "App Development", "Consulting"])
 </script>

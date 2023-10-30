@@ -51,6 +51,7 @@
             >
               <router-link
                 class="py-0 font-semibold transition-colors duration-200 nav-link navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
+                @click="isHidden = true"
                 :to="link.url"
               >
                 {{ link.name }}
@@ -88,7 +89,7 @@
           >
 
           <div class="max-[990px]:hidden">
-            <the-language />
+            <Language />
           </div>
           <button
             class="h-[30px] hidden w-[26px] max-[990px]:flex"
@@ -110,7 +111,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
-import TheLanguage from "@/components/TheLanguage.vue"
+import Language from "@/components/static/Language.vue"
 import { getSVG } from "@/composables/getSVG"
 
 const header = ref("")
@@ -145,19 +146,19 @@ const links = [
   },
   {
     name: "About",
-    url: "about",
+    url: "/about",
   },
   {
     name: "Service",
-    url: "service",
+    url: "/service",
   },
   {
     name: "Portfolio",
-    url: "portfolio",
+    url: "/portfolio",
   },
   {
     name: "Vacancy",
-    url: "vacancy",
+    url: "/vacancy",
   },
 ]
 

@@ -31,9 +31,10 @@
             <div class="mb-6 w-[45%] max-[800px]:w-full max-[800px]:mb-0">
               <label for="name" class="block mb-2">Full name</label>
               <input
+                class="p-2.5 border rounded-lg w-full outline-none"
+                v-model="resume.name"
                 type="text"
                 id="name"
-                class="p-2.5 border rounded-lg w-full outline-none"
                 placeholder="Full name"
                 autocomplete="off"
                 required
@@ -42,9 +43,10 @@
             <div class="mb-6 w-[45%] max-[800px]:w-full">
               <label for="text" class="block mb-2">Phone number</label>
               <input
+                class="p-2.5 border rounded-lg w-full outline-none"
+                v-model="resume.phone"
                 type="text"
                 id="text"
-                class="p-2.5 border rounded-lg w-full outline-none"
                 placeholder="Phone number"
                 autocomplete="off"
                 required
@@ -57,8 +59,9 @@
             <div class="w-[45%] max-[800px]:w-full relative">
               <div class="w-full mb-6">
                 <input
-                  type="text"
                   class="p-2.5 border rounded-lg w-full outline-none"
+                  v-model="resume.type"
+                  type="text"
                   placeholder="VueJS"
                   autocomplete="off"
                   required
@@ -93,10 +96,10 @@
             >
               <label for="file-input" class="sr-only"></label>
               <input
+                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm file:hidden"
                 type="file"
                 name="file-input"
                 id="file-input"
-                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm file:hidden"
               />
             </div>
           </div>
@@ -115,6 +118,7 @@
 <script setup lang="ts">
 import { ref, onUpdated } from "vue"
 import { useColorStore } from "@/store"
+// import { v4 as uuidv4 } from "uuid"
 
 const store = useColorStore()
 
@@ -146,8 +150,20 @@ onUpdated(() => {
   }
 })
 
+// FIREBASE
+
+const all = ref([]) as any
+const resume = ref({
+  id: "uuidv4()",
+  name: "",
+  phone: "",
+  type: "",
+  file: "",
+})
+
 const submitForm = () => {
-  console.log("submitted form")
+  all.value.unshift(resume.value)
+  console.log(all.value)
 }
 </script>
 

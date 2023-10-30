@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-import ApplyModal from "./ApplyModal.vue"
+import ApplyModal from "@/components/ApplyModal.vue"
 import { useColorStore } from "@/store"
 
 const store = useColorStore()

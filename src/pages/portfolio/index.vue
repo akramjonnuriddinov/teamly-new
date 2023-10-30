@@ -6,14 +6,12 @@
       :img_url="hero_content.img_url"
     />
     <portfolio-list />
-    <home-contact />
   </div>
 </template>
 
 <script setup lang="ts">
 import HeroBanner from "@/components/reusables/HeroBanner.vue"
-import PortfolioList from "@/components/PortfolioList.vue"
-import HomeContact from "@/components/HomeContact.vue"
+import PortfolioList from "@/components/portfolio/PortfolioList.vue"
 import { getImageUrl } from "@/composables/getImgUrl"
 
 const hero_content = {
