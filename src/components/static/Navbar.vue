@@ -110,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { onMounted, ref, onUpdated } from "vue"
 import Language from "@/components/static/Language.vue"
 import { getSVG } from "@/composables/getSVG"
 
@@ -170,6 +170,12 @@ const toggleModal = () => {
     ? document.body.classList.remove("overflow-hidden")
     : document.body.classList.add("overflow-hidden")
 }
+
+onUpdated(() => {
+  isHidden.value
+    ? document.body.classList.remove("overflow-hidden")
+    : document.body.classList.add("overflow-hidden")
+})
 
 onMounted(() => {
   window.addEventListener("scroll", () => {
