@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-[86px]">
     <hero-banner
       :title="hero_content.title"
       :text="hero_content.text"

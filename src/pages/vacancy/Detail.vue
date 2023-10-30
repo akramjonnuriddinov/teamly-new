@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-[86px]">
     <vacancy-detail-banner />
     <job-description />
   </div>
