@@ -1,5 +1,5 @@
 <template>
-  <section class="pt-[115px] pb-[45px] relative z-10 mb-[100px]">
+  <section id="jobs" class="pt-[115px] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <ul class="flex flex-wrap justify-start">
         <li

@@ -24,7 +24,7 @@
         </svg>
       </button>
       <div @click.stop class="p-8 bg-white rounded-xl">
-        <form>
+        <form @submit.prevent="submitForm()">
           <div
             class="flex items-center justify-between gap-4 max-[800px]:flex-col"
           >
@@ -65,7 +65,7 @@
                 />
               </div>
               <ul
-                v-if="!isShow"
+                v-if="isShow"
                 class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg max-[990px]:overflow-y-auto"
               >
                 <li
@@ -102,7 +102,6 @@
           </div>
 
           <button
-            type="submit"
             class="w-full bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
           >
             Submit
@@ -146,6 +145,10 @@ onUpdated(() => {
     document.body.classList.remove("overflow-hidden")
   }
 })
+
+const submitForm = () => {
+  console.log("submitted form")
+}
 </script>
 
 <style scoped>
