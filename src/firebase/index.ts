@@ -18,15 +18,13 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD0Gi945jii9Lvj2q5fytarUhBJGuS7E5w",
-  authDomain: "vue-eats-ae980.firebaseapp.com",
-  projectId: "vue-eats-ae980",
-  storageBucket: "vue-eats-ae980.appspot.com",
-  messagingSenderId: "978831672273",
-  appId: "1:978831672273:web:3dc2e04b283526176b16f0",
-  measurementId: "G-GELYYZSP3Y"
-};
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+}
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-console.log(app)
+export const firebaseApp = initializeApp(firebaseConfig);
+console.log(firebaseApp)
