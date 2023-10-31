@@ -1,7 +1,6 @@
 <template>
   <section
-    v-if="store.isShow"
-    @click="store.isShow = false"
+    @click="$emit('close')"
     class="bottom-0 flex justify-center right-0 modal bg-[#00000080] fixed top-0 left-0 w-[100vw] z-[999]"
   >
     <div
@@ -9,7 +8,7 @@
     >
       <button
         class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
-        @click="store.isShow = false"
+        @click="$emit('close')"
       >
         <close-icon />
       </button>
@@ -58,7 +57,7 @@
                 />
               </div>
               <ul
-                v-if="isShow"
+                v-if="false"
                 class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg max-[990px]:overflow-y-auto"
               >
                 <li
@@ -95,15 +94,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onUpdated } from "vue"
-import { useColorStore } from "@/store"
+import { ref } from "vue"
 import CloseIcon from "@/components/icons/CloseIcon.vue"
 import CheckIcon from "@/components/icons/CheckIcon.vue"
-// import { v4 as uuidv4 } from "uuid"
 
-const store = useColorStore()
-
-const isShow = ref(false)
 const jobs = ref([
   {
     id: "1",
@@ -123,13 +117,13 @@ const jobs = ref([
   },
 ])
 
-onUpdated(() => {
-  if (store.isShow) {
-    document.body.classList.add("overflow-hidden")
-  } else {
-    document.body.classList.remove("overflow-hidden")
-  }
-})
+// onUpdated(() => {
+//   if (store.isShow) {
+//     document.body.classList.add("overflow-hidden")
+//   } else {
+//     document.body.classList.remove("overflow-hidden")
+//   }
+// })
 
 // FIREBASE
 

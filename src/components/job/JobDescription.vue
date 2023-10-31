@@ -30,93 +30,16 @@
       </ul>
       <button
         class="bg-tg-primary-color mt-12 text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
-        @click="store.isShow = true"
+        @click="$emit('open')"
       >
         Apply
       </button>
     </div>
   </section>
-  <apply-modal />
 </template>
 
 <script setup lang="ts">
-// import { ref } from "vue"
-import ApplyModal from "@/components/ApplyModal.vue"
-import { useColorStore } from "@/store"
-
-const store = useColorStore()
-
 defineProps(["vacancy"])
-
-// const requirements = ref([
-//   {
-//     id: "1",
-//     text: "Understand the principles of SOLID, KISS, DRY",
-//   },
-//   {
-//     id: "2",
-//     text: "Work experience 2+ years",
-//   },
-//   {
-//     id: "3",
-//     text: "Knowledge of JavaScript and its basic concept of work (prototypal inheritance, event loop, closures, this keyword, ...)",
-//   },
-//   {
-//     id: "4",
-//     text: "At Java Script it is possible to write modern code, knowing all the new tips",
-//   },
-//   {
-//     id: "5",
-//     text: "VueJs 2,3 + Pinia + Vue Router",
-//   },
-//   {
-//     id: "6",
-//     text: "To work with Axios, API",
-//   },
-//   {
-//     id: "7",
-//     text: "Learning new changes",
-//   },
-//   {
-//     id: "8",
-//     text: "Tailwind CSS",
-//   },
-//   {
-//     id: "9",
-//     text: "Knowledge of NPM / Yarn package maneuvers",
-//   },
-//   {
-//     id: "10",
-//     text: "For Vue CLI / web package / Rollup project meeting",
-//   },
-//   {
-//     id: "11",
-//     text: "Git, Git Flow",
-//   },
-//   {
-//     id: "12",
-//     text: "Knowledge of Nuxt.js",
-//   },
-// ])
-
-// const tasks = ref([
-//   {
-//     id: "1",
-//     text: "Support for improved projects and introduce new functionality to them",
-//   },
-//   {
-//     id: "2",
-//     text: "Working with team",
-//   },
-//   {
-//     id: "3",
-//     text: "Active participation in programming",
-//   },
-//   {
-//     id: "4",
-//     text: "Interact with QA testers, Backend programmers, and UI/UX Designers",
-//   },
-// ])
 </script>
 
 <style scoped>

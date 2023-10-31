@@ -33,7 +33,7 @@
             </div>
             <p class="text-[#5B5A78] mb-12">{{ job.text }}</p>
             <button
-              @click="store.isShow = true"
+              @click="$emit('open')"
               class="mt-auto bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[25px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
             >
               Apply
@@ -47,22 +47,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
-import { useColorStore } from "@/store"
 import { collection, query, getDocs } from "firebase/firestore"
 import { useFirestore } from "vuefire"
-// import {useCollection} from 'vuefire'
-
+defineProps(["isShow"])
 const db = useFirestore()
-
-const store = useColorStore()
-
-// const jobs = useCollection(collection(db, "vacancies"))
 
 const jobs = ref([]) as any
 onMounted(async () => {
   const q = query(collection(db, "vacancies"))
   const querySnapshot = await getDocs(q)
-  // onSnapshot(q, (querySnapshot) => {
   jobs.value = []
   querySnapshot.forEach((doc) => {
     const job = {
@@ -76,50 +69,6 @@ onMounted(async () => {
     jobs.value.push(job)
   })
 })
-// })
-
-// const jobs = ref([
-//   {
-//     id: "1",
-//     title: "Senior Product Manager",
-//     location: "Fergana, Uzbekistan",
-//     category: "Product design",
-//     time: "Fulltime onsite",
-//     text: "We are looking for professionals working in this field. You can apply...",
-//   },
-//   {
-//     id: "2",
-//     title: "Frontend — VueJS, Javascript",
-//     location: "Fergana, Uzbekistan",
-//     category: "Frontend",
-//     time: "Fulltime onsite",
-//     text: "We are looking for professionals working in this field. You can apply...",
-//   },
-//   {
-//     id: "3",
-//     title: "Backend - Python Developer",
-//     location: "Fergana, Uzbekistan",
-//     category: "Backend",
-//     time: "Fulltime onsite",
-//     text: "We are looking for professionals working in this field. You can apply...",
-//   },
-//   {
-//     id: "4",
-//     title: "UX/UI - Designer",
-//     location: "Fergana, Uzbekistan",
-//     category: "Design",
-//     time: "Fulltime onsite",
-//     text: "We are looking for professionals working in this field. You can apply...",
-//   },
-//   {
-//     id: "5",
-//     title: "Mobile Developer",
-//     location: "Fergana, Uzbekistan",
-//     category: "Mobile",
-//     time: "Fulltime onsite",
-//     text: "We are looking for professionals working in this field. You can apply...",
-//   },
-// ])
 </script>
 
 <style scoped>

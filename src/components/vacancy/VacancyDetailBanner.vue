@@ -27,7 +27,7 @@
           </div>
         </div>
         <button
-          @click="store.isShow = true"
+          @click="$emit('open')"
           class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color"
         >
           Apply
@@ -38,10 +38,6 @@
 </template>
 
 <script setup lang="ts">
-import { useColorStore } from "@/store"
-
-const store = useColorStore()
-
 defineProps(["vacancy"])
 </script>
 
