@@ -11,22 +11,19 @@
           <h1
             class="mb-4 text-[70px] font-extrabold text-[#38386E] leading-[1.2] max-sm:text-4xl max-[800px]:text-5xl"
           >
-            Frontend — VueJS, Javascript
+            {{ vacancy.title }}
           </h1>
-          <span>
-            {{ jobs }}
-          </span>
           <div
             class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5"
           >
-            <span>{{ "Frontend" }}</span>
+            <span>{{ vacancy.category }}</span>
             <img
               width="8"
               height="8"
               src="@/assets/images/circle.svg"
               alt="circle"
             />
-            <span>{{ "Fulltime remote" }}</span>
+            <span>{{ vacancy.time }}</span>
           </div>
         </div>
         <button
@@ -42,49 +39,10 @@
 
 <script setup lang="ts">
 import { useColorStore } from "@/store"
-import { ref, onMounted } from "vue"
-import { collection, query, getDocs } from "firebase/firestore"
-import { useFirestore } from "vuefire"
 
 const store = useColorStore()
 
-const db = useFirestore()
-
-const jobs = ref([]) as any
-
-onMounted(async () => {
-  const q = query(collection(db, "vacancies"))
-
-  const querySnapshot = await getDocs(q)
-  querySnapshot.forEach((doc) => {
-    jobs.value.push(doc.data())
-    jobs.value.push(doc.id)
-  })
-})
-
-// const test = [
-//   {
-//     category: "Backend",
-//     title: "Backend - Python Developer",
-//     text: "We are looking for professionals working in this field. You can apply...",
-//     location: "Fergana, Uzbekistan",
-//     time: "Fulltime onsite",
-//   },
-//   {
-//     category: "Mobile",
-//     time: "Parttime onsite",
-//     location: "Namangan, Uzbekistan",
-//     title: "Mobile Developer",
-//     text: "We are looking for professionals working in this field. You can apply...",
-//   },
-//   {
-//     location: "Fergana, Uzbekistan",
-//     time: "Fulltime onsite",
-//     title: "Frontend — VueJS, Javascript",
-//     text: "We are looking for professionals working in this field. You can apply...",
-//     category: "Product design",
-//   },
-// ]
+defineProps(["vacancy"])
 </script>
 
 <style scoped>

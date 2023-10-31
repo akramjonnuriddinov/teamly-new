@@ -48,7 +48,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
 import { useColorStore } from "@/store"
-import { collection, query, onSnapshot } from "firebase/firestore"
+import { collection, query, getDocs } from "firebase/firestore"
 import { useFirestore } from "vuefire"
 // import {useCollection} from 'vuefire'
 
@@ -61,21 +61,22 @@ const store = useColorStore()
 const jobs = ref([]) as any
 onMounted(async () => {
   const q = query(collection(db, "vacancies"))
-  onSnapshot(q, (querySnapshot) => {
-    jobs.value = []
-    querySnapshot.forEach((doc) => {
-      const job = {
-        id: doc.id,
-        title: doc.data().title,
-        category: doc.data().category,
-        location: doc.data().location,
-        time: doc.data().time,
-        text: doc.data().text,
-      }
-      jobs.value.push(job)
-    })
+  const querySnapshot = await getDocs(q)
+  // onSnapshot(q, (querySnapshot) => {
+  jobs.value = []
+  querySnapshot.forEach((doc) => {
+    const job = {
+      id: doc.id,
+      title: doc.data().title,
+      category: doc.data().category,
+      location: doc.data().location,
+      time: doc.data().time,
+      text: doc.data().text,
+    }
+    jobs.value.push(job)
   })
 })
+// })
 
 // const jobs = ref([
 //   {
