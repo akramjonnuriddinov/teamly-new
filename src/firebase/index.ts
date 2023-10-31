@@ -10,7 +10,7 @@ const firebaseConfig = {
 };
 
 export const firebaseApp = initializeApp(firebaseConfig)
-console.log(firebaseApp, 'firebase')
+console.log('firebaseConfig: ', firebaseApp)
 
 
 // *****************vue-eats-web*******************

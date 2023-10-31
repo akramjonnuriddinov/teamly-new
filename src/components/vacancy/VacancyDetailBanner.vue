@@ -13,6 +13,9 @@
           >
             Frontend — VueJS, Javascript
           </h1>
+          <span>
+            {{ jobs }}
+          </span>
           <div
             class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5"
           >
@@ -39,8 +42,49 @@
 
 <script setup lang="ts">
 import { useColorStore } from "@/store"
+import { ref, onMounted } from "vue"
+import { collection, query, getDocs } from "firebase/firestore"
+import { useFirestore } from "vuefire"
 
 const store = useColorStore()
+
+const db = useFirestore()
+
+const jobs = ref([]) as any
+
+onMounted(async () => {
+  const q = query(collection(db, "vacancies"))
+
+  const querySnapshot = await getDocs(q)
+  querySnapshot.forEach((doc) => {
+    jobs.value.push(doc.data())
+    jobs.value.push(doc.id)
+  })
+})
+
+// const test = [
+//   {
+//     category: "Backend",
+//     title: "Backend - Python Developer",
+//     text: "We are looking for professionals working in this field. You can apply...",
+//     location: "Fergana, Uzbekistan",
+//     time: "Fulltime onsite",
+//   },
+//   {
+//     category: "Mobile",
+//     time: "Parttime onsite",
+//     location: "Namangan, Uzbekistan",
+//     title: "Mobile Developer",
+//     text: "We are looking for professionals working in this field. You can apply...",
+//   },
+//   {
+//     location: "Fergana, Uzbekistan",
+//     time: "Fulltime onsite",
+//     title: "Frontend — VueJS, Javascript",
+//     text: "We are looking for professionals working in this field. You can apply...",
+//     category: "Product design",
+//   },
+// ]
 </script>
 
 <style scoped>

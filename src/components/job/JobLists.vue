@@ -12,7 +12,12 @@
           >
             <span class="text-[#5B5A78] mb-5">{{ job.location }}</span>
             <router-link
-              :to="{ name: 'vacancyDetail' }"
+              :to="{
+                name: 'vacancyDetail',
+                params: {
+                  id: job.id,
+                },
+              }"
               class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7 transition-all duration-300 hover:text-tg-secondary-color"
             >
               {{ job.title }}
@@ -43,22 +48,32 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
 import { useColorStore } from "@/store"
-import { collection, query, getDocs } from "firebase/firestore"
+import { collection, query, onSnapshot } from "firebase/firestore"
 import { useFirestore } from "vuefire"
+// import {useCollection} from 'vuefire'
 
 const db = useFirestore()
 
 const store = useColorStore()
 
-const jobs = ref([]) as any
+// const jobs = useCollection(collection(db, "vacancies"))
 
+const jobs = ref([]) as any
 onMounted(async () => {
   const q = query(collection(db, "vacancies"))
-
-  const querySnapshot = await getDocs(q)
-  querySnapshot.forEach((doc) => {
-    jobs.value.push(doc.data())
-    console.log("doc: ", doc.data())
+  onSnapshot(q, (querySnapshot) => {
+    jobs.value = []
+    querySnapshot.forEach((doc) => {
+      const job = {
+        id: doc.id,
+        title: doc.data().title,
+        category: doc.data().category,
+        location: doc.data().location,
+        time: doc.data().time,
+        text: doc.data().text,
+      }
+      jobs.value.push(job)
+    })
   })
 })
 

@@ -32,7 +32,7 @@ const router = createRouter({
       component: () => import('@/pages/vacancy/index.vue')
     },
     {
-      path: '/vacancy/detail',
+      path: '/vacancy/:id',
       name: 'vacancyDetail',
       component: () => import('@/pages/vacancy/Detail.vue')
     },
