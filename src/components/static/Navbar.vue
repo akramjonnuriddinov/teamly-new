@@ -89,7 +89,9 @@
           >
 
           <div class="max-[990px]:hidden">
-            <Language />
+            <router-link :to="{ name: 'vacancy-admin' }">
+              <Language />
+            </router-link>
           </div>
           <button
             class="h-[30px] hidden w-[26px] max-[990px]:flex"

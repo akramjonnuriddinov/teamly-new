@@ -41,53 +41,69 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import { useColorStore } from "@/store"
+import { collection, query, getDocs } from "firebase/firestore"
+import { useFirestore } from "vuefire"
+
+const db = useFirestore()
 
 const store = useColorStore()
 
-const jobs = ref([
-  {
-    id: "1",
-    title: "Senior Product Manager",
-    location: "Fergana, Uzbekistan",
-    category: "Product design",
-    time: "Fulltime onsite",
-    text: "We are looking for professionals working in this field. You can apply...",
-  },
-  {
-    id: "2",
-    title: "Frontend — VueJS, Javascript",
-    location: "Fergana, Uzbekistan",
-    category: "Frontend",
-    time: "Fulltime onsite",
-    text: "We are looking for professionals working in this field. You can apply...",
-  },
-  {
-    id: "3",
-    title: "Backend - Python Developer",
-    location: "Fergana, Uzbekistan",
-    category: "Backend",
-    time: "Fulltime onsite",
-    text: "We are looking for professionals working in this field. You can apply...",
-  },
-  {
-    id: "4",
-    title: "UX/UI - Designer",
-    location: "Fergana, Uzbekistan",
-    category: "Design",
-    time: "Fulltime onsite",
-    text: "We are looking for professionals working in this field. You can apply...",
-  },
-  {
-    id: "5",
-    title: "Mobile Developer",
-    location: "Fergana, Uzbekistan",
-    category: "Mobile",
-    time: "Fulltime onsite",
-    text: "We are looking for professionals working in this field. You can apply...",
-  },
-])
+const jobs = ref([]) as any
+
+onMounted(async () => {
+  const q = query(collection(db, "vacancies"))
+
+  const querySnapshot = await getDocs(q)
+  querySnapshot.forEach((doc) => {
+    jobs.value.push(doc.data())
+    console.log("doc: ", doc.data())
+  })
+})
+
+// const jobs = ref([
+//   {
+//     id: "1",
+//     title: "Senior Product Manager",
+//     location: "Fergana, Uzbekistan",
+//     category: "Product design",
+//     time: "Fulltime onsite",
+//     text: "We are looking for professionals working in this field. You can apply...",
+//   },
+//   {
+//     id: "2",
+//     title: "Frontend — VueJS, Javascript",
+//     location: "Fergana, Uzbekistan",
+//     category: "Frontend",
+//     time: "Fulltime onsite",
+//     text: "We are looking for professionals working in this field. You can apply...",
+//   },
+//   {
+//     id: "3",
+//     title: "Backend - Python Developer",
+//     location: "Fergana, Uzbekistan",
+//     category: "Backend",
+//     time: "Fulltime onsite",
+//     text: "We are looking for professionals working in this field. You can apply...",
+//   },
+//   {
+//     id: "4",
+//     title: "UX/UI - Designer",
+//     location: "Fergana, Uzbekistan",
+//     category: "Design",
+//     time: "Fulltime onsite",
+//     text: "We are looking for professionals working in this field. You can apply...",
+//   },
+//   {
+//     id: "5",
+//     title: "Mobile Developer",
+//     location: "Fergana, Uzbekistan",
+//     category: "Mobile",
+//     time: "Fulltime onsite",
+//     text: "We are looking for professionals working in this field. You can apply...",
+//   },
+// ])
 </script>
 
 <style scoped>

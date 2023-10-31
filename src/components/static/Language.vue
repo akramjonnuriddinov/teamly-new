@@ -7,7 +7,7 @@
       src="@/assets/images/flags/usa.png"
       alt="flag"
     />
-    <router-link to="/">EN</router-link>
+    <span>EN</span>
   </div>
   <!-- Hidden -->
   <ul
