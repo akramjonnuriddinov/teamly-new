@@ -12,7 +12,7 @@
         </h3>
         <div class="flex gap-4">
           <button
-            @click="$emit('open-modal')"
+            @click="editOption(item)"
             class="text-blue-500 hover:text-blue-700"
           >
             Edit
@@ -23,19 +23,26 @@
     </div>
     <div class="flex justify-end">
       <button
+        @click="createModal()"
         class="bg-tg-primary-color mt-12 text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
       >
         Create
       </button>
     </div>
   </div>
+  <admin-modal v-if="isShow" :input="selectedItem" @close="isShow = false" />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { ref, watch, onMounted } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
 import { useFirestore } from "vuefire"
+import AdminModal from "@/components/admin/AdminModal.vue"
+
 defineProps(["title"])
+
+const isShow = ref(false)
+
 const db = useFirestore()
 
 const options = ref([]) as any
@@ -50,8 +57,30 @@ onMounted(async () => {
       location: doc.data().location,
       time: doc.data().time,
       text: doc.data().text,
+      requirements: doc.data().requirements,
+      tasks: doc.data().tasks,
     }
     options.value.push(job)
   })
 })
+
+const selectedItem = ref(null)
+
+const editOption = (item: any) => {
+  selectedItem.value = item
+  isShow.value = true
+}
+
+watch(
+  selectedItem,
+  (value) => {
+    console.log(value)
+  },
+  { deep: true }
+)
+
+const createModal = () => {
+  isShow.value = true
+  selectedItem.value = null
+}
 </script>

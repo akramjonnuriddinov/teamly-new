@@ -4,7 +4,7 @@
       <h2 class="text-xl font-semibold text-[#1C1C37] mb-5">Requirements</h2>
       <ul class="flex flex-col">
         <li
-          v-for="requirement in vacancy.description"
+          v-for="requirement in vacancy.requirements"
           class="flex items-center gap-4 mb-2"
         >
           <img
