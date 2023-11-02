@@ -7,7 +7,7 @@
       src="@/assets/images/flags/usa.png"
       alt="flag"
     />
-    <span>EN</span>
+    <span>Admin</span>
   </div>
   <!-- Hidden -->
   <ul

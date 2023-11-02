@@ -89,7 +89,7 @@
           >
 
           <div class="max-[990px]:hidden">
-            <router-link :to="{ name: 'vacancy-admin' }">
+            <router-link :to="{ name: 'admin' }">
               <Language />
             </router-link>
           </div>

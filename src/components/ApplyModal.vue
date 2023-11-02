@@ -138,7 +138,6 @@ const resume = ref({
 
 const submitForm = () => {
   all.value.unshift(resume.value)
-  console.log(all.value)
 }
 </script>
 

@@ -37,9 +37,17 @@ const router = createRouter({
       component: () => import('@/pages/vacancy/Detail.vue')
     },
     {
-      path: '/vacancy-admin',
+      path: '/admin/vacancy',
       name: 'vacancy-admin',
       component: () => import('@/pages/admin/VacancyDashboard.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/pages/admin/AdminView.vue'),
+      children: [
+
+      ],
     },
     {
       path: '/:pathMatch(.*)*',
