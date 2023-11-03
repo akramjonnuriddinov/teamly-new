@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue"
+import { ref, onMounted } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
 import { useFirestore } from "vuefire"
 import AdminModal from "@/components/admin/AdminModal.vue"
@@ -70,14 +70,6 @@ const editOption = (item: any) => {
   selectedItem.value = item
   isShow.value = true
 }
-
-watch(
-  selectedItem,
-  (value) => {
-    console.log(value)
-  },
-  { deep: true }
-)
 
 const createModal = () => {
   isShow.value = true
