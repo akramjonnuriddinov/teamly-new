@@ -18,7 +18,7 @@
             Edit
           </button>
           <button
-            @click="removeVacancy"
+            @click="removeVacancy(item.id)"
             class="text-red-500 hover:text-red-700"
           >
             Remove
@@ -41,6 +41,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
+import { doc, deleteDoc } from "firebase/firestore"
 import { useFirestore } from "vuefire"
 import AdminModal from "@/components/admin/AdminModal.vue"
 
@@ -81,7 +82,8 @@ const createModal = () => {
   selectedItem.value = null
 }
 
-const removeVacancy = (id: any) => {
-  console.log(id)
+const removeVacancy = async (id: any) => {
+  options.value = options.value.filter((item: any) => item.id != id)
+  await deleteDoc(doc(db, "vacancies", id))
 }
 </script>
