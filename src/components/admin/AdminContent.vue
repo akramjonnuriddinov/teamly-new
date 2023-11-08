@@ -17,7 +17,12 @@
           >
             Edit
           </button>
-          <button class="text-red-500 hover:text-red-700">Remove</button>
+          <button
+            @click="removeVacancy"
+            class="text-red-500 hover:text-red-700"
+          >
+            Remove
+          </button>
         </div>
       </div>
     </div>
@@ -74,5 +79,9 @@ const editOption = (item: any) => {
 const createModal = () => {
   isShow.value = true
   selectedItem.value = null
+}
+
+const removeVacancy = (id: any) => {
+  console.log(id)
 }
 </script>
