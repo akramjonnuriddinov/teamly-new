@@ -57,12 +57,12 @@
             <div class="relative flex items-center justify-between w-full mb-2">
               <label class="text-gray-700" for="username">Requirements</label>
               <input
-                v-model="requirementsText"
+                v-model="textFields.requirements"
                 class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
                 type="text"
               />
               <button
-                @click="addRequirements"
+                @click="addItem('requirements')"
                 type="button"
                 class="absolute text-base font-semibold -translate-y-[35%] rounded-md top-1/2 right-3 text-tg-secondary-color"
               >
@@ -77,12 +77,12 @@
             <div class="relative flex items-center justify-between w-full mb-2">
               <label class="text-gray-700" for="username">Tasks</label>
               <input
-                v-model="tasksText"
+                v-model="textFields.tasks"
                 class="w-[80%] p-2 pr-14 mt-2 border border-gray-200 rounded-md outline-blue-300"
                 type="text"
               />
               <button
-                @click="addTasks"
+                @click="addItem('tasks')"
                 type="button"
                 class="absolute text-base font-semibold -translate-y-[35%] rounded-md top-1/2 right-3 text-tg-secondary-color"
               >
@@ -98,6 +98,14 @@
 
           <div class="flex justify-end mt-4">
             <button
+              @click="$emit('edit')"
+              type="button"
+              :disabled="isDisabled"
+              class="bg-tg-green text-tg-white rounded-[10px] font-bold inline-block text-center mr-5 whitespace-nowrap py-[18px] px-8 tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color"
+            >
+              Edit Vacancy
+            </button>
+            <button
               :disabled="isDisabled"
               class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-8 tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green"
             >
@@ -111,19 +119,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue"
+import { ref, computed } from "vue"
 import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
 import { v4 as uuidv4 } from "uuid"
+import { TextFields, Vacancy } from "@/components/admin/models"
 
 const db = useFirestore()
 const props = defineProps(["input"])
 
-const requirementsText = ref("") as any
-const tasksText = ref("") as any
-
 const vacancyCollectionRef = collection(db, "vacancies")
-const vacancy = ref({
+const vacancy = ref<Vacancy>({
   id: uuidv4(),
   location: "",
   title: "",
@@ -132,54 +138,61 @@ const vacancy = ref({
   text: "",
   requirements: [],
   tasks: [],
-}) as any
-
-onMounted(() => {
-  if (props.input) {
-    vacancy.value = { ...props.input }
-  }
 })
 
-const addVacancy = () => {
-  addDoc(vacancyCollectionRef, {
-    ...vacancy.value,
-    date: Date.now(),
-  })
-  clearInput()
-}
+const textFields = ref<TextFields>({
+  requirements: "",
+  tasks: "",
+})
 
-const addRequirements = () => {
-  if (requirementsText.value)
-    vacancy.value.requirements.push(requirementsText.value)
-  requirementsText.value = ""
-}
+props.input ? (vacancy.value = { ...props.input }) : vacancy.value
 
-const addTasks = () => {
-  if (tasksText.value) vacancy.value.tasks.push(tasksText.value)
-  tasksText.value = ""
+const addVacancy = async () => {
+  textFields.value.tasks
+  try {
+    const newVacancy = {
+      ...vacancy.value,
+      date: Date.now(),
+    }
+    await addDoc(vacancyCollectionRef, newVacancy)
+    clearInput()
+  } catch (error) {
+    console.error("Error adding vacancy: ", error)
+  }
 }
 
 const isDisabled = computed(() => {
-  if (
-    vacancy.value.location &&
-    vacancy.value.title &&
-    vacancy.value.category &&
-    vacancy.value.time &&
-    vacancy.value.text
+  return !(
+    vacancy.value.location.trim() &&
+    vacancy.value.title.trim() &&
+    vacancy.value.category.trim() &&
+    vacancy.value.time.trim() &&
+    vacancy.value.text.trim() &&
+    vacancy.value.requirements.length &&
+    vacancy.value.tasks.length
   )
-    return false
-  return true
 })
 
-function clearInput() {
-  vacancy.value = {
-    location: "",
-    title: "",
-    category: "",
-    time: "",
-    text: "",
-    requirements: [],
-    tasks: [],
+function addItem(slug: keyof TextFields) {
+  const trimmedText = textFields.value[slug].trim()
+  if (trimmedText) {
+    vacancy.value[slug].push(trimmedText)
+    textFields.value[slug] = ""
   }
+}
+
+const emptyVacancy = {
+  id: "",
+  location: "",
+  title: "",
+  category: "",
+  time: "",
+  text: "",
+  requirements: [],
+  tasks: [],
+}
+
+function clearInput() {
+  vacancy.value = { ...emptyVacancy }
 }
 </script>

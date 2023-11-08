@@ -4,8 +4,8 @@
     <div>
       <div
         class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
-        v-for="item in options"
-        :key="item.id"
+        v-for="(item, index) in options"
+        :key="index"
       >
         <h3>
           {{ item.title }}
@@ -29,13 +29,18 @@
     <div class="flex justify-end">
       <button
         @click="createModal()"
-        class="bg-tg-primary-color mt-12 text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
+        class="bg-tg-primary-color mt-12 text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[60px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
       >
         Create
       </button>
     </div>
   </div>
-  <admin-modal v-if="isShow" :input="selectedItem" @close="isShow = false" />
+  <admin-modal
+    v-if="isShow"
+    :input="selectedItem"
+    @edit="editVacancy"
+    @close="isShow = false"
+  />
 </template>
 
 <script setup lang="ts">
@@ -44,6 +49,7 @@ import { collection, query, getDocs } from "firebase/firestore"
 import { doc, deleteDoc } from "firebase/firestore"
 import { useFirestore } from "vuefire"
 import AdminModal from "@/components/admin/AdminModal.vue"
+import { Vacancy } from "./models"
 
 defineProps(["title"])
 
@@ -51,28 +57,32 @@ const isShow = ref(false)
 
 const db = useFirestore()
 
-const options = ref([]) as any
+const options = ref<Array<Vacancy>>([])
 onMounted(async () => {
-  const q = query(collection(db, "vacancies"))
-  const querySnapshot = await getDocs(q)
-  querySnapshot.forEach((doc) => {
-    const job = {
-      id: doc.id,
-      title: doc.data().title,
-      category: doc.data().category,
-      location: doc.data().location,
-      time: doc.data().time,
-      text: doc.data().text,
-      requirements: doc.data().requirements,
-      tasks: doc.data().tasks,
-    }
-    options.value.push(job)
-  })
+  try {
+    const q = query(collection(db, "vacancies"))
+    const querySnapshot = await getDocs(q)
+
+    querySnapshot.forEach((doc) => {
+      const job: Vacancy = {
+        id: doc.id,
+        title: doc.data().title,
+        category: doc.data().category,
+        location: doc.data().location,
+        time: doc.data().time,
+        text: doc.data().text,
+        requirements: doc.data().requirements,
+        tasks: doc.data().tasks,
+      }
+      options.value.push(job)
+    })
+  } catch (error) {
+    console.error("Error fetching data:", error)
+  }
 })
 
-const selectedItem = ref(null)
-
-const editOption = (item: any) => {
+const selectedItem = ref<Vacancy | null>(null)
+const editOption = (item: Vacancy) => {
   selectedItem.value = item
   isShow.value = true
 }
@@ -83,7 +93,11 @@ const createModal = () => {
 }
 
 const removeVacancy = async (id: any) => {
-  options.value = options.value.filter((item: any) => item.id != id)
+  options.value = options.value.filter((item: Vacancy) => item.id != id)
   await deleteDoc(doc(db, "vacancies", id))
+}
+
+const editVacancy = async (id: any) => {
+  console.log(id)
 }
 </script>
