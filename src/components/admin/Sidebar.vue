@@ -56,5 +56,9 @@ const links = ref([
     name: "about",
     icon: AboutIcon,
   },
+  {
+    name: "portfolio",
+    icon: ServiceIcon,
+  },
 ])
 </script>
