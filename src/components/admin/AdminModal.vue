@@ -31,20 +31,40 @@
               />
             </div>
             <div class="flex items-center justify-between w-full">
-              <label class="text-gray-700" for="username">Category</label>
-              <input
-                v-model="vacancy.category"
+              <label class="text-gray-700" for="category">Category</label>
+              <select
                 class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-                type="text"
-              />
+                v-model="vacancy.category"
+                id="category"
+              >
+                <option value="" disabled selected>Select Category</option>
+                <option
+                  selected
+                  v-for="(category, index) in categories"
+                  :key="index"
+                  :value="category"
+                >
+                  {{ category }}
+                </option>
+              </select>
             </div>
             <div class="flex items-center justify-between w-full">
-              <label class="text-gray-700" for="username">Time</label>
-              <input
-                v-model="vacancy.time"
+              <label class="text-gray-700" for="time">Time</label>
+              <select
                 class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-                type="text"
-              />
+                v-model="vacancy.time"
+                id="time"
+              >
+                <option value="" disabled selected>Select Time</option>
+                <option
+                  selected
+                  v-for="(time, index) in times"
+                  :key="index"
+                  :value="time"
+                >
+                  {{ time }}
+                </option>
+              </select>
             </div>
             <div class="flex items-center justify-between w-full">
               <label class="text-gray-700" for="username">Text</label>
@@ -58,7 +78,7 @@
               <label class="text-gray-700" for="username">Requirements</label>
               <input
                 v-model="textFields.requirements"
-                class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+                class="w-[80%] p-2 pr-14 mt-2 border border-gray-200 rounded-md outline-blue-300"
                 type="text"
               />
               <button
@@ -123,7 +143,7 @@ import { ref, computed } from "vue"
 import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
 import { v4 as uuidv4 } from "uuid"
-import { TextFields, Vacancy } from "@/components/admin/models"
+import { TextFields, Vacancy, Category } from "@/components/admin/models"
 
 const db = useFirestore()
 const props = defineProps(["input"])
@@ -140,12 +160,17 @@ const vacancy = ref<Vacancy>({
   tasks: [],
 })
 
+const categories = ref<Category>(["Backend", "Mobile", "Design", "Frontend"])
+const times = ref(["Online, Fulltime", "Onsite, Fulltime"])
+
 const textFields = ref<TextFields>({
   requirements: "",
   tasks: "",
 })
 
 props.input ? (vacancy.value = { ...props.input }) : vacancy.value
+
+const emit = defineEmits(["close", "edit"])
 
 const addVacancy = async () => {
   textFields.value.tasks
@@ -156,6 +181,7 @@ const addVacancy = async () => {
     }
     await addDoc(vacancyCollectionRef, newVacancy)
     clearInput()
+    emit("close")
   } catch (error) {
     console.error("Error adding vacancy: ", error)
   }
