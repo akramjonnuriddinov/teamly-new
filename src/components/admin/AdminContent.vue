@@ -35,7 +35,14 @@
       </button>
     </div>
   </div>
-  <admin-modal
+  <!-- <admin-modal
+    v-if="isShow"
+    :input="selectedItem"
+    @edit="editVacancy"
+    @close="isShow = false"
+  /> -->
+  <component
+    :is="currentModal"
     v-if="isShow"
     :input="selectedItem"
     @edit="editVacancy"
@@ -44,11 +51,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { ref, watch, defineAsyncComponent } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
 import { doc, deleteDoc } from "firebase/firestore"
 import { useFirestore } from "vuefire"
-import AdminModal from "@/components/admin/AdminModal.vue"
 import { Vacancy } from "./models"
 
 const props = defineProps(["title"])
@@ -56,6 +62,8 @@ const props = defineProps(["title"])
 const isShow = ref(false)
 
 const db = useFirestore()
+
+const currentModal = ref(null)
 
 const options = ref<Array<Vacancy>>([])
 
@@ -67,12 +75,13 @@ watch(
       const querySnapshot = await getDocs(q)
       options.value = []
       querySnapshot.forEach((doc) => {
-        const job: any = {
-          id: doc.id,
-          ...doc.data(),
-        }
-        options.value.push(job)
+        const job = ref<Vacancy>()
+        job.value = doc.data() as Vacancy
+        options.value.push({ id: doc.id, ...job.value })
       })
+      currentModal.value = defineAsyncComponent(
+        () => import(`../admin/modals/${props.title}.vue`)
+      )
     } catch (error) {
       console.error("Error fetching data:", error)
     }

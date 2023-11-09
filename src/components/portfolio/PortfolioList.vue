@@ -27,7 +27,7 @@
             class="w-full h-auto object-cover rounded-[30px]"
             width="307"
             height="393"
-            :src="getImageUrl(project.img_url)"
+            :src="project.img_url"
             alt="img"
           />
           <div
@@ -53,36 +53,57 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { getImageUrl } from "@/composables/getImgUrl"
+import { ref, onMounted } from "vue"
+// import { getImageUrl } from "@/composables/getImgUrl"
 import ArrowRight from "@/components/icons/ArrowRight.vue"
+import { collection, query, getDocs } from "firebase/firestore"
+import { useFirestore } from "vuefire"
 
-const projects = ref([
-  {
-    id: "1",
-    title: "Creative Design",
-    img_url: "our-project/project01.jpg",
-    text: "Design",
-  },
-  {
-    id: "2",
-    title: "Business Idea",
-    img_url: "our-project/project02.jpg",
-    text: "Business",
-  },
-  {
-    id: "3",
-    title: "Web Development",
-    img_url: "our-project/project03.jpg",
-    text: "Development",
-  },
-  {
-    id: "4",
-    title: "Mobile Development",
-    img_url: "our-project/project04.jpg",
-    text: "Mobile",
-  },
-])
+const db = useFirestore()
+
+const projects = ref([]) as any
+
+onMounted(async () => {
+  const q = query(collection(db, "portfolio"))
+  const querySnapshot = await getDocs(q)
+  projects.value = []
+  querySnapshot.forEach((doc) => {
+    const project = {
+      id: doc.id,
+      title: doc.data().title,
+      img_url: doc.data().image,
+      text: doc.data().category,
+    }
+    projects.value.push(project)
+  })
+})
+
+// const projects = ref([
+//   {
+//     id: "1",
+//     title: "Creative Design",
+//     img_url: "our-project/project01.jpg",
+//     text: "Design",
+//   },
+//   {
+//     id: "2",
+//     title: "Business Idea",
+//     img_url: "our-project/project02.jpg",
+//     text: "Business",
+//   },
+//   {
+//     id: "3",
+//     title: "Web Development",
+//     img_url: "our-project/project03.jpg",
+//     text: "Development",
+//   },
+//   {
+//     id: "4",
+//     title: "Mobile Development",
+//     img_url: "our-project/project04.jpg",
+//     text: "Mobile",
+//   },
+// ])
 </script>
 
 <style scoped>

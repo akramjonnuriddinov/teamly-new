@@ -3,7 +3,7 @@ export type TextFields = {
   tasks: String
 }
 
-export type Vacancy = {
+export interface Vacancy {
   id: String,
   location: String,
   title: String,

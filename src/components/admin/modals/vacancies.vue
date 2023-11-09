@@ -143,7 +143,7 @@ import { ref, computed } from "vue"
 import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
 import { v4 as uuidv4 } from "uuid"
-import { TextFields, Vacancy, Category } from "@/components/admin/models"
+import { TextFields, Vacancy, Category } from "../models"
 
 const db = useFirestore()
 const props = defineProps(["input"])
