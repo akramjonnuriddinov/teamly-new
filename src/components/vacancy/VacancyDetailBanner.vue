@@ -26,18 +26,18 @@
             <span>{{ vacancy.time }}</span>
           </div>
         </div>
-        <button
+        <base-button
           @click="$emit('open')"
-          class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color"
+          styles="py-[18px] px-[120px] inline-block max-[990px]:mt-5 max-[990px]:w-ful"
+          >Apply</base-button
         >
-          Apply
-        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import BaseButton from "@/components/reusables/BaseButton.vue"
 defineProps(["vacancy"])
 </script>
 

@@ -66,11 +66,16 @@
           </div>
 
           <div class="flex justify-end mt-4">
-            <button
+            <!-- <button
               class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-8 tracking-[0.5px] transition-all duration-300 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green"
             >
               Add Vacancy
-            </button>
+            </button> -->
+            <base-button
+              styles="py-[18px] px-8 inline-block max-[990px]:w-ful max-[990px]:mt-5"
+            >
+              Add Vacancy
+            </base-button>
           </div>
         </form>
       </div>

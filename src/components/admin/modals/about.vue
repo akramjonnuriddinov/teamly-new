@@ -35,7 +35,7 @@
             >
               <label
                 for="dropzone-file"
-                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 "
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
               >
                 <div
                   class="flex flex-col items-center justify-center pt-5 pb-6"
@@ -110,7 +110,7 @@ import { ref, computed } from "vue"
 import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
 import { v4 as uuidv4 } from "uuid"
-import { TextFields, Vacancy, Category } from "../models"
+import { TextFields, Vacancy } from "../models"
 
 const db = useFirestore()
 const props = defineProps(["input"])
@@ -126,9 +126,6 @@ const vacancy = ref<Vacancy>({
   requirements: [],
   tasks: [],
 })
-
-const categories = ref<Category>(["Backend", "Mobile", "Design", "Frontend"])
-const times = ref(["Online, Fulltime", "Onsite, Fulltime"])
 
 const textFields = ref<TextFields>({
   requirements: "",
@@ -154,16 +151,6 @@ const addVacancy = async () => {
   }
 }
 
-// const updateVacancy = async () => {
-//   const documentRef = doc(db, "vacancies", "yourDocumentId")
-
-//   try {
-//     await updateDoc(documentRef, {
-//       vacancy.value = { ...props.input }
-//     })
-//   } catch {}
-// }
-
 const isDisabled = computed(() => {
   return !(
     vacancy.value.location?.trim() &&
@@ -175,14 +162,6 @@ const isDisabled = computed(() => {
     vacancy.value.tasks.length
   )
 })
-
-function addItem(slug: keyof TextFields) {
-  const trimmedText = textFields.value[slug].trim()
-  if (trimmedText) {
-    vacancy.value[slug].push(trimmedText)
-    textFields.value[slug] = ""
-  }
-}
 
 const emptyVacancy = {
   id: "",

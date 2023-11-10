@@ -125,12 +125,18 @@
             >
               Edit Vacancy
             </button>
-            <button
+            <base-button
+              :disabled="isDisabled"
+              styles="disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green py-[13px] px-[60px]"
+            >
+              Add Vacancy
+            </base-button>
+            <!-- <button
               :disabled="isDisabled"
               class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-8 tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green"
             >
               Add Vacancy
-            </button>
+            </button> -->
           </div>
         </form>
       </div>

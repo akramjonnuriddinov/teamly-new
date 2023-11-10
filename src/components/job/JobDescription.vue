@@ -28,17 +28,15 @@
           <span class="text-[#5B5A78]">{{ task }}</span>
         </li>
       </ul>
-      <button
-        class="bg-tg-primary-color mt-12 text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
-        @click="$emit('open')"
-      >
+      <base-button styles="px-[120px] py-[18px] mt-12" @click="$emit('open')">
         Apply
-      </button>
+      </base-button>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import BaseButton from "@/components/reusables/BaseButton.vue"
 defineProps(["vacancy"])
 </script>
 

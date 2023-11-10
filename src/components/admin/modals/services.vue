@@ -37,7 +37,7 @@
             >
               <label
                 for="dropzone-file"
-                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 "
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
               >
                 <div
                   class="flex flex-col items-center justify-center pt-5 pb-6"
@@ -86,20 +86,20 @@
           </div>
 
           <div class="flex justify-end mt-4">
-            <button
+            <base-button
               @click="$emit('edit')"
               type="button"
               :disabled="isDisabled"
-              class="bg-tg-green text-tg-white rounded-[10px] font-bold inline-block text-center mr-5 whitespace-nowrap py-[18px] px-8 tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color"
+              styles="disabled:cursor-auto  disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color mr-5 py-[13px] px-[40px]"
             >
               Edit Vacancy
-            </button>
-            <button
+            </base-button>
+            <base-button
               :disabled="isDisabled"
-              class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-8 tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green"
+              styles="disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green py-[13px] px-[40px]"
             >
               Add Vacancy
-            </button>
+            </base-button>
           </div>
         </form>
       </div>
@@ -112,7 +112,8 @@ import { ref, computed } from "vue"
 import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
 import { v4 as uuidv4 } from "uuid"
-import { TextFields, Vacancy, Category } from "../models"
+import { TextFields, Vacancy } from "../models"
+import BaseButton from "@/components/reusables/BaseButton.vue"
 
 const db = useFirestore()
 const props = defineProps(["input"])
@@ -128,9 +129,6 @@ const vacancy = ref<Vacancy>({
   requirements: [],
   tasks: [],
 })
-
-const categories = ref<Category>(["Backend", "Mobile", "Design", "Frontend"])
-const times = ref(["Online, Fulltime", "Onsite, Fulltime"])
 
 const textFields = ref<TextFields>({
   requirements: "",
@@ -177,14 +175,6 @@ const isDisabled = computed(() => {
     vacancy.value.tasks.length
   )
 })
-
-function addItem(slug: keyof TextFields) {
-  const trimmedText = textFields.value[slug].trim()
-  if (trimmedText) {
-    vacancy.value[slug].push(trimmedText)
-    textFields.value[slug] = ""
-  }
-}
 
 const emptyVacancy = {
   id: "",

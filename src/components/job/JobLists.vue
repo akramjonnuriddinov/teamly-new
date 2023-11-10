@@ -32,12 +32,12 @@
               <span>{{ job.time }}</span>
             </div>
             <p class="text-[#5B5A78] mb-12">{{ job.text }}</p>
-            <button
+            <base-button
               @click="$emit('open')"
-              class="mt-auto bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[25px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
+              styles="mt-auto py-[18px] px-[25px]"
             >
               Apply
-            </button>
+            </base-button>
           </div>
         </li>
       </ul>
@@ -49,6 +49,7 @@
 import { ref, onMounted } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
 import { useFirestore } from "vuefire"
+import BaseButton from "@/components/reusables/BaseButton.vue"
 defineProps(["isShow"])
 const db = useFirestore()
 

@@ -27,20 +27,11 @@
       </div>
     </div>
     <div class="flex justify-end">
-      <button
-        @click="createModal()"
-        class="bg-tg-primary-color mt-12 text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[60px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
-      >
+      <base-button @click="createModal()" styles="mt-12 py-[13px] px-[60px]">
         Create
-      </button>
+      </base-button>
     </div>
   </div>
-  <!-- <admin-modal
-    v-if="isShow"
-    :input="selectedItem"
-    @edit="editVacancy"
-    @close="isShow = false"
-  /> -->
   <component
     :is="currentModal"
     v-if="isShow"
@@ -56,6 +47,7 @@ import { collection, query, getDocs } from "firebase/firestore"
 import { doc, deleteDoc } from "firebase/firestore"
 import { useFirestore } from "vuefire"
 import { Vacancy } from "./models"
+import BaseButton from "@/components/reusables/BaseButton.vue"
 
 const props = defineProps(["title"])
 
@@ -103,11 +95,9 @@ const createModal = () => {
 }
 
 const removeVacancy = async (id: any) => {
-  options.value = options.value.filter((item: Vacancy) => item.id != id)
   await deleteDoc(doc(db, "vacancies", id))
+  options.value = options.value.filter((item: Vacancy) => item.id != id)
 }
 
-const editVacancy = async (id: any) => {
-  console.log(id)
-}
+const editVacancy = async (id: any) => {}
 </script>
