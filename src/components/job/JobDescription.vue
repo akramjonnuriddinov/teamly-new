@@ -28,7 +28,12 @@
           <span class="text-[#5B5A78]">{{ task }}</span>
         </li>
       </ul>
-      <base-button styles="px-[120px] py-[18px] mt-12" @click="$emit('open')">
+      <base-button
+        :size="ESize.BIG"
+        :theme="EThemes.DEFAULT"
+        class="mt-12"
+        @click="$emit('open')"
+      >
         Apply
       </base-button>
     </div>
@@ -37,6 +42,8 @@
 
 <script setup lang="ts">
 import BaseButton from "@/components/reusables/BaseButton.vue"
+import { EThemes, ESize } from "@/types/types"
+
 defineProps(["vacancy"])
 </script>
 

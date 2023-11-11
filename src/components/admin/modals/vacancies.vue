@@ -118,18 +118,22 @@
 
           <div class="flex justify-end mt-4">
             <base-button
+              :size="ESize.SMALL"
+              :theme="EThemes.GREEN"
               @click="$emit('edit')"
               type="button"
               :disabled="isDisabled"
-              styles="disabled:cursor-auto  disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color mr-5 py-[13px] px-[40px]"
+              class="max-[990px]:mt-5 mr-5"
             >
-              Edit Vacancy
+              Update
             </base-button>
             <base-button
+              :size="ESize.SMALL"
+              :theme="EThemes.DEFAULT"
               :disabled="isDisabled"
-              styles="disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green py-[13px] px-[40px]"
+              class="max-[990px]:mt-5"
             >
-              Add Vacancy
+              Add
             </base-button>
           </div>
         </form>
@@ -142,20 +146,22 @@
 import { ref, computed } from "vue"
 import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
-import { v4 as uuidv4 } from "uuid"
-import { TextFields, Vacancy, Category } from "../models"
+import { TextFields, Category } from "../models"
 import BaseButton from "@/components/reusables/BaseButton.vue"
+import type { Vacancy } from "@/types/types"
+import { ESize, EThemes } from "@/types/types"
 
 const db = useFirestore()
 const props = defineProps(["input"])
 
 const vacancyCollectionRef = collection(db, "vacancies")
 const vacancy = ref<Vacancy>({
-  id: uuidv4(),
+  id: "",
   location: "",
   title: "",
   category: "",
   time: "",
+  date: 0,
   text: "",
   requirements: [],
   tasks: [],
@@ -227,6 +233,7 @@ const emptyVacancy = {
   text: "",
   requirements: [],
   tasks: [],
+  date: 0,
 }
 
 function clearInput() {

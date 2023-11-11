@@ -17,11 +17,9 @@
           <p class="mb-10 text-lg text-[#757589] max-[990px]:text-center">
             {{ props.text }}
           </p>
-          <router-link
-            class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[25px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
-            to="/"
-            >Get Started</router-link
-          >
+          <base-button :size="ESize.DEFAULT" :theme="EThemes.DEFAULT">
+            Get Started
+          </base-button>
         </div>
         <img
           class="max-w-[470px] w-full pt-[100px] max-[990px]:pb-0 max-[990px]:pt-16 pb-8"
@@ -37,6 +35,9 @@
 </template>
 
 <script setup lang="ts">
+import BaseButton from "@/components/reusables/BaseButton.vue"
+import { EThemes, ESize } from "@/types/types"
+
 const props = defineProps<{
   title?: string
   text?: string

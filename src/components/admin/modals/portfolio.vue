@@ -116,18 +116,22 @@
           </div>
           <div class="flex justify-end mt-4">
             <base-button
+              :size="ESize.SMALL"
+              :theme="EThemes.GREEN"
               @click="$emit('edit')"
               type="button"
               :disabled="isDisabled"
-              styles="disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color mr-5 py-[13px] px-[40px]"
+              class="max-[990px]:mt-5 mr-5"
             >
-              Edit Vacancy
+              Update
             </base-button>
             <base-button
+              :size="ESize.SMALL"
+              :theme="EThemes.DEFAULT"
               :disabled="isDisabled"
-              styles="disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green py-[13px] px-[40px]"
+              class="max-[990px]:mt-5"
             >
-              Add Vacancy
+              Add
             </base-button>
           </div>
         </form>
@@ -140,16 +144,16 @@
 import { ref, computed } from "vue"
 import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
-import { v4 as uuidv4 } from "uuid"
 import { Category } from "../models"
 import BaseButton from "@/components/reusables/BaseButton.vue"
+import { EThemes, ESize } from "@/types/types"
 
 const db = useFirestore()
 const props = defineProps(["input"])
 
 const vacancyCollectionRef = collection(db, "portfolio")
 const vacancy = ref<any>({
-  id: uuidv4(),
+  id: "",
   title: "",
   category: "",
   text: "",
@@ -182,7 +186,6 @@ const uploadImage = (e: any) => {
   reader.readAsDataURL(image)
   reader.onload = (event: any) => {
     vacancy.value.image = event.target.result
-    console.log(vacancy.value.image)
   }
 }
 

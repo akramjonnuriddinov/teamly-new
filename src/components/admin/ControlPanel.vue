@@ -4,7 +4,7 @@
     <div>
       <div
         class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
-        v-for="(item, index) in options"
+        v-for="(item, index) in vacancies"
         :key="index"
       >
         <h3>
@@ -27,7 +27,12 @@
       </div>
     </div>
     <div class="flex justify-end">
-      <base-button @click="createModal()" styles="mt-12 py-[13px] px-[60px]">
+      <base-button
+        class="mt-12"
+        @click="createModal()"
+        :size="ESize.SMALL"
+        :theme="EThemes.DEFAULT"
+      >
         Create
       </base-button>
     </div>
@@ -48,16 +53,19 @@ import { doc, deleteDoc } from "firebase/firestore"
 import { useFirestore } from "vuefire"
 import type { Vacancy } from "@/types/types"
 import BaseButton from "@/components/reusables/BaseButton.vue"
+import { ESize, EThemes } from "@/types/types"
 
-const props = defineProps(["title"])
+const props = defineProps<{
+  title: string
+}>()
 
-const isShow = ref(false)
+const isShow = ref<Boolean>(false)
 
 const db = useFirestore()
 
 const currentModal = ref(null)
 
-const options = ref<Vacancy[]>([])
+const vacancies = ref<Vacancy[]>()
 
 watch(
   () => props.title,
@@ -65,12 +73,11 @@ watch(
     try {
       const q = query(collection(db, value))
       const querySnapshot = await getDocs(q)
-      options.value = []
+      vacancies.value = []
       querySnapshot.forEach((doc) => {
-        const vacancy = ref<Vacancy>()
+        const vacancy = ref()
         vacancy.value = doc.data()
-        console.log("watch: ", vacancy.value)
-        options.value.push({ id: doc.id, ...vacancy.value })
+        vacancies.value?.push({ id: doc.id, ...vacancy.value })
       })
       currentModal.value = defineAsyncComponent(
         () => import(`../admin/modals/${props.title}.vue`)
@@ -97,7 +104,7 @@ const createModal = () => {
 
 const removeVacancy = async (id: string) => {
   await deleteDoc(doc(db, "vacancies", id))
-  options.value = options.value.filter((item: Vacancy) => item.id != id)
+  vacancies.value = vacancies.value?.filter((item: Vacancy) => item.id != id)
 }
 
 const editVacancy = async (id: string) => {

@@ -41,12 +41,9 @@
                 </p>
               </li>
             </ul>
-            <router-link
-              class="bg-tg-secondary-color text-tg-white rounded-[10px] font-bold transition-all duration-300 inline-block text-center whitespace-nowrap hover:bg-tg-primary-color"
-              style="padding: 18px 25px; letter-spacing: 0.5px"
-              to="/"
-              >Find Out More</router-link
-            >
+            <base-button :size="ESize.DEFAULT" :theme="EThemes.RED">
+              Find Out More
+            </base-button>
           </div>
           <div>
             <img
@@ -70,6 +67,8 @@
 <script setup lang="ts">
 import WatchVideo from "@/components/static/WatchVideo.vue"
 import { ref } from "vue"
+import BaseButton from "@/components/reusables/BaseButton.vue"
+import { EThemes, ESize } from "@/types/types"
 
 const aboutContents = ref(["Web Development", "App Development", "Consulting"])
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen" id="app">
+  <div class="flex flex-col" id="app">
     <Navbar v-if="!isAdmin" />
     <div class="flex-1">
       <router-view class="main-content" />

@@ -1,5 +1,5 @@
 <template>
-  <section class="banner-area relative overflow-hidden z-[1] h-screen">
+  <section class="banner-area relative overflow-hidden z-[1]">
     <div
       class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
@@ -29,11 +29,9 @@
             We help you transform your ideas into reality. Contact us today and
             let us shape your digital dreams.
           </p>
-          <router-link
-            class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[25px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
-            to="/"
-            >Get Started</router-link
-          >
+          <base-button :size="ESize.DEFAULT" :theme="EThemes.DEFAULT">
+            Get Started
+          </base-button>
         </div>
         <img
           class="max-w-[470px] w-full pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 pb-[130px]"
@@ -59,6 +57,8 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
+import BaseButton from "@/components/reusables/BaseButton.vue"
+import { EThemes, ESize } from "@/types/types"
 
 const customTranslateY = ref(false)
 

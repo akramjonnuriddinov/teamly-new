@@ -17,13 +17,9 @@
             <br class="max-[990px]:hidden" />
             Your Project
           </h2>
-
-          <router-link
-            class="bg-tg-white text-tg-black rounded-[10px] font-bold inline-block text-center whitespace-nowrap transition-all duration-300 hover:bg-tg-secondary-color hover:text-tg-white"
-            style="padding: 18px 60px; letter-spacing: 0.5px"
-            to="/"
-            >Contact Us
-          </router-link>
+          <base-button :size="ESize.MEDIUM" :theme="EThemes.WHITE">
+            Contact Us
+          </base-button>
         </div>
         <img
           class="absolute right-0 -top-20 max-[990px]:hidden"
@@ -34,3 +30,8 @@
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import BaseButton from "@/components/reusables/BaseButton.vue"
+import { EThemes, ESize } from "@/types/types"
+</script>

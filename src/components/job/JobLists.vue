@@ -33,6 +33,8 @@
             </div>
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
             <base-button
+              :size="ESize.BIG"
+              :theme="EThemes.DEFAULT"
               @click="$emit('open')"
               styles="mt-auto py-[18px] px-[25px]"
             >
@@ -50,7 +52,8 @@ import { ref, onMounted } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
 import { useFirestore } from "vuefire"
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { Vacancy } from "@/types/types"
+import { ESize, EThemes } from "@/types/types"
+import type { Vacancy } from "@/types/types"
 
 defineProps(["isShow"])
 const db = useFirestore()
@@ -72,7 +75,6 @@ onMounted(async () => {
       requirements: doc.data().requirements,
       tasks: doc.data().tasks,
       date: doc.data().date,
-      daskd: 1312,
     }
     vacancies.value?.push(vacancy)
   })

@@ -92,13 +92,13 @@
               :disabled="isDisabled"
               styles="disabled:cursor-auto  disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color mr-5 py-[13px] px-[40px]"
             >
-              Edit Vacancy
+              Update
             </base-button>
             <base-button
               :disabled="isDisabled"
               styles="disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-green py-[13px] px-[40px]"
             >
-              Add Vacancy
+              Add
             </base-button>
           </div>
         </form>
