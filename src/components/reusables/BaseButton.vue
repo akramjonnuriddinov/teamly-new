@@ -8,7 +8,14 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+interface BaseButton {
   styles: string
-}>()
+}
+withDefaults(defineProps<BaseButton>(), {
+  styles: "",
+})
 </script>
+
+<!-- 
+  
+ -->

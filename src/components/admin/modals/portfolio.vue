@@ -119,7 +119,7 @@
               @click="$emit('edit')"
               type="button"
               :disabled="isDisabled"
-              styles="disabled:cursor-auto  disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color mr-5 py-[13px] px-[40px]"
+              styles="disabled:cursor-auto disabled:bg-gray-500 max-[990px]:w-ful max-[990px]:mt-5 hover:bg-tg-secondary-color mr-5 py-[13px] px-[40px]"
             >
               Edit Vacancy
             </base-button>

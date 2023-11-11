@@ -20,7 +20,7 @@
           class="flex items-center gap-2 text-lg font-bold transition-all duration-500 text-tg-primary-color hover:text-tg-secondary-color"
           type="button"
         >
-          <span>Go to jobs</span>
+          <span>Go to Vacancies</span>
           <arrow-circle-icon />
         </button>
       </div>
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import ArrowCircleIcon from "@/components/icons/ArrowCircleIcons.vue"
 const scroll = () => {
-  const element = document.getElementById("jobs") as any
+  const element = document.getElementById("vacancies") as any
   element.scrollIntoView({ behavior: "smooth" })
 }
 </script>

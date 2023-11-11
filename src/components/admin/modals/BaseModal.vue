@@ -49,7 +49,9 @@
               />
             </div>
 
-            <div class="flex items-center justify-center w-full">
+            <div
+              class="flex overflow-hidden self-end relative items-center justify-center w-[80%]"
+            >
               <label
                 for="dropzone-file"
                 class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
@@ -79,14 +81,37 @@
                   <p class="text-xs text-gray-500 dark:text-gray-400">
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p>
+                  <img
+                    v-if="vacancy.image"
+                    class="absolute top-0 object-cover w-full h-full rounded-lg"
+                    :src="vacancy.image"
+                    alt=""
+                  />
                 </div>
                 <input
                   id="dropzone-file"
-                  @change="onFileSelected"
+                  @change="uploadImage"
                   type="file"
                   class="hidden"
                 />
               </label>
+              <button
+                v-if="vacancy.image"
+                @click="deleteImage"
+                class="absolute flex items-center justify-center text-2xl text-white transition-all bg-gray-900 rounded-[3px] w-7 h-7 top-5 right-5 hover:text-red-500"
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 384 512"
+                >
+                  <path
+                    d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
           <div class="flex justify-end mt-4">
@@ -116,37 +141,28 @@ import { ref, computed } from "vue"
 import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
 import { v4 as uuidv4 } from "uuid"
-import { TextFields, Vacancy, Category } from "@/components/admin/models"
+import { Category } from "../models"
 import BaseButton from "@/components/reusables/BaseButton.vue"
 
 const db = useFirestore()
 const props = defineProps(["input"])
 
-const vacancyCollectionRef = collection(db, "vacancies")
-const vacancy = ref<Vacancy>({
+const vacancyCollectionRef = collection(db, "portfolio")
+const vacancy = ref<any>({
   id: uuidv4(),
-  location: "",
   title: "",
   category: "",
-  time: "",
   text: "",
-  requirements: [],
-  tasks: [],
+  image: null,
 })
 
 const categories = ref<Category>(["Backend", "Mobile", "Design", "Frontend"])
-
-const textFields = ref<TextFields>({
-  requirements: "",
-  tasks: "",
-})
 
 props.input ? (vacancy.value = { ...props.input }) : vacancy.value
 
 const emit = defineEmits(["close", "edit"])
 
 const addVacancy = async () => {
-  textFields.value.tasks
   try {
     const newVacancy = {
       ...vacancy.value,
@@ -160,19 +176,26 @@ const addVacancy = async () => {
   }
 }
 
-const onFileSelected = (event: any) => {
-  console.log(event)
+const uploadImage = (e: any) => {
+  const image = e.target.files[0]
+  const reader = new FileReader()
+  reader.readAsDataURL(image)
+  reader.onload = (event: any) => {
+    vacancy.value.image = event.target.result
+    console.log(vacancy.value.image)
+  }
+}
+
+const deleteImage = () => {
+  vacancy.value.image = null
 }
 
 const isDisabled = computed(() => {
   return !(
-    vacancy.value.location?.trim() &&
     vacancy.value.title?.trim() &&
     vacancy.value.category &&
-    vacancy.value.time &&
     vacancy.value.text?.trim() &&
-    vacancy.value.requirements.length &&
-    vacancy.value.tasks.length
+    vacancy.value.image
   )
 })
 

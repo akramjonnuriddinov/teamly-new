@@ -46,7 +46,7 @@ import { ref, watch, defineAsyncComponent } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
 import { doc, deleteDoc } from "firebase/firestore"
 import { useFirestore } from "vuefire"
-import { Vacancy } from "./models"
+import type { Vacancy } from "@/types/types"
 import BaseButton from "@/components/reusables/BaseButton.vue"
 
 const props = defineProps(["title"])
@@ -57,7 +57,7 @@ const db = useFirestore()
 
 const currentModal = ref(null)
 
-const options = ref<Array<Vacancy>>([])
+const options = ref<Vacancy[]>([])
 
 watch(
   () => props.title,
@@ -67,9 +67,10 @@ watch(
       const querySnapshot = await getDocs(q)
       options.value = []
       querySnapshot.forEach((doc) => {
-        const job = ref<Vacancy>()
-        job.value = doc.data() as Vacancy
-        options.value.push({ id: doc.id, ...job.value })
+        const vacancy = ref<Vacancy>()
+        vacancy.value = doc.data()
+        console.log("watch: ", vacancy.value)
+        options.value.push({ id: doc.id, ...vacancy.value })
       })
       currentModal.value = defineAsyncComponent(
         () => import(`../admin/modals/${props.title}.vue`)
@@ -94,10 +95,12 @@ const createModal = () => {
   selectedItem.value = null
 }
 
-const removeVacancy = async (id: any) => {
+const removeVacancy = async (id: string) => {
   await deleteDoc(doc(db, "vacancies", id))
   options.value = options.value.filter((item: Vacancy) => item.id != id)
 }
 
-const editVacancy = async (id: any) => {}
+const editVacancy = async (id: string) => {
+  console.log(id)
+}
 </script>

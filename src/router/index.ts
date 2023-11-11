@@ -34,17 +34,12 @@ const router = createRouter({
     {
       path: '/vacancy/:id',
       name: 'vacancyDetail',
-      component: () => import('@/pages/vacancy/Detail.vue')
-    },
-    {
-      path: '/admin/vacancy',
-      name: 'vacancy-admin',
-      component: () => import('@/pages/admin/VacancyDashboard.vue')
+      component: () => import('@/pages/vacancy/detail.vue')
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('@/pages/admin/AdminView.vue'),
+      component: () => import('@/pages/admin/index.vue'),
       children: [
 
       ],

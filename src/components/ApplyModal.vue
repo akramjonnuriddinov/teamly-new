@@ -62,9 +62,9 @@
               >
                 <li
                   class="flex items-center justify-between py-2 transition-all border-b cursor-pointer text-tg-heading-font-color hover:text-tg-body-font-color"
-                  v-for="job in jobs"
+                  v-for="position in positions"
                 >
-                  <span>{{ job.title }}</span>
+                  <span>{{ position.title }}</span>
                   <check-icon />
                 </li>
               </ul>
@@ -98,7 +98,7 @@ import { ref } from "vue"
 import CloseIcon from "@/components/icons/CloseIcon.vue"
 import CheckIcon from "@/components/icons/CheckIcon.vue"
 
-const jobs = ref([
+const positions = ref([
   {
     id: "1",
     title: "Frontend - VueJS",
@@ -117,19 +117,8 @@ const jobs = ref([
   },
 ])
 
-// onUpdated(() => {
-//   if (store.isShow) {
-//     document.body.classList.add("overflow-hidden")
-//   } else {
-//     document.body.classList.remove("overflow-hidden")
-//   }
-// })
-
-// FIREBASE
-
 const all = ref([]) as any
 const resume = ref({
-  id: "uuidv4()",
   name: "",
   phone: "",
   type: "",
