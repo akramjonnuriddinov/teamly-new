@@ -1,5 +1,5 @@
 <template>
-  <base-modal @add="addVacancy" @update="updateVacancy" :close="close" :is-disabled="isDisabled">
+  <base-modal :is-update="isUpdate" @add="addVacancy" @update="updateVacancy" :close="close" :is-disabled="isDisabled">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
@@ -96,9 +96,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { useDocument } from 'vuefire'
 import { useFirestore } from 'vuefire'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 import { TextFields, Category } from '../models'
 import type { Vacancy } from '@/types'
 import BaseModal from './BaseModal.vue'
@@ -107,7 +108,7 @@ const db = useFirestore()
 const props = defineProps(['input'])
 
 const vacancyCollectionRef = collection(db, 'vacancies')
-const vacancy = ref<Vacancy>({
+const initialVacancy = {
   location: '',
   title: '',
   category: '',
@@ -116,7 +117,14 @@ const vacancy = ref<Vacancy>({
   text: '',
   requirements: [],
   tasks: [],
+}
+
+const vacancy = ref<Vacancy>({
+  ...initialVacancy,
+  ...props.input,
 })
+
+const isUpdate = !!props.input?.id
 
 const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
 const times = ref(['Online, Fulltime', 'Onsite, Fulltime'])
@@ -126,13 +134,18 @@ const textFields = ref<TextFields>({
   tasks: '',
 })
 
-props.input ? (vacancy.value = { ...props.input }) : vacancy.value
+let docRef: any = null
+
+if (isUpdate) {
+  docRef = doc(collection(db, 'vacancies'), vacancy.value.id)
+}
 
 const emit = defineEmits(['close', 'edit'])
 const close = () => emit('close')
 
 const addVacancy = async () => {
   try {
+    console.log('vacancy adding...')
     const newVacancy = {
       ...vacancy.value,
       date: Date.now(),
@@ -143,11 +156,20 @@ const addVacancy = async () => {
     emit('close')
   } catch (error) {
     console.error('Error adding vacancy: ', error)
+  } finally {
+    console.log('vacancy added...')
   }
 }
 
-const updateVacancy = () => {
-  console.log('vacancy updated')
+const vacancySource: any = useDocument(docRef)
+watch(vacancySource, (vacancySource) => {
+  vacancy.value = { ...vacancySource } as any
+})
+
+const updateVacancy = async () => {
+  await updateDoc(docRef, {
+    ...vacancy.value,
+  })
 }
 
 const isDisabled = computed(() => {
@@ -170,19 +192,7 @@ function addItem(slug: keyof TextFields) {
   }
 }
 
-const emptyVacancy = {
-  id: '',
-  location: '',
-  title: '',
-  category: '',
-  time: '',
-  text: '',
-  requirements: [],
-  tasks: [],
-  date: 0,
-}
-
 function clearInput() {
-  vacancy.value = { ...emptyVacancy }
+  vacancy.value = { ...initialVacancy }
 }
 </script>

@@ -12,6 +12,7 @@
         <slot></slot>
         <div class="flex justify-end mt-4">
           <base-button
+            v-if="isUpdate"
             :size="ESize.SMALL"
             :theme="EThemes.GREEN"
             @click="$emit('update')"
@@ -21,7 +22,7 @@
           >
             Update
           </base-button>
-          <base-button @click="$emit('add')" :size="ESize.SMALL" :disabled="isDisabled" class="max-[990px]:mt-5">
+          <base-button v-else @click="$emit('add')" :size="ESize.SMALL" :disabled="isDisabled" class="max-[990px]:mt-5">
             Add
           </base-button>
         </div>
@@ -34,7 +35,7 @@
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize, EThemes } from '@/types'
 
-defineProps(['isDisabled', 'close'])
+defineProps(['isDisabled', 'close', 'isUpdate'])
 
 const emit = defineEmits(['update', 'add'])
 </script>

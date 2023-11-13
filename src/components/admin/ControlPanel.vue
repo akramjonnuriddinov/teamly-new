@@ -9,6 +9,7 @@
     </div>
     <div v-else>
       <div
+        v-if="vacancies?.length"
         class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
         v-for="(item, index) in vacancies"
         :key="index"
@@ -21,21 +22,21 @@
           <button @click="removeVacancy(item.id)" class="text-red-500 hover:text-red-700">Remove</button>
         </div>
       </div>
+      <div v-else>Nothing found...😢</div>
     </div>
     <div class="flex justify-end">
       <base-button class="mt-12" @click="createModal" :size="ESize.SMALL"> Create </base-button>
     </div>
   </div>
-  <component :is="currentModal" v-if="isShow" :input="selectedItem" @edit="editVacancy" @close="isShow = false" />
+  <component :is="currentModal" v-if="isShow" :input="selectedItem" @close="isShow = false" />
 </template>
 
 <script setup lang="ts">
 import { ref, watch, defineAsyncComponent } from 'vue'
-import { collection, query, getDocs } from 'firebase/firestore'
-import { doc, deleteDoc } from 'firebase/firestore'
+import { collection, query, getDocs, doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import type { Vacancy } from '@/types'
 import BaseButton from '@/components/reusables/BaseButton.vue'
+import type { Vacancy } from '@/types'
 import { ESize } from '@/types'
 
 const props = defineProps<{
@@ -52,25 +53,29 @@ const vacancies = ref<Vacancy[]>()
 
 const isLoading = ref(true)
 
+const fetchData = async (value: string) => {
+  try {
+    isLoading.value = true
+    const q = query(collection(db, value))
+    const querySnapshot = await getDocs(q)
+    vacancies.value = []
+    querySnapshot.forEach((doc) => {
+      const vacancy = ref()
+      vacancy.value = doc.data()
+      vacancies.value?.push({ ...vacancy.value, id: doc.id })
+    })
+    currentModal.value = defineAsyncComponent(() => import(`../admin/modals/${props.title}.vue`))
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  } finally {
+    isLoading.value = false
+  }
+}
+
 watch(
   () => props.title,
-  async (value) => {
-    try {
-      isLoading.value = true
-      const q = query(collection(db, value))
-      const querySnapshot = await getDocs(q)
-      vacancies.value = []
-      querySnapshot.forEach((doc) => {
-        const vacancy = ref()
-        vacancy.value = doc.data()
-        vacancies.value?.push({ ...vacancy.value, id: doc.id })
-      })
-      currentModal.value = defineAsyncComponent(() => import(`../admin/modals/${props.title}.vue`))
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    } finally {
-      isLoading.value = false
-    }
+  (value) => {
+    fetchData(value)
   },
   {
     immediate: true,
@@ -83,20 +88,14 @@ const editOption = (item: Vacancy) => {
   isShow.value = true
 }
 
-const createModal = () => {
-  isShow.value = true
-  selectedItem.value = null
-}
-
 const removeVacancy = async (id: any) => {
-  console.log(id)
-  console.log('vacancies-value: ', vacancies.value)
   await deleteDoc(doc(db, 'vacancies', id))
   vacancies.value = vacancies.value?.filter((item: Vacancy) => item.id != id)
 }
 
-const editVacancy = async (id: string) => {
-  console.log(id)
+const createModal = () => {
+  isShow.value = true
+  selectedItem.value = null
 }
 </script>
 
