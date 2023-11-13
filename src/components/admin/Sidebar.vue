@@ -45,20 +45,21 @@ const links = ref([
     icon: VacancyIcon,
   },
   {
-    name: "services",
+    name: "portfolio",
     icon: ServiceIcon,
   },
+
   {
     name: "blog",
     icon: BlogIcon,
   },
   {
-    name: "about",
-    icon: AboutIcon,
+    name: "services",
+    icon: ServiceIcon,
   },
   {
-    name: "portfolio",
-    icon: ServiceIcon,
+    name: "about",
+    icon: AboutIcon,
   },
 ])
 </script>

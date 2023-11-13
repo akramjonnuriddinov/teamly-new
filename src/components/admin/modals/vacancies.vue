@@ -5,7 +5,7 @@
     :close="close"
     :is-disabled="isDisabled"
   >
-    <form class="w-full h-auto overflow-y-auto" @submit.prevent="addVacancy">
+    <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
           <label class="text-gray-700" for="username">Location</label>

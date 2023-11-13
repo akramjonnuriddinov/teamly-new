@@ -1,7 +1,13 @@
 <template>
   <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <h2 class="mb-10 text-3xl capitalize">{{ title }}</h2>
-    <div>
+    <div v-if="isLoading" class="flex justify-center">
+      <div class="loader">
+        <div class="loader-outter"></div>
+        <div class="loader-inner"></div>
+      </div>
+    </div>
+    <div v-else>
       <div
         class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
         v-for="(item, index) in vacancies"
@@ -62,10 +68,13 @@ const currentModal = ref(null)
 
 const vacancies = ref<Vacancy[]>()
 
+const isLoading = ref(true)
+
 watch(
   () => props.title,
   async (value) => {
     try {
+      isLoading.value = true
       const q = query(collection(db, value))
       const querySnapshot = await getDocs(q)
       vacancies.value = []
@@ -79,6 +88,9 @@ watch(
       )
     } catch (error) {
       console.error("Error fetching data:", error)
+    } finally {
+      isLoading.value = false
+      console.log("done...")
     }
   },
   {
@@ -107,3 +119,84 @@ const editVacancy = async (id: string) => {
   console.log(id)
 }
 </script>
+
+<style scoped>
+#preloader {
+  background-color: #fff;
+  opacity: 1;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  margin-top: 0px;
+  top: 0px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-center {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.loader {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 75px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.loader-outter {
+  position: absolute;
+  border: 4px solid #7e54f8;
+  border-left-color: transparent;
+  border-bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -webkit-animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41)
+    infinite;
+  animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+}
+
+.loader-inner {
+  position: absolute;
+  border: 4px solid #7e54f8;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  left: calc(50% - 20px);
+  top: calc(50% - 20px);
+  border-right: 0;
+  border-top-color: transparent;
+  -webkit-animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41)
+    infinite;
+  animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+}
+@keyframes loader-inner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes loader-outter {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+</style>
