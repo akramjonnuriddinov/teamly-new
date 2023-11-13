@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { ESize, EThemes } from "@/types"
+import { ESize, EThemes } from '@/types'
 
 interface ButtonShape {
   size: ESize
@@ -21,18 +21,15 @@ const props = withDefaults(defineProps<ButtonShape>(), {
 })
 
 const theme = {
-  [EThemes.DEFAULT]:
-    "bg-tg-primary-color text-tg-white hover:bg-tg-secondary-color",
-  [EThemes.GREEN]:
-    "bg-tg-secondary-color text-tg-white hover:bg-tg-primary-color",
-  [EThemes.RED]: "bg-tg-green text-tg-white hover:bg-tg-teal",
-  [EThemes.WHITE]:
-    "bg-tg-white text-tg-black hover:bg-tg-secondary-color hover:text-tg-white",
+  [EThemes.DEFAULT]: 'bg-tg-primary-color text-tg-white hover:bg-tg-secondary-color',
+  [EThemes.GREEN]: 'bg-tg-secondary-color text-tg-white hover:bg-tg-primary-color',
+  [EThemes.RED]: 'bg-tg-green text-tg-white hover:bg-tg-teal',
+  [EThemes.WHITE]: 'bg-tg-white text-tg-black hover:bg-tg-secondary-color hover:text-tg-white',
 }
 const size = {
-  [ESize.DEFAULT]: "px-[25px] py-[18px]",
-  [ESize.SMALL]: "px-[60px] py-[13px]",
-  [ESize.MEDIUM]: "px-[60px] py-[18px]",
-  [ESize.BIG]: "px-[120px] py-[18px]",
+  [ESize.DEFAULT]: 'px-[25px] py-[18px]',
+  [ESize.SMALL]: 'px-[60px] py-[13px]',
+  [ESize.MEDIUM]: 'px-[60px] py-[18px]',
+  [ESize.BIG]: 'px-[120px] py-[18px]',
 }
 </script>

@@ -1,5 +1,5 @@
 export type Vacancy = {
-  id: string
+  id?: string | undefined
   title: string
   text: string
   location: string

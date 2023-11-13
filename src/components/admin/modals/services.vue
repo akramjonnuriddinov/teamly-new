@@ -9,10 +9,7 @@
         class="container overflow-y-auto h-full bg-white relative px-5 rounded-xl p-5 mx-auto max-w-[600px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
       >
         <h1 class="mb-5 text-4xl text-center">Service Modal</h1>
-        <form
-          class="w-full h-auto overflow-y-auto"
-          @submit.prevent="addVacancy"
-        >
+        <form class="w-full h-auto overflow-y-auto" @submit.prevent="addVacancy">
           <div class="flex flex-col w-full">
             <div class="flex items-center justify-between w-full">
               <label class="text-gray-700" for="username">Title</label>
@@ -32,16 +29,12 @@
               />
             </div>
 
-            <div
-              class="flex self-end relative items-center justify-center w-[80%]"
-            >
+            <div class="flex self-end relative items-center justify-center w-[80%]">
               <label
                 for="dropzone-file"
                 class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
               >
-                <div
-                  class="flex flex-col items-center justify-center pt-5 pb-6"
-                >
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
                   <svg
                     class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
                     aria-hidden="true"
@@ -58,12 +51,9 @@
                     />
                   </svg>
                   <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span class="font-semibold">Click to upload</span> or drag
-                    and drop
+                    <span class="font-semibold">Click to upload</span> or drag and drop
                   </p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">
-                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                 </div>
                 <input id="dropzone-file" type="file" class="hidden" />
               </label>
@@ -71,12 +61,7 @@
                 class="absolute text-3xl text-red-500 transition-all top-5 right-5 hover:text-red-600"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="1em"
-                  viewBox="0 0 448 512"
-                >
+                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                   <path
                     d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"
                   />

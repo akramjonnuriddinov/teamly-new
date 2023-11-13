@@ -1,10 +1,5 @@
 <template>
-  <base-modal
-    @add="addVacancy"
-    @update="updateVacancy"
-    :close="close"
-    :is-disabled="isDisabled"
-  >
+  <base-modal @add="addVacancy" @update="updateVacancy" :close="close" :is-disabled="isDisabled">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
@@ -31,12 +26,7 @@
             id="category"
           >
             <option value="" disabled selected>Select Category</option>
-            <option
-              selected
-              v-for="(category, index) in categories"
-              :key="index"
-              :value="category"
-            >
+            <option selected v-for="(category, index) in categories" :key="index" :value="category">
               {{ category }}
             </option>
           </select>
@@ -49,12 +39,7 @@
             id="time"
           >
             <option value="" disabled selected>Select Time</option>
-            <option
-              selected
-              v-for="(time, index) in times"
-              :key="index"
-              :value="time"
-            >
+            <option selected v-for="(time, index) in times" :key="index" :value="time">
               {{ time }}
             </option>
           </select>
@@ -84,9 +69,7 @@
           </button>
         </div>
         <ul class="w-[80%] p-2 ml-auto max-h-[200px] overflow-y-auto">
-          <li v-for="(requirement, index) in vacancy.requirements">
-            {{ index + 1 }}. {{ requirement }}
-          </li>
+          <li v-for="(requirement, index) in vacancy.requirements">{{ index + 1 }}. {{ requirement }}</li>
         </ul>
         <div class="relative flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="username">Tasks</label>
@@ -105,9 +88,7 @@
           </button>
         </div>
         <ul class="w-[80%] p-2 ml-auto max-h-[100px] overflow-y-auto">
-          <li v-for="(task, index) in vacancy.tasks">
-            {{ index + 1 }}. {{ task }}
-          </li>
+          <li v-for="(task, index) in vacancy.tasks">{{ index + 1 }}. {{ task }}</li>
         </ul>
       </div>
     </form>
@@ -115,41 +96,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue"
-import { useFirestore } from "vuefire"
-import { addDoc, collection } from "firebase/firestore"
-import { TextFields, Category } from "../models"
-import type { Vacancy } from "@/types"
-import BaseModal from "./BaseModal.vue"
+import { ref, computed } from 'vue'
+import { useFirestore } from 'vuefire'
+import { addDoc, collection } from 'firebase/firestore'
+import { TextFields, Category } from '../models'
+import type { Vacancy } from '@/types'
+import BaseModal from './BaseModal.vue'
 
 const db = useFirestore()
-const props = defineProps(["input"])
+const props = defineProps(['input'])
 
-const vacancyCollectionRef = collection(db, "vacancies")
+const vacancyCollectionRef = collection(db, 'vacancies')
 const vacancy = ref<Vacancy>({
-  id: "",
-  location: "",
-  title: "",
-  category: "",
-  time: "",
+  location: '',
+  title: '',
+  category: '',
+  time: '',
   date: 0,
-  text: "",
+  text: '',
   requirements: [],
   tasks: [],
 })
 
-const categories = ref<Category>(["Backend", "Mobile", "Design", "Frontend"])
-const times = ref(["Online, Fulltime", "Onsite, Fulltime"])
+const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
+const times = ref(['Online, Fulltime', 'Onsite, Fulltime'])
 
 const textFields = ref<TextFields>({
-  requirements: "",
-  tasks: "",
+  requirements: '',
+  tasks: '',
 })
 
 props.input ? (vacancy.value = { ...props.input }) : vacancy.value
 
-const emit = defineEmits(["close", "edit"])
-const close = () => emit("close")
+const emit = defineEmits(['close', 'edit'])
+const close = () => emit('close')
 
 const addVacancy = async () => {
   try {
@@ -157,16 +137,17 @@ const addVacancy = async () => {
       ...vacancy.value,
       date: Date.now(),
     }
+
     await addDoc(vacancyCollectionRef, newVacancy)
     clearInput()
-    emit("close")
+    emit('close')
   } catch (error) {
-    console.error("Error adding vacancy: ", error)
+    console.error('Error adding vacancy: ', error)
   }
 }
 
 const updateVacancy = () => {
-  console.log("vacancy updated")
+  console.log('vacancy updated')
 }
 
 const isDisabled = computed(() => {
@@ -185,17 +166,17 @@ function addItem(slug: keyof TextFields) {
   const trimmedText = textFields.value[slug].trim()
   if (trimmedText) {
     vacancy.value[slug].push(trimmedText)
-    textFields.value[slug] = ""
+    textFields.value[slug] = ''
   }
 }
 
 const emptyVacancy = {
-  id: "",
-  location: "",
-  title: "",
-  category: "",
-  time: "",
-  text: "",
+  id: '',
+  location: '',
+  title: '',
+  category: '',
+  time: '',
+  text: '',
   requirements: [],
   tasks: [],
   date: 0,

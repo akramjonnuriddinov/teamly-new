@@ -21,12 +21,7 @@
           >
             Update
           </base-button>
-          <base-button
-            @click="$emit('add')"
-            :size="ESize.SMALL"
-            :disabled="isDisabled"
-            class="max-[990px]:mt-5"
-          >
+          <base-button @click="$emit('add')" :size="ESize.SMALL" :disabled="isDisabled" class="max-[990px]:mt-5">
             Add
           </base-button>
         </div>
@@ -36,10 +31,10 @@
 </template>
 
 <script setup lang="ts">
-import BaseButton from "@/components/reusables/BaseButton.vue"
-import { ESize, EThemes } from "@/types"
+import BaseButton from '@/components/reusables/BaseButton.vue'
+import { ESize, EThemes } from '@/types'
 
-defineProps(["isDisabled", "close"])
+defineProps(['isDisabled', 'close'])
 
-const emit = defineEmits(["update", "add"])
+const emit = defineEmits(['update', 'add'])
 </script>

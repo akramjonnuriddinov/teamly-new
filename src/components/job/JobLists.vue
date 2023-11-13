@@ -55,6 +55,7 @@ import { ESize } from "@/types"
 import type { Vacancy } from "@/types"
 
 defineProps(["isShow"])
+
 const db = useFirestore()
 
 const vacancies = ref<Vacancy[]>([])

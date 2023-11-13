@@ -1,10 +1,5 @@
 <template>
-  <base-modal
-    :is-disabled="isDisabled"
-    :close="close"
-    @add="addVacancy"
-    @update="updateVacancy"
-  >
+  <base-modal :is-disabled="isDisabled" :close="close" @add="addVacancy" @update="updateVacancy">
     <form class="w-full h-auto overflow-y-auto" @submit.prevent="addVacancy">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
@@ -23,12 +18,7 @@
             id="category"
           >
             <option value="" disabled selected>Select Category</option>
-            <option
-              selected
-              v-for="(category, index) in categories"
-              :key="index"
-              :value="category"
-            >
+            <option selected v-for="(category, index) in categories" :key="index" :value="category">
               {{ category }}
             </option>
           </select>
@@ -42,26 +32,18 @@
           />
         </div>
 
-        <div
-          class="flex overflow-hidden self-end relative items-center justify-center w-[80%]"
-        >
+        <div class="flex overflow-hidden self-end relative items-center justify-center w-[80%]">
           <label
             for="dropzone-file"
             class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
           >
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-              <inline-svg
-                class="text-3xl text-gray-500"
-                src="svg/fontawesome/upload.svg"
-              />
+              <inline-svg class="text-3xl text-gray-500" src="svg/fontawesome/upload.svg" />
 
               <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span class="font-semibold">Click to upload</span> or drag and
-                drop
+                <span class="font-semibold">Click to upload</span> or drag and drop
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
-                SVG, PNG, JPG or GIF (MAX. 800x400px)
-              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
               <img
                 v-if="vacancy.image"
                 class="absolute top-0 object-cover w-full h-full rounded-lg"
@@ -69,12 +51,7 @@
                 alt=""
               />
             </div>
-            <input
-              id="dropzone-file"
-              @change="uploadImage"
-              type="file"
-              class="hidden"
-            />
+            <input id="dropzone-file" @change="uploadImage" type="file" class="hidden" />
           </label>
           <button
             v-if="vacancy.image"
@@ -91,31 +68,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue"
-import { useFirestore } from "vuefire"
-import { addDoc, collection } from "firebase/firestore"
-import { Category } from "../models"
-import InlineSvg from "@/components/reusables/InlineSvg.vue"
-import BaseModal from "@/components/admin/modals/BaseModal.vue"
+import { ref, computed } from 'vue'
+import { useFirestore } from 'vuefire'
+import { addDoc, collection } from 'firebase/firestore'
+import { Category } from '../models'
+import InlineSvg from '@/components/reusables/InlineSvg.vue'
+import BaseModal from '@/components/admin/modals/BaseModal.vue'
 
 const db = useFirestore()
-const props = defineProps(["input"])
+const props = defineProps(['input'])
 
-const vacancyCollectionRef = collection(db, "portfolio")
+const vacancyCollectionRef = collection(db, 'portfolio')
 const vacancy = ref<any>({
-  id: "",
-  title: "",
-  category: "",
-  text: "",
+  id: '',
+  title: '',
+  category: '',
+  text: '',
   image: null,
 })
 
-const categories = ref<Category>(["Backend", "Mobile", "Design", "Frontend"])
+const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
 
 props.input ? (vacancy.value = { ...props.input }) : vacancy.value
 
-const emit = defineEmits(["close", "edit"])
-const close = () => emit("close")
+const emit = defineEmits(['close', 'edit'])
+const close = () => emit('close')
 
 const addVacancy = async () => {
   try {
@@ -125,14 +102,14 @@ const addVacancy = async () => {
     }
     await addDoc(vacancyCollectionRef, newVacancy)
     clearInput()
-    emit("close")
+    emit('close')
   } catch (error) {
-    console.error("Error adding vacancy: ", error)
+    console.error('Error adding vacancy: ', error)
   }
 }
 
 const updateVacancy = () => {
-  console.log("portfolio updated")
+  console.log('portfolio updated')
 }
 
 const uploadImage = (e: any) => {
@@ -149,21 +126,16 @@ const deleteImage = () => {
 }
 
 const isDisabled = computed(() => {
-  return !(
-    vacancy.value.title?.trim() &&
-    vacancy.value.category &&
-    vacancy.value.text?.trim() &&
-    vacancy.value.image
-  )
+  return !(vacancy.value.title?.trim() && vacancy.value.category && vacancy.value.text?.trim() && vacancy.value.image)
 })
 
 const emptyVacancy = {
-  id: "",
-  location: "",
-  title: "",
-  category: "",
-  time: "",
-  text: "",
+  id: '',
+  location: '',
+  title: '',
+  category: '',
+  time: '',
+  text: '',
   requirements: [],
   tasks: [],
 }

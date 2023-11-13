@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import InlineSvg from "vue-inline-svg"
-import { getImageUrl } from "@/composables/getImgUrl"
+import InlineSvg from 'vue-inline-svg'
+import { getImageUrl } from '@/composables/getImgUrl'
 
-defineProps(["src"])
+defineProps(['src'])
 </script>

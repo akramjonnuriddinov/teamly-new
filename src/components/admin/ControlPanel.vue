@@ -17,44 +17,26 @@
           {{ item.title }}
         </h3>
         <div class="flex gap-4">
-          <button
-            @click="editOption(item)"
-            class="text-blue-500 hover:text-blue-700"
-          >
-            Edit
-          </button>
-          <button
-            @click="removeVacancy(item.id)"
-            class="text-red-500 hover:text-red-700"
-          >
-            Remove
-          </button>
+          <button @click="editOption(item)" class="text-blue-500 hover:text-blue-700">Edit</button>
+          <button @click="removeVacancy(item.id)" class="text-red-500 hover:text-red-700">Remove</button>
         </div>
       </div>
     </div>
     <div class="flex justify-end">
-      <base-button class="mt-12" @click="createModal" :size="ESize.SMALL">
-        Create
-      </base-button>
+      <base-button class="mt-12" @click="createModal" :size="ESize.SMALL"> Create </base-button>
     </div>
   </div>
-  <component
-    :is="currentModal"
-    v-if="isShow"
-    :input="selectedItem"
-    @edit="editVacancy"
-    @close="isShow = false"
-  />
+  <component :is="currentModal" v-if="isShow" :input="selectedItem" @edit="editVacancy" @close="isShow = false" />
 </template>
 
 <script setup lang="ts">
-import { ref, watch, defineAsyncComponent } from "vue"
-import { collection, query, getDocs } from "firebase/firestore"
-import { doc, deleteDoc } from "firebase/firestore"
-import { useFirestore } from "vuefire"
-import type { Vacancy } from "@/types"
-import BaseButton from "@/components/reusables/BaseButton.vue"
-import { ESize } from "@/types"
+import { ref, watch, defineAsyncComponent } from 'vue'
+import { collection, query, getDocs } from 'firebase/firestore'
+import { doc, deleteDoc } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
+import type { Vacancy } from '@/types'
+import BaseButton from '@/components/reusables/BaseButton.vue'
+import { ESize } from '@/types'
 
 const props = defineProps<{
   title: string
@@ -81,16 +63,13 @@ watch(
       querySnapshot.forEach((doc) => {
         const vacancy = ref()
         vacancy.value = doc.data()
-        vacancies.value?.push({ id: doc.id, ...vacancy.value })
+        vacancies.value?.push({ ...vacancy.value, id: doc.id })
       })
-      currentModal.value = defineAsyncComponent(
-        () => import(`../admin/modals/${props.title}.vue`)
-      )
+      currentModal.value = defineAsyncComponent(() => import(`../admin/modals/${props.title}.vue`))
     } catch (error) {
-      console.error("Error fetching data:", error)
+      console.error('Error fetching data:', error)
     } finally {
       isLoading.value = false
-      console.log("done...")
     }
   },
   {
@@ -109,9 +88,10 @@ const createModal = () => {
   selectedItem.value = null
 }
 
-const removeVacancy = async (id: string) => {
-  console.log("vacancies-value: ", vacancies.value)
-  await deleteDoc(doc(db, "vacancies", id))
+const removeVacancy = async (id: any) => {
+  console.log(id)
+  console.log('vacancies-value: ', vacancies.value)
+  await deleteDoc(doc(db, 'vacancies', id))
   vacancies.value = vacancies.value?.filter((item: Vacancy) => item.id != id)
 }
 
@@ -159,8 +139,7 @@ const editVacancy = async (id: string) => {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  -webkit-animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41)
-    infinite;
+  -webkit-animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
   animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
 }
 
@@ -174,8 +153,7 @@ const editVacancy = async (id: string) => {
   top: calc(50% - 20px);
   border-right: 0;
   border-top-color: transparent;
-  -webkit-animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41)
-    infinite;
+  -webkit-animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
   animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
 }
 @keyframes loader-inner {
