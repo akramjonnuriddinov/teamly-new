@@ -27,12 +27,7 @@
       </div>
     </div>
     <div class="flex justify-end">
-      <base-button
-        class="mt-12"
-        @click="createModal()"
-        :size="ESize.SMALL"
-        :theme="EThemes.DEFAULT"
-      >
+      <base-button class="mt-12" @click="createModal" :size="ESize.SMALL">
         Create
       </base-button>
     </div>
@@ -51,9 +46,9 @@ import { ref, watch, defineAsyncComponent } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
 import { doc, deleteDoc } from "firebase/firestore"
 import { useFirestore } from "vuefire"
-import type { Vacancy } from "@/types/types"
+import type { Vacancy } from "@/types"
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { ESize, EThemes } from "@/types/types"
+import { ESize } from "@/types"
 
 const props = defineProps<{
   title: string
@@ -103,6 +98,7 @@ const createModal = () => {
 }
 
 const removeVacancy = async (id: string) => {
+  console.log("vacancies-value: ", vacancies.value)
   await deleteDoc(doc(db, "vacancies", id))
   vacancies.value = vacancies.value?.filter((item: Vacancy) => item.id != id)
 }

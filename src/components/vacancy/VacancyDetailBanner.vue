@@ -28,9 +28,8 @@
         </div>
         <base-button
           :size="ESize.BIG"
-          :theme="EThemes.DEFAULT"
           @click="$emit('open')"
-          styles="max-[990px]:mt-5"
+          class="max-[990px]:mt-5"
           >Apply</base-button
         >
       </div>
@@ -40,7 +39,7 @@
 
 <script setup lang="ts">
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { ESize, EThemes } from "@/types/types"
+import { ESize } from "@/types"
 
 defineProps(["vacancy"])
 </script>

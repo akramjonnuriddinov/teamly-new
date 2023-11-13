@@ -34,9 +34,8 @@
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
             <base-button
               :size="ESize.BIG"
-              :theme="EThemes.DEFAULT"
               @click="$emit('open')"
-              styles="mt-auto py-[18px] px-[25px]"
+              class="mt-auto"
             >
               Apply
             </base-button>
@@ -52,8 +51,8 @@ import { ref, onMounted } from "vue"
 import { collection, query, getDocs } from "firebase/firestore"
 import { useFirestore } from "vuefire"
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { ESize, EThemes } from "@/types/types"
-import type { Vacancy } from "@/types/types"
+import { ESize } from "@/types"
+import type { Vacancy } from "@/types"
 
 defineProps(["isShow"])
 const db = useFirestore()

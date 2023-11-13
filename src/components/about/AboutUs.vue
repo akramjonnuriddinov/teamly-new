@@ -41,9 +41,7 @@
                 </p>
               </li>
             </ul>
-            <base-button :size="ESize.DEFAULT" :theme="EThemes.RED">
-              Find Out More
-            </base-button>
+            <base-button :theme="EThemes.RED"> Find Out More </base-button>
           </div>
           <div>
             <img
@@ -68,7 +66,7 @@
 import WatchVideo from "@/components/static/WatchVideo.vue"
 import { ref } from "vue"
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { EThemes, ESize } from "@/types/types"
+import { EThemes } from "@/types"
 
 const aboutContents = ref(["Web Development", "App Development", "Consulting"])
 </script>

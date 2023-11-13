@@ -129,7 +129,6 @@
             </base-button>
             <base-button
               :size="ESize.SMALL"
-              :theme="EThemes.DEFAULT"
               :disabled="isDisabled"
               class="max-[990px]:mt-5"
             >
@@ -148,8 +147,8 @@ import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
 import { TextFields, Category } from "../models"
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import type { Vacancy } from "@/types/types"
-import { ESize, EThemes } from "@/types/types"
+import type { Vacancy } from "@/types"
+import { ESize, EThemes } from "@/types"
 
 const db = useFirestore()
 const props = defineProps(["input"])
@@ -180,7 +179,6 @@ props.input ? (vacancy.value = { ...props.input }) : vacancy.value
 const emit = defineEmits(["close", "edit"])
 
 const addVacancy = async () => {
-  textFields.value.tasks
   try {
     const newVacancy = {
       ...vacancy.value,
@@ -193,16 +191,6 @@ const addVacancy = async () => {
     console.error("Error adding vacancy: ", error)
   }
 }
-
-// const updateVacancy = async () => {
-//   const documentRef = doc(db, "vacancies", "yourDocumentId")
-
-//   try {
-//     await updateDoc(documentRef, {
-//       vacancy.value = { ...props.input }
-//     })
-//   } catch {}
-// }
 
 const isDisabled = computed(() => {
   return !(

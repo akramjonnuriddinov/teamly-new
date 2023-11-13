@@ -127,7 +127,6 @@
             </base-button>
             <base-button
               :size="ESize.SMALL"
-              :theme="EThemes.DEFAULT"
               :disabled="isDisabled"
               class="max-[990px]:mt-5"
             >
@@ -146,7 +145,7 @@ import { useFirestore } from "vuefire"
 import { addDoc, collection } from "firebase/firestore"
 import { Category } from "../models"
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { ESize, EThemes } from "@/types/types"
+import { ESize, EThemes } from "@/types"
 
 const db = useFirestore()
 const props = defineProps(["input"])

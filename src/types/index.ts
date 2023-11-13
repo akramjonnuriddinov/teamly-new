@@ -22,5 +22,4 @@ export enum EThemes {
   GREEN = 'green',
   RED = 'red',
   WHITE = 'white',
-  TRANSPARENT = 'transparent',
 }

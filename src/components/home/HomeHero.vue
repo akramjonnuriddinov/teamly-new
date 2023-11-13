@@ -29,9 +29,7 @@
             We help you transform your ideas into reality. Contact us today and
             let us shape your digital dreams.
           </p>
-          <base-button :size="ESize.DEFAULT" :theme="EThemes.DEFAULT">
-            Get Started
-          </base-button>
+          <base-button> Get Started </base-button>
         </div>
         <img
           class="max-w-[470px] w-full pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 pb-[130px]"
@@ -58,7 +56,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { EThemes, ESize } from "@/types/types"
 
 const customTranslateY = ref(false)
 

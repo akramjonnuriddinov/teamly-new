@@ -17,7 +17,7 @@
           <p class="mb-10 text-lg text-[#757589] max-[990px]:text-center">
             {{ props.text }}
           </p>
-          <base-button :size="ESize.DEFAULT" :theme="EThemes.DEFAULT">
+          <base-button >
             Get Started
           </base-button>
         </div>
@@ -36,7 +36,6 @@
 
 <script setup lang="ts">
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { EThemes, ESize } from "@/types/types"
 
 const props = defineProps<{
   title?: string

@@ -33,5 +33,5 @@
 
 <script setup lang="ts">
 import BaseButton from "@/components/reusables/BaseButton.vue"
-import { EThemes, ESize } from "@/types/types"
+import { EThemes, ESize } from "@/types"
 </script>
