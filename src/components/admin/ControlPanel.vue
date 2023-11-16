@@ -97,14 +97,14 @@ watch(
   },
 )
 
-const selectedItem = ref<Vacancy | null>(null)
-const editOption = (item: Vacancy) => {
+const selectedItem = ref<any>(null)
+const editOption = (item: any) => {
   selectedItem.value = item
   isShow.value = true
 }
 
 const removeVacancy = async (id: any) => {
-  await deleteDoc(doc(db, 'vacancies', id))
+  await deleteDoc(doc(db, props.title, id))
   vacancies.value = vacancies.value.filter((item: Vacancy) => item.id != id)
 }
 

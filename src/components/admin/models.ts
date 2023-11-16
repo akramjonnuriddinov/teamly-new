@@ -1,7 +1,4 @@
-export type TextFields = {
-  requirements: String,
-  tasks: String
-}
+
 
 export interface Vacancy {
   id: String,
@@ -14,5 +11,3 @@ export interface Vacancy {
   tasks: Array<String>
 }
 
-const CategoryList = ['Backend', 'Frontend', 'Mobile', 'Design', 'Product Design']
-export type Category = typeof CategoryList

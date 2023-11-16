@@ -10,6 +10,15 @@ export type Vacancy = {
   tasks: string[]
 }
 
+export type TextFields = {
+  requirements: String,
+  tasks: String
+}
+
+const CategoryList = ['Backend', 'Frontend', 'Mobile', 'Design', 'Product Design']
+export type Category = typeof CategoryList
+
+
 export enum ESize {
   SMALL = 'small',
   MEDIUM = 'medium',

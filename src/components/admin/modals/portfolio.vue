@@ -1,18 +1,17 @@
 <template>
   <base-modal
     :input="props.input"
-    :url="'portfolio'"
-    :old-value="vacancy"
+    url="portfolio"
+    :old-value="portfolio"
     :is-disabled="isDisabled"
-    :close="close"
-    :modal_title="'Portfolio'"
+    modal_title="Portfolio"
   >
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
           <label class="text-gray-700" for="username">Title</label>
           <input
-            v-model="vacancy.title"
+            v-model="portfolio.title"
             class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
             type="text"
           />
@@ -21,7 +20,7 @@
           <label class="text-gray-700" for="category">Category</label>
           <select
             class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-            v-model="vacancy.category"
+            v-model="portfolio.category"
             id="category"
           >
             <option value="" disabled selected>Select Category</option>
@@ -33,7 +32,7 @@
         <div class="flex items-center justify-between w-full mb-5">
           <label class="text-gray-700" for="username">Text</label>
           <input
-            v-model="vacancy.text"
+            v-model="portfolio.text"
             class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
             type="text"
           />
@@ -52,16 +51,16 @@
               </p>
               <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
               <img
-                v-if="vacancy.image"
+                v-if="portfolio.image"
                 class="absolute top-0 object-cover w-full h-full rounded-lg"
-                :src="vacancy.image"
+                :src="portfolio.image"
                 alt=""
               />
             </div>
             <input id="dropzone-file" @change="uploadImage" type="file" class="hidden" />
           </label>
           <button
-            v-if="vacancy.image"
+            v-if="portfolio.image"
             @click="deleteImage"
             class="absolute flex items-center justify-center text-2xl text-white transition-all bg-gray-900 rounded-[3px] w-7 h-7 top-5 right-5 hover:text-red-500"
             type="button"
@@ -76,45 +75,47 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Category } from '../models'
+import { Category } from '@/types'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import BaseModal from '@/components/admin/modals/BaseModal.vue'
 
 const props = defineProps(['input'])
-
-const vacancy = ref<any>({
+const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
+const initialPortfolio = {
   id: '',
   title: '',
   category: '',
   text: '',
   image: null,
+}
+const portfolio = ref({
+  ...initialPortfolio,
+  ...props.input,
 })
-
-const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
-
-props.input ? (vacancy.value = { ...props.input }) : vacancy.value
-
-const emit = defineEmits(['close', 'edit'])
-const close = () => emit('close')
 
 const uploadImage = (e: any) => {
   const image = e.target.files[0]
   const reader = new FileReader()
   reader.readAsDataURL(image)
   reader.onload = (event: any) => {
-    vacancy.value.image = event.target.result
+    if (portfolio.value) {
+      portfolio.value.image = event.target.result
+    } else {
+      console.log('portfolio.value is undefined')
+    }
   }
 }
 
 const deleteImage = () => {
-  vacancy.value.image = null
+  portfolio.value.image = null
 }
 
 const isDisabled = computed(() => {
-  return !(vacancy.value.title?.trim() && vacancy.value.category && vacancy.value.text?.trim() && vacancy.value.image)
+  return !(
+    portfolio.value.title?.trim() &&
+    portfolio.value.category &&
+    portfolio.value.text?.trim() &&
+    portfolio.value.image
+  )
 })
-
-// function clearInput() {
-//   vacancy.value = { ...emptyVacancy }
-// }
 </script>

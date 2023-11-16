@@ -97,8 +97,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-// import { useDocument } from 'vuefire'
-import { TextFields, Category } from '../models'
+import { TextFields, Category } from '@/types'
 import type { Vacancy } from '@/types'
 import BaseModal from './BaseModal.vue'
 
@@ -128,13 +127,6 @@ const textFields = ref<TextFields>({
   tasks: '',
 })
 
-const emit = defineEmits(['edit'])
-// let docRef: any = null
-// const vacancySource: any = useDocument(docRef)
-// watch(vacancySource, (vacancySource) => {
-//   vacancy.value = { ...vacancySource } as any
-// })
-
 const isDisabled = computed(() => {
   return !(
     vacancy.value.location?.trim() &&
@@ -154,8 +146,4 @@ function addItem(slug: keyof TextFields) {
     textFields.value[slug] = ''
   }
 }
-
-// function clearInput() {
-//   vacancy.value = { ...initialVacancy }
-// }
 </script>

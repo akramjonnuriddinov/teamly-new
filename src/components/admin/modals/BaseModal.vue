@@ -32,12 +32,12 @@
 </template>
 
 <script setup lang="ts">
-import BaseButton from '@/components/reusables/BaseButton.vue'
-import { ESize, EThemes } from '@/types'
+import { inject } from 'vue'
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { inject } from 'vue'
+import { ESize, EThemes } from '@/types'
 import { Vacancy } from '@/types'
+import BaseButton from '@/components/reusables/BaseButton.vue'
 
 const db = useFirestore()
 const close: any = inject('close')
