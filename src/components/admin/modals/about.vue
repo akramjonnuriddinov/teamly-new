@@ -90,7 +90,6 @@ const deleteImage = () => {
 }
 
 const isDisabled = computed(() => {
-  return false
-  // return !(about.value.title?.trim() && about.value.position && about.value.image)
+  return !(about.value.title?.trim() && about.value.position && about.value.image)
 })
 </script>
