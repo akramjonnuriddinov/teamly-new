@@ -28,7 +28,7 @@
       <base-button class="mt-12" @click="createModal" :size="ESize.SMALL"> Create </base-button>
     </div>
   </div>
-  <component :is="currentModal" v-if="isShow" :input="selectedItem" />
+  <component :is="currentModal" v-if="isShow" :input="selectedItem" :action="addToList" />
 </template>
 
 <script setup lang="ts">
@@ -46,6 +46,7 @@ const props = defineProps<{
 
 const close = () => (isShow.value = false)
 provide('close', close)
+provide('addToList', addToList)
 
 const isShow = ref<Boolean>(false)
 
@@ -56,6 +57,15 @@ const currentModal = ref(null)
 const vacancies = ref<Vacancy[]>()
 
 const isLoading = ref(true)
+provide('isLoadingTrue', isLoadingTrue)
+provide('isLoadingFalse', isLoadingFalse)
+
+function isLoadingTrue() {
+  isLoading.value = true
+}
+function isLoadingFalse() {
+  isLoading.value = false
+}
 
 const fetchData = async (value: string) => {
   try {
@@ -97,6 +107,9 @@ const removeVacancy = async (id: any) => {
   vacancies.value = vacancies.value?.filter((item: Vacancy) => item.id != id)
 }
 
+function addToList(vacancy: Vacancy) {
+  vacancies.value?.push(vacancy)
+}
 const createModal = () => {
   isShow.value = true
   selectedItem.value = null

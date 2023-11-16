@@ -1,12 +1,5 @@
 <template>
-  <base-modal
-    :input="props.input"
-    :url="'vacancies'"
-    :old-value="vacancy"
-    :is-disabled="isDisabled"
-    
-    :modal_title="'Vacancy'"
-  >
+  <base-modal :input="props.input" url="vacancies" :old-value="vacancy" :is-disabled="isDisabled" modal_title="Vacancy">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">

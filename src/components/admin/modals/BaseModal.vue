@@ -37,49 +37,63 @@ import { ESize, EThemes } from '@/types'
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { inject } from 'vue'
+import { Vacancy } from '@/types'
 
 const db = useFirestore()
-
-const close = inject('close')
-
+const close: any = inject('close')
+const addToList = inject<Vacancy | any>('addToList')
+const isLoadingTrue = inject<any>('isLoadingTrue')
+const isLoadingFalse = inject<any>('isLoadingFalse')
 const props = defineProps(['oldValue', 'url', 'isDisabled', 'close', 'input', 'modal_title'])
-const emit = defineEmits(['add'])
-
 const collectionRef = collection(db, props.url)
 
 // ***ADD ITEM
 const add = async () => {
   try {
     console.log('added ...')
-    console.log(props.oldValue)
+    isLoadingTrue()
     const newValue = {
       ...props.oldValue,
       date: Date.now(),
     }
 
-    await addDoc(collectionRef, newValue)
+    const res = await addDoc(collectionRef, newValue)
+    const optionVal: Vacancy = {
+      ...newValue,
+      id: res.id,
+    }
 
-    clearInput()
-    props.close()
+    close()
+    if (optionVal) {
+      addToList(optionVal)
+    }
   } catch (error) {
     console.error('Error adding ...', error)
   } finally {
-    console.log('done 😎')
+    console.log('done...')
+    isLoadingFalse()
   }
 }
 
 // ***UPDATE ITEM
 let docRef: any = null
+
 const update = async () => {
-  await updateDoc(docRef, {
-    ...props.oldValue,
-  })
+  try {
+    console.log('updating...')
+    await updateDoc(docRef, {
+      ...props.oldValue,
+    })
+    close()
+  } catch (error) {
+    console.error('Error updating data:', error)
+  } finally {
+    console.log('updated...')
+  }
 }
 
 const isUpdate = !!props.input
 if (isUpdate) {
   docRef = doc(collection(db, props.url), props.oldValue.id)
 }
-
-function clearInput() {}
 </script>
