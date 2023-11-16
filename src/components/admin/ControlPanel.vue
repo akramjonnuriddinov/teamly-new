@@ -28,7 +28,7 @@
       <base-button class="mt-12" @click="createModal" :size="ESize.SMALL"> Create </base-button>
     </div>
   </div>
-  <component :is="currentModal" v-if="isShow" :input="selectedItem" @close="isShow = false" />
+  <component :is="currentModal" v-if="isShow" :input="selectedItem" />
 </template>
 
 <script setup lang="ts">
@@ -38,10 +38,14 @@ import { useFirestore } from 'vuefire'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import type { Vacancy } from '@/types'
 import { ESize } from '@/types'
+import { provide } from 'vue'
 
 const props = defineProps<{
   title: string
 }>()
+
+const close = () => (isShow.value = false)
+provide('close', close)
 
 const isShow = ref<Boolean>(false)
 
@@ -79,7 +83,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 
 const selectedItem = ref<Vacancy | null>(null)

@@ -1,5 +1,12 @@
 <template>
-  <base-modal :is-update="isUpdate" @add="addVacancy" @update="updateVacancy" :close="close" :is-disabled="isDisabled">
+  <base-modal
+    :input="props.input"
+    :url="'vacancies'"
+    :old-value="vacancy"
+    :is-disabled="isDisabled"
+    
+    :modal_title="'Vacancy'"
+  >
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
@@ -96,18 +103,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import { useDocument } from 'vuefire'
-import { useFirestore } from 'vuefire'
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
+import { ref, computed } from 'vue'
+// import { useDocument } from 'vuefire'
 import { TextFields, Category } from '../models'
 import type { Vacancy } from '@/types'
 import BaseModal from './BaseModal.vue'
 
-const db = useFirestore()
 const props = defineProps(['input'])
 
-const vacancyCollectionRef = collection(db, 'vacancies')
 const initialVacancy = {
   location: '',
   title: '',
@@ -124,8 +127,6 @@ const vacancy = ref<Vacancy>({
   ...props.input,
 })
 
-const isUpdate = !!props.input?.id
-
 const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
 const times = ref(['Online, Fulltime', 'Onsite, Fulltime'])
 
@@ -134,43 +135,12 @@ const textFields = ref<TextFields>({
   tasks: '',
 })
 
-let docRef: any = null
-
-if (isUpdate) {
-  docRef = doc(collection(db, 'vacancies'), vacancy.value.id)
-}
-
-const emit = defineEmits(['close', 'edit'])
-const close = () => emit('close')
-
-const addVacancy = async () => {
-  try {
-    console.log('vacancy adding...')
-    const newVacancy = {
-      ...vacancy.value,
-      date: Date.now(),
-    }
-
-    await addDoc(vacancyCollectionRef, newVacancy)
-    clearInput()
-    emit('close')
-  } catch (error) {
-    console.error('Error adding vacancy: ', error)
-  } finally {
-    console.log('vacancy added...')
-  }
-}
-
-const vacancySource: any = useDocument(docRef)
-watch(vacancySource, (vacancySource) => {
-  vacancy.value = { ...vacancySource } as any
-})
-
-const updateVacancy = async () => {
-  await updateDoc(docRef, {
-    ...vacancy.value,
-  })
-}
+const emit = defineEmits(['edit'])
+// let docRef: any = null
+// const vacancySource: any = useDocument(docRef)
+// watch(vacancySource, (vacancySource) => {
+//   vacancy.value = { ...vacancySource } as any
+// })
 
 const isDisabled = computed(() => {
   return !(
@@ -192,7 +162,7 @@ function addItem(slug: keyof TextFields) {
   }
 }
 
-function clearInput() {
-  vacancy.value = { ...initialVacancy }
-}
+// function clearInput() {
+//   vacancy.value = { ...initialVacancy }
+// }
 </script>

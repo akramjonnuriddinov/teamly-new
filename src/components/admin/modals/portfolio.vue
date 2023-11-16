@@ -1,6 +1,13 @@
 <template>
-  <base-modal :is-disabled="isDisabled" :close="close" @add="addVacancy" @update="updateVacancy">
-    <form class="w-full h-auto overflow-y-auto" @submit.prevent="addVacancy">
+  <base-modal
+    :input="props.input"
+    :url="'portfolio'"
+    :old-value="vacancy"
+    :is-disabled="isDisabled"
+    :close="close"
+    :modal_title="'Portfolio'"
+  >
+    <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
           <label class="text-gray-700" for="username">Title</label>
@@ -59,7 +66,7 @@
             class="absolute flex items-center justify-center text-2xl text-white transition-all bg-gray-900 rounded-[3px] w-7 h-7 top-5 right-5 hover:text-red-500"
             type="button"
           >
-            <inline-svg src="svg/fontawesome/xmark.svg" />
+            <inline-svg src="fontawesome/xmark.svg" />
           </button>
         </div>
       </div>
@@ -69,16 +76,12 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useFirestore } from 'vuefire'
-import { addDoc, collection } from 'firebase/firestore'
 import { Category } from '../models'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import BaseModal from '@/components/admin/modals/BaseModal.vue'
 
-const db = useFirestore()
 const props = defineProps(['input'])
 
-const vacancyCollectionRef = collection(db, 'portfolio')
 const vacancy = ref<any>({
   id: '',
   title: '',
@@ -93,24 +96,6 @@ props.input ? (vacancy.value = { ...props.input }) : vacancy.value
 
 const emit = defineEmits(['close', 'edit'])
 const close = () => emit('close')
-
-const addVacancy = async () => {
-  try {
-    const newVacancy = {
-      ...vacancy.value,
-      date: Date.now(),
-    }
-    await addDoc(vacancyCollectionRef, newVacancy)
-    clearInput()
-    emit('close')
-  } catch (error) {
-    console.error('Error adding vacancy: ', error)
-  }
-}
-
-const updateVacancy = () => {
-  console.log('portfolio updated')
-}
 
 const uploadImage = (e: any) => {
   const image = e.target.files[0]
@@ -129,18 +114,7 @@ const isDisabled = computed(() => {
   return !(vacancy.value.title?.trim() && vacancy.value.category && vacancy.value.text?.trim() && vacancy.value.image)
 })
 
-const emptyVacancy = {
-  id: '',
-  location: '',
-  title: '',
-  category: '',
-  time: '',
-  text: '',
-  requirements: [],
-  tasks: [],
-}
-
-function clearInput() {
-  vacancy.value = { ...emptyVacancy }
-}
+// function clearInput() {
+//   vacancy.value = { ...emptyVacancy }
+// }
 </script>
