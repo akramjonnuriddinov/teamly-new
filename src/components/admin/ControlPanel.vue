@@ -104,8 +104,8 @@ const editOption = (item: any) => {
 }
 
 const removeVacancy = async (id: any) => {
-  await deleteDoc(doc(db, props.title, id))
   vacancies.value = vacancies.value.filter((item: Vacancy) => item.id != id)
+  await deleteDoc(doc(db, props.title, id))
 }
 
 function addToList(vacancy: Vacancy) {
