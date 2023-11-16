@@ -42,6 +42,7 @@ import { Vacancy } from '@/types'
 const db = useFirestore()
 const close: any = inject('close')
 const addToList = inject<Vacancy | any>('addToList')
+const updateList = inject<Vacancy | any>('updateList')
 const isLoadingTrue = inject<any>('isLoadingTrue')
 const isLoadingFalse = inject<any>('isLoadingFalse')
 const props = defineProps(['oldValue', 'url', 'isDisabled', 'close', 'input', 'modal_title'])
@@ -85,6 +86,7 @@ const update = async () => {
       ...props.oldValue,
     })
     close()
+    updateList(props.oldValue)
   } catch (error) {
     console.error('Error updating data:', error)
   } finally {

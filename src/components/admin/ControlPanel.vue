@@ -47,6 +47,7 @@ const props = defineProps<{
 const close = () => (isShow.value = false)
 provide('close', close)
 provide('addToList', addToList)
+provide('updateList', updateList)
 
 const isShow = ref<Boolean>(false)
 
@@ -54,7 +55,7 @@ const db = useFirestore()
 
 const currentModal = ref(null)
 
-const vacancies = ref<Vacancy[]>()
+const vacancies = ref<Vacancy[]>([])
 
 const isLoading = ref(true)
 provide('isLoadingTrue', isLoadingTrue)
@@ -76,7 +77,7 @@ const fetchData = async (value: string) => {
     querySnapshot.forEach((doc) => {
       const vacancy = ref()
       vacancy.value = doc.data()
-      vacancies.value?.push({ ...vacancy.value, id: doc.id })
+      vacancies.value.push({ ...vacancy.value, id: doc.id })
     })
     currentModal.value = defineAsyncComponent(() => import(`../admin/modals/${props.title}.vue`))
   } catch (error) {
@@ -104,11 +105,18 @@ const editOption = (item: Vacancy) => {
 
 const removeVacancy = async (id: any) => {
   await deleteDoc(doc(db, 'vacancies', id))
-  vacancies.value = vacancies.value?.filter((item: Vacancy) => item.id != id)
+  vacancies.value = vacancies.value.filter((item: Vacancy) => item.id != id)
 }
 
 function addToList(vacancy: Vacancy) {
   vacancies.value?.push(vacancy)
+}
+
+function updateList(vacancy: Vacancy) {
+  const indexToUpdate = vacancies.value.findIndex((item: Vacancy) => item.id === vacancy.id)
+  if (indexToUpdate !== -1) {
+    vacancies.value[indexToUpdate] = vacancy
+  }
 }
 const createModal = () => {
   isShow.value = true
