@@ -34,7 +34,7 @@ const router = createRouter({
     {
       path: '/vacancy/:id',
       name: 'vacancyDetail',
-      component: () => import('@/pages/vacancy/detail.vue')
+      component: () => import('@/pages/vacancy/Detail.vue')
     },
     {
       path: '/admin',
