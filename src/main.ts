@@ -10,6 +10,11 @@ import 'aos/dist/aos.css'
 import { VueFire } from 'vuefire'
 import { firebaseApp } from '@/firebase/index'
 import InlineSvg from 'vue-inline-svg';
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
 
 const pinia = createPinia()
 
@@ -24,4 +29,5 @@ app.use(VueFire, {
 app.use(pinia)
 app.use(VueAwesomeSwiper)
 app.use(router)
+app.use(VueQuillEditor)
 app.mount('#app')
