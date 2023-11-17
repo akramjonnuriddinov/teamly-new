@@ -7,9 +7,7 @@
           v-for="(vacancy, index) in vacancies"
           :key="index"
         >
-          <div
-            class="service-item__inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]"
-          >
+          <div class="service-item__inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
             <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
             <router-link
               :to="{
@@ -22,23 +20,13 @@
             >
               {{ vacancy.title }}
             </router-link>
-            <div
-              class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5"
-            >
+            <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
               <span>{{ vacancy.category }}</span>
-              <span
-                class="block w-2 h-2 rounded-full bg-tg-primary-color"
-              ></span>
+              <span class="block w-2 h-2 rounded-full bg-tg-primary-color"></span>
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
-            <base-button
-              :size="ESize.BIG"
-              @click="$emit('open')"
-              class="mt-auto"
-            >
-              Apply
-            </base-button>
+            <base-button :size="ESize.BIG" @click="$emit('open')" class="mt-auto"> Apply </base-button>
           </div>
         </li>
       </ul>
@@ -47,37 +35,44 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
-import { collection, query, getDocs } from "firebase/firestore"
-import { useFirestore } from "vuefire"
-import BaseButton from "@/components/reusables/BaseButton.vue"
-import { ESize } from "@/types"
-import type { Vacancy } from "@/types"
+import { ref, onMounted } from 'vue'
+import { collection, query, getDocs } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
+import BaseButton from '@/components/reusables/BaseButton.vue'
+import { ESize } from '@/types'
+import type { Vacancy } from '@/types'
 
-defineProps(["isShow"])
+defineProps(['isShow'])
 
 const db = useFirestore()
 
 const vacancies = ref<Vacancy[]>([])
 
 onMounted(async () => {
-  const q = query(collection(db, "vacancies"))
-  const querySnapshot = await getDocs(q)
-  vacancies.value = []
-  querySnapshot.forEach((doc) => {
-    const vacancy: Vacancy = {
-      id: doc.id,
-      title: doc.data().title,
-      category: doc.data().category,
-      location: doc.data().location,
-      time: doc.data().time,
-      text: doc.data().text,
-      requirements: doc.data().requirements,
-      tasks: doc.data().tasks,
-      date: doc.data().date,
-    }
-    vacancies.value?.push(vacancy)
-  })
+  try {
+    const q = query(collection(db, 'vacancies'))
+    const querySnapshot = await getDocs(q)
+    vacancies.value = []
+    console.log('Getting...')
+    querySnapshot.forEach((doc) => {
+      const vacancy: Vacancy = {
+        id: doc.id,
+        title: doc.data().title,
+        category: doc.data().category,
+        location: doc.data().location,
+        time: doc.data().time,
+        text: doc.data().text,
+        requirements: doc.data().requirements,
+        tasks: doc.data().tasks,
+        date: doc.data().date,
+      }
+      vacancies.value?.push(vacancy)
+    })
+  } catch (error) {
+    console.error('Error fetching Vacancies: ', error)
+  } finally {
+    console.log('Successfully...')
+  }
 })
 </script>
 

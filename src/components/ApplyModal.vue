@@ -1,23 +1,19 @@
 <template>
   <section
     @click="$emit('close')"
-    class="bottom-0 flex justify-center right-0 modal bg-[#00000080] fixed top-0 left-0 w-[100vw] z-[999]"
+    class="bottom-0 flex justify-center min-h-screen h-full right-0 modal bg-[#00000080] fixed top-0 left-0 w-[100vw] z-[999]"
   >
-    <div
-      class="w-[70%] flex flex-col pt-[100px] max-[600px]:w-[90%] apply-form max-[990px]:pb-[200px] max-[990px]:overflow-y-auto"
-    >
+    <div class="w-[40%] flex flex-col pt-[50px] max-[600px]:w-[90%] apply-form max-[990px]:pb-[200px]">
       <button
         class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
         @click="$emit('close')"
       >
         <close-icon />
       </button>
-      <div @click.stop class="p-8 bg-white rounded-xl">
-        <form @submit.prevent="submitForm()">
-          <div
-            class="flex items-center justify-between gap-4 max-[800px]:flex-col"
-          >
-            <div class="mb-6 w-[45%] max-[800px]:w-full max-[800px]:mb-0">
+      <div @click.stop class="p-8 overflow-y-auto bg-white rounded-xl">
+        <form @submit.prevent>
+          <div class="flex flex-col items-center justify-between gap-4">
+            <div class="w-[80%] max-[800px]:w-full mb-0">
               <label for="name" class="block mb-2">Full name</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
@@ -29,7 +25,7 @@
                 required
               />
             </div>
-            <div class="mb-6 w-[45%] max-[800px]:w-full">
+            <div class="mb-6 w-[80%] max-[800px]:w-full">
               <label for="text" class="block mb-2">Phone number</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
@@ -42,10 +38,8 @@
               />
             </div>
           </div>
-          <div
-            class="flex items-start justify-between gap-4 max-[800px]:flex-col-reverse"
-          >
-            <div class="w-[45%] max-[800px]:w-full relative">
+          <div class="flex flex-col-reverse items-center justify-between gap-4">
+            <!-- <div class="w-[80%] hidden max-[800px]:w-full relative">
               <div class="w-full mb-6">
                 <input
                   class="p-2.5 border rounded-lg w-full outline-none"
@@ -68,25 +62,21 @@
                   <check-icon />
                 </li>
               </ul>
-            </div>
-            <div
-              class="mb-6 w-[45%] max-[800px]:w-full relative max-[800px]:mb-0"
-            >
-              <label for="file-input" class="sr-only"></label>
+            </div> -->
+            <div class="mb-6 w-[80%] max-[800px]:w-full relative max-[800px]:mb-0">
+              <label for="file-input" class="block mb-2">Upload your CV</label>
               <input
-                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm file:hidden"
+                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer file:hidden"
+                @change="handleFileChange"
                 type="file"
                 name="file-input"
                 id="file-input"
               />
             </div>
           </div>
-
-          <button
-            class="w-full bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
-          >
-            Submit
-          </button>
+          <div class="w-[80%] max-[800px]:w-full mx-auto flex justify-center">
+            <base-button @click="uploadFile" class="w-full" :size="ESize.SMALL">Submit</base-button>
+          </div>
         </form>
       </div>
     </div>
@@ -94,39 +84,54 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import CloseIcon from "@/components/icons/CloseIcon.vue"
-import CheckIcon from "@/components/icons/CheckIcon.vue"
+import { ref } from 'vue'
+import CloseIcon from '@/components/icons/CloseIcon.vue'
+// import CheckIcon from '@/components/icons/CheckIcon.vue'
+import BaseButton from '@/components/reusables/BaseButton.vue'
+import { ESize } from '@/types'
+import { useFileDialog } from '@vueuse/core'
+import { ref as storageRef } from 'firebase/storage'
+import { useFirebaseStorage, useStorageFile } from 'vuefire'
 
-const positions = ref([
-  {
-    id: "1",
-    title: "Frontend - VueJS",
-  },
-  {
-    id: "2",
-    title: "Backend - Python",
-  },
-  {
-    id: "3",
-    title: "UX/UI - Designer",
-  },
-  {
-    id: "4",
-    title: "HR manager",
-  },
-])
-
-const all = ref([]) as any
+const storage = useFirebaseStorage()
+const mountainFileRef = storageRef(storage, '../assets/images/about/about-img.png')
+const { upload } = useStorageFile(mountainFileRef)
+// const positions = ref([
+//   {
+//     id: '1',
+//     title: 'Frontend - VueJS',
+//   },
+//   {
+//     id: '2',
+//     title: 'Backend - Python',
+//   },
+//   {
+//     id: '3',
+//     title: 'UX/UI - Designer',
+//   },
+//   {
+//     id: '4',
+//     title: 'HR manager',
+//   },
+// ])
+const selectedFile = ref(null)
 const resume = ref({
-  name: "",
-  phone: "",
-  type: "",
-  file: "",
+  name: '',
+  phone: '',
+  type: '',
+  file: '',
 })
 
-const submitForm = () => {
-  all.value.unshift(resume.value)
+const handleFileChange = (event: any) => {
+  selectedFile.value = event.target.files[0]
+}
+
+const { files } = useFileDialog()
+const uploadFile = () => {
+  const data = files.value?.item(0)
+  if (data) {
+    upload(data)
+  }
 }
 </script>
 
