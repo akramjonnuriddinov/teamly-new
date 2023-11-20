@@ -19,6 +19,13 @@ export type Service = {
   image: string
 }
 
+export type Portfolio = {
+  id: string
+  title: string
+  image: string
+  text: string
+}
+
 export type TextFields = {
   requirements: String,
   tasks: String
