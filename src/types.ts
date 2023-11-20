@@ -10,6 +10,15 @@ export type Vacancy = {
   tasks: string[]
 }
 
+export type Service = {
+  id?: string | undefined
+  title: string
+  text: string
+  category: string
+  date: number
+  image: string
+}
+
 export type TextFields = {
   requirements: String,
   tasks: String

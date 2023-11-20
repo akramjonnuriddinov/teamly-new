@@ -1,21 +1,14 @@
 <template>
-  <section
-    class="bg-[#131313] pt-[115px] pb-[90px] relative z-10 text-tg-white"
-  >
+  <section class="bg-[#131313] pt-[115px] pb-[90px] relative z-10 text-tg-white">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
-      <div
-        class="absolute -z-50 transition-all duration-1000 right-[4%] top-[9%]"
-      >
+      <div class="absolute -z-50 transition-all duration-1000 right-[4%] top-[9%]">
         <img src="@/assets/images/service/services_shape.png" alt="" />
       </div>
       <div class="pb-[70px]">
-        <span
-          class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
+        <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >We Can Do For You</span
         >
-        <h2
-          class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
-        >
+        <h2 class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl">
           Experts in every aspect <br class="max-[500px]:hidden" />
           lifecycle
         </h2>
@@ -28,19 +21,13 @@
           v-for="(service, index) in services"
           :key="index"
         >
-          <div
-            class="flex flex-col h-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black"
-          >
+          <div class="flex flex-col h-full bg-tg-black-three px-[35px] py-[50px] rounded-[20px] hover:bg-tg-black">
             <router-link
               class="mb-[22px] text-2xl font-bold transition-colors duration-300 whitespace-nowrap hover:text-tg-primary-color"
               to="/"
               >{{ service.title }}</router-link
             >
-            <img
-              class="mb-6 service-item-img w-[110px] h-[110px] object-cover"
-              :src="getImageUrl(service.img_url)"
-              alt="img"
-            />
+            <img class="mb-6 service-item-img w-[110px] h-[110px] object-cover" :src="service.image" alt="img" />
             <p class="service-item-text mb-4 leading-[1.8] text-tg-gray">
               {{ service.text }}
             </p>
@@ -59,42 +46,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { getImageUrl } from "@/composables/getImgUrl"
-import ArrowRight from "@/components/icons/ArrowRight.vue"
+import { ref, onMounted } from 'vue'
+import ArrowRight from '@/components/icons/ArrowRight.vue'
+import { collection, query, getDocs } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
+import { showLoader, hideLoader } from '@/composables/loader'
+import { Service } from '@/types'
 
-const services = ref([
-  {
-    title: "Web Development",
-    text: "Build a site your customers love to use.",
-    img_url: "service/services_icon01.png",
-  },
-  {
-    title: "Mobile Development",
-    text: "Create a cross-platform mobile app with native functionality.",
-    img_url: "service/services_icon02.png",
-  },
-  {
-    title: "UX/UI Design",
-    text: "For the redesign of the web design and technique of your website or your brand.",
-    img_url: "service/services_icon03.png",
-  },
-  {
-    title: "Daily Updates",
-    text: "Stay Ahead of the Curve with IT Updates.",
-    img_url: "service/services_icon04.png",
-  },
-  {
-    title: "SEO Analytics",
-    text: "We help you analyze, and optimize your SEO strategy with our cutting-edge tools and expertise.",
-    img_url: "service/services_icon05.png",
-  },
-  {
-    title: "Support Team",
-    text: "We are always ready to help you with any IT issue. Contact us anytime, anywhere.",
-    img_url: "service/services_icon06.png",
-  },
-])
+const db = useFirestore()
+const services = ref<Service[]>([])
+
+onMounted(async () => {
+  try {
+    showLoader()
+    const q = query(collection(db, 'services'))
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+      const service: Service = {
+        id: doc.id,
+        title: doc.data().title,
+        text: doc.data().text,
+        category: doc.data().category,
+        date: doc.data().date,
+        image: doc.data().image,
+      }
+      services.value?.push(service)
+    })
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+  } finally {
+    hideLoader()
+  }
+})
 </script>
 
 <style scoped>
