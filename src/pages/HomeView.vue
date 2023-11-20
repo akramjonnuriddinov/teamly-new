@@ -11,13 +11,13 @@
 </template>
 
 <script setup lang="ts">
-import HomeHero from "@/components/home/HomeHero.vue"
-import Service from "@/components/home/Service.vue"
-import AboutUs from "@/components/about/AboutUs.vue"
-import Project from "@/components/portfolio/Project.vue"
-import Testimonial from "@/components/static/Testimonial.vue"
-import Team from "@/components/team/Team.vue"
-import Blog from "@/components/blog/Blog.vue"
+import HomeHero from '@/components/home/HomeHero.vue'
+import Service from '@/components/home/Service.vue'
+import AboutUs from '@/components/about/AboutUs.vue'
+import Project from '@/components/portfolio/Project.vue'
+import Testimonial from '@/components/static/Testimonial.vue'
+import Team from '@/components/team/Team.vue'
+import Blog from '@/components/blog/Blog.vue'
 </script>
 
 <style scoped>
@@ -25,18 +25,14 @@ import Blog from "@/components/blog/Blog.vue"
   overflow-x: hidden;
 }
 .header-hero-wrapper::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -195px;
   left: -117px;
   max-width: 1077px;
   width: 100%;
   height: 1077px;
-  background-image: linear-gradient(
-    209.85deg,
-    rgba(0, 178, 255, 0.1) 18.23%,
-    rgba(255, 0, 15, 0) 96.18%
-  );
+  background-image: linear-gradient(209.85deg, rgba(0, 178, 255, 0.1) 18.23%, rgba(255, 0, 15, 0) 96.18%);
   filter: blur(150px);
   z-index: -1;
   background-size: cover;

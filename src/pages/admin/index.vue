@@ -6,11 +6,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import Sidebar from "@/components/admin/Sidebar.vue"
-import ControlPanel from "@/components/admin/ControlPanel.vue"
+import { ref } from 'vue'
+import Sidebar from '@/components/admin/Sidebar.vue'
+import ControlPanel from '@/components/admin/ControlPanel.vue'
 
-const sidebarSelected = ref("vacancies")
+const sidebarSelected = ref('vacancies')
 
 const changeSidebarSelected = (name: string) => {
   sidebarSelected.value = name

@@ -3,43 +3,28 @@
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <h2 class="text-xl font-semibold text-[#1C1C37] mb-5">Requirements</h2>
       <ul class="flex flex-col">
-        <li
-          v-for="requirement in vacancy.requirements"
-          class="flex items-center gap-4 mb-2"
-        >
-          <img
-            width="8"
-            height="8"
-            src="@/assets/images/circle.svg"
-            alt="circle"
-          />
+        <li v-for="requirement in vacancy.requirements" class="flex items-center gap-4 mb-2">
+          <img width="8" height="8" src="@/assets/images/circle.svg" alt="circle" />
           <span class="text-[#5B5A78]">{{ requirement }}</span>
         </li>
       </ul>
       <h2 class="text-xl font-semibold text-[#1C1C37] my-5">Tasks</h2>
       <ul class="flex flex-col">
         <li v-for="task in vacancy.tasks" class="flex items-center gap-4 mb-2">
-          <img
-            width="8"
-            height="8"
-            src="@/assets/images/circle.svg"
-            alt="circle"
-          />
+          <img width="8" height="8" src="@/assets/images/circle.svg" alt="circle" />
           <span class="text-[#5B5A78]">{{ task }}</span>
         </li>
       </ul>
-      <base-button :size="ESize.BIG" class="mt-12" @click="$emit('open')">
-        Apply
-      </base-button>
+      <base-button :size="ESize.BIG" class="mt-12" @click="$emit('open')"> Apply </base-button>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import BaseButton from "@/components/reusables/BaseButton.vue"
-import { ESize } from "@/types"
+import BaseButton from '@/components/reusables/BaseButton.vue'
+import { ESize } from '@/types'
 
-defineProps(["vacancy"])
+defineProps(['vacancy'])
 </script>
 
 <style scoped>

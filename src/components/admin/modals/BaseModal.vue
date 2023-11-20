@@ -43,14 +43,12 @@ const db = useFirestore()
 const close: any = inject('close')
 const addToList = inject<Vacancy | any>('addToList')
 const updateList = inject<Vacancy | any>('updateList')
-const isLoadingFalse = inject<any>('isLoadingFalse')
 const props = defineProps(['oldValue', 'url', 'isDisabled', 'close', 'input', 'modal_title'])
 const collectionRef = collection(db, props.url)
 
 // ***ADD ITEM
 const add = async () => {
   try {
-    console.log('added ...')
     const newValue = {
       ...props.oldValue,
       date: Date.now(),
@@ -67,8 +65,6 @@ const add = async () => {
   } catch (error) {
     console.error('Error adding ...', error)
   } finally {
-    console.log('done...')
-    isLoadingFalse()
   }
 }
 
@@ -79,14 +75,12 @@ const update = async () => {
   try {
     close()
     updateList(props.oldValue)
-    console.log('updating...')
     await updateDoc(docRef, {
       ...props.oldValue,
     })
   } catch (error) {
     console.error('Error updating data:', error)
   } finally {
-    console.log('updated...')
   }
 }
 

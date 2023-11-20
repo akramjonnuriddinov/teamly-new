@@ -41,6 +41,7 @@ import { useFirestore } from 'vuefire'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import type { Vacancy } from '@/types'
+import { showLoader, hideLoader } from '@/composables/loader'
 
 defineProps(['isShow'])
 
@@ -50,10 +51,10 @@ const vacancies = ref<Vacancy[]>([])
 
 onMounted(async () => {
   try {
+    showLoader()
     const q = query(collection(db, 'vacancies'))
     const querySnapshot = await getDocs(q)
     vacancies.value = []
-    console.log('Getting...')
     querySnapshot.forEach((doc) => {
       const vacancy: Vacancy = {
         id: doc.id,
@@ -71,7 +72,7 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching Vacancies: ', error)
   } finally {
-    console.log('Successfully...')
+    hideLoader()
   }
 })
 </script>

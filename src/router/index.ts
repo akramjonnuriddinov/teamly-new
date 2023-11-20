@@ -40,9 +40,11 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('@/pages/admin/index.vue'),
-      children: [
-
-      ],
+    },
+    {
+      path: '/createBlog',
+      name: 'createBlog',
+      component: () => import('@/pages/CreateBlog.vue')
     },
     {
       path: '/:pathMatch(.*)*',

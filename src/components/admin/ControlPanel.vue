@@ -1,13 +1,7 @@
 <template>
   <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <h2 class="mb-10 text-3xl capitalize">{{ title }}</h2>
-    <div v-if="isLoading" class="flex justify-center">
-      <div class="loader">
-        <div class="loader-outter"></div>
-        <div class="loader-inner"></div>
-      </div>
-    </div>
-    <div v-else>
+    <div>
       <div
         v-if="vacancies?.length"
         class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
@@ -22,7 +16,7 @@
           <button @click="removeVacancy(item.id)" class="text-red-500 hover:text-red-700">Remove</button>
         </div>
       </div>
-      <div v-else>Nothing found...😢</div>
+      <div v-else>Nothing found...</div>
     </div>
     <div class="flex justify-end">
       <base-button class="mt-12" @click="createModal" :size="ESize.SMALL"> Create </base-button>
@@ -39,38 +33,24 @@ import BaseButton from '@/components/reusables/BaseButton.vue'
 import type { Vacancy } from '@/types'
 import { ESize } from '@/types'
 import { provide } from 'vue'
+import { showLoader, hideLoader } from '@/composables/loader'
 
 const props = defineProps<{
   title: string
 }>()
-
 const close = () => (isShow.value = false)
+const isShow = ref<Boolean>(false)
+const db = useFirestore()
+const currentModal = ref(null)
+const vacancies = ref<Vacancy[]>([])
+
 provide('close', close)
 provide('addToList', addToList)
 provide('updateList', updateList)
 
-const isShow = ref<Boolean>(false)
-
-const db = useFirestore()
-
-const currentModal = ref(null)
-
-const vacancies = ref<Vacancy[]>([])
-
-const isLoading = ref(true)
-provide('isLoadingTrue', isLoadingTrue)
-provide('isLoadingFalse', isLoadingFalse)
-
-function isLoadingTrue() {
-  isLoading.value = true
-}
-function isLoadingFalse() {
-  isLoading.value = false
-}
-
 const fetchData = async (value: string) => {
   try {
-    isLoading.value = true
+    showLoader()
     const q = query(collection(db, value))
     const querySnapshot = await getDocs(q)
     vacancies.value = []
@@ -83,7 +63,7 @@ const fetchData = async (value: string) => {
   } catch (error) {
     console.error('Error fetching data:', error)
   } finally {
-    isLoading.value = false
+    hideLoader()
   }
 }
 
@@ -123,82 +103,3 @@ const createModal = () => {
   selectedItem.value = null
 }
 </script>
-
-<style scoped>
-#preloader {
-  background-color: #fff;
-  opacity: 1;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  margin-top: 0px;
-  top: 0px;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loader-center {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.loader {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin: 75px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.loader-outter {
-  position: absolute;
-  border: 4px solid #7e54f8;
-  border-left-color: transparent;
-  border-bottom: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  -webkit-animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
-  animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
-}
-
-.loader-inner {
-  position: absolute;
-  border: 4px solid #7e54f8;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  left: calc(50% - 20px);
-  top: calc(50% - 20px);
-  border-right: 0;
-  border-top-color: transparent;
-  -webkit-animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
-  animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
-}
-@keyframes loader-inner {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(-360deg);
-    transform: rotate(-360deg);
-  }
-}
-
-@keyframes loader-outter {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-</style>

@@ -23,6 +23,7 @@
           </button>
         </li>
       </ul>
+      <router-link :to="{ name: 'createBlog' }">Blog</router-link>
     </div>
   </aside>
 </template>
