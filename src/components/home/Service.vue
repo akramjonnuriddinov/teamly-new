@@ -46,38 +46,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import ArrowRight from '@/components/icons/ArrowRight.vue'
-import { collection, query, getDocs } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
-import { showLoader, hideLoader } from '@/composables/loader'
 import { Service } from '@/types'
+import { fetchData } from '@/composables/fetchData'
 
-const db = useFirestore()
 const services = ref<Service[]>([])
-
-onMounted(async () => {
-  try {
-    showLoader()
-    const q = query(collection(db, 'services'))
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach((doc) => {
-      const service: Service = {
-        id: doc.id,
-        title: doc.data().title,
-        text: doc.data().text,
-        category: doc.data().category,
-        date: doc.data().date,
-        image: doc.data().image,
-      }
-      services.value?.push(service)
-    })
-  } catch (error) {
-    console.error('Error fetching data: ', error)
-  } finally {
-    hideLoader()
-  }
-})
+fetchData(services.value, 'services')
 </script>
 
 <style scoped>

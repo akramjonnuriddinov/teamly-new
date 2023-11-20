@@ -8,6 +8,9 @@
     <Team />
     <Blog />
   </div>
+  <loader-wrapper v-if="isLoading()">
+    <app-loader />
+  </loader-wrapper>
 </template>
 
 <script setup lang="ts">
@@ -18,6 +21,9 @@ import Project from '@/components/portfolio/Project.vue'
 import Testimonial from '@/components/static/Testimonial.vue'
 import Team from '@/components/team/Team.vue'
 import Blog from '@/components/blog/Blog.vue'
+import AppLoader from '@/components/static/AppLoader.vue'
+import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
+import { isLoading } from '@/composables/loader'
 </script>
 
 <style scoped>

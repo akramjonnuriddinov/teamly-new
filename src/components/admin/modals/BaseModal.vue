@@ -40,11 +40,11 @@ import { Vacancy } from '@/types'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 
 const db = useFirestore()
-const close: any = inject('close')
-const addToList = inject<Vacancy | any>('addToList')
-const updateList = inject<Vacancy | any>('updateList')
 const props = defineProps(['oldValue', 'url', 'isDisabled', 'close', 'input', 'modal_title'])
 const collectionRef = collection(db, props.url)
+const { close, updateList, addToList } = inject<any>('uiManager')
+const isUpdate = !!props.input
+let docRef: any = null
 
 // ***ADD ITEM
 const add = async () => {
@@ -69,8 +69,6 @@ const add = async () => {
 }
 
 // ***UPDATE ITEM
-let docRef: any = null
-
 const update = async () => {
   try {
     close()
@@ -84,7 +82,6 @@ const update = async () => {
   }
 }
 
-const isUpdate = !!props.input
 if (isUpdate) {
   docRef = doc(collection(db, props.url), props.oldValue.id)
 }

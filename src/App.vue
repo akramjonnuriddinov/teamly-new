@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Navbar from '@/components/static/Navbar.vue'
 import Footer from '@/components/static/Footer.vue'
@@ -26,15 +26,9 @@ import Brand from '@/components/static/Brand.vue'
 import ContactUs from '@/components/static/ContactUs.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
-import { isLoading, hideLoader } from '@/composables/loader'
+import { isLoading } from '@/composables/loader'
 
 const route = useRoute()
-
-onMounted(() => {
-  window.addEventListener('load', () => {
-    hideLoader()
-  })
-})
 
 const isAdmin = computed(() => {
   return route.path.includes('admin') || route.path.includes('createBlog')

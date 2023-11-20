@@ -35,46 +35,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { collection, query, getDocs } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { ref } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import type { Vacancy } from '@/types'
-import { showLoader, hideLoader } from '@/composables/loader'
+import { fetchData } from '@/composables/fetchData'
 
 defineProps(['isShow'])
-
-const db = useFirestore()
-
 const vacancies = ref<Vacancy[]>([])
 
-onMounted(async () => {
-  try {
-    showLoader()
-    const q = query(collection(db, 'vacancies'))
-    const querySnapshot = await getDocs(q)
-    vacancies.value = []
-    querySnapshot.forEach((doc) => {
-      const vacancy: Vacancy = {
-        id: doc.id,
-        title: doc.data().title,
-        category: doc.data().category,
-        location: doc.data().location,
-        time: doc.data().time,
-        text: doc.data().text,
-        requirements: doc.data().requirements,
-        tasks: doc.data().tasks,
-        date: doc.data().date,
-      }
-      vacancies.value?.push(vacancy)
-    })
-  } catch (error) {
-    console.error('Error fetching Vacancies: ', error)
-  } finally {
-    hideLoader()
-  }
-})
+fetchData(vacancies.value, 'vacancies')
 </script>
 
 <style scoped>

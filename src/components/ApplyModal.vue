@@ -86,7 +86,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
-// import CheckIcon from '@/components/icons/CheckIcon.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import { useFileDialog } from '@vueuse/core'
@@ -96,24 +95,7 @@ import { useFirebaseStorage, useStorageFile } from 'vuefire'
 const storage = useFirebaseStorage()
 const mountainFileRef = storageRef(storage, '../assets/images/about/about-img.png')
 const { upload } = useStorageFile(mountainFileRef)
-// const positions = ref([
-//   {
-//     id: '1',
-//     title: 'Frontend - VueJS',
-//   },
-//   {
-//     id: '2',
-//     title: 'Backend - Python',
-//   },
-//   {
-//     id: '3',
-//     title: 'UX/UI - Designer',
-//   },
-//   {
-//     id: '4',
-//     title: 'HR manager',
-//   },
-// ])
+
 const selectedFile = ref(null)
 const resume = ref({
   name: '',

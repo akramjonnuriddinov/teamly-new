@@ -1,16 +1,11 @@
 <template>
-  <section
-    class="bg-[#EFF7FF] our-team bg-no-repeat bg-auto pt-[135px] pb-[240px]"
-  >
+  <section class="bg-[#EFF7FF] our-team bg-no-repeat bg-auto pt-[135px] pb-[240px]">
     <div class="container w-full max-w-full px-5 mx-auto">
       <div class="pb-[70px]">
-        <span
-          class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
+        <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >Our Amazing Team
         </span>
-        <h2
-          class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
-        >
+        <h2 class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl">
           Our Talented Team
           <br class="max-[500px]:hidden" />
           Players.
@@ -26,7 +21,7 @@
             <router-link :to="{ name: 'home' }">
               <img
                 class="object-cover max-w-[318px] h-[331px] scale-100 w-full team-content-img max-[700px]:max-w-full ease-in-out duration-700"
-                :src="getImageUrl(team.img_url)"
+                :src="team.image"
                 alt="user_img"
               />
             </router-link>
@@ -37,14 +32,9 @@
             <h3
               class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300 max-[480px]:text-xl max-w-[258px] overflow-hidden text-ellipsis text-center max-[700px]:max-w-full"
             >
-              <router-link class="whitespace-nowrap" :to="{ name: 'home' }">{{
-                team.name
-              }}</router-link>
+              <router-link class="whitespace-nowrap" :to="{ name: 'home' }">{{ team.title }}</router-link>
             </h3>
-            <span
-              class="text-lg leadin-1 whitespace-nowrap text-tg-paragraph-color"
-              >{{ team.position }}</span
-            >
+            <span class="text-lg leadin-1 whitespace-nowrap text-tg-paragraph-color">{{ team.position }}</span>
           </div>
         </li>
       </ul>
@@ -53,41 +43,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { getImageUrl } from "@/composables/getImgUrl"
+import { ref } from 'vue'
+import { fetchData } from '@/composables/fetchData'
 
-const teams = ref([
-  {
-    name: "Mirahmad Mirzajonov",
-    position: "CTO",
-    img_url: "team/team_img01-removebg.png",
-  },
-  {
-    name: "Doston Rustamov",
-    position: "Frontend Developer",
-    img_url: "team/team_img02-removebg.png",
-  },
-  {
-    name: "Diyorbek Rajabov",
-    position: "Frontend Developer",
-    img_url: "team/team_img03-removebg.png",
-  },
-  {
-    name: "Akramjon Nuriddinov",
-    position: "Frontend Developer",
-    img_url: "team/team_img01.jpg",
-  },
-  {
-    name: "Samandar Mirzarahmonov",
-    position: "Frontend Developer",
-    img_url: "team/team_img04.jpg",
-  },
-])
+const teams = ref<any>([])
+fetchData(teams.value, 'about')
 </script>
 
 <style scoped>
 .our-team {
-  background-image: url("@/assets/images/team/team_shape.png");
+  background-image: url('@/assets/images/team/team_shape.png');
   background-position: center 35px;
 }
 

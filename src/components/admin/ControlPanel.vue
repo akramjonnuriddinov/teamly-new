@@ -3,9 +3,9 @@
     <h2 class="mb-10 text-3xl capitalize">{{ title }}</h2>
     <div>
       <div
-        v-if="vacancies?.length"
+        v-if="dataEntries?.length"
         class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
-        v-for="(item, index) in vacancies"
+        v-for="(item, index) in dataEntries"
         :key="index"
       >
         <h3>
@@ -13,7 +13,7 @@
         </h3>
         <div class="flex gap-4">
           <button @click="editOption(item)" class="text-blue-500 hover:text-blue-700">Edit</button>
-          <button @click="removeVacancy(item.id)" class="text-red-500 hover:text-red-700">Remove</button>
+          <button @click="removeItem(item.id)" class="text-red-500 hover:text-red-700">Remove</button>
         </div>
       </div>
       <div v-else>Nothing found...</div>
@@ -30,7 +30,6 @@ import { ref, watch, defineAsyncComponent } from 'vue'
 import { collection, query, getDocs, doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import BaseButton from '@/components/reusables/BaseButton.vue'
-import type { Vacancy } from '@/types'
 import { ESize } from '@/types'
 import { provide } from 'vue'
 import { showLoader, hideLoader } from '@/composables/loader'
@@ -38,26 +37,21 @@ import { showLoader, hideLoader } from '@/composables/loader'
 const props = defineProps<{
   title: string
 }>()
-const close = () => (isShow.value = false)
-const isShow = ref<Boolean>(false)
 const db = useFirestore()
+const dataEntries = ref<any>([])
 const currentModal = ref(null)
-const vacancies = ref<Vacancy[]>([])
-
-provide('close', close)
-provide('addToList', addToList)
-provide('updateList', updateList)
+const isShow = ref<Boolean>(false)
 
 const fetchData = async (value: string) => {
   try {
     showLoader()
     const q = query(collection(db, value))
     const querySnapshot = await getDocs(q)
-    vacancies.value = []
+    dataEntries.value = []
     querySnapshot.forEach((doc) => {
-      const vacancy = ref()
-      vacancy.value = doc.data()
-      vacancies.value.push({ ...vacancy.value, id: doc.id })
+      const item = ref()
+      item.value = doc.data()
+      dataEntries.value.push({ ...item.value, id: doc.id })
     })
     currentModal.value = defineAsyncComponent(() => import(`../admin/modals/${props.title}.vue`))
   } catch (error) {
@@ -83,23 +77,36 @@ const editOption = (item: any) => {
   isShow.value = true
 }
 
-const removeVacancy = async (id: any) => {
-  vacancies.value = vacancies.value.filter((item: Vacancy) => item.id != id)
+const removeItem = async (id: any) => {
+  dataEntries.value = dataEntries.value.filter((item: any) => item.id != id)
   await deleteDoc(doc(db, props.title, id))
 }
 
-function addToList(vacancy: Vacancy) {
-  vacancies.value?.push(vacancy)
-}
-
-function updateList(vacancy: Vacancy) {
-  const indexToUpdate = vacancies.value.findIndex((item: Vacancy) => item.id === vacancy.id)
-  if (indexToUpdate !== -1) {
-    vacancies.value[indexToUpdate] = vacancy
-  }
-}
 const createModal = () => {
   isShow.value = true
   selectedItem.value = null
 }
+
+const close = () => (isShow.value = false)
+const addToList = (item: any) => dataEntries.value?.push(item)
+const updateList = (item: any) => {
+  const indexToUpdate = dataEntries.value.findIndex((item: any) => item.id === item.id)
+  if (indexToUpdate !== -1) {
+    dataEntries.value[indexToUpdate] = item
+  }
+}
+
+interface UiManager {
+  close: () => void
+  addToList: (item: any) => void
+  updateList: (data: any) => void
+}
+
+const uiManager: UiManager = {
+  close,
+  addToList: addToList,
+  updateList: updateList,
+}
+
+provide('uiManager', uiManager)
 </script>

@@ -44,28 +44,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import ArrowRight from '@/components/icons/ArrowRight.vue'
-import { collection, query, getDocs } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
 import { Portfolio } from '@/types'
+import { fetchData } from '@/composables/fetchData'
 
-const db = useFirestore()
 const projects = ref<Portfolio[]>([])
-
-onMounted(async () => {
-  const q = query(collection(db, 'portfolio'))
-  const querySnapshot = await getDocs(q)
-  querySnapshot.forEach((doc) => {
-    const project: Portfolio = {
-      id: doc.id,
-      title: doc.data().title,
-      image: doc.data().image,
-      text: doc.data().category,
-    }
-    projects.value.push(project)
-  })
-})
+fetchData(projects.value, 'portfolio')
 </script>
 
 <style scoped>

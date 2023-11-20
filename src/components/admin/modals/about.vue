@@ -79,8 +79,6 @@ const uploadImage = (e: any) => {
   reader.onload = (event: any) => {
     if (about.value) {
       about.value.image = event.target.result
-    } else {
-      console.log('about.value is undefined')
     }
   }
 }
