@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-html="myValue"></div>
+    <div ref="myValue" v-html="myValue"></div>
     <div class="quill-editor">
       <slot name="toolbar"></slot>
       <div class="min-h-[100px] border" ref="editor"></div>
@@ -24,15 +24,15 @@ const defaultOptions = {
       ['blockquote', 'code-block'],
       [{ header: 1 }, { header: 2 }],
       [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }],
+      // [{ script: 'sub' }, { script: 'super' }],
       [{ indent: '-1' }, { indent: '+1' }],
-      [{ direction: 'rtl' }],
+      // [{ direction: 'rtl' }],
       [{ size: ['small', false, 'large', 'huge'] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ color: [] }, { background: [] }],
-      [{ font: [] }],
-      [{ align: [] }],
-      ['clean'],
+      // [{ color: [] }, { background: [] }],
+      // [{ font: [] }],
+      // [{ align: [] }],
+      // ['clean'],
       ['link', 'image', 'video'],
     ],
   },
@@ -148,7 +148,7 @@ export default {
       }
     },
     getRes() {
-      this.$refs.editor.querySelector('.ql-editor').removeAttribute('contenteditable')
+      // this.$refs.editor.querySelector('.ql-editor').removeAttribute('contenteditable')
       this.myValue = this.$refs.editor.innerHTML
     },
   },

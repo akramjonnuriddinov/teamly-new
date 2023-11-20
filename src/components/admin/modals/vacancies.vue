@@ -31,7 +31,7 @@
             </option>
           </select>
         </div>
-        <div class="flex items-center justify-between w-full">
+        <div class="flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="time">Time</label>
           <select
             class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
@@ -46,11 +46,14 @@
         </div>
         <div class="flex items-center justify-between w-full">
           <label class="text-gray-700" for="username">Text</label>
-          <input
+          <textarea
             v-model="vacancy.text"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-            type="text"
-          />
+            class="w-[80%] h-[180px] resize-none p-2 border border-gray-200 rounded-md outline-blue-300"
+            name=""
+            id="text"
+            cols="30"
+            rows="10"
+          ></textarea>
         </div>
         <div class="relative flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="username">Requirements</label>

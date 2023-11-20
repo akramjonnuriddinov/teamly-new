@@ -4,7 +4,7 @@
     <div class="flex-1">
       <router-view class="main-content" />
     </div>
-    <div v-if="!isAdmin && isLoading()">
+    <div v-if="!isAdmin && !isLoading()">
       <contact-us />
       <Brand />
       <Footer class="main-footer" />

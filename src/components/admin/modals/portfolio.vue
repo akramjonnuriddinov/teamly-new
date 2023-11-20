@@ -29,13 +29,16 @@
             </option>
           </select>
         </div>
-        <div class="flex items-center justify-between w-full mb-5">
+        <div class="flex items-center justify-between w-full my-2">
           <label class="text-gray-700" for="username">Text</label>
-          <input
+          <textarea
             v-model="portfolio.text"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-            type="text"
-          />
+            class="w-[80%] h-[180px] resize-none p-2 border border-gray-200 rounded-md outline-blue-300"
+            name=""
+            id="text"
+            cols="30"
+            rows="10"
+          ></textarea>
         </div>
 
         <div class="flex overflow-hidden self-end relative items-center justify-center w-[80%]">

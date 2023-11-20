@@ -42,11 +42,6 @@ const router = createRouter({
       component: () => import('@/pages/admin/index.vue'),
     },
     {
-      path: '/createBlog',
-      name: 'createBlog',
-      component: () => import('@/pages/CreateBlog.vue')
-    },
-    {
       path: '/:pathMatch(.*)*',
       component: import('@/pages/NotFound.vue')
     },
