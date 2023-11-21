@@ -26,9 +26,3 @@ import { ESize } from '@/types'
 
 defineProps(['vacancy'])
 </script>
-
-<style scoped>
-.service-item__inner {
-  box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.05);
-}
-</style>

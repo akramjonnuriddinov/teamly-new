@@ -2,18 +2,19 @@
   <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <h2 class="mb-10 text-3xl capitalize">{{ title }}</h2>
     <div>
-      <div
-        v-if="dataEntries?.length"
-        class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
-        v-for="(item, index) in dataEntries"
-        :key="index"
-      >
-        <h3>
-          {{ item.title }}
-        </h3>
-        <div class="flex gap-4">
-          <button @click="editOption(item)" class="text-blue-500 hover:text-blue-700">Edit</button>
-          <button @click="removeItem(item.id)" class="text-red-500 hover:text-red-700">Remove</button>
+      <div v-if="dataEntries?.length">
+        <div
+          class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
+          v-for="(item, index) in dataEntries"
+          :key="index"
+        >
+          <h3>
+            {{ item.title }}
+          </h3>
+          <div class="flex gap-4">
+            <button @click="editOption(item)" class="text-blue-500 hover:text-blue-700">Edit</button>
+            <button @click="removeItem(item.id)" class="text-red-500 hover:text-red-700">Remove</button>
+          </div>
         </div>
       </div>
       <div v-else>Nothing found...</div>
@@ -33,6 +34,7 @@ import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import { provide } from 'vue'
 import { showLoader, hideLoader } from '@/composables/loader'
+import { UiManager } from '@/types'
 
 const props = defineProps<{
   title: string
@@ -94,12 +96,6 @@ const updateList = (item: any) => {
   if (indexToUpdate !== -1) {
     dataEntries.value[indexToUpdate] = item
   }
-}
-
-interface UiManager {
-  close: () => void
-  addToList: (item: any) => void
-  updateList: (data: any) => void
 }
 
 const uiManager: UiManager = {

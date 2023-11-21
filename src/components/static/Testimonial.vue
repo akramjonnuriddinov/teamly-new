@@ -5,19 +5,15 @@
     </div>
     <div class="container w-full px-5 mx-auto max-w-7xl">
       <div class="pb-[70px]">
-        <span
-          class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
+        <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >Client Testimonial
         </span>
-        <h2
-          class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
-        >
+        <h2 class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl">
           What People are
           <br class="max-[500px]:hidden" />
           Saying!
         </h2>
       </div>
-      <!-- SWIPER -->
       <swiper
         class="mySwiper"
         :slidesPerView="3"
@@ -36,17 +32,11 @@
           >
             <div class="flex justify-center">
               <div class="relative inline-block">
-                <img
-                  :src="getImageUrl(swiperContent.img_url)"
-                  alt="testimonial_img"
-                />
+                <img :src="getImageUrl(swiperContent.img_url)" alt="testimonial_img" />
                 <div
                   class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
                 >
-                  <img
-                    src="@/assets/images/testimonials/testimonial_icon.svg"
-                    alt=""
-                  />
+                  <img src="@/assets/images/testimonials/testimonial_icon.svg" alt="" />
                 </div>
               </div>
             </div>
@@ -55,70 +45,64 @@
             >
               {{ swiperContent.text }}
             </p>
-            <h3
-              class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color"
-            >
+            <h3 class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color">
               {{ swiperContent.name }}
             </h3>
-            <span
-              class="text-[#8C8C8C] font-medium text-[15px] text-center block"
-              >{{ swiperContent.position }}</span
-            >
+            <span class="text-[#8C8C8C] font-medium text-[15px] text-center block">{{ swiperContent.position }}</span>
           </div>
         </swiper-slide>
       </swiper>
-      <!-- /SWIPER -->
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from "swiper/vue"
-import { ref } from "vue"
-import { getImageUrl } from "@/composables/getImgUrl"
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { ref } from 'vue'
+import { getImageUrl } from '@/composables/getImgUrl'
 
 const swiperContents = ref([
   {
-    id: "1",
-    img_url: "testimonials/testi_avatar02.png",
-    text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.",
-    name: "John Doe",
-    position: "CTO",
+    id: '1',
+    img_url: 'testimonials/testi_avatar02.png',
+    text: 'I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.',
+    name: 'John Doe',
+    position: 'CTO',
   },
   {
-    id: "2",
-    img_url: "testimonials/testi_avatar01.png",
-    text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
-    name: "Jenny Wilson",
-    position: "Director of Content",
+    id: '2',
+    img_url: 'testimonials/testi_avatar01.png',
+    text: 'Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem',
+    name: 'Jenny Wilson',
+    position: 'Director of Content',
   },
   {
-    id: "3",
-    img_url: "testimonials/testi_avatar02.png",
-    text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.",
-    name: "John Doe",
-    position: "CEO",
+    id: '3',
+    img_url: 'testimonials/testi_avatar02.png',
+    text: 'I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.',
+    name: 'John Doe',
+    position: 'CEO',
   },
   {
-    id: "4",
-    img_url: "testimonials/testi_avatar01.png",
-    text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
-    name: "Jenny Wilson",
-    position: "Director of Content",
+    id: '4',
+    img_url: 'testimonials/testi_avatar01.png',
+    text: 'Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem',
+    name: 'Jenny Wilson',
+    position: 'Director of Content',
   },
   {
-    id: "5",
-    img_url: "testimonials/testi_avatar02.png",
-    text: "Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem",
-    name: "Jenny Wilson",
-    position: "CTO",
+    id: '5',
+    img_url: 'testimonials/testi_avatar02.png',
+    text: 'Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem',
+    name: 'Jenny Wilson',
+    position: 'CTO',
   },
   {
-    id: "6",
-    img_url: "testimonials/testi_avatar01.png",
-    text: "I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money.",
-    name: "Jenny Wilson",
-    position: "Director of Content",
+    id: '6',
+    img_url: 'testimonials/testi_avatar01.png',
+    text: 'I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money.',
+    name: 'Jenny Wilson',
+    position: 'Director of Content',
   },
 ])
 </script>

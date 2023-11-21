@@ -1,3 +1,9 @@
+export interface UiManager {
+  close: () => void
+  addToList: (item: any) => void
+  updateList: (data: any) => void
+}
+
 export type Vacancy = {
   id?: string | undefined
   title: string

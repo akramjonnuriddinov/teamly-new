@@ -97,8 +97,6 @@ const uploadImage = (e: any) => {
   reader.onload = (event: any) => {
     if (service.value) {
       service.value.image = event.target.result
-    } else {
-      console.log('service.value is undefined')
     }
   }
 }

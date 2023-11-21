@@ -39,30 +39,6 @@
             </div>
           </div>
           <div class="flex flex-col-reverse items-center justify-between gap-4">
-            <!-- <div class="w-[80%] hidden max-[800px]:w-full relative">
-              <div class="w-full mb-6">
-                <input
-                  class="p-2.5 border rounded-lg w-full outline-none"
-                  v-model="resume.type"
-                  type="text"
-                  placeholder="VueJS"
-                  autocomplete="off"
-                  required
-                />
-              </div>
-              <ul
-                v-if="false"
-                class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg max-[990px]:overflow-y-auto"
-              >
-                <li
-                  class="flex items-center justify-between py-2 transition-all border-b cursor-pointer text-tg-heading-font-color hover:text-tg-body-font-color"
-                  v-for="position in positions"
-                >
-                  <span>{{ position.title }}</span>
-                  <check-icon />
-                </li>
-              </ul>
-            </div> -->
             <div class="mb-6 w-[80%] max-[800px]:w-full relative max-[800px]:mb-0">
               <label for="file-input" class="block mb-2">Upload your CV</label>
               <input

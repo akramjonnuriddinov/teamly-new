@@ -20,17 +20,6 @@
             type="text"
           />
         </div>
-        <!-- <div class="flex items-center justify-between w-full mb-2">
-          <label class="text-gray-700" for="text">Text</label>
-          <textarea
-            v-model="blog.text"
-            class="w-[80%] h-[180px] resize-none p-2 border border-gray-200 rounded-md outline-blue-300"
-            name=""
-            id="text"
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div> -->
         <div class="flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="text">Text</label>
           <editor @send-post="handlePostFromChild" class="w-[80%]" />
@@ -95,8 +84,6 @@ const uploadImage = (e: any) => {
   reader.onload = (event: any) => {
     if (blog.value) {
       blog.value.image = event.target.result
-    } else {
-      console.log('blog.value is undefined')
     }
   }
 }

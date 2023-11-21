@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <div ref="myValue" v-html="myValue"></div> -->
     <div style="border-radius: 15px 15px 0 0" class="relative rounded-md quill-editor">
       <slot style="border-radius: 15px 15px 0 0" class="rounded-md" name="toolbar"></slot>
       <div
@@ -184,5 +183,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

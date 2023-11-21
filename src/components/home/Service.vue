@@ -15,7 +15,6 @@
       </div>
 
       <ul class="flex flex-wrap justify-between">
-        <!-- max-w-[390px] w-full -->
         <li
           class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
           v-for="(service, index) in services"

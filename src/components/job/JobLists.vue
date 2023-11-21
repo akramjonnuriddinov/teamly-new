@@ -7,7 +7,7 @@
           v-for="(vacancy, index) in vacancies"
           :key="index"
         >
-          <div class="service-item__inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
+          <div class="shadow-service-inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
             <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
             <router-link
               :to="{
@@ -46,9 +46,3 @@ const vacancies = ref<Vacancy[]>([])
 
 fetchData(vacancies.value, 'vacancies')
 </script>
-
-<style scoped>
-.service-item__inner {
-  box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.05);
-}
-</style>

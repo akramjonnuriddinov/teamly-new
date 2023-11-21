@@ -103,8 +103,6 @@ const uploadImage = (e: any) => {
   reader.onload = (event: any) => {
     if (portfolio.value) {
       portfolio.value.image = event.target.result
-    } else {
-      console.log('portfolio.value is undefined')
     }
   }
 }

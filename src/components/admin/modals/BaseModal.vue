@@ -6,10 +6,17 @@
     >
       <div
         @click.stop
-        class="container overflow-y-auto h-full bg-white relative px-5 rounded-xl p-5 mx-auto max-w-[600px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+        class="container overflow-y-auto h-full bg-white relative rounded-xl mx-auto max-w-[600px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
       >
-        <h1 class="mb-5 text-4xl text-center">{{ modal_title }}</h1>
-        <slot></slot>
+        <div class="sticky top-0 z-50 flex items-center justify-between w-full p-5 mb-5 bg-white">
+          <h1 class="text-4xl text-center">{{ modal_title }}</h1>
+          <button @click="close" class="transition-all duration-300 hover:text-red-300 text-tg-secondary-color">
+            <close-icon />
+          </button>
+        </div>
+        <div class="p-5">
+          <slot></slot>
+        </div>
         <div class="flex justify-end mt-4">
           <base-button
             v-if="isUpdate"
@@ -38,15 +45,15 @@ import { useFirestore } from 'vuefire'
 import { ESize, EThemes } from '@/types'
 import { Vacancy } from '@/types'
 import BaseButton from '@/components/reusables/BaseButton.vue'
+import CloseIcon from '@/components/icons/CloseIcon.vue'
 
 const db = useFirestore()
 const props = defineProps(['oldValue', 'url', 'isDisabled', 'close', 'input', 'modal_title'])
 const collectionRef = collection(db, props.url)
+let docRef: any = null
 const { close, updateList, addToList } = inject<any>('uiManager')
 const isUpdate = !!props.input
-let docRef: any = null
 
-// ***ADD ITEM
 const add = async () => {
   try {
     const newValue = {
@@ -68,7 +75,6 @@ const add = async () => {
   }
 }
 
-// ***UPDATE ITEM
 const update = async () => {
   try {
     close()
