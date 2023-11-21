@@ -6,18 +6,18 @@
     >
       <div
         @click.stop
-        class="container overflow-y-auto h-full bg-white relative rounded-xl mx-auto max-w-[600px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+        class="container rounded-md overflow-y-auto h-full bg-white relative mx-auto max-w-[600px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
       >
         <div class="sticky top-0 z-50 flex items-center justify-between w-full p-5 mb-5 bg-white">
           <h1 class="text-4xl text-center">{{ modal_title }}</h1>
-          <button @click="close" class="transition-all duration-300 hover:text-red-300 text-tg-secondary-color">
+          <button @click="close" class="transition-all duration-300 text-tg-secondary-color hover:opacity-80">
             <close-icon />
           </button>
         </div>
-        <div class="p-5">
+        <div class="px-5">
           <slot></slot>
         </div>
-        <div class="flex justify-end mt-4">
+        <div class="flex justify-end px-5 pb-5 mt-4">
           <base-button
             v-if="isUpdate"
             :size="ESize.SMALL"
@@ -25,13 +25,10 @@
             @click="update"
             type="button"
             :disabled="isDisabled"
-            class="max-[990px]:mt-5 mr-5"
           >
             Update
           </base-button>
-          <base-button v-else @click="add" :size="ESize.SMALL" :disabled="isDisabled" class="max-[990px]:mt-5">
-            Add
-          </base-button>
+          <base-button v-else @click="add" :size="ESize.SMALL" :disabled="isDisabled"> Add </base-button>
         </div>
       </div>
     </section>
