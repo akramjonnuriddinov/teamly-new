@@ -1,11 +1,15 @@
 <template>
   <div>
-    <div ref="myValue" v-html="myValue"></div>
-    <div class="quill-editor">
-      <slot name="toolbar"></slot>
-      <div class="min-h-[100px] border" ref="editor"></div>
+    <!-- <div ref="myValue" v-html="myValue"></div> -->
+    <div style="border-radius: 15px 15px 0 0" class="relative rounded-md quill-editor">
+      <slot style="border-radius: 15px 15px 0 0" class="rounded-md" name="toolbar"></slot>
+      <div
+        style="border-radius: 0 0 15px 15px"
+        class="absolute w-full h-full min-h-[180px] overflow-y-auto max-h-[200px] border"
+        ref="editor"
+      ></div>
     </div>
-    <button class="px-5 py-2 mt-2 text-white rounded bg-tg-green" type="button" @click="getRes">post</button>
+    <button class="px-5 py-2 mt-2 text-white rounded bg-tg-green" type="button" @click="sendToParent">post</button>
   </div>
 </template>
 
@@ -24,19 +28,19 @@ const defaultOptions = {
       ['blockquote', 'code-block'],
       [{ header: 1 }, { header: 2 }],
       [{ list: 'ordered' }, { list: 'bullet' }],
-      // [{ script: 'sub' }, { script: 'super' }],
+      [{ script: 'sub' }, { script: 'super' }],
       [{ indent: '-1' }, { indent: '+1' }],
-      // [{ direction: 'rtl' }],
+      [{ direction: 'rtl' }],
       [{ size: ['small', false, 'large', 'huge'] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      // [{ color: [] }, { background: [] }],
-      // [{ font: [] }],
-      // [{ align: [] }],
+      [{ color: [] }, { background: [] }],
+      [{ font: [] }],
+      [{ align: [] }],
       // ['clean'],
       ['link', 'image', 'video'],
     ],
   },
-  placeholder: 'Insert text here ...',
+  placeholder: '',
   readOnly: false,
 }
 
@@ -65,7 +69,6 @@ if (typeof Object.assign != 'function') {
   })
 }
 
-// export
 export default {
   name: 'quill-editor',
   data() {
@@ -102,7 +105,6 @@ export default {
     delete this.quill
   },
   methods: {
-    // Init Quill instance
     initialize() {
       if (this.$el) {
         // Options
@@ -147,13 +149,13 @@ export default {
         this.$emit('ready', this.quill)
       }
     },
-    getRes() {
-      // this.$refs.editor.querySelector('.ql-editor').removeAttribute('contenteditable')
+    sendToParent() {
+      this.$refs.editor.querySelector('.ql-editor').removeAttribute('contenteditable')
       this.myValue = this.$refs.editor.innerHTML
+      this.$emit('send-post', this.myValue)
     },
   },
   watch: {
-    // Watch content change
     content(newVal, oldVal) {
       if (this.quill) {
         if (newVal && newVal !== this._content) {
@@ -164,7 +166,6 @@ export default {
         }
       }
     },
-    // Watch content change
     value(newVal, oldVal) {
       if (this.quill) {
         if (newVal && newVal !== this._content) {
@@ -175,7 +176,6 @@ export default {
         }
       }
     },
-    // Watch disabled change
     disabled(newVal, oldVal) {
       if (this.quill) {
         this.quill.enable(!newVal)

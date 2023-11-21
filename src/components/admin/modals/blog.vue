@@ -3,16 +3,6 @@
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
-          <label class="text-gray-700" for="createAt">CreateAt</label>
-          <input
-            v-model="blog.createAt"
-            id="createAt"
-            placeholder="October 16, 2002"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-            type="text"
-          />
-        </div>
-        <div class="flex items-center justify-between w-full">
           <label class="text-gray-700" for="subtitle">Subtitle</label>
           <input
             v-model="blog.subtitle"
@@ -30,7 +20,7 @@
             type="text"
           />
         </div>
-        <div class="flex items-center justify-between w-full mb-2">
+        <!-- <div class="flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="text">Text</label>
           <textarea
             v-model="blog.text"
@@ -40,6 +30,10 @@
             cols="30"
             rows="10"
           ></textarea>
+        </div> -->
+        <div class="flex items-center justify-between w-full mb-2">
+          <label class="text-gray-700" for="text">Text</label>
+          <editor @send-post="handlePostFromChild" class="w-[80%]" />
         </div>
         <div class="flex overflow-hidden self-end relative items-center justify-center w-[80%]">
           <label
@@ -80,13 +74,14 @@
 import { ref, computed } from 'vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import BaseModal from '@/components/admin/modals/BaseModal.vue'
+import Editor from '@/components/reusables/Editor.vue'
+
 const props = defineProps(['input'])
 const initialBlog = {
   id: '',
   title: '',
   subtitle: '',
   text: '',
-  createAt: '',
   image: null,
 }
 const blog = ref({
@@ -105,15 +100,17 @@ const uploadImage = (e: any) => {
     }
   }
 }
+const handlePostFromChild = (post: any) => {
+  blog.value.text = post
+}
 const deleteImage = () => {
   blog.value.image = null
 }
 const isDisabled = computed(() => {
   return !(
-    blog.value.createAt?.trim() &&
     blog.value.subtitle?.trim() &&
     blog.value.title?.trim() &&
-    blog.value.text?.trim() &&
+    // blog.value.text?.trim() &&
     blog.value.image
   )
 })

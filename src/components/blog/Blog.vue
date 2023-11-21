@@ -18,11 +18,15 @@
       </div>
       <div class="flex justify-center">
         <ul class="flex gap-7 flex-wrap gap-y-[280px] pb-10">
-          <li v-for="blog in blogs" :key="blog.id" class="bg-trasnparent relative blog-content rounded-[20px]">
+          <li
+            v-for="blog in blogs"
+            :key="blog.id"
+            class="bg-trasnparent relative min-w-[40%] blog-content rounded-[20px]"
+          >
             <div class="rounded-[20px] overflow-hidden w-full">
               <router-link :to="{ name: 'home' }">
                 <img
-                  class="blog-content-img max-w-[570px] w-full max-[1220px]:max-w-[470px] max-[1020px]:max-w-[400px] max-[880px]:max-w-full"
+                  class="blog-content-img object-cover max-w-[570px] w-full max-[1220px]:max-w-[470px] max-[1020px]:max-w-[400px] max-[880px]:max-w-full"
                   :src="blog.image"
                   alt="blog_img"
                 />
@@ -47,16 +51,18 @@
                 <div class="flex mb-4 max-[500px]:flex-wrap">
                   <div class="flex mr-12 max-[500px]:mr-0">
                     <img class="mr-2" src="@/assets/images/blog/calendar.svg" alt="" />
-                    {{ blog.createAt }}
+                    {{ formatTimestampToLocaleString(blog.date) }}
                   </div>
                   <div class="flex">
                     <img class="mr-2" src="@/assets/images/blog/comments.svg" alt="" />
                     {{ 'No Comments' }}
                   </div>
                 </div>
-                <p class="leading-[1.8] line-clamp-3 overflow-hidden">
-                  {{ blog.text }}
-                </p>
+                <div
+                  contenteditable="false"
+                  class="blog-parent leading-[1.8] line-clamp-3 overflow-hidden max-h-[100px]"
+                  v-html="blog.text"
+                ></div>
               </div>
             </div>
           </li>
@@ -74,26 +80,12 @@ const blogs = ref<any>([])
 
 fetchData(blogs.value, 'blog')
 
-// const blogs = ref([
-//   {
-//     id: '1',
-//     img_url: 'blog/blog01.jpg',
-//     title: 'Fintech Startup Will Finance The Women',
-//     topic: 'DIGITAL MARKETING',
-//     text: 'Women entrepreneurs face many challenges in accessing finance for their businesses. According to a report by the World Bank, women-owned businesses account for only 18% of the total small and medium enterprises (SMEs) in India, and they face a credit gap of US$ 116 billion',
-//     comment_count: 1,
-//     date: 'October 16, 2023',
-//   },
-//   {
-//     id: '2',
-//     img_url: 'blog/blog02.jpg',
-//     title: 'How Remarketing work any Get More',
-//     topic: 'NEW IDEAS',
-//     text: 'Remarketing, also known as retargeting, is a digital marketing strategy that allows you to show ads to people who have visited your website or interacted with your brand before. Remarketing helps you reconnect with your potential customers, remind them of your products or services, and persuade them to come back and convert.',
-//     comment_count: 0,
-//     date: 'September 3, 2023',
-//   },
-// ])
+function formatTimestampToLocaleString(timestamp: number) {
+  const date = new Date(timestamp)
+  const options: object = { month: 'long', day: 'numeric', year: 'numeric' }
+  const formattedDate = date.toLocaleDateString('en-US', options)
+  return formattedDate
+}
 </script>
 
 <style>
@@ -108,5 +100,10 @@ fetchData(blogs.value, 'blog')
 
 .blog-post-content {
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+}
+
+.blog-parent * {
+  color: #757589 !important;
+  line-height: 1.8;
 }
 </style>

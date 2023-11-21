@@ -2,6 +2,5 @@
   "semi": false,
   "singleQuote": true,
   "tabWidth": 2,
-  "printWidth": 120,
-  "plugins": ["prettier-plugin-vue"]
+  "printWidth": 120
 }
