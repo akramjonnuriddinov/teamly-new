@@ -22,7 +22,7 @@
             alt="img"
           />
           <div
-            class="absolute bottom-0 left-0 flex items-center justify-between px-10 pb-10 capitalize text-tg-white max-[760px]:w-full"
+            class="absolute bottom-0 w-full left-0 flex items-center justify-between px-10 pb-10 capitalize text-tg-white max-[760px]:w-full"
           >
             <div class="max-w-[180px] w-full mr-2 max-[760px]:max-w-full">
               <h3 class="mb-2 text-2xl font-bold leading-[1.2]">
