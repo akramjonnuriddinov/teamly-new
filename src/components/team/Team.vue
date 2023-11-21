@@ -20,17 +20,18 @@
           <div class="rounded-[30px] overflow-hidden w-full">
             <router-link :to="{ name: 'home' }">
               <img
-                class="object-cover max-w-[318px] h-[331px] scale-100 w-full team-content-img max-[700px]:max-w-full ease-in-out duration-700"
+                class="max-w-full min-w-[318px] object-cover h-[331px] scale-100 w-full team-content-img max-[700px]:max-w-full ease-in-out duration-700"
+                width="318"
                 :src="team.image"
                 alt="user_img"
               />
             </router-link>
           </div>
           <div
-            class="flex flex-col absolute items-center p-[30px] max-w-[258px] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white max-[700px]:max-w-[80%] max-[600px]:px-5 max-[400px]:max-w-[90%] max-[400px]:p-4"
+            class="flex flex-col absolute items-center p-[30px] max-w-[90%] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white max-[700px]:max-w-[80%] max-[600px]:px-5 max-[400px]:max-w-[90%] max-[400px]:p-4"
           >
             <h3
-              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color hover:text-tg-primary-color transition-all duration-300 max-[480px]:text-xl max-w-[258px] overflow-hidden text-ellipsis text-center max-[700px]:max-w-full"
+              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color  transition-all duration-300 max-w-[258px] overflow-hidden text-ellipsis text-center max-[480px]:text-xl max-[700px]:max-w-full hover:text-tg-primary-color"
             >
               <router-link class="whitespace-nowrap" :to="{ name: 'home' }">{{ team.title }}</router-link>
             </h3>
