@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div style="border-radius: 15px 15px 0 0" class="relative rounded-md quill-editor">
-      <slot style="border-radius: 15px 15px 0 0" class="rounded-md" name="toolbar"></slot>
+    <div style="border-radius: 6px" class="relative rounded-md quill-editor">
+      <slot style="border-radius: 6px" class="rounded-md" name="toolbar"></slot>
       <div
-        style="border-radius: 0 0 15px 15px"
+        style="border-radius: 0"
         class="absolute w-full h-full min-h-[180px] overflow-y-auto max-h-[200px] border"
         ref="editor"
       ></div>
@@ -22,18 +22,18 @@ const defaultOptions = {
   boundary: document.body,
   modules: {
     toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
+      // ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
-      [{ header: 1 }, { header: 2 }],
+      // [{ header: 1 }, { header: 2 }],
       [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ script: 'sub' }, { script: 'super' }],
-      [{ indent: '-1' }, { indent: '+1' }],
-      [{ direction: 'rtl' }],
-      [{ size: ['small', false, 'large', 'huge'] }],
+      // [{ script: 'sub' }, { script: 'super' }],
+      // [{ indent: '-1' }, { indent: '+1' }],
+      // [{ direction: 'rtl' }],
+      // [{ size: ['small', false, 'large', 'huge'] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       [{ color: [] }, { background: [] }],
-      [{ font: [] }],
-      [{ align: [] }],
+      // [{ font: [] }],
+      // [{ align: [] }],
       // ['clean'],
       ['link', 'image', 'video'],
     ],
@@ -183,3 +183,11 @@ export default {
   },
 }
 </script>
+
+<style>
+.ql-editor {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+</style>

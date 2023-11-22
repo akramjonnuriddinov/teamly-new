@@ -6,15 +6,15 @@
     >
       <div
         @click.stop
-        class="container rounded-md overflow-y-auto h-full bg-white relative mx-auto max-w-[600px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+        class="container rounded-xl overflow-y-auto h-full bg-white relative mx-auto max-w-[620px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
       >
-        <div class="sticky top-0 z-50 flex items-center justify-between w-full p-5 mb-5 bg-white">
+        <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
           <h1 class="text-4xl text-center">{{ modal_title }}</h1>
-          <button @click="close" class="transition-all duration-300 text-tg-secondary-color hover:opacity-80">
-            <close-icon />
+          <button @click="close" class="transition-all duration-300 text-tg-heading-font-color hover:opacity-80">
+            <close-icon class="h-[18px]" />
           </button>
         </div>
-        <div class="px-5">
+        <div class="px-10">
           <slot></slot>
         </div>
         <div class="flex justify-end px-5 pb-5 mt-4">
@@ -89,3 +89,9 @@ if (isUpdate) {
   docRef = doc(collection(db, props.url), props.oldValue.id)
 }
 </script>
+
+<style scoped>
+::-webkit-scrollbar {
+  width: 0;
+}
+</style>

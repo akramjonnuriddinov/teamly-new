@@ -2,7 +2,7 @@
   <base-modal :input="props.input" url="vacancies" :old-value="vacancy" :is-disabled="isDisabled" modal_title="Vacancy">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
-        <div class="flex items-center justify-between w-full">
+        <div class="flex justify-between w-full">
           <label class="text-gray-700" for="username">Location</label>
           <input
             v-model="vacancy.location"
@@ -55,7 +55,12 @@
             rows="10"
           ></textarea>
         </div>
-        <div class="relative flex items-center justify-between w-full mb-2">
+        <div class="flex items-center justify-between w-full mt-2 mb-2">
+          <label class="text-gray-700" for="text">Requirements</label>
+          <editor @input="handleVacancyFromChild" :edit-editor="vacancy.requirements" class="w-[80%]" />
+        </div>
+
+        <!-- <div class="relative flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="username">Requirements</label>
           <input
             v-model="textFields.requirements"
@@ -92,7 +97,7 @@
         </div>
         <ul class="w-[80%] p-2 ml-auto max-h-[100px] overflow-y-auto">
           <li v-for="(task, index) in vacancy.tasks">{{ index + 1 }}. {{ task }}</li>
-        </ul>
+        </ul> -->
       </div>
     </form>
   </base-modal>
@@ -100,9 +105,10 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { TextFields, Category } from '@/types'
+import { Category } from '@/types'
 import type { Vacancy } from '@/types'
 import BaseModal from './BaseModal.vue'
+import Editor from '@/components/reusables/Editor.vue'
 
 const props = defineProps(['input'])
 
@@ -113,8 +119,7 @@ const initialVacancy = {
   time: '',
   date: 0,
   text: '',
-  requirements: [],
-  tasks: [],
+  requirements: '',
 }
 
 const vacancy = ref<Vacancy>({
@@ -125,28 +130,35 @@ const vacancy = ref<Vacancy>({
 const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
 const times = ref(['Online, Fulltime', 'Onsite, Fulltime'])
 
-const textFields = ref<TextFields>({
-  requirements: '',
-  tasks: '',
-})
+// const textFields = ref<TextFields>({
+//   requirements: '',
+//   tasks: '',
+// })
+
+const handleVacancyFromChild = (requirements: any) => {
+  vacancy.value.requirements = requirements
+}
 
 const isDisabled = computed(() => {
   return !(
-    vacancy.value.location?.trim() &&
-    vacancy.value.title?.trim() &&
-    vacancy.value.category &&
-    vacancy.value.time &&
-    vacancy.value.text?.trim() &&
-    vacancy.value.requirements.length &&
-    vacancy.value.tasks.length
+    (
+      vacancy.value.location?.trim() &&
+      vacancy.value.title?.trim() &&
+      vacancy.value.category &&
+      vacancy.value.time &&
+      vacancy.value.text?.trim()
+    )
+    // &&
+    // vacancy.value.requirements.length &&
+    // vacancy.value.tasks.length
   )
 })
 
-function addItem(slug: keyof TextFields) {
-  const trimmedText = textFields.value[slug].trim()
-  if (trimmedText) {
-    vacancy.value[slug].push(trimmedText)
-    textFields.value[slug] = ''
-  }
-}
+// function addItem(slug: keyof TextFields) {
+//   const trimmedText = textFields.value[slug].trim()
+//   if (trimmedText) {
+//     vacancy.value[slug].push(trimmedText)
+//     textFields.value[slug] = ''
+//   }
+// }
 </script>
