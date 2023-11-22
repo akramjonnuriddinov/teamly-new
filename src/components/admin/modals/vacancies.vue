@@ -57,47 +57,12 @@
         </div>
         <div class="flex items-center justify-between w-full mt-2 mb-2">
           <label class="text-gray-700" for="text">Requirements</label>
-          <editor @input="handleVacancyFromChild" :edit-editor="vacancy.requirements" class="w-[80%]" />
+          <editor @input="handRequirementsFromChild" :edit-editor="vacancy.requirements" class="w-[80%]" />
         </div>
-
-        <!-- <div class="relative flex items-center justify-between w-full mb-2">
-          <label class="text-gray-700" for="username">Requirements</label>
-          <input
-            v-model="textFields.requirements"
-            @keyup.enter="addItem('requirements')"
-            class="w-[80%] p-2 pr-14 mt-2 border border-gray-200 rounded-md outline-blue-300"
-            type="text"
-          />
-          <button
-            @click="addItem('requirements')"
-            type="button"
-            class="absolute text-base font-semibold -translate-y-[35%] rounded-md top-1/2 right-3 text-tg-secondary-color"
-          >
-            + add
-          </button>
+        <div class="flex items-center justify-between w-full mt-2 mb-2">
+          <label class="text-gray-700" for="text">Tasks</label>
+          <editor @input="handleTaskFromChild" :edit-editor="vacancy.tasks" class="w-[80%]" />
         </div>
-        <ul class="w-[80%] p-2 ml-auto max-h-[200px] overflow-y-auto">
-          <li v-for="(requirement, index) in vacancy.requirements">{{ index + 1 }}. {{ requirement }}</li>
-        </ul>
-        <div class="relative flex items-center justify-between w-full mb-2">
-          <label class="text-gray-700" for="username">Tasks</label>
-          <input
-            v-model="textFields.tasks"
-            @keyup.enter="addItem('tasks')"
-            class="w-[80%] p-2 pr-14 mt-2 border border-gray-200 rounded-md outline-blue-300"
-            type="text"
-          />
-          <button
-            @click="addItem('tasks')"
-            type="button"
-            class="absolute text-base font-semibold -translate-y-[35%] rounded-md top-1/2 right-3 text-tg-secondary-color"
-          >
-            + add
-          </button>
-        </div>
-        <ul class="w-[80%] p-2 ml-auto max-h-[100px] overflow-y-auto">
-          <li v-for="(task, index) in vacancy.tasks">{{ index + 1 }}. {{ task }}</li>
-        </ul> -->
       </div>
     </form>
   </base-modal>
@@ -120,6 +85,7 @@ const initialVacancy = {
   date: 0,
   text: '',
   requirements: '',
+  tasks: '',
 }
 
 const vacancy = ref<Vacancy>({
@@ -130,35 +96,21 @@ const vacancy = ref<Vacancy>({
 const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
 const times = ref(['Online, Fulltime', 'Onsite, Fulltime'])
 
-// const textFields = ref<TextFields>({
-//   requirements: '',
-//   tasks: '',
-// })
-
-const handleVacancyFromChild = (requirements: any) => {
+const handRequirementsFromChild = (requirements: any) => {
   vacancy.value.requirements = requirements
+}
+const handleTaskFromChild = (tasks: any) => {
+  vacancy.value.tasks = tasks
 }
 
 const isDisabled = computed(() => {
   return !(
-    (
-      vacancy.value.location?.trim() &&
-      vacancy.value.title?.trim() &&
-      vacancy.value.category &&
-      vacancy.value.time &&
-      vacancy.value.text?.trim()
-    )
-    // &&
-    // vacancy.value.requirements.length &&
-    // vacancy.value.tasks.length
+    vacancy.value.location?.trim() &&
+    vacancy.value.title?.trim() &&
+    vacancy.value.category &&
+    vacancy.value.time &&
+    vacancy.value.text?.trim() &&
+    vacancy.value.requirements
   )
 })
-
-// function addItem(slug: keyof TextFields) {
-//   const trimmedText = textFields.value[slug].trim()
-//   if (trimmedText) {
-//     vacancy.value[slug].push(trimmedText)
-//     textFields.value[slug] = ''
-//   }
-// }
 </script>

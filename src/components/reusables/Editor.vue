@@ -1,12 +1,8 @@
 <template>
   <div>
-    <div style="border-radius: 6px" class="relative rounded-md quill-editor">
-      <slot style="border-radius: 6px" class="rounded-md" name="toolbar"></slot>
-      <div
-        style="border-radius: 0"
-        class="absolute w-full h-full min-h-[180px] overflow-y-auto max-h-[200px] border"
-        ref="editor"
-      ></div>
+    <div class="relative rounded-md quill-editor">
+      <slot class="rounded-md" name="toolbar"></slot>
+      <div class="absolute w-full h-full min-h-[180px] overflow-y-auto max-h-[200px] border" ref="editor"></div>
     </div>
   </div>
 </template>
@@ -189,5 +185,16 @@ export default {
   position: absolute;
   top: 0;
   width: 100%;
+}
+
+.ql-toolbar.ql-snow {
+  border-color: rgb(229, 231, 235) !important;
+  border-radius: 6px 6px 0 0;
+}
+
+.ql-container,
+.ql-editor {
+  border-radius: 0 0 6px 6px;
+  border-color: rgb(229, 231, 235) !important;
 }
 </style>
