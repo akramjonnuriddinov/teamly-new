@@ -8,7 +8,6 @@
         ref="editor"
       ></div>
     </div>
-    <button class="px-5 py-2 mt-2 text-white rounded bg-tg-green" type="button" @click="sendToParent">post</button>
   </div>
 </template>
 
@@ -95,8 +94,14 @@ export default {
       required: false,
       default: () => ({}),
     },
+    editEditor: {
+      type: Object,
+      required: true,
+      default: () => {},
+    },
   },
   mounted() {
+    this.$refs.editor.innerHTML = this.editEditor
     this.initialize()
   },
   beforeDestroy() {
@@ -135,7 +140,7 @@ export default {
 
         // Update model if text changes
         this.quill.on('text-change', (delta, oldDelta, source) => {
-          let html = this.$refs.editor.children[0].innerHTML
+          let html = this.$refs.editor.children[0].innerHTML || this.editEditor
           const quill = this.quill
           const text = this.quill.getText()
           if (html === '<p><br></p>') html = ''
@@ -147,11 +152,6 @@ export default {
         // Emit ready event
         this.$emit('ready', this.quill)
       }
-    },
-    sendToParent() {
-      this.$refs.editor.querySelector('.ql-editor').removeAttribute('contenteditable')
-      this.myValue = this.$refs.editor.innerHTML
-      this.$emit('send-post', this.myValue)
     },
   },
   watch: {

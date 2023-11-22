@@ -22,7 +22,7 @@
         </div>
         <div class="flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="text">Text</label>
-          <editor @send-post="handlePostFromChild" class="w-[80%]" />
+          <editor @input="handlePostFromChild" :edit-editor="blog.text" class="w-[80%]" />
         </div>
         <div class="flex overflow-hidden self-end relative items-center justify-center w-[80%]">
           <label
