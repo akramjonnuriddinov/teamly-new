@@ -10,16 +10,14 @@
           class="relative pt-[100px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-[990px]:pt-[50px]"
         >
           <h1
-            class="mb-4 text-[50px] font-semibold leading-[1.2] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
+            class="mb-4 text-[50px] font-semibold leading-[1.2] text-tg-dark-blue-color max-[990px]:text-center max-sm:text-4xl"
           >
             {{ props.title }}
           </h1>
           <p class="mb-10 text-lg text-[#757589] max-[990px]:text-center">
             {{ props.text }}
           </p>
-          <base-button >
-            Get Started
-          </base-button>
+          <base-button> Get Started </base-button>
         </div>
         <img
           class="max-w-[470px] w-full pt-[100px] max-[990px]:pb-0 max-[990px]:pt-16 pb-8"
@@ -35,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import BaseButton from "@/components/reusables/BaseButton.vue"
+import BaseButton from '@/components/reusables/BaseButton.vue'
 
 const props = defineProps<{
   title?: string

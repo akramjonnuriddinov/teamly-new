@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'tg-dark-blue-color': '#38386E',
         'tg-primary-color': '#7E54F8',
         'tg-primary-color-two': '#5956E9',
         'tg-primary-color-three': '#FFC42B',
@@ -50,7 +51,8 @@ export default {
         'hero-banner': "url('@/assets/images/service-view/service_banner_bg.jpg')",
       },
       boxShadow: {
-        'service-inner': '0px 4px 32px 0px rgba(0, 0, 0, 0.05)',
+        'job-inner': '0px 4px 32px 0px rgba(0, 0, 0, 0.05)',
+        'service-inner': '0px 0px 50px rgba(0, 0, 0, 0.1)',
       },
     },
   },

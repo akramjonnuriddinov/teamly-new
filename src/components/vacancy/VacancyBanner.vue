@@ -6,14 +6,12 @@
       <div
         class="relative pt-[130px] flex flex-col items-center w-full max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
       >
-        <h1
-          class="mb-4 text-[70px] font-extrabold text-[#38386E] leading-[1.2] text-center max-sm:text-4xl"
-        >
+        <h1 class="mb-4 text-[70px] font-extrabold text-tg-dark-blue-color leading-[1.2] text-center max-sm:text-4xl">
           We are hiring!
         </h1>
         <p class="max-w-3xl text-center mb-10 text-lg text-[#757589]">
-          Are you ready to begin a new career journey? At Teamly, we're on the
-          lookout for exceptional individuals to join our team.
+          Are you ready to begin a new career journey? At Teamly, we're on the lookout for exceptional individuals to
+          join our team.
         </p>
         <button
           @click="scroll"
@@ -29,9 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import ArrowCircleIcon from "@/components/icons/ArrowCircleIcons.vue"
+import ArrowCircleIcon from '@/components/icons/ArrowCircleIcons.vue'
 const scroll = () => {
-  const element = document.getElementById("vacancies") as any
-  element.scrollIntoView({ behavior: "smooth" })
+  const element = document.getElementById('vacancies') as any
+  element.scrollIntoView({ behavior: 'smooth' })
 }
 </script>

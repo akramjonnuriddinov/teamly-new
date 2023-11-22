@@ -10,7 +10,7 @@
         >
           <div>
             <span class="mb-3 text-lg font-bold text-tg-primary-color">About Our Company</span>
-            <h2 class="font-bold leading-[1.2] text-5xl mb-9 max-sm:text-4xl">
+            <h2 class="font-bold text-tg-dark-blue-color leading-[1.2] text-5xl mb-9 max-sm:text-4xl">
               Teamly that Help you go
               <br class="max-[1024px]:hidden" />
               Ahead.

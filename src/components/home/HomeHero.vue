@@ -19,15 +19,12 @@
             alt=""
           />
           <h1
-            class="mb-4 text-6xl font-bold leading-[1.2] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
+            class="mb-4 text-6xl font-bold leading-[1.2] text-tg-dark-blue-color max-[990px]:text-center max-sm:text-4xl"
           >
             Shaping Digital Dreams
           </h1>
-          <p
-            class="mb-10 text-lg text-tg-heading-font-color max-[990px]:text-center"
-          >
-            We help you transform your ideas into reality. Contact us today and
-            let us shape your digital dreams.
+          <p class="mb-10 text-lg text-tg-heading-font-color max-[990px]:text-center">
+            We help you transform your ideas into reality. Contact us today and let us shape your digital dreams.
           </p>
           <base-button> Get Started </base-button>
         </div>
@@ -54,13 +51,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
-import BaseButton from "@/components/reusables/BaseButton.vue"
+import { onMounted, ref } from 'vue'
+import BaseButton from '@/components/reusables/BaseButton.vue'
 
 const customTranslateY = ref(false)
 
 onMounted(() => {
-  window.addEventListener("scroll", () => {
+  window.addEventListener('scroll', () => {
     if (window.scrollY >= 300) {
       customTranslateY.value = true
     } else {
@@ -72,7 +69,7 @@ onMounted(() => {
 
 <style scoped>
 .banner-area::after {
-  content: "";
+  content: '';
   position: absolute;
   right: -389px;
   bottom: -430px;

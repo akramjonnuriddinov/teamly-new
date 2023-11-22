@@ -10,7 +10,7 @@
         <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >Latest news updates
         </span>
-        <h2 class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl">
+        <h2 class="text-center text-tg-dark-blue-color font-bold leading-[1.2] text-5xl max-sm:text-4xl">
           Check Our Company
           <br class="max-[500px]:hidden" />
           Inside Story
