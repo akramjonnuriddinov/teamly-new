@@ -59,10 +59,6 @@
           <label class="text-gray-700" for="text">Description</label>
           <editor @input="handRequirementsFromChild" :edit-editor="vacancy.requirements" class="w-[80%]" />
         </div>
-        <!-- <div class="flex items-center justify-between w-full mt-2 mb-2">
-          <label class="text-gray-700" for="text">Tasks</label>
-          <editor @input="handleTaskFromChild" :edit-editor="vacancy.tasks" class="w-[80%]" />
-        </div> -->
       </div>
     </form>
   </base-modal>

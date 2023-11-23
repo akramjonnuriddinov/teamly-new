@@ -2,7 +2,7 @@
   <section class="pt-[50px] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <div class="requirements" v-html="vacancy.requirements"></div>
-      <base-button :size="ESize.BIG" class="mt-12" @click="$emit('open')"> Apply </base-button>
+      <base-button :size="ESize.BIG" class="mt-12" @click="$emit('open')">Apply</base-button>
     </div>
   </section>
 </template>
