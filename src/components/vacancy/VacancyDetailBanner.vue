@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-[#F9F9FA] vacancy-detail">
+  <section class="bg-[#F9F9FA] vacancy-detail mt-[86px]">
     <div
       class="container relative px-5 mx-auto max-w-7xl max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
