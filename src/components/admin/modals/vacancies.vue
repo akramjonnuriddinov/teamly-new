@@ -56,13 +56,13 @@
           ></textarea>
         </div>
         <div class="flex items-center justify-between w-full mt-2 mb-2">
-          <label class="text-gray-700" for="text">Requirements</label>
+          <label class="text-gray-700" for="text">Description</label>
           <editor @input="handRequirementsFromChild" :edit-editor="vacancy.requirements" class="w-[80%]" />
         </div>
-        <div class="flex items-center justify-between w-full mt-2 mb-2">
+        <!-- <div class="flex items-center justify-between w-full mt-2 mb-2">
           <label class="text-gray-700" for="text">Tasks</label>
           <editor @input="handleTaskFromChild" :edit-editor="vacancy.tasks" class="w-[80%]" />
-        </div>
+        </div> -->
       </div>
     </form>
   </base-modal>
@@ -85,7 +85,7 @@ const initialVacancy = {
   date: 0,
   text: '',
   requirements: '',
-  tasks: '',
+  // tasks: '',
 }
 
 const vacancy = ref<Vacancy>({
@@ -99,9 +99,9 @@ const times = ref(['Online, Fulltime', 'Onsite, Fulltime'])
 const handRequirementsFromChild = (requirements: any) => {
   vacancy.value.requirements = requirements
 }
-const handleTaskFromChild = (tasks: any) => {
-  vacancy.value.tasks = tasks
-}
+// const handleTaskFromChild = (tasks: any) => {
+//   vacancy.value.tasks = tasks
+// }
 
 const isDisabled = computed(() => {
   return !(

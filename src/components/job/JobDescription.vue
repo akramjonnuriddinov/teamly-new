@@ -1,14 +1,7 @@
 <template>
-  <section class="pt-[115px] pb-[45px] relative z-10 mb-[100px]">
+  <section class="pt-[50px] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
-      <div class="mb-10">
-        <h2 class="text-xl font-semibold text-[#1C1C37] mb-5">Requirements</h2>
-        <div class="requirements" v-html="vacancy.requirements"></div>
-      </div>
-      <div>
-        <h2 class="text-xl font-semibold text-[#1C1C37] mb-5">Tasks</h2>
-        <div class="requirements" v-html="vacancy.tasks"></div>
-      </div>
+      <div class="requirements" v-html="vacancy.requirements"></div>
       <base-button :size="ESize.BIG" class="mt-12" @click="$emit('open')"> Apply </base-button>
     </div>
   </section>
@@ -36,5 +29,9 @@ defineProps(['vacancy'])
   border-radius: 100%;
   background-color: #7e54f8;
   margin-right: 4px;
+}
+
+.requirements h2 {
+  @apply text-xl font-semibold text-[#1C1C37] mb-5 mt-10;
 }
 </style>
