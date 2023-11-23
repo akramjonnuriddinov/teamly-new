@@ -31,7 +31,9 @@ defineProps(['vacancy'])
   margin-right: 4px;
 }
 
-.requirements h2 {
+.requirements h1,
+.requirements h2,
+.requirements h3 {
   @apply text-xl font-semibold text-[#1C1C37] mb-5 mt-10;
 }
 </style>
