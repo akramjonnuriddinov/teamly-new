@@ -31,6 +31,8 @@ import { isLoading, hideLoader } from '@/composables/loader'
 import BaseModal2 from '@/components/admin/modals/BaseModal2.vue'
 
 const route = useRoute()
+// const mainContent = document.querySelector('.main-content')
+// mainContent?.classList.remove('mt-[86px]')
 
 onMounted(() => {
   window.addEventListener('load', () => {
@@ -42,3 +44,5 @@ const isAdmin = computed(() => {
   return route.path.includes('admin') || route.path.includes('createBlog')
 })
 </script>
+
+<style></style>

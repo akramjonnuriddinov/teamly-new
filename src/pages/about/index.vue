@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-[86px]">
+  <div>
     <hero-banner :title="hero_content.title" :text="hero_content.text" :img_url="hero_content.img_url" />
     <about-us />
     <work-process />

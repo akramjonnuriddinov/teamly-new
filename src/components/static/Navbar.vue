@@ -1,5 +1,5 @@
 <template>
-  <header :class="header" class="fixed z-50 w-full py-5 home-header header">
+  <header :class="header" class="fixed top-0 z-50 w-full py-5 home-header header">
     <div
       class="container px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
@@ -97,7 +97,6 @@ import Language from '@/components/static/Language.vue'
 import { getSVG } from '@/composables/getSVG'
 
 const header = ref('')
-
 const socials = [
   {
     name: 'facebook',
@@ -120,7 +119,6 @@ const socials = [
     url: 'https://t.me/teamly_uz',
   },
 ]
-
 const links = [
   {
     name: 'Home',
@@ -143,7 +141,6 @@ const links = [
     url: '/vacancy',
   },
 ]
-
 const isHidden = ref(true)
 
 const toggleModal = () => {

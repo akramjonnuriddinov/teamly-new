@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-[86px]">
+  <div>
     <vacancy-detail-banner :vacancy="vacancy" @open="isShow = true" />
     <job-description :vacancy="vacancy" @open="isShow = true" />
   </div>

@@ -4,7 +4,7 @@
       class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
       <div
-        class="relative pt-[130px] flex flex-col items-center w-full max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
+        class="relative pt-[216px] flex flex-col items-center w-full max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
       >
         <h1 class="mb-4 text-[70px] font-extrabold text-tg-dark-blue-color leading-[1.2] text-center max-sm:text-4xl">
           We are hiring!

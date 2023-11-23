@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-no-repeat bg-cover bg-[#F9F9FA]">
+  <section class="bg-no-repeat bg-cover bg-[#F9F9FA] mt-[86px]">
     <div
       class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
@@ -10,7 +10,7 @@
           class="relative pt-[100px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-[990px]:pt-[50px]"
         >
           <h1
-            class="mb-4 text-[50px] font-semibold leading-[1.2] text-tg-dark-blue-color max-[990px]:text-center max-sm:text-4xl"
+            class="mb-4 text-[50px] font-semibold leading-[1.6] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
           >
             {{ props.title }}
           </h1>
