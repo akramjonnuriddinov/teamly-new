@@ -6,7 +6,7 @@
     >
       <div
         @click.stop
-        class="container rounded-xl overflow-y-auto h-full bg-white relative mx-auto max-w-[620px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+        class="container rounded-xl overflow-y-hidden h-full bg-white relative mx-auto max-w-[620px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
       >
         <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
           <h1 class="text-4xl text-center">{{ modal_title }}</h1>
@@ -14,21 +14,23 @@
             <close-icon class="h-[18px]" />
           </button>
         </div>
-        <div class="px-10">
-          <slot></slot>
-        </div>
-        <div class="flex justify-end px-5 pb-5 mt-4">
-          <base-button
-            v-if="isUpdate"
-            :size="ESize.SMALL"
-            :theme="EThemes.GREEN"
-            @click="update"
-            type="button"
-            :disabled="isDisabled"
-          >
-            Update
-          </base-button>
-          <base-button v-else @click="add" :size="ESize.SMALL" :disabled="isDisabled"> Add </base-button>
+        <div class="h-full overflow-y-auto pb-[110px]">
+          <div class="px-10">
+            <slot></slot>
+          </div>
+          <div class="flex justify-end px-10 pb-5 mt-4">
+            <base-button
+              v-if="isUpdate"
+              :size="ESize.SMALL"
+              :theme="EThemes.GREEN"
+              @click="update"
+              type="button"
+              :disabled="isDisabled"
+            >
+              Update
+            </base-button>
+            <base-button v-else @click="add" :size="ESize.SMALL" :disabled="isDisabled"> Add </base-button>
+          </div>
         </div>
       </div>
     </section>
@@ -89,9 +91,3 @@ if (isUpdate) {
   docRef = doc(collection(db, props.url), props.oldValue.id)
 }
 </script>
-
-<style scoped>
-::-webkit-scrollbar {
-  width: 0;
-}
-</style>

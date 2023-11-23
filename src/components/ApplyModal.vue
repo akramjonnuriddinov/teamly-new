@@ -1,19 +1,22 @@
 <template>
   <section
     @click="$emit('close')"
-    class="bottom-0 flex justify-center min-h-screen h-full right-0 modal bg-[#00000080] fixed top-0 left-0 w-[100vw] z-[999]"
+    class="h-full bg-[#00000080] min-h-screen flex justify-center items-start p-10 fixed top-0 left-0 w-[100vw] z-[999]"
   >
-    <div class="w-[40%] flex flex-col pt-[50px] max-[600px]:w-[90%] apply-form max-[990px]:pb-[200px]">
-      <button
-        class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
-        @click="$emit('close')"
-      >
-        <close-icon />
-      </button>
-      <div @click.stop class="p-8 overflow-y-auto bg-white rounded-xl">
+    <div
+      @click.stop
+      class="container rounded-xl overflow-y-hidden h-full bg-white relative mx-auto max-w-[520px] w-full"
+    >
+      <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
+        <h1 class="text-4xl text-center">{{ 'Apply' }}</h1>
+        <button @click="$emit('close')" class="transition-all duration-300 text-tg-heading-font-color hover:opacity-80">
+          <close-icon class="h-[18px]" />
+        </button>
+      </div>
+      <div class="h-full px-10 overflow-y-auto pb-[150px]">
         <form @submit.prevent>
           <div class="flex flex-col items-center justify-between gap-4">
-            <div class="w-[80%] max-[800px]:w-full mb-0">
+            <div class="w-full max-[800px]:w-full mb-0">
               <label for="name" class="block mb-2">Full name</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
@@ -25,7 +28,7 @@
                 required
               />
             </div>
-            <div class="mb-6 w-[80%] max-[800px]:w-full">
+            <div class="mb-6 w-full max-[800px]:w-full">
               <label for="text" class="block mb-2">Phone number</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
@@ -39,7 +42,7 @@
             </div>
           </div>
           <div class="flex flex-col-reverse items-center justify-between gap-4">
-            <div class="mb-6 w-[80%] max-[800px]:w-full relative max-[800px]:mb-0">
+            <div class="mb-6 w-full max-[800px]:w-full relative">
               <label for="file-input" class="block mb-2">Upload your CV</label>
               <input
                 class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer file:hidden"
@@ -50,7 +53,7 @@
               />
             </div>
           </div>
-          <div class="w-[80%] max-[800px]:w-full mx-auto flex justify-center">
+          <div class="w-full max-[800px]:w-full mx-auto flex justify-center">
             <base-button @click="uploadFile" class="w-full" :size="ESize.SMALL">Submit</base-button>
           </div>
         </form>
@@ -92,14 +95,3 @@ const uploadFile = () => {
   }
 }
 </script>
-
-<style scoped>
-.apply-form::-webkit-scrollbar {
-  display: none;
-}
-
-.apply-form {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-</style>
