@@ -63,7 +63,7 @@
           class="bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] -z-50"
         ></div>
 
-        <div class="flex items-center ml-auto">
+        <div class="flex items-center">
           <a
             class="block py-0 mr-10 font-semibold whitespace-nowrap text-tg-heading-font-color hover:text-tg-primary-color transition-colors duration-200 max-[1050px]:hidden"
             href="https://t.me/m_mirahmad"

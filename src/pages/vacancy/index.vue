@@ -7,10 +7,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onUpdated } from 'vue'
 import VacancyBanner from '@/components/vacancy/VacancyBanner.vue'
 import JobLists from '@/components/job/JobLists.vue'
 import ApplyModal from '@/components/ApplyModal.vue'
-import { ref } from 'vue'
 
 const isShow = ref(false)
+onUpdated(() => {
+  isShow.value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
+})
 </script>

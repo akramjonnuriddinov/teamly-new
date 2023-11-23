@@ -31,8 +31,6 @@ import { isLoading, hideLoader } from '@/composables/loader'
 import BaseModal2 from '@/components/admin/modals/BaseModal2.vue'
 
 const route = useRoute()
-// const mainContent = document.querySelector('.main-content')
-// mainContent?.classList.remove('mt-[86px]')
 
 onMounted(() => {
   window.addEventListener('load', () => {

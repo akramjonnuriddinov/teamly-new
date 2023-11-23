@@ -1,5 +1,5 @@
 <template>
-  <section class="hero-banner pb-[290px]">
+  <section class="hero-banner pb-[320px]">
     <div class="absolute top-0 pt-[150px] w-full h-full">
       <img class="img1 absolute left-10 max-w-[300px]" src="../../assets/images/hero_img01.png" alt="" />
       <img class="absolute right-0 max-w-[350px]" src="../../assets/images/hero_img02.png" alt="" />
@@ -11,7 +11,7 @@
         class="relative pt-[80px] flex flex-col items-center w-full max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
       >
         <h1
-          class="max-w-[700px] mb-4 text-[60px] font-extrabold text-tg-heading-font-color leading-[1.2] text-center max-sm:text-4xl"
+          class="max-w-[80%] mb-4 text-[60px] font-extrabold text-tg-heading-font-color leading-[1.2] text-center max-sm:text-4xl"
         >
           Our Digital Shaping Services
         </h1>
