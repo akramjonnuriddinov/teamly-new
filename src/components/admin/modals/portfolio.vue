@@ -1,11 +1,5 @@
 <template>
-  <base-modal
-    :input="props.input"
-    url="portfolio"
-    :old-value="portfolio"
-    :is-disabled="isDisabled"
-    modal_title="Portfolio"
-  >
+  <base-modal :input="props.input" url="portfolio" :old-value="portfolio" modal_title="Portfolio">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
@@ -77,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { Category } from '@/types'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import BaseModal from '@/components/admin/modals/BaseModal.vue'
@@ -110,13 +104,4 @@ const uploadImage = (e: any) => {
 const deleteImage = () => {
   portfolio.value.image = null
 }
-
-const isDisabled = computed(() => {
-  return !(
-    portfolio.value.title?.trim() &&
-    portfolio.value.category &&
-    portfolio.value.text?.trim() &&
-    portfolio.value.image
-  )
-})
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <base-modal :input="props.input" url="services" :old-value="service" :is-disabled="isDisabled" modal_title="Service">
+  <base-modal :input="props.input" url="services" :old-value="service" modal_title="Service">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { Category } from '@/types'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import BaseModal from '@/components/admin/modals/BaseModal.vue'
@@ -104,8 +104,4 @@ const uploadImage = (e: any) => {
 const deleteImage = () => {
   service.value.image = null
 }
-
-const isDisabled = computed(() => {
-  return !(service.value.title?.trim() && service.value.category && service.value.text?.trim() && service.value.image)
-})
 </script>

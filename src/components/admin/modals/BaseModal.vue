@@ -24,11 +24,11 @@
             :theme="EThemes.GREEN"
             @click="update"
             type="button"
-            :disabled="isDisabled"
+            :disabled="disabled"
           >
             Update
           </base-button>
-          <base-button v-else @click="add" :size="ESize.SMALL" :disabled="isDisabled"> Add </base-button>
+          <base-button v-else @click="add" :size="ESize.SMALL" :disabled="disabled"> Add </base-button>
         </div>
       </div>
     </div>
@@ -36,20 +36,24 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, computed } from 'vue'
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { ESize, EThemes } from '@/types'
-import { Vacancy } from '@/types'
+import { ESize, EThemes, Vacancy } from '@/types'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
+import { isDisabled } from '@/composables/isDisabled'
 
 const db = useFirestore()
-const props = defineProps(['oldValue', 'url', 'isDisabled', 'close', 'input', 'modal_title'])
+const props = defineProps(['oldValue', 'url', 'close', 'input', 'modal_title'])
 const collectionRef = collection(db, props.url)
 let docRef: any = null
 const { close, updateList, addToList } = inject<any>('uiManager')
 const isUpdate = !!props.input
+
+const disabled = computed(() => {
+  return isDisabled(props.oldValue)
+})
 
 const add = async () => {
   try {

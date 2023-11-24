@@ -1,19 +1,10 @@
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { collection, query, getDocs } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { showLoader, hideLoader } from '@/composables/loader'
 
 const db = useFirestore()
-export const add = async (a: number, b: number) => {
-  const d = ref<number>()
-  try {
-    d.value = await (a + b)
-    return d.value
-  }
-  catch (error) {
-    console.error(error)
-  }
-}
+
 export const fetchData = async (path: string) => {
   const options = ref<any>([])
   try {

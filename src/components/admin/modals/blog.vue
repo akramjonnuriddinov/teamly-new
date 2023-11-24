@@ -1,5 +1,5 @@
 <template>
-  <base-modal :input="props.input" url="blog" :old-value="blog" :is-disabled="isDisabled" modal_title="Blog">
+  <base-modal :input="props.input" url="blog" :old-value="blog" modal_title="Blog">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import BaseModal from '@/components/admin/modals/BaseModal.vue'
 import Editor from '@/components/reusables/Editor.vue'
@@ -84,6 +84,7 @@ const uploadImage = (e: any) => {
   reader.onload = (event: any) => {
     if (blog.value) {
       blog.value.image = event.target.result
+      console.log(typeof blog.value.image)
     }
   }
 }
@@ -93,12 +94,4 @@ const handlePostFromChild = (post: any) => {
 const deleteImage = () => {
   blog.value.image = null
 }
-const isDisabled = computed(() => {
-  return !(
-    blog.value.subtitle?.trim() &&
-    blog.value.title?.trim() &&
-    // blog.value.text?.trim() &&
-    blog.value.image
-  )
-})
 </script>

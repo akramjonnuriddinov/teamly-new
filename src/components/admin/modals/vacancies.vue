@@ -1,5 +1,5 @@
 <template>
-  <base-modal :input="props.input" url="vacancies" :old-value="vacancy" :is-disabled="isDisabled" modal_title="Vacancy">
+  <base-modal :input="props.input" url="vacancies" :old-value="vacancy" modal_title="Vacancy">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex justify-between w-full">
@@ -57,7 +57,7 @@
         </div>
         <div class="flex items-center justify-between w-full mt-2 mb-2">
           <label class="text-gray-700" for="text">Description</label>
-          <editor @input="handRequirementsFromChild" :edit-editor="vacancy.requirements" class="w-[80%]" />
+          <editor @input="handleDescriptionFromChild" :edit-editor="vacancy.description" class="w-[80%]" />
         </div>
       </div>
     </form>
@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { Category } from '@/types'
 import type { Vacancy } from '@/types'
 import BaseModal from './BaseModal.vue'
@@ -80,8 +80,7 @@ const initialVacancy = {
   time: '',
   date: 0,
   text: '',
-  requirements: '',
-  // tasks: '',
+  description: '',
 }
 
 const vacancy = ref<Vacancy>({
@@ -92,21 +91,7 @@ const vacancy = ref<Vacancy>({
 const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
 const times = ref(['Online, Fulltime', 'Onsite, Fulltime'])
 
-const handRequirementsFromChild = (requirements: any) => {
-  vacancy.value.requirements = requirements
+const handleDescriptionFromChild = (description: any) => {
+  vacancy.value.description = description
 }
-// const handleTaskFromChild = (tasks: any) => {
-//   vacancy.value.tasks = tasks
-// }
-
-const isDisabled = computed(() => {
-  return !(
-    vacancy.value.location?.trim() &&
-    vacancy.value.title?.trim() &&
-    vacancy.value.category &&
-    vacancy.value.time &&
-    vacancy.value.text?.trim() &&
-    vacancy.value.requirements
-  )
-})
 </script>

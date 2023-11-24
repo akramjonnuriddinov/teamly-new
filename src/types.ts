@@ -12,8 +12,7 @@ export type Vacancy = {
   category: string
   time: string
   date: number
-  requirements: string[]
-  tasks: string[]
+  description: object
 }
 
 export type Service = {
