@@ -12,7 +12,8 @@
       </router-link>
       <ul class="space-y-2 font-medium">
         <li v-for="link in links">
-          <button
+          <router-link
+            :to="{ name: 'admin' }"
             @click="$emit('change', link.name)"
             type="button"
             :class="{ 'bg-gray-100': active === link.name }"
@@ -20,9 +21,13 @@
           >
             <component :is="link.icon" />
             <span class="ml-3 capitalize">{{ link.name }}</span>
-          </button>
+          </router-link>
         </li>
       </ul>
+      <div class="flex items-center w-full p-2 space-y-2 font-medium text-gray-900 rounded-lg hover:bg-gray-100 group">
+        <blog-icon />
+        <router-link class="ml-3" :to="{ name: 'resume' }">Resume</router-link>
+      </div>
     </div>
   </aside>
 </template>
@@ -46,7 +51,6 @@ const links = ref([
     name: 'portfolio',
     icon: ServiceIcon,
   },
-
   {
     name: 'blog',
     icon: BlogIcon,
@@ -59,5 +63,9 @@ const links = ref([
     name: 'about',
     icon: AboutIcon,
   },
+  // {
+  //   name: 'resume',
+  //   icon: BlogIcon,
+  // },
 ])
 </script>

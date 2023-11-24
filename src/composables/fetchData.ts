@@ -6,6 +6,7 @@ import { showLoader, hideLoader } from '@/composables/loader'
 const db = useFirestore()
 
 export const fetchData = async (options: any, path: string) => {
+  const options2 = ref<any>([])
   onMounted(async () => {
     try {
       showLoader()
@@ -15,6 +16,7 @@ export const fetchData = async (options: any, path: string) => {
         const item = ref()
         item.value = doc.data()
         await options.push({ ...item.value, id: doc.id })
+        await options2.value.push({ ...item.value, id: doc.id })
       })
     } catch (error) {
       console.error('Error fetching data: ', error)

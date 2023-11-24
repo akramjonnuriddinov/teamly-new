@@ -14,7 +14,6 @@
       <app-loader />
     </loader-wrapper>
   </div>
-  <base-modal2 class="hidden" />
 </template>
 
 <script setup lang="ts">
@@ -28,7 +27,6 @@ import ContactUs from '@/components/static/ContactUs.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
 import { isLoading, hideLoader } from '@/composables/loader'
-import BaseModal2 from '@/components/admin/modals/BaseModal2.vue'
 
 const route = useRoute()
 

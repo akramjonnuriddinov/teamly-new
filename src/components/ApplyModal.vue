@@ -17,7 +17,7 @@
               <label for="name" class="block mb-2">Full name</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="resume.name"
+                v-model="resume.title"
                 type="text"
                 id="name"
                 placeholder="Full name"
@@ -51,7 +51,10 @@
             </div>
           </div>
           <div class="w-full max-[800px]:w-full mx-auto flex justify-center">
-            <base-button @click="uploadFile" class="w-full" :size="ESize.SMALL">Submit</base-button>
+            <base-button @click="add" class="w-full" :size="ESize.SMALL">Submit</base-button>
+          </div>
+          <div class="w-full mt-5 max-[800px]:w-full mx-auto flex justify-center">
+            <base-button @click="downloadFile" class="w-full" :size="ESize.SMALL">Donwload</base-button>
           </div>
         </form>
       </div>
@@ -64,20 +67,69 @@ import { ref } from 'vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
-// import { getStorage } from 'firebase/storage'
-// import { storageRef } from '@/firebase'
+import { uploadBytes, getDownloadURL } from 'firebase/storage'
+import { storageRef, storage } from '@/firebase'
+import { addDoc, collection } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
 
-const selectedFile = ref(null)
+const db = useFirestore()
+const collectionRef = collection(db, 'resume')
+const selectedFile = ref<any>(null)
+const downloadUrl = ref<any>(null)
 const resume = ref({
-  name: '',
+  id: '',
+  title: '',
   phone: '',
-  type: '',
-  file: '',
 })
+
+const add = async () => {
+  try {
+    const newValue = {
+      ...resume.value,
+      date: Date.now(),
+    }
+    const res = await addDoc(collectionRef, newValue)
+    console.log('res: ', res.id)
+
+    if (selectedFile.value) {
+      const userDirectory = `users/${resume.value.title}`
+      const fileRef = storageRef(storage, userDirectory)
+
+      try {
+        await uploadBytes(fileRef, selectedFile.value)
+        downloadUrl.value = await getDownloadURL(fileRef)
+      } catch (error) {
+        console.error('Error uploading file: ', error)
+      }
+    }
+  } catch (error) {
+    console.error('Error adding resume...')
+  }
+}
 
 const handleFileChange = (event: any) => {
   selectedFile.value = event.target.files[0]
 }
 
-const uploadFile = () => {}
+// const uploadFile = async () => {
+//   if (selectedFile.value) {
+//     const userDirectory = `users/${resume.value.title}`
+//     const fileRef = storageRef(storage, userDirectory)
+
+//     try {
+//       await uploadBytes(fileRef, selectedFile.value)
+//       downloadUrl.value = await getDownloadURL(fileRef)
+//     } catch (error) {
+//       console.error('Error uploading file: ', error)
+//     }
+//   }
+// }
+
+const downloadFile = async () => {
+  if (downloadUrl.value) {
+    window.open(downloadUrl.value, '_blank')
+  } else {
+    console.warn('No file available for download.')
+  }
+}
 </script>
