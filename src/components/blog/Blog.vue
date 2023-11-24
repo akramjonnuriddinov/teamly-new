@@ -78,7 +78,9 @@ import { fetchData } from '@/composables/fetchData'
 
 const blogs = ref<any>([])
 
-fetchData(blogs.value, 'blog')
+fetchData('blog').then((result) => {
+  blogs.value = result
+})
 
 function formatTimestampToLocaleString(timestamp: number) {
   const date = new Date(timestamp)

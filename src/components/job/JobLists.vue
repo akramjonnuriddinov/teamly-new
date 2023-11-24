@@ -44,5 +44,7 @@ import { fetchData } from '@/composables/fetchData'
 defineProps(['isShow'])
 const vacancies = ref<Vacancy[]>([])
 
-fetchData(vacancies.value, 'vacancies')
+fetchData('vacancies').then((result) => {
+  vacancies.value = result
+})
 </script>

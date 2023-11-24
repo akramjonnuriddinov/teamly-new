@@ -50,7 +50,9 @@ import { Portfolio } from '@/types'
 import { fetchData } from '@/composables/fetchData'
 
 const projects = ref<Portfolio[]>([])
-fetchData(projects.value, 'portfolio')
+fetchData('portfolio').then((result) => {
+  projects.value = result
+})
 </script>
 
 <style scoped>

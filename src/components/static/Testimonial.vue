@@ -14,7 +14,7 @@
           Saying!
         </h2>
       </div>
-      <swiper
+      <!-- <swiper
         class="mySwiper"
         :slidesPerView="3"
         :pagination="{
@@ -51,15 +51,15 @@
             <span class="text-[#8C8C8C] font-medium text-[15px] text-center block">{{ swiperContent.position }}</span>
           </div>
         </swiper-slide>
-      </swiper>
+      </swiper> -->
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from 'swiper/vue'
+// import { Swiper, SwiperSlide } from 'swiper/vue'
 import { ref } from 'vue'
-import { getImageUrl } from '@/composables/getImgUrl'
+// import { getImageUrl } from '@/composables/getImgUrl'
 
 const swiperContents = ref([
   {

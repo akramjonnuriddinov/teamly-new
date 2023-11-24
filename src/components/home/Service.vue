@@ -55,7 +55,9 @@ import { Service } from '@/types'
 import { fetchData } from '@/composables/fetchData'
 
 const services = ref<Service[]>([])
-fetchData(services.value, 'services')
+fetchData('services').then((result) => {
+  services.value = result
+})
 
 const isHover = ref<boolean[]>([])
 

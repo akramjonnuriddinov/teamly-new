@@ -51,7 +51,9 @@ import { ref } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 
 const teams = ref<any>([])
-fetchData(teams.value, 'about')
+fetchData('about').then((result) => {
+  teams.value = result
+})
 </script>
 
 <style scoped>
