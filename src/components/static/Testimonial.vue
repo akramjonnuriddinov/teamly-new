@@ -24,7 +24,6 @@
           >
             <div class="flex justify-center">
               <div class="relative inline-block">
-                <img src="getImageUrl(swiperContent.img_url)" alt="testimonial_img" />
                 <div
                   class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
                 >
