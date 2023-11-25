@@ -4,7 +4,6 @@
 
 <style scoped>
 .btn-loader {
-  position: absolute;
   width: 30px;
   height: 30px;
   border: 3px solid #fff;

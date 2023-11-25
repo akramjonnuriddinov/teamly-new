@@ -3,8 +3,8 @@ import App from './App.vue'
 import './style.css'
 import router from './router'
 import { createPinia } from 'pinia'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
-import 'swiper/css'
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import 'swiper/css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { VueFire } from 'vuefire'
@@ -26,7 +26,7 @@ app.use(VueFire, {
   modules: [],
 })
 app.use(pinia)
-app.use(VueAwesomeSwiper)
+// app.use(VueAwesomeSwiper)
 app.use(router)
 app.use(VueQuillEditor)
 app.mount('#app')

@@ -1,23 +1,30 @@
 <template>
   <button
+    :disabled="disabled || isLoading"
     :class="`${theme[props.theme]} ${size[props.size]}`"
     class="rounded-[10px] font-bold flex relative justify-center items-center text-center whitespace-nowrap tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500"
   >
-    <slot></slot>
+    <button-loader v-if="isLoading" />
+    <slot v-else></slot>
   </button>
 </template>
 
 <script setup lang="ts">
 import { ESize, EThemes } from '@/types'
+import ButtonLoader from '@/components/static/ButtonLoader.vue'
 
 interface ButtonShape {
   size: ESize
   theme: EThemes
+  isLoading: boolean
+  disabled: boolean
 }
 
 const props = withDefaults(defineProps<ButtonShape>(), {
   size: ESize.DEFAULT,
   theme: EThemes.DEFAULT,
+  isLoading: false,
+  disabled: false,
 })
 
 const theme = {
@@ -27,9 +34,9 @@ const theme = {
   [EThemes.WHITE]: 'bg-tg-white text-tg-black hover:bg-tg-secondary-color hover:text-tg-white',
 }
 const size = {
-  [ESize.DEFAULT]: 'px-[25px] py-[18px]',
-  [ESize.SMALL]: 'px-[60px] py-[13px]',
-  [ESize.MEDIUM]: 'px-[60px] py-[18px]',
-  [ESize.BIG]: 'px-[120px] py-[18px]',
+  [ESize.DEFAULT]: 'px-[25px] h-[60px]',
+  [ESize.SMALL]: 'px-[60px] h-[50px]',
+  [ESize.MEDIUM]: 'px-[60px] h-[60px]',
+  [ESize.BIG]: 'px-[120px] h-[60px]',
 }
 </script>
