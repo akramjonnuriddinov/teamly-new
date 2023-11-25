@@ -28,7 +28,10 @@
           >
             Update
           </base-button>
-          <base-button v-else @click="add" :size="ESize.SMALL" :disabled="disabled"> Add </base-button>
+          <base-button v-else @click="add" :size="ESize.SMALL" :disabled="disabled">
+            Add
+            <button-loader v-if="isSubmitting()" />
+          </base-button>
         </div>
       </div>
     </div>
@@ -43,6 +46,8 @@ import { ESize, EThemes, Vacancy } from '@/types'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 import { isDisabled } from '@/composables/isDisabled'
+import { toggleSubmitting, isSubmitting } from '@/composables/loader'
+import ButtonLoader from '@/components/static/ButtonLoader.vue'
 
 const db = useFirestore()
 const props = defineProps(['oldValue', 'url', 'close', 'input', 'modal_title'])
@@ -57,6 +62,7 @@ const disabled = computed(() => {
 
 const add = async () => {
   try {
+    toggleSubmitting(true)
     const newValue = {
       ...props.oldValue,
       date: Date.now(),
@@ -73,6 +79,7 @@ const add = async () => {
   } catch (error) {
     console.error('Error adding ...', error)
   } finally {
+    toggleSubmitting()
   }
 }
 

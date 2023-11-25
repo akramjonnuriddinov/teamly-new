@@ -63,9 +63,12 @@
             </div>
           </div>
           <div class="w-full max-[800px]:w-full mx-auto flex justify-center">
-            <base-button @click="add" class="w-full" :size="ESize.SMALL">Submit</base-button>
+            <base-button @click="add" class="w-full" :disabled="disabled" :size="ESize.SMALL">
+              Submit
+              <button-loader v-if="isSubmitting()" />
+            </base-button>
           </div>
-          <div class="w-full mt-5 max-[800px]:w-full mx-auto flex justify-center">
+          <div class="w-full mt-5 max-[800px]:w-full mx-auto hidden justify-center">
             <base-button @click="downloadFile" class="w-full" :size="ESize.SMALL">Donwload</base-button>
           </div>
         </form>
@@ -75,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
@@ -83,6 +86,11 @@ import { uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
+import ButtonLoader from './static/ButtonLoader.vue'
+import { isSubmitting, toggleSubmitting } from '@/composables/loader'
+import { isDisabled } from '@/composables/isDisabled'
+
+const emit = defineEmits(['close'])
 
 const db = useFirestore()
 const collectionRef = collection(db, 'resume')
@@ -94,15 +102,24 @@ const resume = ref({
   phone: '',
 })
 
+const disabled = computed(() => {
+  let a = isDisabled(resume.value)
+  if (a == false) {
+    if (isSubmitting()) {
+      return true
+    } else return false
+  }
+  return a
+})
+
 const add = async () => {
   try {
+    toggleSubmitting(true)
     const newValue = {
       ...resume.value,
       date: Date.now(),
     }
-    console.log('newValue: ', newValue)
     const res = await addDoc(collectionRef, newValue)
-    console.log('res', res.id)
 
     if (selectedFile.value) {
       const userDirectory = `users/${res.id}`
@@ -117,6 +134,9 @@ const add = async () => {
     }
   } catch (error) {
     console.error('Error adding resume...')
+  } finally {
+    toggleSubmitting()
+    emit('close')
   }
 }
 

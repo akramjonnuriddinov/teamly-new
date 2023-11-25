@@ -38,11 +38,8 @@ const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'resume', id))
   resumes.value.forEach((item: any) => {
     if (item.id == id) {
-      console.log('id: ', id)
       const resumeRef = storageRef(storage, `users/${item.file_name}`)
-      deleteObject(resumeRef).then(() => {
-        console.log('File deleted successfully...')
-      })
+      deleteObject(resumeRef).then(() => {})
     }
   })
 }

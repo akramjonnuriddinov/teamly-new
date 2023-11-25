@@ -1,7 +1,7 @@
 <template>
   <button
     :class="`${theme[props.theme]} ${size[props.size]}`"
-    class="rounded-[10px] font-bold flex justify-center items-center text-center whitespace-nowrap tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500"
+    class="rounded-[10px] font-bold flex relative justify-center items-center text-center whitespace-nowrap tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500"
   >
     <slot></slot>
   </button>

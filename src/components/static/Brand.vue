@@ -1,7 +1,7 @@
 <template>
   <section class="bg-white">
     <div class="container relative flex px-5 pb-16 mx-auto transition-all duration-300 max-w-7xl">
-      <!-- <swiper
+      <swiper
         :slidesPerView="count"
         :spaceBetween="0"
         :pagination="{
@@ -9,10 +9,7 @@
         }"
         class="mySwiper"
       >
-        <swiper-slide
-          class="swiper-slide w-1/6 max-[990px]:w-1/3"
-          v-for="brand in brands"
-        >
+        <swiper-slide class="swiper-slide w-1/6 max-[990px]:w-1/3" v-for="brand in brands">
           <div class="flex justify-center w-full">
             <img
               class="block transition-all cursor-pointer brand-item-img opacity-60 hover:opacity-100 grayscale hover:grayscale-0"
@@ -21,15 +18,15 @@
             />
           </div>
         </swiper-slide>
-      </swiper> -->
+      </swiper>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-// import { Swiper, SwiperSlide } from "swiper/vue"
-// import { getImageUrl } from "@/composables/getImgUrl"
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { getImageUrl } from '@/composables/getImgUrl'
 
 const count = ref(6)
 onMounted(() => {

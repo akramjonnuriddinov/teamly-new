@@ -8,13 +8,14 @@
         <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >Client Testimonial
         </span>
-        <h2 class="text-center text-tg-dark-blue-color font-bold leading-[1.2] text-5xl max-sm:text-4xl">
+        <h2 class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl">
           What People are
           <br class="max-[500px]:hidden" />
           Saying!
         </h2>
       </div>
-      <!-- <swiper
+      <!-- SWIPER -->
+      <swiper
         class="mySwiper"
         :slidesPerView="3"
         :pagination="{
@@ -51,15 +52,16 @@
             <span class="text-[#8C8C8C] font-medium text-[15px] text-center block">{{ swiperContent.position }}</span>
           </div>
         </swiper-slide>
-      </swiper> -->
+      </swiper>
+      <!-- /SWIPER -->
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-// import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import { ref } from 'vue'
-// import { getImageUrl } from '@/composables/getImgUrl'
+import { getImageUrl } from '@/composables/getImgUrl'
 
 const swiperContents = ref([
   {
