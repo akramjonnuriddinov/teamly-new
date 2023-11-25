@@ -1,5 +1,5 @@
 <template>
-  <header :class="header" class="fixed z-50 w-full py-5 home-header header">
+  <header :class="header" class="fixed top-0 z-50 w-full py-5 home-header header">
     <div
       class="container px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
@@ -20,9 +20,7 @@
             'translate-x-full-custom transition-all duration-500': isHidden,
           }"
         >
-          <div
-            class="hidden bg-tg-white w-full max-w-[300px] justify-between py-[30px] px-[25px] max-[990px]:flex"
-          >
+          <div class="hidden bg-tg-white w-full max-w-[300px] justify-between py-[30px] px-[25px] max-[990px]:flex">
             <router-link class="mobile-logo w-[150px]" to="/">
               <img
                 class="w-[150px] min-w-[150px]"
@@ -32,23 +30,12 @@
                 alt="logo"
               />
             </router-link>
-            <button
-              class="flex items-center justify-center w-9 h-7"
-              @click="toggleModal"
-            >
-              <img
-                class="w-4 h-5"
-                src="@/assets/images/svg/close.svg"
-                alt="close-icon"
-              />
+            <button class="flex items-center justify-center w-9 h-7" @click="toggleModal">
+              <img class="w-4 h-5" src="@/assets/images/svg/close.svg" alt="close-icon" />
             </button>
           </div>
           <ul class="flex justify-between top-[100px] navbar__list">
-            <li
-              class="relative mr-10 navbar__item"
-              v-for="(link, index) in links"
-              :key="index"
-            >
+            <li class="relative mr-10 navbar__item" v-for="(link, index) in links" :key="index">
               <router-link
                 class="py-0 font-semibold transition-colors duration-200 nav-link navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
                 @click="isHidden = true"
@@ -58,10 +45,7 @@
               </router-link>
             </li>
           </ul>
-          <!-- SOCIALS -->
-          <div
-            class="hidden py-[30px] flex-wrap justify-center px-5 gap-2.5 max-[990px]:flex"
-          >
+          <div class="hidden py-[30px] flex-wrap justify-center px-5 gap-2.5 max-[990px]:flex">
             <a
               v-for="(social, index) in socials"
               :key="index"
@@ -72,7 +56,6 @@
               <span v-html="getSVG(social.name)" />
             </a>
           </div>
-          <!-- /SOCIALS -->
         </nav>
         <div
           @click="toggleModal"
@@ -80,7 +63,7 @@
           class="bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] -z-50"
         ></div>
 
-        <div class="flex items-center ml-auto">
+        <div class="flex items-center">
           <a
             class="block py-0 mr-10 font-semibold whitespace-nowrap text-tg-heading-font-color hover:text-tg-primary-color transition-colors duration-200 max-[1050px]:hidden"
             href="https://t.me/m_mirahmad"
@@ -89,14 +72,9 @@
           >
 
           <div class="max-[990px]:hidden">
-            <router-link :to="{ name: 'admin' }">
-              <Language />
-            </router-link>
+            <Language />
           </div>
-          <button
-            class="h-[30px] hidden w-[26px] max-[990px]:flex"
-            @click="toggleModal"
-          >
+          <button class="h-[30px] hidden w-[26px] max-[990px]:flex" @click="toggleModal">
             <img
               class="w-[26px] block h-[30px]"
               width="26"
@@ -112,80 +90,70 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, onUpdated } from "vue"
-import Language from "@/components/static/Language.vue"
-import { getSVG } from "@/composables/getSVG"
+import { onMounted, ref, onUpdated } from 'vue'
+import Language from '@/components/static/Language.vue'
+import { getSVG } from '@/composables/getSVG'
 
-const header = ref("")
-
+const header = ref('')
 const socials = [
   {
-    name: "facebook",
-    url: "",
+    name: 'facebook',
+    url: '',
   },
   {
-    name: "twitter",
-    url: "",
+    name: 'twitter',
+    url: '',
   },
   {
-    name: "instagram",
-    url: "",
+    name: 'instagram',
+    url: '',
   },
   {
-    name: "linkedin",
-    url: "https://www.linkedin.com/company/teamly-uz/",
+    name: 'linkedin',
+    url: 'https://www.linkedin.com/company/teamly-uz/',
   },
   {
-    name: "telegram",
-    url: "https://t.me/teamly_uz",
+    name: 'telegram',
+    url: 'https://t.me/teamly_uz',
   },
 ]
-
 const links = [
   {
-    name: "Home",
-    url: "/",
+    name: 'Home',
+    url: '/',
   },
   {
-    name: "About",
-    url: "/about",
+    name: 'About',
+    url: '/about',
   },
   {
-    name: "Service",
-    url: "/service",
+    name: 'Service',
+    url: '/service',
   },
   {
-    name: "Portfolio",
-    url: "/portfolio",
+    name: 'Portfolio',
+    url: '/portfolio',
   },
   {
-    name: "Vacancy",
-    url: "/vacancy",
+    name: 'Vacancy',
+    url: '/vacancy',
   },
 ]
-
 const isHidden = ref(true)
 
 const toggleModal = () => {
   isHidden.value = !isHidden.value
-  isHidden.value
-    ? document.body.classList.remove("overflow-hidden")
-    : document.body.classList.add("overflow-hidden")
+  isHidden.value ? document.body.classList.remove('overflow-hidden') : document.body.classList.add('overflow-hidden')
 }
 
 onUpdated(() => {
-  isHidden.value
-    ? document.body.classList.remove("overflow-hidden")
-    : document.body.classList.add("overflow-hidden")
+  isHidden.value ? document.body.classList.remove('overflow-hidden') : document.body.classList.add('overflow-hidden')
 })
 
 onMounted(() => {
-  window.addEventListener("scroll", () => {
-    const list =
-      window.scrollY >= 300
-        ? "bg-tg-white header-shadow fixed"
-        : "transparent absolute"
-    header.value = list + " transition-all top-0 duration-300"
+  window.addEventListener('scroll', () => {
+    const list = window.scrollY >= 300 ? 'bg-tg-white header-shadow fixed' : 'transparent absolute'
+    header.value = list + ' transition-all top-0 duration-300'
   })
 })
 </script>
@@ -205,7 +173,7 @@ onMounted(() => {
 }
 
 .nav-link::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 3px;

@@ -1,18 +1,9 @@
 <template>
   <section class="bg-[#EFF7FF] -mt-[620px] pt-[520px] pb-[105px]">
     <div class="container w-full px-5 mx-auto max-w-7xl">
-      <div
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-bottom"
-        class="pb-[70px]"
-      >
-        <span
-          class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
-          >Our Project
-        </span>
-        <h2
-          class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl"
-        >
+      <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="pb-[70px]">
+        <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color">Our Project </span>
+        <h2 class="text-center text-tg-dark-blue-color font-bold leading-[1.2] text-5xl max-sm:text-4xl">
           Our Amazing <br class="max-[500px]:hidden" />
           23 Creative Works.
         </h2>
@@ -27,11 +18,11 @@
             class="w-full h-[393px] object-cover rounded-[30px]"
             width="307"
             height="393"
-            :src="getImageUrl(project.img_url)"
+            :src="project.image"
             alt="img"
           />
           <div
-            class="absolute bottom-0 left-0 flex items-center justify-between px-10 pb-10 capitalize text-tg-white max-[760px]:w-full"
+            class="absolute bottom-0 w-full left-0 flex items-center justify-between px-10 pb-10 capitalize text-tg-white max-[760px]:w-full"
           >
             <div class="max-w-[180px] w-full mr-2 max-[760px]:max-w-full">
               <h3 class="mb-2 text-2xl font-bold leading-[1.2]">
@@ -53,41 +44,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { getImageUrl } from "@/composables/getImgUrl"
-import ArrowRight from "@/components/icons/ArrowRight.vue"
+import { ref } from 'vue'
+import ArrowRight from '@/components/icons/ArrowRight.vue'
+import { Portfolio } from '@/types'
+import { fetchData } from '@/composables/fetchData'
 
-const projects = ref([
-  {
-    id: "1",
-    title: "Creative Design",
-    img_url: "our-project/project01.jpg",
-    text: "Design",
-  },
-  {
-    id: "2",
-    title: "Business Idea",
-    img_url: "our-project/project02.jpg",
-    text: "Business",
-  },
-  {
-    id: "3",
-    title: "Web Development",
-    img_url: "our-project/project03.jpg",
-    text: "Development",
-  },
-  {
-    id: "4",
-    title: "Mobile Development",
-    img_url: "our-project/project04.jpg",
-    text: "Mobile",
-  },
-])
+const projects = ref<Portfolio[]>([])
+fetchData('portfolio').then((result) => {
+  projects.value = result
+})
 </script>
 
 <style scoped>
 .project-thumb::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: -30%;

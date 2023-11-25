@@ -1,16 +1,13 @@
 <template>
-  <section class="pt-[115px] bg-[#F4F4F4] pb-[45px] relative z-10 mb-[100px]">
+  <section class="pt-[115px] bg-[#F3F9FF] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <div class="pb-[70px]">
         <div class="flex justify-center">
-          <span
-            class="mb-3 text-lg font-bold text-center uppercase sub-title text-tg-primary-color"
+          <span class="mb-3 text-lg font-bold text-center uppercase sub-title text-tg-primary-color"
             >Innovative Technology Services
           </span>
         </div>
-        <h2
-          class="text-center font-bold text-tg-heading-font-color leading-[1.2] text-5xl max-sm:text-4xl"
-        >
+        <h2 class="text-center font-bold text-tg-heading-font-color leading-[1.2] text-5xl max-sm:text-4xl">
           Shaping Your Digital Future:
           <br class="max-[720px]:hidden" />
           Our Services
@@ -23,9 +20,7 @@
           v-for="(service, index) in services"
           :key="index"
         >
-          <div
-            class="service-item__inner bg-white flex flex-col h-full bg- px-[35px] py-[50px] rounded-[20px]"
-          >
+          <div class="service-item__inner bg-white flex flex-col h-full bg- px-[35px] py-[50px] rounded-[20px]">
             <router-link
               class="mb-[22px] text-2xl font-bold text-tg-heading-font-color transition-colors duration-300 whitespace-nowrap hover:text-tg-primary-color"
               to="/"
@@ -54,40 +49,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { getImageUrl } from "@/composables/getImgUrl"
-import ArrowRight from "@/components/icons/ArrowRight.vue"
+import { ref } from 'vue'
+import { getImageUrl } from '@/composables/getImgUrl'
+import ArrowRight from '@/components/icons/ArrowRight.vue'
 
 const services = ref([
   {
-    title: "Web Development",
-    text: "Build a site your customers love to use.",
-    img_url: "service/services_icon01.png",
+    title: 'Web Development',
+    text: 'Build a site your customers love to use.',
+    img_url: 'service/services_icon01.png',
   },
   {
-    title: "Mobile Development",
-    text: "Create a cross-platform mobile app with native functionality.",
-    img_url: "service/services_icon02.png",
+    title: 'Mobile Development',
+    text: 'Create a cross-platform mobile app with native functionality.',
+    img_url: 'service/services_icon02.png',
   },
   {
-    title: "UX/UI Design",
-    text: "For the redesign of the web design and technique of your website or your brand.",
-    img_url: "service/services_icon03.png",
+    title: 'UX/UI Design',
+    text: 'For the redesign of the web design and technique of your website or your brand.',
+    img_url: 'service/services_icon03.png',
   },
   {
-    title: "Daily Updates",
-    text: "Stay Ahead of the Curve with IT Updates.",
-    img_url: "service/services_icon04.png",
+    title: 'Daily Updates',
+    text: 'Stay Ahead of the Curve with IT Updates.',
+    img_url: 'service/services_icon04.png',
   },
   {
-    title: "SEO Analytics",
-    text: "We help you analyze, and optimize your SEO strategy with our cutting-edge tools and expertise.",
-    img_url: "service/services_icon05.png",
+    title: 'SEO Analytics',
+    text: 'We help you analyze, and optimize your SEO strategy with our cutting-edge tools and expertise.',
+    img_url: 'service/services_icon05.png',
   },
   {
-    title: "Support Team",
-    text: "We are always ready to help you with any IT issue. Contact us anytime, anywhere.",
-    img_url: "service/services_icon06.png",
+    title: 'Support Team',
+    text: 'We are always ready to help you with any IT issue. Contact us anytime, anywhere.',
+    img_url: 'service/services_icon06.png',
   },
 ])
 </script>
@@ -123,7 +118,7 @@ const services = ref([
 }
 
 .sub-title::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 50%;
@@ -134,7 +129,7 @@ const services = ref([
   background: #5956e9;
 }
 .sub-title::after {
-  content: "";
+  content: '';
   position: absolute;
   left: auto;
   right: 0;

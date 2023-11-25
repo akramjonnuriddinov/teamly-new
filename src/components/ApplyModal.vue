@@ -1,27 +1,23 @@
 <template>
   <section
     @click="$emit('close')"
-    class="bottom-0 flex justify-center right-0 modal bg-[#00000080] fixed top-0 left-0 w-[100vw] z-[999]"
+    class="h-full bg-[#00000080] flex justify-center overflow-y-auto items-start p-10 fixed top-0 left-0 w-[100vw] z-[999]"
   >
-    <div
-      class="w-[70%] flex flex-col pt-[100px] max-[600px]:w-[90%] apply-form max-[990px]:pb-[200px] max-[990px]:overflow-y-auto"
-    >
-      <button
-        class="self-end mb-4 transition-all duration-300 text-tg-white hover:text-tg-secondary-color"
-        @click="$emit('close')"
-      >
-        <close-icon />
-      </button>
-      <div @click.stop class="p-8 bg-white rounded-xl">
-        <form @submit.prevent="submitForm()">
-          <div
-            class="flex items-center justify-between gap-4 max-[800px]:flex-col"
-          >
-            <div class="mb-6 w-[45%] max-[800px]:w-full max-[800px]:mb-0">
+    <div @click.stop class="container rounded-xl overflow-hidden h-auto bg-white relative mx-auto max-w-[500px] w-full">
+      <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
+        <h1 class="text-4xl text-center">{{ 'Apply' }}</h1>
+        <button @click="$emit('close')" class="transition-all duration-300 text-tg-heading-font-color hover:opacity-80">
+          <close-icon class="h-[18px]" />
+        </button>
+      </div>
+      <div class="flex w-full h-full px-10 pb-10 overflow-y-auto">
+        <form class="w-full" @submit.prevent>
+          <div class="flex flex-col items-center justify-between gap-4">
+            <div class="w-full max-[800px]:w-full mb-0">
               <label for="name" class="block mb-2">Full name</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="resume.name"
+                v-model="resume.title"
                 type="text"
                 id="name"
                 placeholder="Full name"
@@ -29,7 +25,19 @@
                 required
               />
             </div>
-            <div class="mb-6 w-[45%] max-[800px]:w-full">
+            <div class="w-full max-[800px]:w-full mb-0">
+              <label for="username" class="block mb-2">Telegram</label>
+              <input
+                class="p-2.5 border rounded-lg w-full outline-none"
+                v-model="resume.username"
+                type="text"
+                id="username"
+                placeholder="Telegram username"
+                autocomplete="off"
+                required
+              />
+            </div>
+            <div class="mb-6 w-full max-[800px]:w-full">
               <label for="text" class="block mb-2">Phone number</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
@@ -42,51 +50,23 @@
               />
             </div>
           </div>
-          <div
-            class="flex items-start justify-between gap-4 max-[800px]:flex-col-reverse"
-          >
-            <div class="w-[45%] max-[800px]:w-full relative">
-              <div class="w-full mb-6">
-                <input
-                  class="p-2.5 border rounded-lg w-full outline-none"
-                  v-model="resume.type"
-                  type="text"
-                  placeholder="VueJS"
-                  autocomplete="off"
-                  required
-                />
-              </div>
-              <ul
-                v-if="false"
-                class="absolute rounded-lg shadow-2xl top-[50px] w-full px-4 bg-white ounded-lg max-[990px]:overflow-y-auto"
-              >
-                <li
-                  class="flex items-center justify-between py-2 transition-all border-b cursor-pointer text-tg-heading-font-color hover:text-tg-body-font-color"
-                  v-for="job in jobs"
-                >
-                  <span>{{ job.title }}</span>
-                  <check-icon />
-                </li>
-              </ul>
-            </div>
-            <div
-              class="mb-6 w-[45%] max-[800px]:w-full relative max-[800px]:mb-0"
-            >
-              <label for="file-input" class="sr-only"></label>
+          <div class="flex flex-col-reverse items-center justify-between gap-4">
+            <div class="mb-6 w-full max-[800px]:w-full relative">
+              <label for="file-input" class="block mb-2">Upload your CV</label>
               <input
-                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm file:hidden"
+                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer file:hidden"
+                @change="handleFileChange"
                 type="file"
                 name="file-input"
                 id="file-input"
               />
             </div>
           </div>
-
-          <button
-            class="w-full bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[120px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
-          >
-            Submit
-          </button>
+          <div class="w-full max-[800px]:w-full mx-auto flex justify-center">
+            <base-button @click="add" class="w-full" :disabled="disabled" :is-loading="isLoading" :size="ESize.SMALL">
+              Submit
+            </base-button>
+          </div>
         </form>
       </div>
     </div>
@@ -94,60 +74,61 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import CloseIcon from "@/components/icons/CloseIcon.vue"
-import CheckIcon from "@/components/icons/CheckIcon.vue"
+import { ref, computed } from 'vue'
+import CloseIcon from '@/components/icons/CloseIcon.vue'
+import BaseButton from '@/components/reusables/BaseButton.vue'
+import { ESize } from '@/types'
+import { uploadBytes } from 'firebase/storage'
+import { storageRef, storage } from '@/firebase'
+import { addDoc, collection } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
+import { isDisabled } from '@/composables/isDisabled'
 
-const jobs = ref([
-  {
-    id: "1",
-    title: "Frontend - VueJS",
-  },
-  {
-    id: "2",
-    title: "Backend - Python",
-  },
-  {
-    id: "3",
-    title: "UX/UI - Designer",
-  },
-  {
-    id: "4",
-    title: "HR manager",
-  },
-])
+const emit = defineEmits(['close'])
 
-// onUpdated(() => {
-//   if (store.isShow) {
-//     document.body.classList.add("overflow-hidden")
-//   } else {
-//     document.body.classList.remove("overflow-hidden")
-//   }
-// })
+const isLoading = ref(false)
+const db = useFirestore()
+const collectionRef = collection(db, 'resume')
+const selectedFile = ref<any>(null)
 
-// FIREBASE
-
-const all = ref([]) as any
 const resume = ref({
-  id: "uuidv4()",
-  name: "",
-  phone: "",
-  type: "",
-  file: "",
+  title: '',
+  username: '',
+  phone: '',
 })
 
-const submitForm = () => {
-  all.value.unshift(resume.value)
+const disabled = computed(() => {
+  return isDisabled(resume.value)
+})
+
+const add = async () => {
+  try {
+    const newValue = {
+      ...resume.value,
+      date: Date.now(),
+    }
+    isLoading.value = true
+    const res = await addDoc(collectionRef, newValue)
+
+    if (selectedFile.value) {
+      const userDirectory = `users/${res.id}`
+      const fileRef = storageRef(storage, userDirectory)
+
+      try {
+        await uploadBytes(fileRef, selectedFile.value)
+      } catch (error) {
+        console.error('Error uploading file: ', error)
+      }
+    }
+  } catch (error) {
+    console.error('Error adding resume...')
+  } finally {
+    isLoading.value = false
+    emit('close')
+  }
+}
+
+const handleFileChange = (event: any) => {
+  selectedFile.value = event.target.files[0]
 }
 </script>
-
-<style scoped>
-.apply-form::-webkit-scrollbar {
-  display: none;
-}
-
-.apply-form {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-</style>

@@ -37,17 +37,16 @@ const router = createRouter({
       component: () => import('@/pages/vacancy/Detail.vue')
     },
     {
-      path: '/admin/vacancy',
-      name: 'vacancy-admin',
-      component: () => import('@/pages/admin/VacancyDashboard.vue')
-    },
-    {
       path: '/admin',
       name: 'admin',
-      component: () => import('@/pages/admin/AdminView.vue'),
+      component: () => import('@/pages/admin/index.vue'),
       children: [
-
-      ],
+        {
+          path: '/admin/resume',
+          name: 'resume',
+          component: () => import('@/pages/admin/Resume.vue')
+        }
+      ]
     },
     {
       path: '/:pathMatch(.*)*',
