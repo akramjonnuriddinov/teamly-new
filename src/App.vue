@@ -26,13 +26,13 @@ import Brand from '@/components/static/Brand.vue'
 import ContactUs from '@/components/static/ContactUs.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
-import { isLoading, hideLoader } from '@/composables/loader'
+import { isLoading, toggleLoader } from '@/composables/loader'
 
 const route = useRoute()
 
 onMounted(() => {
   window.addEventListener('load', () => {
-    hideLoader()
+    toggleLoader()
   })
 })
 

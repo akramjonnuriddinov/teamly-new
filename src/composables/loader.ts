@@ -8,12 +8,8 @@ const loadingState = reactive<LoadingState>({
   isLoading: true
 })
 
-export function showLoader() {
-  loadingState.isLoading = true
-}
-
-export function hideLoader() {
-  loadingState.isLoading = false
+export function toggleLoader(status = false) {
+  loadingState.isLoading = status
 }
 
 export function isLoading() {

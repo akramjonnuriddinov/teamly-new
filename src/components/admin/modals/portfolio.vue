@@ -79,7 +79,6 @@ import BaseModal from '@/components/admin/modals/BaseModal.vue'
 const props = defineProps(['input'])
 const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
 const initialPortfolio = {
-  id: '',
   title: '',
   category: '',
   text: '',

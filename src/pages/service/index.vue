@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import HeroBanner from '@/components/reusables/HeroBanner2.vue'
+import HeroBanner from '@/components/reusables/HeroBanner.vue'
 import Service from '@/components/home/Service.vue'
 import { getImageUrl } from '@/composables/getImgUrl'
 

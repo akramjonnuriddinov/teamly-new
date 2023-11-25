@@ -14,7 +14,7 @@ import { ref } from 'vue'
 import { useFirestore } from 'vuefire'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs } from 'firebase/firestore'
-import { showLoader, hideLoader } from '@/composables/loader'
+import { toggleLoader } from '@/composables/loader'
 
 const route = useRoute()
 const db = useFirestore()
@@ -23,7 +23,7 @@ const vacancy = ref({})
 
 const fetchVacancy = async () => {
   try {
-    showLoader()
+    toggleLoader(true)
     const q = query(collection(db, 'vacancies'))
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach((doc) => {
@@ -34,7 +34,7 @@ const fetchVacancy = async () => {
   } catch {
     console.error('Error getting data...')
   } finally {
-    hideLoader()
+    toggleLoader()
   }
 }
 fetchVacancy()

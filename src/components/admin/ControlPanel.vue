@@ -33,7 +33,7 @@ import { useFirestore } from 'vuefire'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import { provide } from 'vue'
-import { showLoader, hideLoader } from '@/composables/loader'
+import { toggleLoader } from '@/composables/loader'
 import { UiManager } from '@/types'
 
 const props = defineProps<{
@@ -46,7 +46,7 @@ const isShow = ref<Boolean>(false)
 
 const fetchData = async (value: string) => {
   try {
-    showLoader()
+    toggleLoader(true)
     const q = query(collection(db, value))
     const querySnapshot = await getDocs(q)
     dataEntries.value = []
@@ -59,7 +59,7 @@ const fetchData = async (value: string) => {
   } catch (error) {
     console.error('Error fetching data:', error)
   } finally {
-    hideLoader()
+    toggleLoader()
   }
 }
 

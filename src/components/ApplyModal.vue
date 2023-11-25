@@ -25,6 +25,18 @@
                 required
               />
             </div>
+            <div class="w-full max-[800px]:w-full mb-0">
+              <label for="username" class="block mb-2">Telegram</label>
+              <input
+                class="p-2.5 border rounded-lg w-full outline-none"
+                v-model="resume.username"
+                type="text"
+                id="username"
+                placeholder="Telegram username"
+                autocomplete="off"
+                required
+              />
+            </div>
             <div class="mb-6 w-full max-[800px]:w-full">
               <label for="text" class="block mb-2">Phone number</label>
               <input
@@ -77,8 +89,8 @@ const collectionRef = collection(db, 'resume')
 const selectedFile = ref<any>(null)
 const downloadUrl = ref<any>(null)
 const resume = ref({
-  id: '',
   title: '',
+  username: '',
   phone: '',
 })
 
@@ -88,11 +100,12 @@ const add = async () => {
       ...resume.value,
       date: Date.now(),
     }
+    console.log('newValue: ', newValue)
     const res = await addDoc(collectionRef, newValue)
-    console.log('res: ', res.id)
+    console.log('res', res.id)
 
     if (selectedFile.value) {
-      const userDirectory = `users/${resume.value.title}`
+      const userDirectory = `users/${res.id}`
       const fileRef = storageRef(storage, userDirectory)
 
       try {
@@ -110,20 +123,6 @@ const add = async () => {
 const handleFileChange = (event: any) => {
   selectedFile.value = event.target.files[0]
 }
-
-// const uploadFile = async () => {
-//   if (selectedFile.value) {
-//     const userDirectory = `users/${resume.value.title}`
-//     const fileRef = storageRef(storage, userDirectory)
-
-//     try {
-//       await uploadBytes(fileRef, selectedFile.value)
-//       downloadUrl.value = await getDownloadURL(fileRef)
-//     } catch (error) {
-//       console.error('Error uploading file: ', error)
-//     }
-//   }
-// }
 
 const downloadFile = async () => {
   if (downloadUrl.value) {

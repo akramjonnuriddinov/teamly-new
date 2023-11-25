@@ -62,7 +62,6 @@ import BaseModal from '@/components/admin/modals/BaseModal.vue'
 
 const props = defineProps(['input'])
 const initialAbout = {
-  id: '',
   title: '',
   position: '',
   image: null,

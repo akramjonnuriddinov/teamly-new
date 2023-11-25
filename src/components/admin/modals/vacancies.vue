@@ -78,7 +78,6 @@ const initialVacancy = {
   title: '',
   category: '',
   time: '',
-  date: 0,
   text: '',
   description: '',
 }

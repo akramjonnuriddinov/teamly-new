@@ -4,12 +4,14 @@
     <div>
       <div>
         <div v-for="resume in resumes" class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50">
-          <div class="flex w-full gap-5">
-            <h3 class="w-[40%]">{{ resume.title }}</h3>
-            <a :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
-          </div>
-          <div class="flex gap-4">
+          <h3 class="w-1/4">{{ resume.title }}</h3>
+          <a class="w-1/4" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
+          <a class="w-1/4" :href="`https://t.me/${resume.username}`" target="_blank">{{
+            resume.username || 'undefined'
+          }}</a>
+          <div class="flex justify-end w-1/4 gap-4">
             <button class="font-semibold text-tg-green hover:opacity-80">Dowload</button>
+            <button @click="removeUser(resume.id)" class="font-semibold text-red-500 hover:opacity-80">Remove</button>
           </div>
         </div>
       </div>
@@ -20,9 +22,28 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { fetchData } from '@/composables/fetchData'
+import { doc, deleteDoc } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
+import { deleteObject } from 'firebase/storage'
+import { storageRef, storage } from '@/firebase'
 
+const db = useFirestore()
 const resumes = ref<any>([])
+
 fetchData('resume').then((result) => {
   resumes.value = result
 })
+
+const removeUser = async (id: string) => {
+  await deleteDoc(doc(db, 'resume', id))
+  resumes.value.forEach((item: any) => {
+    if (item.id == id) {
+      console.log('id: ', id)
+      const resumeRef = storageRef(storage, `users/${item.file_name}`)
+      deleteObject(resumeRef).then(() => {
+        console.log('File deleted successfully...')
+      })
+    }
+  })
+}
 </script>

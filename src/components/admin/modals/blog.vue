@@ -67,7 +67,6 @@ import Editor from '@/components/reusables/Editor.vue'
 
 const props = defineProps(['input'])
 const initialBlog = {
-  id: '',
   title: '',
   subtitle: '',
   text: '',
@@ -84,7 +83,6 @@ const uploadImage = (e: any) => {
   reader.onload = (event: any) => {
     if (blog.value) {
       blog.value.image = event.target.result
-      console.log(typeof blog.value.image)
     }
   }
 }
