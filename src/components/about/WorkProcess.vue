@@ -1,18 +1,11 @@
 <template>
   <section class="bg-[#EFF7FF] relative -mt-[620px] pt-[520px] pb-[105px]">
     <div class="container w-full px-5 mx-auto max-w-7xl">
-      <div
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-bottom"
-        class="pb-[70px]"
-      >
-        <span
-          class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
+      <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="pb-[70px]">
+        <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >Working Process
         </span>
-        <h2
-          class="text-center text-tg-heading-font-color font-bold leading-[1.2] text-5xl max-sm:text-4xl"
-        >
+        <h2 class="text-center text-tg-dark-blue-color font-bold leading-[1.2] text-5xl max-sm:text-4xl">
           Creating World Class <br class="max-[500px]:hidden" />
           Experiences
         </h2>
@@ -22,9 +15,7 @@
           v-for="project in projects"
           class="relative project-wrapper w-1/5 flex flex-col items-center overflow-hidden max-[1000px]:w-[40%] max-[760px]:max-w-[100%] max-[530px]:w-full"
         >
-          <div
-            class="w-[150px] bg-tg-white rounded-full h-[150px] flex items-center justify-center mb-5"
-          >
+          <div class="w-[150px] bg-tg-white rounded-full h-[150px] flex items-center justify-center mb-5">
             <img :src="getImageUrl(project.img_url)" alt="" />
           </div>
           <div class="flex flex-col items-center font-bold">
@@ -35,78 +26,46 @@
           </div>
         </li>
       </ul>
-      <!-- ANIMATION-BG -->
-      <!-- <div class="absolute bottom-0 z-10">
-        <svg
-          class="max-w-[1169px] h-[135px] w-full"
-          viewBox="0 0 1169 135"
-          fill="none"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g stroke-width="2">
-            <path
-              class="dashed1"
-              d="M1 134L197 2L448 128.5L746.5 6L1010.5 125.5L1168 3"
-              stroke="rgba(0 0 0 / 25%)"
-              stroke-dasharray="8 8"
-              fill-rule="evenodd"
-              stroke-linecap="butt"
-              stroke-linejoin="miter"
-            ></path>
-            <path
-              class="dashed2"
-              d="M1 134L197 2L448 128.5L746.5 6L1010.5 125.5L1168 3"
-              stroke="rgba(239 247 255)"
-              stroke-dasharray="8 8"
-              fill-rule="evenodd"
-              stroke-linecap="butt"
-              stroke-linejoin="miter"
-            ></path>
-          </g>
-        </svg>
-      </div> -->
-      <!-- /ANIMATION-BG -->
       <div></div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { getImageUrl } from "@/composables/getImgUrl"
+import { ref } from 'vue'
+import { getImageUrl } from '@/composables/getImgUrl'
 
 const projects = ref([
   {
-    id: "1",
-    title: "Step One",
-    img_url: "about-view/work_icon01.svg",
-    text: "Discover Plan",
+    id: '1',
+    title: 'Step One',
+    img_url: 'about-view/work_icon01.svg',
+    text: 'Discover Plan',
   },
   {
-    id: "2",
-    title: "Step Two",
-    img_url: "about-view/work_icon02.svg",
-    text: "Prototype Project",
+    id: '2',
+    title: 'Step Two',
+    img_url: 'about-view/work_icon02.svg',
+    text: 'Prototype Project',
   },
   {
-    id: "3",
-    title: "Step Three",
-    img_url: "about-view/work_icon03.svg",
-    text: "Website Test",
+    id: '3',
+    title: 'Step Three',
+    img_url: 'about-view/work_icon03.svg',
+    text: 'Website Test',
   },
   {
-    id: "4",
-    title: "Step Four",
-    img_url: "about-view/work_icon04.svg",
-    text: "Build Website",
+    id: '4',
+    title: 'Step Four',
+    img_url: 'about-view/work_icon04.svg',
+    text: 'Build Website',
   },
 ])
 </script>
 
 <style scoped>
 .project-thumb::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: -30%;

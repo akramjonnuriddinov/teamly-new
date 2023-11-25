@@ -1,5 +1,5 @@
 <template>
-  <section class="banner-area relative overflow-hidden z-[1] h-screen">
+  <section class="banner-area relative overflow-hidden z-[1]">
     <div
       class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
@@ -19,21 +19,14 @@
             alt=""
           />
           <h1
-            class="mb-4 text-6xl font-bold leading-[1.2] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
+            class="mb-4 text-6xl font-bold leading-[1.2] text-tg-dark-blue-color max-[990px]:text-center max-sm:text-4xl"
           >
             Shaping Digital Dreams
           </h1>
-          <p
-            class="mb-10 text-lg text-tg-heading-font-color max-[990px]:text-center"
-          >
-            We help you transform your ideas into reality. Contact us today and
-            let us shape your digital dreams.
+          <p class="mb-10 text-lg text-tg-heading-font-color max-[990px]:text-center">
+            We help you transform your ideas into reality. Contact us today and let us shape your digital dreams.
           </p>
-          <router-link
-            class="bg-tg-primary-color text-tg-white rounded-[10px] font-bold inline-block text-center whitespace-nowrap py-[18px] px-[25px] tracking-[0.5px] transition-all duration-300 hover:bg-tg-secondary-color"
-            to="/"
-            >Get Started</router-link
-          >
+          <base-button> Get Started </base-button>
         </div>
         <img
           class="max-w-[470px] w-full pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 pb-[130px]"
@@ -58,12 +51,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { onMounted, ref } from 'vue'
+import BaseButton from '@/components/reusables/BaseButton.vue'
 
 const customTranslateY = ref(false)
 
 onMounted(() => {
-  window.addEventListener("scroll", () => {
+  window.addEventListener('scroll', () => {
     if (window.scrollY >= 300) {
       customTranslateY.value = true
     } else {
@@ -75,7 +69,7 @@ onMounted(() => {
 
 <style scoped>
 .banner-area::after {
-  content: "";
+  content: '';
   position: absolute;
   right: -389px;
   bottom: -430px;

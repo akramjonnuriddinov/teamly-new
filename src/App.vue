@@ -1,54 +1,44 @@
 <template>
-  <div class="flex flex-col min-h-screen" id="app">
+  <div class="flex-col" id="app">
     <Navbar v-if="!isAdmin" />
     <div class="flex-1">
       <router-view class="main-content" />
     </div>
-    <div v-if="!isAdmin">
+    <div v-if="!isAdmin && !isLoading()">
       <contact-us />
       <Brand />
       <Footer class="main-footer" />
       <scroll-top />
     </div>
-    <div
-      v-if="isShow"
-      class="overflow-hidden transition-all duration-500"
-      :class="{ 'opacity-0 -z-50': !isShow }"
-    >
-      <pre-loader />
-    </div>
+    <loader-wrapper v-if="isLoading()">
+      <app-loader />
+    </loader-wrapper>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue"
-import Navbar from "@/components/static/Navbar.vue"
-import Footer from "@/components/static/Footer.vue"
-import ScrollTop from "@/components/static/ScrollTop.vue"
-import Brand from "@/components/static/Brand.vue"
-import PreLoader from "@/components/static/PreLoader.vue"
-import ContactUs from "@/components/static/ContactUs.vue"
-import { useRoute } from "vue-router"
+import { computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import Navbar from '@/components/static/Navbar.vue'
+import Footer from '@/components/static/Footer.vue'
+import ScrollTop from '@/components/static/ScrollTop.vue'
+import Brand from '@/components/static/Brand.vue'
+import ContactUs from '@/components/static/ContactUs.vue'
+import AppLoader from '@/components/static/AppLoader.vue'
+import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
+import { isLoading, toggleLoader } from '@/composables/loader'
 
 const route = useRoute()
 
-const isShow = ref(true)
-
 onMounted(() => {
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      isShow.value = false
-    }, 800)
+  window.addEventListener('load', () => {
+    toggleLoader()
   })
 })
 
 const isAdmin = computed(() => {
-  return route.path.includes("admin")
+  return route.path.includes('admin') || route.path.includes('createBlog')
 })
 </script>
 
-<style>
-.preloader-hidden {
-  display: none;
-}
-</style>
+<style></style>
