@@ -72,9 +72,7 @@
           >
 
           <div class="max-[990px]:hidden">
-            <router-link :to="{ name: 'admin' }">
-              <Language />
-            </router-link>
+            <Language />
           </div>
           <button class="h-[30px] hidden w-[26px] max-[990px]:flex" @click="toggleModal">
             <img

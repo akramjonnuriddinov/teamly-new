@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-[86px] service">
+  <div class="service">
     <hero-banner :title="hero_content.title" :text="hero_content.text" :img_url="hero_content.img_url" />
     <Service />
   </div>

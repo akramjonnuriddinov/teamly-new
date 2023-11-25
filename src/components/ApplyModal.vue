@@ -67,9 +67,6 @@
               Submit
             </base-button>
           </div>
-          <div class="w-full mt-5 max-[800px]:w-full mx-auto hidden justify-center">
-            <base-button @click="downloadFile" class="w-full" :size="ESize.SMALL">Donwload</base-button>
-          </div>
         </form>
       </div>
     </div>
@@ -81,7 +78,7 @@ import { ref, computed } from 'vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
-import { uploadBytes, getDownloadURL } from 'firebase/storage'
+import { uploadBytes } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
@@ -93,7 +90,7 @@ const isLoading = ref(false)
 const db = useFirestore()
 const collectionRef = collection(db, 'resume')
 const selectedFile = ref<any>(null)
-const downloadUrl = ref<any>(null)
+
 const resume = ref({
   title: '',
   username: '',
@@ -119,7 +116,6 @@ const add = async () => {
 
       try {
         await uploadBytes(fileRef, selectedFile.value)
-        downloadUrl.value = await getDownloadURL(fileRef)
       } catch (error) {
         console.error('Error uploading file: ', error)
       }
@@ -134,13 +130,5 @@ const add = async () => {
 
 const handleFileChange = (event: any) => {
   selectedFile.value = event.target.files[0]
-}
-
-const downloadFile = async () => {
-  if (downloadUrl.value) {
-    window.open(downloadUrl.value, '_blank')
-  } else {
-    console.warn('No file available for download.')
-  }
 }
 </script>
