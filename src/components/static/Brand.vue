@@ -1,13 +1,65 @@
 <template>
-  <section class="hidden bg-white">
-    <div class="container relative flex px-5 pb-16 mx-auto transition-all duration-300 max-w-7xl">
-      <div class="mySwiper">
-        <div class="swiper-slide w-1/6 max-[990px]:w-1/3">
-          <div class="flex justify-center w-full"></div>
-        </div>
-      </div>
+  <section class="relative pt-16 pb-32 testimonial">
+    <div class="container w-full px-5 mx-auto max-w-7xl">
+      <swiper
+        class="swiper"
+        :modules="Pagination"
+        :loop="true"
+        :centered-slides="true"
+        :grab-cursor="true"
+        :pagination="{
+          clickable: true,
+        }"
+        :breakpoints="breakpoints"
+      >
+        <swiper-slide v-for="brand in brands" class="slide">
+          <img
+            :src="getImageUrl(brand)"
+            class="block transition-all cursor-pointer brand-item-img opacity-60 hover:opacity-100 grayscale hover:grayscale-0"
+            alt="testimonial_img"
+          />
+        </swiper-slide>
+      </swiper>
     </div>
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { getImageUrl } from '@/composables/getImgUrl'
+
+const brands = ref([
+  'brand/brand_img01.png',
+  'brand/brand_img04.png',
+  'brand/brand_img06.png',
+  'brand/brand_img01.png',
+  'brand/brand_img04.png',
+  'brand/brand_img06.png',
+  'brand/brand_img01.png',
+  'brand/brand_img04.png',
+  'brand/brand_img06.png',
+])
+
+const breakpoints = ref({
+  350: {
+    slidesPerView: 2,
+    spaceBetween: 50,
+  },
+  500: {
+    slidesPerView: 3,
+    spaceBetween: 50,
+  },
+  900: {
+    slidesPerView: 4,
+    spaceBetween: 10,
+  },
+  1200: {
+    slidesPerView: 6,
+    spaceBetween: 60,
+  },
+})
+</script>
