@@ -27,7 +27,7 @@
               alt=""
             />
             <div
-              class="blog-content flex w-full bg-white px-[30px] py-[25px] flex-col items-start rounded-tr-[10px] rounded-br-[10px] border border-l-0 border-[#DFDFDF] transition-all duration-300 max-[1200px]:w-auto max-[650px]:border max-[650px]:border-t-0 max-[650px]:rounded-tl-none max-[650px]:rounded-tr-none max-[650px]:rounded-bl-[10px]"
+              class="blog-content flex w-full bg-white px-[30px] py-[25px] flex-col items-start rounded-tr-[10px] rounded-br-[10px] border border-l-0 border-[#f5f2f2] transition-all duration-300 max-[1200px]:w-auto max-[650px]:border max-[650px]:border-t-0 max-[650px]:rounded-tl-none max-[650px]:rounded-tr-none max-[650px]:rounded-bl-[10px]"
             >
               <span
                 class="text-tg-primary-color-two font-semibold text-xs py-[6px] px-[11px] capitalize mb-4 bg-[#EEE8FF] rounded-[5px] transition-all duration-300 truncate max-w-[250px] hover:bg-tg-primary-color-two hover:text-tg-white max-[1300px]:max-w-[200px]"
