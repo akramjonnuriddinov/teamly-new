@@ -20,7 +20,7 @@
           <div class="rounded-[30px] overflow-hidden w-full">
             <router-link :to="{ name: 'home' }">
               <img
-                class="max-w-full min-w-[318px] object-cover h-[331px] scale-100 w-full team-content-img max-[700px]:max-w-full ease-in-out duration-700"
+                class="max-w-full min-w-[318px] object-cover h-[331px] scale-100 w-full team-content-img ease-in-out duration-700 max-[700px]:max-w-full"
                 width="318"
                 :src="team.image"
                 alt="user_img"
@@ -68,5 +68,9 @@ fetchData('about').then((result) => {
 
 .team-content:hover .team-content-img {
   transform: scale(1.08);
+}
+
+.team-content-img {
+  object-position: center 35%;
 }
 </style>
