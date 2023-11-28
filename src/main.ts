@@ -32,4 +32,6 @@ app.use(pinia)
 app.use(VueAwesomeSwiper)
 app.use(router)
 app.use(VueQuillEditor)
-app.mount('#app')
+router.isReady().then(() => {
+  app.mount('#app')
+})
