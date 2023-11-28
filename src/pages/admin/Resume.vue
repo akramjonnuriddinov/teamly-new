@@ -10,11 +10,11 @@
           >
             {{ resume.title }}
           </button>
-          <a class="w-1/5" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
-          <a class="w-1/5" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
-          <a class="hidden w-1/5" :href="`https://t.me/${resume.username}`" target="_blank">{{
-            resume.username || 'undefined'
-          }}</a>
+          <a class="w-1/6" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
+          <a class="w-1/3" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
+          <a class="w-1/6" :href="`https://t.me/${resume.username}`" target="_blank"
+            >@{{ resume.username || 'undefined' }}</a
+          >
           <div class="flex justify-end w-1/5 gap-4">
             <button @click="removeUser(resume.id)" class="font-semibold text-red-500 hover:opacity-80">Remove</button>
           </div>
@@ -34,7 +34,6 @@ import { storageRef, storage } from '@/firebase'
 
 const db = useFirestore()
 const resumes = ref<any>([])
-// const downloadUrl = ref(null)
 const vacancies = ref([])
 
 fetchData('resume').then((result) => {
@@ -61,12 +60,9 @@ const removeUser = async (id: string) => {
   })
 }
 
-const fileRef = storageRef(storage, 'users/U87lN6CMqgwWlGjnbhKT')
-
 const downloadResume = async (id: string) => {
-  console.log(id)
-  await getDownloadURL(fileRef).then((url) => {
-    console.log('url:', url)
+  getDownloadURL(storageRef(storage, `users/${id}`)).then((url) => {
+    window.open(url, '_blank')
   })
 }
 </script>
