@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import Navbar from '@/components/static/Navbar.vue'
 import Footer from '@/components/static/Footer.vue'
@@ -26,18 +26,22 @@ import Brand from '@/components/static/Brand.vue'
 import ContactUs from '@/components/static/ContactUs.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
-import { isLoading, toggleLoader } from '@/composables/loader'
+import { isLoading } from '@/composables/loader'
+// import { toggleLoader } from '@/composables/loader'
 
 const route = useRoute()
 
-onMounted(() => {
-  window.addEventListener('load', () => {
-    toggleLoader()
-  })
+onBeforeMount(() => {
+  console.log('hi')
+  console.log(document.readyState)
+  document.onreadystatechange = () => {
+    // toggleLoader()
+  }
 })
 
 const isAdmin = computed(() => {
-  return route.path.includes('admin') || route.path.includes('createBlog')
+  console.log(route.path)
+  return route.path.includes('admin')
 })
 </script>
 
