@@ -43,11 +43,11 @@
                 </div>
               </div>
               <p
-                class="mb-6 text-center h-[112px] line-clamp-4 overflow-hidden text-lg italic font-medium leading-[1.66] text-tg-heading-font-color"
+                class="mb-6 text-center h-[112px] line-clamp-4 overflow-hidden text-lg italic font-medium leading-[1.66] text-tg-heading-font-color max-[600px]:text-[15px]"
               >
                 {{ swiperContent.text }}
               </p>
-              <h3 class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color">
+              <h3 class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color max-[600px]:text-xl">
                 {{ swiperContent.name }}
               </h3>
               <span class="text-[#8C8C8C] font-medium text-[15px] text-center block">{{ swiperContent.position }}</span>
