@@ -85,6 +85,7 @@ import { useFirestore } from 'vuefire'
 import { isDisabled } from '@/composables/isDisabled'
 
 const emit = defineEmits(['close'])
+const props = defineProps(['vacancy_id'])
 
 const isLoading = ref(false)
 const db = useFirestore()
@@ -106,6 +107,7 @@ const add = async () => {
     const newValue = {
       ...resume.value,
       date: Date.now(),
+      vacancy_id: props.vacancy_id,
     }
     isLoading.value = true
     const res = await addDoc(collectionRef, newValue)

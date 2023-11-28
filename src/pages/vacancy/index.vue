@@ -1,8 +1,8 @@
 <template>
   <div>
     <vacancy-banner />
-    <job-lists @open="isShow = true" />
-    <apply-modal v-if="isShow" @close="isShow = false" />
+    <job-lists @openSendId="openGetId" />
+    <apply-modal :vacancy_id="vacancy_id" v-if="isShow" @close="isShow = false" />
   </div>
 </template>
 
@@ -16,4 +16,11 @@ const isShow = ref(false)
 onUpdated(() => {
   isShow.value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
 })
+
+const vacancy_id = ref<string | undefined>('')
+
+const openGetId = (id: string | undefined) => {
+  isShow.value = true
+  vacancy_id.value = id
+}
 </script>

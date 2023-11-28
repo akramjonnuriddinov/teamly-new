@@ -4,13 +4,18 @@
     <div>
       <div>
         <div v-for="resume in resumes" class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50">
-          <h3 class="w-1/4">{{ resume.title }}</h3>
-          <a class="w-1/4" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
-          <a class="w-1/4" :href="`https://t.me/${resume.username}`" target="_blank">{{
+          <button
+            @click="downloadResume(resume.id)"
+            class="flex justify-start w-1/5 font-semibold text-tg-green hover:opacity-80"
+          >
+            {{ resume.title }}
+          </button>
+          <a class="w-1/5" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
+          <a class="w-1/5" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
+          <a class="hidden w-1/5" :href="`https://t.me/${resume.username}`" target="_blank">{{
             resume.username || 'undefined'
           }}</a>
-          <div class="flex justify-end w-1/4 gap-4">
-            <button class="font-semibold text-tg-green hover:opacity-80">Dowload</button>
+          <div class="flex justify-end w-1/5 gap-4">
             <button @click="removeUser(resume.id)" class="font-semibold text-red-500 hover:opacity-80">Remove</button>
           </div>
         </div>
@@ -24,15 +29,27 @@ import { ref } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { deleteObject } from 'firebase/storage'
+import { deleteObject, getDownloadURL } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 
 const db = useFirestore()
 const resumes = ref<any>([])
+// const downloadUrl = ref(null)
+const vacancies = ref([])
 
 fetchData('resume').then((result) => {
   resumes.value = result
 })
+fetchData('vacancies').then((result) => {
+  vacancies.value = result
+})
+
+const getVacancyTitle = (id: string) => {
+  const list: any = vacancies.value.filter((item: any) => item.id === id)
+  if (list.length) {
+    return list[0].title
+  }
+}
 
 const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'resume', id))
@@ -41,6 +58,15 @@ const removeUser = async (id: string) => {
       const resumeRef = storageRef(storage, `users/${item.file_name}`)
       deleteObject(resumeRef).then(() => {})
     }
+  })
+}
+
+const fileRef = storageRef(storage, 'users/U87lN6CMqgwWlGjnbhKT')
+
+const downloadResume = async (id: string) => {
+  console.log(id)
+  await getDownloadURL(fileRef).then((url) => {
+    console.log('url:', url)
   })
 }
 </script>
