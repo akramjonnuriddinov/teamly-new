@@ -6,16 +6,26 @@
         <div v-for="resume in resumes" class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50">
           <button
             @click="downloadResume(resume.id)"
-            class="flex justify-start w-1/5 font-semibold text-tg-green hover:opacity-80"
+            class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
           >
             {{ resume.title }}
           </button>
-          <a class="w-1/6" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
-          <a class="w-1/3" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
-          <a class="w-1/6" :href="`https://t.me/${resume.username}`" target="_blank"
+          <a class="w-1/6 mr-2 border" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
+          <a class="w-1/6 mr-2 border" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
+          <a class="w-1/6 mr-2 border" :href="`https://t.me/${resume.username}`" target="_blank"
             >@{{ resume.username || 'undefined' }}</a
           >
-          <div class="flex justify-end w-1/5 gap-4">
+          <select
+            v-model="resume.status"
+            class="ml-auto mr-4 bg-transparent border rounded-md w-1/7 outline-blue-300"
+            id="category"
+          >
+            <option value="" disabled selected>Select Status</option>
+            <option selected v-for="(status, index) in statuses" :key="index" :value="status">
+              {{ status }}
+            </option>
+          </select>
+          <div class="flex justify-end gap-4">
             <button @click="removeUser(resume.id)" class="font-semibold text-red-500 hover:opacity-80">Remove</button>
           </div>
         </div>
@@ -35,6 +45,7 @@ import { storageRef, storage } from '@/firebase'
 const db = useFirestore()
 const resumes = ref<any>([])
 const vacancies = ref([])
+const statuses = ref(['accept', 'reject'])
 
 fetchData('resume').then((result) => {
   resumes.value = result
