@@ -10,9 +10,9 @@
           >
             {{ resume.title }}
           </button>
-          <a class="w-1/6 mr-2 border" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
-          <a class="w-1/6 mr-2 border" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
-          <a class="w-1/6 mr-2 border" :href="`https://t.me/${resume.username}`" target="_blank"
+          <a class="w-1/6 mr-2" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
+          <a class="w-1/6 mr-2" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
+          <a class="w-1/6 mr-2" :href="`https://t.me/${resume.username}`" target="_blank"
             >@{{ resume.username || 'undefined' }}</a
           >
           <select

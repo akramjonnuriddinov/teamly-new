@@ -1,9 +1,9 @@
 <template>
   <div>
-    <vacancy-detail-banner :vacancy="vacancy" @open="isShow = true" />
-    <job-description :vacancy="vacancy" @open="isShow = true" />
+    <vacancy-detail-banner :vacancy="vacancy" @openSendId="openGetId" />
+    <job-description :vacancy="vacancy" @openSendId="openGetId" />
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" />
+  <apply-modal v-if="isShow" :vacancy_id="vacancy_id" @close="isShow = false" />
 </template>
 
 <script setup lang="ts">
@@ -20,6 +20,7 @@ const route = useRoute()
 const db = useFirestore()
 const isShow = ref(false)
 const vacancy = ref({})
+const vacancy_id = ref<string | undefined>('')
 
 const fetchVacancy = async () => {
   try {
@@ -38,4 +39,9 @@ const fetchVacancy = async () => {
   }
 }
 fetchVacancy()
+
+const openGetId = (id: string | undefined) => {
+  isShow.value = true
+  vacancy_id.value = id
+}
 </script>
