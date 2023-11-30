@@ -1,7 +1,7 @@
 <template>
   <aside class="relative top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
-      <button @click="router.go(-1)" class="flex mb-5">
+      <router-link to="/vacancy" class="flex mb-5">
         <img
           class="w-[150px] min-w-[150px]"
           width="150"
@@ -9,7 +9,7 @@
           src="@/assets/images/logos/custom-logo17.png"
           alt="logo"
         />
-      </button>
+      </router-link>
       <ul class="space-y-2 font-medium">
         <li v-for="link in links">
           <router-link
@@ -38,9 +38,7 @@ import AboutIcon from '@/components/icons/admin/AboutIcon.vue'
 import BlogIcon from '@/components/icons/admin/BlogIcon.vue'
 import ServiceIcon from '@/components/icons/admin/ServiceIcon.vue'
 import VacancyIcon from '@/components/icons/admin/VacancyIcon.vue'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
 const emit = defineEmits(['change'])
 defineProps(['active'])
 
