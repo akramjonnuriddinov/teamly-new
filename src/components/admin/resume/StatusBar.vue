@@ -9,10 +9,7 @@
       class="absolute left-full top-8 -translate-x-full flex flex-col z-50 justify-start bg-white border rounded-lg w-[200px]"
     >
       <li v-for="status in statuses" class="border-b">
-        <button
-          @click="console.log(status.status)"
-          class="flex items-center w-full h-full p-3 transition-all hover:bg-gray-50"
-        >
+        <button class="flex items-center w-full h-full p-3 transition-all hover:bg-gray-50">
           <span :class="status.color" class="min-w-[8px] w-2 h-2 mr-2 rounded-full"></span>
           <div class="flex flex-col items-start">
             <button class="capitalize">{{ status.status }}</button>

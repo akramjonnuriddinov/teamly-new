@@ -15,7 +15,7 @@
             {{ resume.title }}
           </button>
           <a class="w-1/6 mr-2" :href="`tel:${resume.phone}`">{{ resume.phone }}</a>
-          <a class="w-1/6 mr-2" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
+          <a class="w-1/5 mr-2" href="">{{ getVacancyTitle(resume.vacancy_id) }}</a>
           <a class="w-1/6 mr-2" :href="`https://t.me/${resume.username}`" target="_blank"
             >@{{ resume.username || 'undefined' }}</a
           >
@@ -44,6 +44,7 @@ const vacancies = ref([])
 const isShow = ref<boolean[]>([])
 
 const openStatus = (id: string, idx: number) => {
+  isShow.value = []
   isShow.value[idx] = !isShow.value[idx]
   return id
 }
