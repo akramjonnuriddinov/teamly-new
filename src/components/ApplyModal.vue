@@ -56,6 +56,7 @@
               <input
                 class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer file:hidden"
                 @change="handleFileChange"
+                accept=".docx,.pdf,.txt"
                 type="file"
                 name="file-input"
                 id="file-input"

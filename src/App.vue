@@ -6,7 +6,7 @@
     </div>
     <div v-if="!isAdmin && !isLoading()">
       <contact-us />
-      <the-brand v-if="false" />
+      <the-brand />
       <the-footer class="main-footer" />
       <scroll-top />
     </div>
@@ -31,6 +31,7 @@ import { isLoading, toggleLoader } from '@/composables/loader'
 const route = useRoute()
 const TheBrand = defineAsyncComponent(() => import('@/components/static/Brand.vue'))
 window.addEventListener('load', () => {
+  console.log('app loaded')
   toggleLoader()
 })
 

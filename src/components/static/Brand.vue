@@ -7,12 +7,13 @@
         :loop="true"
         :centered-slides="true"
         :grab-cursor="true"
+        :draggable="true"
         :pagination="{
           clickable: true,
         }"
         :breakpoints="breakpoints"
       >
-        <swiper-slide v-for="brand in brands" class="slide">
+        <swiper-slide v-if="brands" v-for="(brand, index) in brands" :key="index" class="slide">
           <img
             :src="getImageUrl(brand)"
             class="block transition-all cursor-pointer brand-item-img opacity-60 hover:opacity-100 grayscale hover:grayscale-0"
