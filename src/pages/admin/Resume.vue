@@ -54,8 +54,14 @@ const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'resume', id))
   resumes.value.forEach((item: any) => {
     if (item.id == id) {
-      const resumeRef = storageRef(storage, `users/${item.file_name}`)
-      deleteObject(resumeRef).then(() => {})
+      const resumeRef = storageRef(storage, `users/${item.id}`)
+      deleteObject(resumeRef)
+        .then(() => {
+          resumes.value = resumes.value.filter((item: any) => item.id !== id)
+        })
+        .catch(() => {
+          console.error('resume deleted error...')
+        })
     }
   })
 }
