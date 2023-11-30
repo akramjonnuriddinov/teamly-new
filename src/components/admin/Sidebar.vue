@@ -24,10 +24,13 @@
           </router-link>
         </li>
       </ul>
-      <div class="flex items-center w-full p-2 space-y-2 font-medium text-gray-900 rounded-lg hover:bg-gray-100 group">
+      <router-link
+        :to="{ name: 'resume' }"
+        class="flex items-center w-full p-2 mt-2 font-medium text-gray-900 rounded-lg item hover:bg-gray-100 group"
+      >
         <blog-icon />
-        <router-link class="ml-3" :to="{ name: 'resume' }">Resume</router-link>
-      </div>
+        <span class="ml-3">Resume</span>
+      </router-link>
     </div>
   </aside>
 </template>
@@ -65,3 +68,9 @@ const links = ref([
   },
 ])
 </script>
+
+<style scoped>
+.item.router-link-exact-active {
+  background-color: rgb(243 244 246);
+}
+</style>

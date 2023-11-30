@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Navbar from '@/components/static/Navbar.vue'
 import Footer from '@/components/static/Footer.vue'
@@ -27,20 +27,10 @@ import ContactUs from '@/components/static/ContactUs.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
 import { isLoading } from '@/composables/loader'
-// import { toggleLoader } from '@/composables/loader'
 
 const route = useRoute()
 
-onBeforeMount(() => {
-  console.log('hi')
-  console.log(document.readyState)
-  document.onreadystatechange = () => {
-    // toggleLoader()
-  }
-})
-
 const isAdmin = computed(() => {
-  console.log(route.path)
   return route.path.includes('admin')
 })
 </script>
