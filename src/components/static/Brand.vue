@@ -2,6 +2,7 @@
   <section class="relative pt-16 pb-32 testimonial">
     <div class="container w-full px-5 mx-auto max-w-7xl">
       <swiper
+        v-if="brands"
         class="swiper"
         :modules="Pagination"
         :loop="true"
@@ -13,7 +14,7 @@
         }"
         :breakpoints="breakpoints"
       >
-        <swiper-slide v-if="brands" v-for="(brand, index) in brands" :key="index" class="slide">
+        <swiper-slide v-for="(brand, index) in brands" :key="index" class="slide">
           <img
             :src="getImageUrl(brand)"
             class="block transition-all cursor-pointer brand-item-img opacity-60 hover:opacity-100 grayscale hover:grayscale-0"
