@@ -1,9 +1,13 @@
 <template>
-  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div @click="isShow = []" class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <h2 class="mb-10 text-3xl capitalize">{{ 'title' }}</h2>
     <div>
       <div>
-        <div v-for="resume in resumes" class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50">
+        <div
+          v-for="(resume, index) in resumes"
+          :key="index"
+          class="flex items-center justify-between h-full p-5 mb-5 border rounded-md bg-gray-50"
+        >
           <button
             @click="downloadResume(resume.id)"
             class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
@@ -15,18 +19,9 @@
           <a class="w-1/6 mr-2" :href="`https://t.me/${resume.username}`" target="_blank"
             >@{{ resume.username || 'undefined' }}</a
           >
-          <select
-            v-model="resume.status"
-            class="ml-auto mr-4 bg-transparent border rounded-md w-1/7 outline-blue-300"
-            id="category"
-          >
-            <option value="" disabled selected>Select Status</option>
-            <option selected v-for="(status, index) in statuses" :key="index" :value="status">
-              {{ status }}
-            </option>
-          </select>
-          <div class="flex justify-end gap-4">
-            <button @click="removeUser(resume.id)" class="font-semibold text-red-500 hover:opacity-80">Remove</button>
+          <div class="flex ml-auto space-x-5">
+            <status-bar @openStatus="openStatus(resume.id, index)" :is-show="isShow[index]" />
+            <button @click="removeUser(resume.id)" class="font-medium text-red-500 hover:opacity-80">Remove</button>
           </div>
         </div>
       </div>
@@ -41,11 +36,17 @@ import { doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { deleteObject, getDownloadURL } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
+import StatusBar from '@/components/admin/resume/StatusBar.vue'
 
 const db = useFirestore()
 const resumes = ref<any>([])
 const vacancies = ref([])
-const statuses = ref(['accept', 'reject'])
+const isShow = ref<boolean[]>([])
+
+const openStatus = (id: string, idx: number) => {
+  isShow.value[idx] = !isShow.value[idx]
+  return id
+}
 
 fetchData('resume').then((result) => {
   resumes.value = result
