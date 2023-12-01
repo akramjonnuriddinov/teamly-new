@@ -5,7 +5,7 @@
       <inline-svg class="w-2 ml-1" src="svg/fontawesome/caret-down.svg" />
     </button>
     <ul
-      v-if="isShow"
+      v-if="expandedComputed"
       class="absolute left-full top-8 -translate-x-full flex flex-col z-50 justify-start bg-white border rounded-lg w-[200px]"
     >
       <li v-for="status in statuses" class="border-b">
@@ -22,28 +22,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, computed } from 'vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
-const isShow = ref(false)
-const select = ref<any>(null)
-const toggle = () => {
-  isShow.value = !isShow.value
-}
-watch(isShow, (value) => {
-  if (value) {
-    document.addEventListener('click', clickHandler)
-  } else {
-    document.removeEventListener('click', clickHandler)
-  }
-})
+import { v4 as uuid } from 'uuid'
 
-const clickHandler = (e: any) => {
-  if (select && (e.target === select.value || select.value.contains(e.target))) {
-    console.log(select.value)
-    return
-  }
-  toggle()
+const id = uuid()
+const select = ref<any>(null)
+
+const props = defineProps(['statusExpanded'])
+
+const toggle = () => {
+  props.statusExpanded.exp = props.statusExpanded.exp === id ? null : id
 }
+
+const expandedComputed = computed(() => props.statusExpanded.exp === id)
 
 const statuses = ref([
   {

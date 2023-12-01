@@ -1,5 +1,5 @@
 <template>
-  <div @click="isShow = []" class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <div>
       <ul>
         <li v-for="(resume, index) in resumes" :key="index" class="relative flex flex-col mb-5">
@@ -16,7 +16,7 @@
               >@{{ resume.username || 'undefined' }}</a
             >
             <div class="flex ml-auto space-x-5">
-              <status-bar :is-show="isShow[index]" @setStatus="setStatus" @openStatus="openStatus(resume.id, index)" />
+              <status-bar :statusExpanded="statusExpanded" @setStatus="setStatus" />
               <button @click="removeUser(resume.id)" class="font-medium text-red-500 hover:opacity-80">Remove</button>
             </div>
           </div>
@@ -41,13 +41,14 @@ import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
 const db = useFirestore()
 const resumes = ref<any>([])
 const vacancies = ref([])
-const isShow = ref<boolean[]>([])
 
-const openStatus = (id: string, index: number) => {
-  isShow.value = []
-  isShow.value[index] = !isShow.value[index]
-  return id
-}
+const statusExpanded = ref({ exp: null })
+
+// const openStatus = (id: string, index: number) => {
+//   isShow.value = []
+//   isShow.value[index] = !isShow.value[index]
+//   return id
+// }
 
 const docRef = doc(collection(db, 'resume'), '6oQLLk06Rm5mUqpYrr3y')
 const setStatus = async () => {
