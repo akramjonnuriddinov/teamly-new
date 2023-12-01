@@ -64,25 +64,13 @@
         ></div>
 
         <div class="flex items-center">
-          <a
-            class="block py-0 mr-10 font-semibold whitespace-nowrap text-tg-heading-font-color hover:text-tg-primary-color transition-colors duration-200 max-[1050px]:hidden"
-            href="https://t.me/m_mirahmad"
-            target="_blank"
-            >+998 (33) 773 77 37</a
-          >
-
           <div class="max-[990px]:hidden">
             <Language />
           </div>
-          <button class="h-[30px] hidden w-[26px] max-[990px]:flex" @click="toggleModal">
-            <img
-              class="w-[26px] block h-[30px]"
-              width="26"
-              height="30"
-              src="@/assets/images/fontawesome/bars.svg"
-              alt="bars_icon"
-            />
-          </button>
+          <router-link v-if="!store.user" to="/login">
+            <button>Login</button>
+          </router-link>
+          <button class="cur" v-else @click="logout">Logout</button>
         </div>
       </div>
     </div>
@@ -91,8 +79,15 @@
 
 <script setup lang="ts">
 import { onMounted, ref, onUpdated } from 'vue'
+import { useAuthStore } from "@/store/auth";
 import Language from '@/components/static/Language.vue'
 import { getSVG } from '@/composables/getSVG'
+
+const store = useAuthStore();
+
+const logout = () => {
+  store.logout()
+}
 
 const header = ref('')
 const socials = [
