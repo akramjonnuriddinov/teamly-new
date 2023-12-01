@@ -1,5 +1,5 @@
 <template>
-  <div ref="select" class="relative">
+  <div class="relative">
     <button @click.stop="toggle" class="flex items-center text-tg-black-two">
       <span>Status</span>
       <inline-svg class="w-2 ml-1" src="svg/fontawesome/caret-down.svg" />
@@ -27,16 +27,7 @@ import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import { v4 as uuid } from 'uuid'
 
 const id = uuid()
-const select = ref<any>(null)
-
 const props = defineProps(['statusExpanded'])
-
-const toggle = () => {
-  props.statusExpanded.exp = props.statusExpanded.exp === id ? null : id
-}
-
-const expandedComputed = computed(() => props.statusExpanded.exp === id)
-
 const statuses = ref([
   {
     id: 'in_review',
@@ -57,6 +48,12 @@ const statuses = ref([
     color: 'bg-green-400',
   },
 ])
+
+const toggle = () => {
+  props.statusExpanded.exp = props.statusExpanded.exp === id ? null : id
+}
+
+const expandedComputed = computed(() => props.statusExpanded.exp === id)
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div @click="statusExpanded.exp = null" class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <div>
       <ul>
         <li v-for="(resume, index) in resumes" :key="index" class="relative flex flex-col mb-5">
@@ -43,12 +43,6 @@ const resumes = ref<any>([])
 const vacancies = ref([])
 
 const statusExpanded = ref({ exp: null })
-
-// const openStatus = (id: string, index: number) => {
-//   isShow.value = []
-//   isShow.value[index] = !isShow.value[index]
-//   return id
-// }
 
 const docRef = doc(collection(db, 'resume'), '6oQLLk06Rm5mUqpYrr3y')
 const setStatus = async () => {
