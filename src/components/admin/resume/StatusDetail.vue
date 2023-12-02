@@ -32,7 +32,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { fetchData } from '@/composables/fetchData'
-import { stat } from 'fs'
 
 const props = defineProps(['expanded', 'applayer_id'])
 
