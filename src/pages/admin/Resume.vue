@@ -2,8 +2,13 @@
   <div @click="statusExpanded.exp = null" class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <div>
       <ul>
-        <li v-for="(resume, index) in resumes" :key="index" class="relative flex flex-col mb-5">
-          <div class="flex items-center justify-between h-full p-5 mb-2 border rounded-md bg-gray-50">
+        <li
+          v-for="(resume, index) in resumes"
+          :key="index"
+          @click="toggleAccordion(index)"
+          class="relative flex flex-col mb-5"
+        >
+          <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
             <button
               @click="downloadResume(resume.id)"
               class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
@@ -16,15 +21,22 @@
               >@{{ resume.username || 'undefined' }}</a
             >
             <div class="flex ml-auto space-x-5">
-              <status-bar :statusExpanded="statusExpanded" @setStatus="setStatus" />
+              <status-bar
+                class="hidden"
+                @click="isStatusModal = true"
+                :statusExpanded="statusExpanded"
+                @setStatus="setStatus"
+              />
+              <button @click="openStatusModal(resume.id)">status</button>
               <button @click="removeUser(resume.id)" class="font-medium text-red-500 hover:opacity-80">Remove</button>
             </div>
           </div>
-          <status-detail v-if="false" />
+          <status-detail :applayer_id="resume.id" :expanded="detailExpanded === index" />
         </li>
       </ul>
     </div>
   </div>
+  <status-modal :currentUser="currentUser" v-if="isStatusModal" @closeStatusModal="closeStatusModal" />
 </template>
 
 <script setup lang="ts">
@@ -37,12 +49,38 @@ import { storageRef, storage } from '@/firebase'
 import StatusBar from '@/components/admin/resume/StatusBar.vue'
 import { updateDoc, collection } from 'firebase/firestore'
 import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
+import StatusModal from '@/components/admin/resume/StatusModal.vue'
 
 const db = useFirestore()
 const resumes = ref<any>([])
 const vacancies = ref([])
 
 const statusExpanded = ref({ exp: null })
+const detailExpanded = ref(null)
+const isStatusModal = ref(false)
+const currentUser = ref({
+  applayer_id: '',
+  vacancy_id: '',
+})
+
+const closeStatusModal = () => {
+  isStatusModal.value = false
+}
+
+const openStatusModal = (id: string) => {
+  isStatusModal.value = true
+  resumes.value.forEach((item: any) => {
+    if (item.id == id) {
+      currentUser.value.vacancy_id = item.vacancy_id
+      currentUser.value.applayer_id = item.id
+    }
+  })
+  console.log(id)
+}
+
+const toggleAccordion = (value: any) => {
+  detailExpanded.value = detailExpanded.value === value ? null : value
+}
 
 const docRef = doc(collection(db, 'resume'), '6oQLLk06Rm5mUqpYrr3y')
 const setStatus = async () => {

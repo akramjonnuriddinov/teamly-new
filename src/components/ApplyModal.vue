@@ -96,7 +96,7 @@ const resume = ref({
   title: '',
   username: '',
   phone: '',
-  status: 'initial',
+  status_id: '',
 })
 
 const disabled = computed(() => {
