@@ -95,13 +95,15 @@ import { onMounted, ref, onUpdated, computed } from 'vue'
 import { useAuthStore } from "@/store/auth";
 import Language from '@/components/static/Language.vue'
 import { getSVG } from '@/composables/getSVG'
-
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const store = useAuthStore();
 
 const user = computed(() => store.user)
 
 const logout = () => {
   store.logout()
+  router.push('/')
 }
 const isDropDown = ref(false)
 
