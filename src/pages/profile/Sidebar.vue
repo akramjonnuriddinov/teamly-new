@@ -12,7 +12,7 @@
 import { ref, defineEmits } from 'vue'
 const emit = defineEmits(['selectItem'])
 
-const selectedNavItem = ref()
+const selectedNavItem = ref('Profile details')
 
 const navigations = ref([
   {
