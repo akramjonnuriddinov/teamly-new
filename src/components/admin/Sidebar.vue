@@ -11,7 +11,7 @@
         />
       </router-link>
       <ul class="space-y-2 font-medium">
-        <li v-for="link in links">
+        <li v-for="link in links" :key="link.name">
           <router-link
             :to="{ name: 'admin' }"
             @click="$emit('change', link.name)"

@@ -63,6 +63,14 @@ const router = createRouter({
         guest: true
       }
     },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('@/pages/profile/index.vue'),
+      meta: {
+        authRequired: true,
+      }
+    },
   ]
 })
 
