@@ -51,7 +51,7 @@ const db = useFirestore()
 const user = JSON.parse(JSON.stringify(store.user))
 const currentUser = getAuth().currentUser
 const updatedUser = ref({
-  id: store.user.id,
+  id: user.id,
   name: user.name,
   email: user.email,
 })

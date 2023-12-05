@@ -4,145 +4,63 @@
       <h1 class="text-[20px] font-medium">Applied vacancies</h1>
       <span class="text-gray-400 text-sm">All of your applied vacancies</span>
       <div>
-        <div
-          class="flex w-[910px] max-h-[400px] py-5 px-[30px] rounded-lg bg-white shadow my-5 overflow-auto flex-col items-flex-start gap-20px"
-        >
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <h1 class="font-inter mr-5 text-base font-normal md:font-medium leading-7">Junior UX Researcher</h1>
-              <p class="text-gray-400 font-inter text-sm font-medium leading-5">Posted 1 year ago</p>
+        <div  v-for="vacancy in vacancies"
+          :key="vacancy.id" class="shadow-job-inner my-5 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]">
+            <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
+            <router-link
+              :to="{
+                name: 'vacancyDetail',
+                params: {
+                  id: vacancy.id,
+                },
+              }"
+              class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7 transition-all duration-300 hover:text-tg-secondary-color"
+            >
+              {{ vacancy.title }}
+            </router-link>
+            <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
+              <span>{{ vacancy.category }}</span>
+              <span class="block w-2 h-2 rounded-full bg-tg-primary-color"></span>
+              <span>{{ vacancy.time }}</span>
             </div>
-            <p class="text-green-400 font-inter text-base font-medium leading-6">3 people applied</p>
-          </div>
-          <div class="mt-[5px] font-inter text-base font-normal leading-6">
-            <div>
-              As a Junior User Experience Researcher, you will help your team of UX designers, product managers, and
-              engineers to understand user
-            </div>
-            <ul class="list-disc ml-6 my-5">
-              <li>
-                Bachelor's Degree in Interaction Design, Graphic Design, Industrial Design, related field (or equivalent
-                work experience in a related field)
-              </li>
-              <li>3 years of experience in UX Design</li>
-              <li>Expert proficiency with Sketch and/or other design tools</li>
-              <li>Portfolio of completed design projects</li>
-            </ul>
-            <div class="flex justify-between items-center">
-              <div class="flex">
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets/icons/bag.svg" /> Remote
-                </div>
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets//icons/money.svg" /> 3 000 000 UZS
-                </div>
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets//icons/money.svg" /> Monday - Friday 9:00 AM to 18:00PM
-                </div>
-              </div>
-              <div class="text-xs">Show statuses</div>
-            </div>
+            <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
           </div>
         </div>
-        <div
-          class="flex w-[910px] max-h-[400px] py-5 px-[30px] rounded-lg bg-white shadow my-5 overflow-auto flex-col items-flex-start gap-20px"
-        >
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <h1 class="font-inter mr-5 text-base font-normal md:font-medium leading-7">Junior UX Researcher</h1>
-              <p class="text-gray-400 font-inter text-sm font-medium leading-5">Posted 1 year ago</p>
-            </div>
-            <p class="text-green-400 font-inter text-base font-medium leading-6">3 people applied</p>
-          </div>
-          <div class="mt-[5px] font-inter text-base font-normal leading-6">
-            <div>
-              As a Junior User Experience Researcher, you will help your team of UX designers, product managers, and
-              engineers to understand user
-            </div>
-            <ul class="list-disc ml-6 my-5">
-              <li>
-                Bachelor's Degree in Interaction Design, Graphic Design, Industrial Design, related field (or equivalent
-                work experience in a related field)
-              </li>
-              <li>3 years of experience in UX Design</li>
-              <li>Expert proficiency with Sketch and/or other design tools</li>
-              <li>Portfolio of completed design projects</li>
-            </ul>
-            <div class="flex justify-between items-center">
-              <div class="flex">
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets/icons/bag.svg" /> Remote
-                </div>
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets//icons/money.svg" /> 3 000 000 UZS
-                </div>
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets//icons/money.svg" /> Monday - Friday 9:00 AM to 18:00PM
-                </div>
-              </div>
-              <div class="text-xs">Show statuses</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="flex w-[910px] max-h-[400px] py-5 px-[30px] rounded-lg bg-white shadow my-5 overflow-auto flex-col items-flex-start gap-20px"
-        >
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <h1 class="font-inter mr-5 text-base font-normal md:font-medium leading-7">Junior UX Researcher</h1>
-              <p class="text-gray-400 font-inter text-sm font-medium leading-5">Posted 1 year ago</p>
-            </div>
-            <p class="text-green-400 font-inter text-base font-medium leading-6">3 people applied</p>
-          </div>
-          <div class="mt-[5px] font-inter text-base font-normal leading-6">
-            <div>
-              As a Junior User Experience Researcher, you will help your team of UX designers, product managers, and
-              engineers to understand user
-            </div>
-            <ul class="list-disc ml-6 my-5">
-              <li>
-                Bachelor's Degree in Interaction Design, Graphic Design, Industrial Design, related field (or equivalent
-                work experience in a related field)
-              </li>
-              <li>3 years of experience in UX Design</li>
-              <li>Expert proficiency with Sketch and/or other design tools</li>
-              <li>Portfolio of completed design projects</li>
-            </ul>
-            <div class="flex justify-between items-center">
-              <div class="flex">
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets/icons/bag.svg" /> Remote
-                </div>
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets//icons/money.svg" /> 3 000 000 UZS
-                </div>
-                <div
-                  class="flex mr-[23px] bg-gray-300 shadow py-[2px] px-[9px] rounded-[7px] text-xs whitespace-nowrap"
-                >
-                  <img class="mr-[10px]" src="../../assets//icons/money.svg" /> Monday - Friday 9:00 AM to 18:00PM
-                </div>
-              </div>
-              <div class="text-xs">Show statuses</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from "@/store/auth";
+import { collection, where, query, getDocs, getDoc, doc} from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
+
+const db = useFirestore()
+const store = useAuthStore();
+const vacancies = ref();
+
+onMounted(async () => {
+  const q = query(collection(db, "appliers"), where("user_id", "==", store.user.id));
+  try {
+    const querySnapshot = await getDocs(q);
+
+    const promises = querySnapshot.docs.map(async (applier) => {
+      const vacancyId = applier.data().vacancyId;
+      const docRef = doc(db, 'vacancies', vacancyId);
+      const vacancySnapshot = await getDoc(docRef);
+
+      if (vacancySnapshot.exists()) {
+        return {...vacancySnapshot.data(), id: vacancyId};
+      } else {
+        console.log('Vacancy does not exist');
+        return null;
+      }
+    });
+
+    vacancies.value = await Promise.all(promises);
+  } catch (error) {
+    console.error('Error fetching appliers:', error);
+  }
+});
+</script>
