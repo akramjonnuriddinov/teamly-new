@@ -4,8 +4,8 @@
       <ul class="flex flex-wrap justify-start">
         <li
           class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
-          v-for="(vacancy, index) in vacancies"
-          :key="index"
+          v-for="(vacancy) in vacancies"
+          :key="vacancy.id"
         >
           <div class="shadow-job-inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
             <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
@@ -26,7 +26,7 @@
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
-            <base-button :size="ESize.BIG" @click="$emit('open')" class="mt-auto"> Apply </base-button>
+            <base-button :size="ESize.BIG" @click="$emit('open', vacancy.id )" class="mt-auto"> Apply </base-button>
           </div>
         </li>
       </ul>

@@ -3,7 +3,7 @@
     <vacancy-detail-banner :vacancy="vacancy" @open="isShow = true" />
     <job-description :vacancy="vacancy" @open="isShow = true" />
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" />
+  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="route.params.id"/>
 </template>
 
 <script setup lang="ts">

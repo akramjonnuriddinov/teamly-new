@@ -84,9 +84,13 @@ import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { isDisabled } from '@/composables/isDisabled'
+import { useAuthStore } from "@/store/auth";
+
 
 const emit = defineEmits(['close'])
+const props =  defineProps(['vacancyId'])
 
+const store = useAuthStore();
 const isLoading = ref(false)
 const db = useFirestore()
 const collectionRef = collection(db, 'resume')
@@ -110,6 +114,13 @@ const add = async () => {
     }
     isLoading.value = true
     const res = await addDoc(collectionRef, newValue)
+    const ref = collection(db, 'appliers')
+    const data = {
+      user_id: store.user.id,
+      resume: resume.value,
+      vacancyId: props.vacancyId
+    }
+    await addDoc(ref,data)
 
     if (selectedFile.value) {
       const userDirectory = `users/${res.id}`
