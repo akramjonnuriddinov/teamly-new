@@ -1,27 +1,28 @@
 <template>
   <div v-if="expanded" class="px-5">
     <div>
-      <div v-if="statusApplayers" class="flex items-center gap-3">
+      <div v-if="applierStatuses" class="flex items-center gap-3">
         <!-- <img src="@/assets/images/fontawesome/icon-experience.svg" alt="" /> -->
         <!-- <h3 class="pl-3 my-4 text-3xl">History of Applayer User</h3> -->
       </div>
       <ul class="p-5">
         <li
-          v-for="statusApplayer in statusApplayers"
+          v-for="applierStatus in applierStatuses"
           @click.stop
-          :class="`border-${statusApplayer.status_color} border-l-2 border-opacity-40`"
+          :class="`border-${applierStatuses} border-l-2 border-opacity-40`"
           class="relative flex"
         >
           <span
-            :class="`bg-${statusApplayer.status_color}`"
-            class="block min-w-[16px] min-h-[16px] max-h-[16px] max-w-[16px] -translate-x-1/2 rounded-full"
+            :class="`bg-${applierStatuses}`"
+            class="block min-w-[12px] min-h-[12px] max-h-[12px] max-w-[12px] -translate-x-1/2 rounded-full"
           ></span>
           <div class="px-3 py-10 comment">
             <div class="flex items-center font-medium text-gray-600">
-              <span>{{ formatTimestampToLocaleString(statusApplayer.date) }} -</span>
-              <span>{{ statusApplayer.status }}</span>
+              <span>{{ formatTimestampToLocaleString(applierStatus.date) }} -</span>
+              <span>{{ applierStatus.status }} - </span>
+              <span>{{ applierStatus.status_id }}</span>
             </div>
-            <div v-html="statusApplayer.comment"></div>
+            <div v-html="applierStatus.description"></div>
           </div>
         </li>
       </ul>
@@ -30,15 +31,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 
-const props = defineProps(['expanded', 'applayer_id'])
+const props = defineProps(['expanded', 'applier_id', 'status_id'])
+const applierStatuses = ref<any>([])
 
-const statusApplayers = ref()
-
-fetchData('applayer_statuses').then((result) => {
-  statusApplayers.value = result.filter((item: any) => item.applayer_id === props.applayer_id)
+onMounted(async () => {
+  const allStatuses = await fetchData('applier_statuses')
+  applierStatuses.value = allStatuses.filter((item: any) => item.applier_id === props.applier_id)
 })
 
 function formatTimestampToLocaleString(timestamp: number) {

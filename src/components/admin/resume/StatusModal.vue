@@ -20,19 +20,19 @@
               <div class="flex items-center justify-between w-full mb-2">
                 <label class="text-gray-700" for="category">Status</label>
                 <select
-                  v-model="comments.status"
+                  v-model="comment.status_id"
                   class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
                   id="category"
                 >
                   <option value="" disabled selected>Status</option>
-                  <option class="flex items-center" v-for="status in statuses">
+                  <option class="flex items-center" :value="status.id" v-for="status in statuses">
                     {{ status.status }}
                   </option>
                 </select>
               </div>
               <div class="flex items-center justify-between w-full mt-2 mb-2">
                 <label class="text-gray-700" for="text">Comment</label>
-                <editor @input="handleCommentFromChild" :edit-editor="comments.comment" class="w-[80%]" />
+                <editor @input="handleDescriptionFromChild" :edit-editor="comment.description" class="w-[80%]" />
               </div>
             </div>
           </form>
@@ -51,86 +51,41 @@ import Editor from '@/components/reusables/Editor.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 
 const db = useFirestore()
-const collectionRef = collection(db, 'applayer_statuses')
-const props = defineProps(['currentUser'])
+const collectionRef = collection(db, 'applier_statuses')
+const props = defineProps(['currentUser', 'statuses'])
 
-const comments = ref<any>({
-  status: 'initial',
-  comment: '',
-  applayer_id: '',
-  vacancy_id: '',
-  status_color: '',
+const comment = ref<any>({
   status_id: '',
+  description: '',
 })
-const statuses = ref([
-  {
-    id: 'in_review',
-    status: 'in review',
-    defination: 'resume in review',
-    color: 'yellow-400',
-  },
-  {
-    id: 'reject',
-    status: 'reject',
-    defination: 'resume rejected',
-    color: 'red-400',
-  },
-  {
-    id: 'accept',
-    status: 'accept',
-    defination: 'resume accepted',
-    color: 'green-400',
-  },
-  {
-    id: 'online',
-    status: 'online',
-    defination: 'resume online',
-    color: 'blue-400',
-  },
-  {
-    id: 'offline',
-    status: 'offline',
-    defination: 'resume offline',
-    color: 'gray-400',
-  },
-  {
-    id: 'enhancement',
-    status: 'enhancement',
-    defination: 'resume enhancement',
-    color: '[#a2eeef]',
-  },
-])
 
 const add = async () => {
   try {
-    const status_color = statuses.value.filter((item) => item.status === comments.value.status)
-    console.log('status_color', status_color[0].color)
-    comments.value.applayer_id = props.currentUser.applayer_id
-    comments.value.vacancy_id = props.currentUser.vacancy_id
-    comments.value.status_color = status_color[0].color
+    comment.value.applier_id = props.currentUser.applier_id
+    comment.value.vacancy_id = props.currentUser.vacancy_id
 
     const newValue = {
-      ...comments.value,
+      ...comment.value,
       date: Date.now(),
     }
-    const res = await addDoc(collectionRef, newValue)
-    const optionVal = {
-      ...newValue,
-      id: res.id,
-    }
-    console.log(optionVal)
+
+    await addDoc(collectionRef, newValue)
+    console.log('newValue', newValue)
+    // update status of applier
+    const docRef = doc(collection(db, 'appliers'), props.currentUser.applier_id)
+    await updateDoc(docRef, {
+      status_id: newValue.status_id,
+    })
   } catch (error) {
     console.error('status adding error...')
-  } finally {
-    console.log('done')
   }
 }
 
-const handleCommentFromChild = (comment: string) => {
-  comments.value.comment = comment
+const handleDescriptionFromChild = (description: string) => {
+  comment.value.description = description
 }
 </script>

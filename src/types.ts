@@ -53,3 +53,36 @@ export enum EThemes {
   RED = 'red',
   WHITE = 'white',
 }
+
+export const Statuses = {
+  review: {
+    status: 'review',
+    definition: 'resume in review',
+    color: 'yellow-400',
+  },
+  reject: {
+    status: 'reject',
+    definition: 'resume rejected',
+    color: 'red-400',
+  },
+  accept: {
+    status: 'accept',
+    definition: 'resume accepted',
+    color: 'green-400',
+  },
+  online: {
+    status: 'online',
+    definition: 'resume online',
+    color: 'blue-400',
+  },
+  offline: {
+    status: 'offline',
+    definition: 'resume offline',
+    color: 'red-800',
+  },
+  enhancement: {
+    status: 'enhancement',
+    definition: 'resume enhancement',
+    color: '#a2eeef',
+  },
+}
