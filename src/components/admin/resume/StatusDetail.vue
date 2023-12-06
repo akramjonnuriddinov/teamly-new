@@ -1,40 +1,49 @@
 <template>
   <the-transition>
-    <div v-if="expanded" class="px-5">
-      <div
-        @click.stop
-        class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent"
-      >
-        <!-- Item #1 -->
-        <div
-          v-for="applierStatus in applierStatuses"
-          class="relative flex items-center justify-between pt-5 md:justify-normal md:odd:flex-row-reverse group is-active"
-        >
-          <!-- Icon -->
+    <div v-if="expanded" class="px-5 overflow-hidden">
+      <ol @click.stop class="relative border-gray-200 border-s dark:border-gray-700">
+        <li v-for="(applierStatus, index) in applierStatuses" class="pt-4 mb-10 ms-4">
           <div
             :style="`background-color: ${applierStatus.color}`"
-            class="flex items-center justify-center w-10 h-10 rounded-full border border-white text-slate-500 group-[.is-active]:text-emerald-50 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2"
+            class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
+          ></div>
+          <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{
+            formatTimestampToLocaleString(applierStatus.date)
+          }}</time>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ applierStatus.status.status }}</h3>
+          <div v-if="applierStatus.description" v-html="applierStatus.description"></div>
+          <div
+            v-else
+            class="text-slate-500"
+            :class="{ 'line-clamp-none': lineClamp[index], 'line-clamp-5': !lineClamp[index] }"
           >
-            <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="12" height="10">
+            {{ applierStatus.status.definition }}
+          </div>
+
+          <button
+            @click="lineClampChange(index)"
+            class="inline-flex items-center px-4 py-2 mt-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700"
+          >
+            <span v-if="!lineClamp[index]">Learn more</span>
+            <span v-else>Learn less</span>
+            <svg
+              class="w-3 h-3 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
               <path
-                fill-rule="nonzero"
-                d="M10.422 1.257 4.655 7.025 2.553 4.923A.916.916 0 0 0 1.257 6.22l2.75 2.75a.916.916 0 0 0 1.296 0l6.415-6.416a.916.916 0 0 0-1.296-1.296Z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
               />
             </svg>
-          </div>
-          <!-- Card -->
-          <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-slate-200 shadow">
-            <div class="flex items-center justify-between mb-1 space-x-2">
-              <div class="font-bold text-slate-900">{{ applierStatus.status.status }}</div>
-              <time class="font-medium text-indigo-500 font-caveat">{{
-                formatTimestampToLocaleString(applierStatus.date)
-              }}</time>
-            </div>
-            <div v-if="applierStatus.description" v-html="applierStatus.description" class="text-slate-500"></div>
-            <div v-else class="text-slate-500">{{ applierStatus.status.definition }}</div>
-          </div>
-        </div>
-      </div>
+          </button>
+        </li>
+      </ol>
     </div>
   </the-transition>
 </template>
@@ -58,9 +67,14 @@ onMounted(async () => {
   applierStatuses.value = allStatuses.filter((item: any) => item.applier_id === props.applier_id)
 })
 
+const lineClamp = ref<boolean[]>([])
+const lineClampChange = (index: number) => {
+  lineClamp.value[index] = !lineClamp.value[index]
+}
+
 function formatTimestampToLocaleString(timestamp: number) {
   const date = new Date(timestamp)
-  const options: object = { month: 'long', day: 'numeric', year: 'numeric' }
+  const options: object = { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }
   const formattedDate = date.toLocaleDateString('en-US', options)
   return formattedDate
 }

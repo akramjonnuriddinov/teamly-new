@@ -9,16 +9,19 @@
           class="relative flex flex-col mb-5"
         >
           <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
+            <button class="mr-4 duration-300 text-tg-paragraph-color transition-color hover:text-tg-heading-font-color">
+              <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
+            </button>
             <button
-              @click="downloadResume(applier.id)"
+              @click.stop="downloadResume(applier.id)"
               class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
             >
-              {{ applier.resume.title }}
+              {{ applier?.resume?.title }}
             </button>
-            <a class="w-1/6 mr-2" :href="`tel:${applier.phone}`">{{ applier.resume.phone }}</a>
-            <a class="w-1/5 mr-2" href="">{{ getVacancyTitle(applier.vacancy_id) }}</a>
-            <a class="w-1/6 mr-2" :href="`https://t.me/${applier.username}`" target="_blank"
-              >@{{ applier.resume.username || 'undefined' }}</a
+            <a @click.stop class="w-1/6 mr-2" :href="`tel:${applier.phone}`">{{ applier?.resume?.phone }}</a>
+            <a @click.stop class="w-1/5 mr-2" href="#">{{ getVacancyTitle(applier.vacancy_id) }}</a>
+            <a @click.stop class="w-1/6 mr-2" :href="`https://t.me/${applier?.username}`" target="_blank"
+              >@{{ applier?.resume?.username || 'undefined' }}</a
             >
             <div class="flex ml-auto space-x-5">
               <status-bar
@@ -27,8 +30,10 @@
                 :statusExpanded="statusExpanded"
                 @setStatus="setStatus"
               />
-              <button @click="openStatusModal(applier.id)">{{ applier?.status?.status || 'submitted' }}</button>
-              <button @click="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">Remove</button>
+              <button @click.stop="openStatusModal(applier.id)">{{ applier?.status?.status || 'submitted' }}</button>
+              <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
+                Remove
+              </button>
             </div>
           </div>
           <status-detail :applier_id="applier.id" :status_id="applier.status_id" :expanded="detailExpanded === index" />
@@ -55,6 +60,7 @@ import StatusBar from '@/components/admin/resume/StatusBar.vue'
 import { updateDoc, collection } from 'firebase/firestore'
 import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
 import StatusModal from '@/components/admin/resume/StatusModal.vue'
+import InlineSvg from '@/components/reusables/InlineSvg.vue'
 
 const db = useFirestore()
 const appliers = ref<any>([])
@@ -79,6 +85,7 @@ onMounted(async () => {
     ...item,
     status: statuses.value.find((el: any) => el.id === item.status_id),
   }))
+  console.log('appliers:', appliers.value)
 })
 
 const closeStatusModal = () => {

@@ -12,8 +12,8 @@ const onLeave = (el: any) => {
 
 <template>
   <Transition
-    enter-active-class="transition-[height] duration-200"
-    leave-active-class="transition-[height] duration-200"
+    enter-active-class="transition-[height] duration-300"
+    leave-active-class="transition-[height] duration-300"
     enter-to-class="h-0"
     leave-to-class="h-0"
     @before-enter="onBeforeEnter"

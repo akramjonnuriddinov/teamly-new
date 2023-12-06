@@ -110,7 +110,6 @@ const add = async () => {
       ...applier.value,
       date: Date.now(),
       vacancy_id: props.vacancy_id,
-      // status: 'submitted',
       status_id: null,
     }
     isLoading.value = true

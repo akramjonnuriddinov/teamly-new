@@ -46,7 +46,7 @@
           </form>
         </div>
         <div class="flex justify-end px-10 pb-5 mt-4">
-          <base-button @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
+          <base-button :is-loading="isLoading" @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
         </div>
       </div>
     </div>
@@ -65,6 +65,8 @@ import { useFirestore } from 'vuefire'
 const db = useFirestore()
 const collectionRef = collection(db, 'applier_statuses')
 const props = defineProps(['currentUser', 'statuses'])
+const isLoading = ref(false)
+const emit = defineEmits(['closeStatusModal'])
 
 const comment = ref<any>({
   status_id: '',
@@ -74,6 +76,7 @@ const comment = ref<any>({
 
 const add = async () => {
   try {
+    isLoading.value = true
     comment.value.applier_id = props.currentUser.applier_id
     comment.value.vacancy_id = props.currentUser.vacancy_id
 
@@ -90,6 +93,9 @@ const add = async () => {
     })
   } catch (error) {
     console.error('status adding error...')
+  } finally {
+    emit('closeStatusModal')
+    isLoading.value = false
   }
 }
 
