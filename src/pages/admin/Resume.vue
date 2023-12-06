@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div class="flex flex-col w-full p-8 overflow-y-scroll">
     <h2 class="mb-10 text-3xl capitalize">{{ 'title' }}</h2>
     <div>
       <div>

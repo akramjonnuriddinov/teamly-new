@@ -1,7 +1,7 @@
 <template>
   <section
     @click="close"
-    class="h-full bg-[#00000080] min-h-screen flex justify-center items-start p-10 fixed top-0 left-0 w-[100vw] z-50"
+    class="h-full bg-[#00000080] flex justify-center items-start p-10 fixed top-0 left-0 w-[100vw] z-50"
   >
     <div
       @click.stop

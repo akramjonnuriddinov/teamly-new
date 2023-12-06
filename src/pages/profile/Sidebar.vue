@@ -1,8 +1,6 @@
 <template>
-  <aside
-    class="relative fixed top-10 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-  >
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
+  <aside class="relative left-0 z-40 w-64 transition-transform -translate-x-full top-10 sm:translate-x-0">
+    <div class="h-auto px-3 py-4 overflow-y-auto bg-gray-50">
       <h1 class="text-2xl font-medium">Your Profile</h1>
       <ul class="mt-[57px]">
         <li
@@ -19,7 +17,7 @@
         >
           <span
             :class="{ 'bg-tg-primary-color text-white rounded-[5px]': selectedNavItem === nav.name }"
-            class="py-3 px-5"
+            class="px-5 py-3"
             >{{ nav.name }}</span
           >
         </li>

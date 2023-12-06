@@ -1,5 +1,5 @@
 <template>
-  <aside class="relative top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
+  <aside class="relative top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
       <router-link to="/vacancy" class="flex mb-5">
         <img

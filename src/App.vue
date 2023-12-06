@@ -5,8 +5,8 @@
       <router-view class="main-content" />
     </div>
     <div v-if="!isAdmin && !isLoading()">
-      <contact-us />
-      <the-brand />
+      <contact-us v-if="!isPorfile" />
+      <the-brand v-if="!isPorfile" />
       <the-footer class="main-footer" />
       <scroll-top />
     </div>
@@ -37,6 +37,10 @@ window.addEventListener('load', () => {
 
 const isAdmin = computed(() => {
   return route.path.includes('admin') || route.path.includes('createBlog')
+})
+
+const isPorfile = computed(() => {
+  return route.path.includes('profile')
 })
 </script>
 

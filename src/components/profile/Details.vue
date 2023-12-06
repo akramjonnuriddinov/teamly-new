@@ -1,5 +1,5 @@
 <template>
-  <div class="relative pb-[135px] border-b border-gray-300">
+  <div class="relative pb-[135px]">
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Personal information</h1>
       <span class="text-sm text-gray-400">Your main profile information</span>
