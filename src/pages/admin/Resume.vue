@@ -13,16 +13,16 @@
               <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
             </button>
             <button
-              @click.stop="downloadResume(applier.id)"
+              @click.stop="downloadResume(applier.user_id)"
               class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
             >
-              {{ applier?.resume?.title }}
+              {{ applier?.resume?.name }}
             </button>
-            <a @click.stop class="w-1/6 mr-2" :href="`tel:${applier.phone}`">{{ applier?.resume?.phone }}</a>
+            <!-- <a @click.stop class="w-1/6 mr-2" :href="`tel:${applier.phone}`">{{ applier?.resume?.phone }}</a> -->
             <a @click.stop class="w-1/5 mr-2" href="#">{{ getVacancyTitle(applier.vacancy_id) }}</a>
-            <a @click.stop class="w-1/6 mr-2" :href="`https://t.me/${applier?.username}`" target="_blank"
-              >@{{ applier?.resume?.username || 'undefined' }}</a
-            >
+            <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier?.resume?.email}`">{{
+              applier?.resume?.email || 'email undefined'
+            }}</a>
             <div class="flex ml-auto space-x-5">
               <status-bar
                 class="hidden"
@@ -67,6 +67,7 @@ const appliers = ref<any>([])
 const vacancies = ref<any>([])
 const applierStatuses = ref<any>([])
 const statuses = ref([])
+const users = ref([])
 
 const statusExpanded = ref({ exp: null })
 const detailExpanded = ref(null)
@@ -79,13 +80,15 @@ const currentUser = ref({
 onMounted(async () => {
   vacancies.value = await fetchData('vacancies')
   statuses.value = await fetchData('statuses')
+  users.value = await fetchData('users')
   applierStatuses.value = await fetchData('applier_statuses')
   const allAppliers = await fetchData('appliers')
   appliers.value = await allAppliers.map((item: any) => ({
     ...item,
     status: statuses.value.find((el: any) => el.id === item.status_id),
+    resume: users.value.find((el: any) => el.id === item.user_id),
+    vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
   }))
-  console.log('appliers:', appliers.value)
 })
 
 const closeStatusModal = () => {
@@ -113,7 +116,7 @@ const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'appliers', id))
   appliers.value.forEach((item: any) => {
     if (item.id == id) {
-      const applierRef = storageRef(storage, `users/${item.id}`)
+      const applierRef = storageRef(storage, `users/${item.user_id}`)
       deleteObject(applierRef)
         .then(() => {
           appliers.value = appliers.value.filter((item: any) => item.id !== id)

@@ -11,10 +11,10 @@
             formatTimestampToLocaleString(applierStatus.date)
           }}</time>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ applierStatus.status.status }}</h3>
-          <div v-if="applierStatus.description" v-html="applierStatus.description"></div>
+          <div v-if="applierStatus.description" v-html="applierStatus.description" class="px-5"></div>
           <div
             v-else
-            class="text-slate-500"
+            class="px-5 text-slate-500"
             :class="{ 'line-clamp-none': lineClamp[index], 'line-clamp-5': !lineClamp[index] }"
           >
             {{ applierStatus.status.definition }}
