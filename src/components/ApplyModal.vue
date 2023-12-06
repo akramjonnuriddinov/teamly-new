@@ -12,44 +12,6 @@
       </div>
       <div class="flex w-full h-full px-10 pb-10 overflow-y-auto">
         <form class="w-full" @submit.prevent>
-          <div class="flex flex-col items-center justify-between gap-4">
-            <div class="w-full max-[800px]:w-full mb-0">
-              <label for="name" class="block mb-2">Full name</label>
-              <input
-                class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="resume.title"
-                type="text"
-                id="name"
-                placeholder="Full name"
-                autocomplete="off"
-                required
-              />
-            </div>
-            <div class="w-full max-[800px]:w-full mb-0">
-              <label for="username" class="block mb-2">Telegram</label>
-              <input
-                class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="resume.username"
-                type="text"
-                id="username"
-                placeholder="Telegram username"
-                autocomplete="off"
-                required
-              />
-            </div>
-            <div class="mb-6 w-full max-[800px]:w-full">
-              <label for="text" class="block mb-2">Phone number</label>
-              <input
-                class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="resume.phone"
-                type="text"
-                id="text"
-                placeholder="Phone number"
-                autocomplete="off"
-                required
-              />
-            </div>
-          </div>
           <div class="flex flex-col-reverse items-center justify-between gap-4">
             <div class="mb-6 w-full max-[800px]:w-full relative">
               <label for="file-input" class="block mb-2">Upload your CV</label>
@@ -84,13 +46,12 @@ import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { isDisabled } from '@/composables/isDisabled'
-import { useAuthStore } from "@/store/auth";
-
+import { useAuthStore } from '@/store/auth'
 
 const emit = defineEmits(['close'])
-const props =  defineProps(['vacancyId'])
+const props = defineProps(['vacancyId'])
 
-const store = useAuthStore();
+const store = useAuthStore()
 const isLoading = ref(false)
 const db = useFirestore()
 const selectedFile = ref<any>(null)
@@ -112,9 +73,9 @@ const add = async () => {
     const data = {
       user_id: store.user.id,
       status_id: null,
-      vacancy_id: props.vacancyId
+      vacancy_id: props.vacancyId,
     }
-    await addDoc(ref,data)
+    await addDoc(ref, data)
 
     if (selectedFile.value) {
       const userDirectory = `users/${store.user.id}`

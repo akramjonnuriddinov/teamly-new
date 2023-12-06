@@ -10,30 +10,32 @@
 <script setup lang="ts">
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { addDoc, collection } from 'firebase/firestore'
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from '@/store/auth'
 import { useFirestore } from 'vuefire'
+import { useRouter } from 'vue-router'
 import { ESize } from '@/types'
 
 defineProps(['vacancy'])
 const emit = defineEmits(['open'])
-const store = useAuthStore();
+const store = useAuthStore()
 const db = useFirestore()
 
-
-
-const handleApply = async (id:any) => {
-  if(store.resume){
+const router = useRouter()
+const handleApply = async (id: any) => {
+  if (store.resume) {
     try {
-    const ref = collection(db, 'appliers')
-    const data = {
-      user_id: store.user.id,
-      status_id: null,
-      vacancy_id: id
+      const ref = collection(db, 'appliers')
+      const data = {
+        user_id: store.user.id,
+        status_id: null,
+        vacancy_id: id,
+      }
+      await addDoc(ref, data)
+    } catch (error) {
+      console.log(error)
     }
-    await addDoc(ref,data)
-  }catch(error) {
-    console.log(error);
-  }
+  } else if (!store.user) {
+    router.push('/login')
   } else {
     emit('open', id)
   }

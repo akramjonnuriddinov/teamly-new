@@ -4,7 +4,7 @@
       <ul class="flex flex-wrap justify-start">
         <li
           class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
-          v-for="(vacancy) in vacancies"
+          v-for="vacancy in vacancies"
           :key="vacancy.id"
         >
           <div class="shadow-job-inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
@@ -38,31 +38,35 @@
 import { ref } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { addDoc, collection } from 'firebase/firestore'
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from '@/store/auth'
 import { useFirestore } from 'vuefire'
 import { ESize } from '@/types'
 import type { Vacancy } from '@/types'
+import { useRouter } from 'vue-router'
 import { fetchData } from '@/composables/fetchData'
 
 defineProps(['isShow'])
 const emit = defineEmits(['open'])
 const vacancies = ref<Vacancy[]>([])
-const store = useAuthStore();
+const store = useAuthStore()
 const db = useFirestore()
 
-const handleApply = async (id:any) => {
-  if(store.resume){
+const router = useRouter()
+const handleApply = async (id: any) => {
+  if (store.resume) {
     try {
-    const ref = collection(db, 'appliers')
-    const data = {
-      user_id: store.user.id,
-      status_id: null,
-      vacancy_id: id
+      const ref = collection(db, 'appliers')
+      const data = {
+        user_id: store.user.id,
+        status_id: null,
+        vacancy_id: id,
+      }
+      await addDoc(ref, data)
+    } catch (error) {
+      console.log(error)
     }
-    await addDoc(ref,data)
-  }catch(error) {
-    console.log(error);
-  }
+  } else if (!store.user) {
+    router.push('/login')
   } else {
     emit('open', id)
   }
