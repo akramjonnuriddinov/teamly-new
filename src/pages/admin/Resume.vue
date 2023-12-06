@@ -27,18 +27,11 @@
                 :statusExpanded="statusExpanded"
                 @setStatus="setStatus"
               />
-              <button @click="openStatusModal(applier.id)">
-                {{ 'submitted' }}
-              </button>
+              <button @click="openStatusModal(applier.id)">{{ applier?.status?.status || 'submitted' }}</button>
               <button @click="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">Remove</button>
             </div>
           </div>
-          <status-detail
-            :statuses="statuses"
-            :applier_id="applier.id"
-            :status_id="applier.status_id"
-            :expanded="detailExpanded === index"
-          />
+          <status-detail :applier_id="applier.id" :status_id="applier.status_id" :expanded="detailExpanded === index" />
         </li>
       </ul>
     </div>
