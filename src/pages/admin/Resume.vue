@@ -13,12 +13,12 @@
               @click="downloadResume(applier.id)"
               class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
             >
-              {{ applier.title }}
+              {{ applier.resume.title }}
             </button>
-            <a class="w-1/6 mr-2" :href="`tel:${applier.phone}`">{{ applier.phone }}</a>
+            <a class="w-1/6 mr-2" :href="`tel:${applier.phone}`">{{ applier.resume.phone }}</a>
             <a class="w-1/5 mr-2" href="">{{ getVacancyTitle(applier.vacancy_id) }}</a>
             <a class="w-1/6 mr-2" :href="`https://t.me/${applier.username}`" target="_blank"
-              >@{{ applier.username || 'undefined' }}</a
+              >@{{ applier.resume.username || 'undefined' }}</a
             >
             <div class="flex ml-auto space-x-5">
               <status-bar
@@ -121,6 +121,7 @@ const removeUser = async (id: string) => {
   })
 }
 const downloadResume = async (id: string) => {
+  console.log(id)
   getDownloadURL(storageRef(storage, `users/${id}`)).then((url) => {
     window.open(url, '_blank')
   })

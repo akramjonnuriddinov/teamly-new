@@ -17,7 +17,7 @@
               <label for="name" class="block mb-2">Full name</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="applier.title"
+                v-model="applier.resume.title"
                 type="text"
                 id="name"
                 placeholder="Full name"
@@ -29,7 +29,7 @@
               <label for="username" class="block mb-2">Telegram</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="applier.username"
+                v-model="applier.resume.username"
                 type="text"
                 id="username"
                 placeholder="Telegram username"
@@ -41,7 +41,7 @@
               <label for="text" class="block mb-2">Phone number</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="applier.phone"
+                v-model="applier.resume.phone"
                 type="text"
                 id="text"
                 placeholder="Phone number"
@@ -93,13 +93,15 @@ const collectionRef = collection(db, 'appliers')
 const selectedFile = ref<any>(null)
 
 const applier = ref({
-  title: '',
-  username: '',
-  phone: '',
+  resume: {
+    title: '',
+    username: '',
+    phone: '',
+  },
 })
 
 const disabled = computed(() => {
-  return isDisabled(applier.value)
+  return isDisabled(applier.value.resume)
 })
 
 const add = async () => {

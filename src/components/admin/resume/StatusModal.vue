@@ -19,16 +19,24 @@
             <div class="flex flex-col w-full">
               <div class="flex items-center justify-between w-full mb-2">
                 <label class="text-gray-700" for="category">Status</label>
-                <select
-                  v-model="comment.status_id"
-                  class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-                  id="category"
-                >
-                  <option value="" disabled selected>Status</option>
-                  <option class="flex items-center" :value="status.id" v-for="status in statuses">
-                    {{ status.status }}
-                  </option>
-                </select>
+                <div class="flex relative items-center w-[80%]">
+                  <select
+                    v-model="comment.status_id"
+                    class="w-full p-2 border border-gray-200 rounded-md outline-blue-300"
+                    id="category"
+                  >
+                    <option value="" disabled selected>Status</option>
+                    <option class="flex items-center" :value="status.id" v-for="status in statuses">
+                      {{ status.status }}
+                    </option>
+                  </select>
+                  <input
+                    class="absolute right-0 h-full p-0 bg-transparent"
+                    id="nativeColorPicker1"
+                    type="color"
+                    v-model="comment.color"
+                  />
+                </div>
               </div>
               <div class="flex items-center justify-between w-full mt-2 mb-2">
                 <label class="text-gray-700" for="text">Comment</label>
@@ -61,9 +69,11 @@ const props = defineProps(['currentUser', 'statuses'])
 const comment = ref<any>({
   status_id: '',
   description: '',
+  color: '#cccccc',
 })
 
 const add = async () => {
+  console.log(comment.value)
   try {
     comment.value.applier_id = props.currentUser.applier_id
     comment.value.vacancy_id = props.currentUser.vacancy_id
@@ -74,7 +84,6 @@ const add = async () => {
     }
 
     await addDoc(collectionRef, newValue)
-    console.log('newValue', newValue)
     // update status of applier
     const docRef = doc(collection(db, 'appliers'), props.currentUser.applier_id)
     await updateDoc(docRef, {

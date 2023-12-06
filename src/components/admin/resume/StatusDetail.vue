@@ -1,31 +1,38 @@
 <template>
   <div v-if="expanded" class="px-5">
-    <div>
-      <div v-if="applierStatuses" class="flex items-center gap-3">
-        <!-- <img src="@/assets/images/fontawesome/icon-experience.svg" alt="" /> -->
-        <!-- <h3 class="pl-3 my-4 text-3xl">History of Applayer User</h3> -->
-      </div>
-      <ul class="p-5">
-        <li
-          v-for="applierStatus in applierStatuses"
-          @click.stop
-          :class="`border-${applierStatuses} border-l-2 border-opacity-40`"
-          class="relative flex"
+    <div
+      @click.stop
+      class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent"
+    >
+      <!-- Item #1 -->
+      <div
+        v-for="applierStatus in applierStatuses"
+        @click.stop
+        class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
+      >
+        <!-- Icon -->
+        <div
+          :style="`background-color: ${applierStatus.color}`"
+          class="flex items-center justify-center w-10 h-10 rounded-full border border-white text-slate-500 group-[.is-active]:text-emerald-50 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2"
         >
-          <span
-            :class="`bg-${applierStatuses}`"
-            class="block min-w-[12px] min-h-[12px] max-h-[12px] max-w-[12px] -translate-x-1/2 rounded-full"
-          ></span>
-          <div class="px-3 py-10 comment">
-            <div class="flex items-center font-medium text-gray-600">
-              <span>{{ formatTimestampToLocaleString(applierStatus.date) }} -</span>
-              <span>{{ applierStatus.status }} - </span>
-              <span>{{ applierStatus.status_id }}</span>
-            </div>
-            <div v-html="applierStatus.description"></div>
+          <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="12" height="10">
+            <path
+              fill-rule="nonzero"
+              d="M10.422 1.257 4.655 7.025 2.553 4.923A.916.916 0 0 0 1.257 6.22l2.75 2.75a.916.916 0 0 0 1.296 0l6.415-6.416a.916.916 0 0 0-1.296-1.296Z"
+            />
+          </svg>
+        </div>
+        <!-- Card -->
+        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-slate-200 shadow">
+          <div class="flex items-center justify-between mb-1 space-x-2">
+            <div class="font-bold text-slate-900">Order Placed</div>
+            <time class="font-medium text-indigo-500 font-caveat">{{
+              formatTimestampToLocaleString(applierStatus.date)
+            }}</time>
           </div>
-        </li>
-      </ul>
+          <div v-html="applierStatus.description" class="text-slate-500"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +47,7 @@ const applierStatuses = ref<any>([])
 onMounted(async () => {
   const allStatuses = await fetchData('applier_statuses')
   applierStatuses.value = allStatuses.filter((item: any) => item.applier_id === props.applier_id)
+  console.log(applierStatuses.value, 'applierStatuses')
 })
 
 function formatTimestampToLocaleString(timestamp: number) {
