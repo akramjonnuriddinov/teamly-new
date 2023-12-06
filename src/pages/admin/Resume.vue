@@ -33,7 +33,12 @@
               <button @click="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">Remove</button>
             </div>
           </div>
-          <status-detail :applier_id="applier.id" :status_id="applier.status_id" :expanded="detailExpanded === index" />
+          <status-detail
+            :statuses="statuses"
+            :applier_id="applier.id"
+            :status_id="applier.status_id"
+            :expanded="detailExpanded === index"
+          />
         </li>
       </ul>
     </div>
@@ -81,7 +86,6 @@ onMounted(async () => {
     ...item,
     status: statuses.value.find((el: any) => el.id === item.status_id),
   }))
-  console.log(appliers.value)
 })
 
 const closeStatusModal = () => {
@@ -121,7 +125,6 @@ const removeUser = async (id: string) => {
   })
 }
 const downloadResume = async (id: string) => {
-  console.log(id)
   getDownloadURL(storageRef(storage, `users/${id}`)).then((url) => {
     window.open(url, '_blank')
   })
@@ -133,11 +136,9 @@ const setStatus = async () => {
     await updateDoc(docRef, {
       status: 'newStatus',
     })
-    console.log('updating status...')
   } catch (error) {
     console.error('error updating status...', error)
   } finally {
-    console.log('updated status sucessfully...')
   }
 }
 </script>

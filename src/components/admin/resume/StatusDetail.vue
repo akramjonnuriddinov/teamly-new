@@ -1,8 +1,9 @@
 <template>
   <div v-if="expanded" class="px-5">
     <div
+      v-if="applierStatuses"
       @click.stop
-      class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent"
+      class="space-y-8 pt-5 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent"
     >
       <!-- Item #1 -->
       <div
@@ -25,12 +26,13 @@
         <!-- Card -->
         <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-slate-200 shadow">
           <div class="flex items-center justify-between mb-1 space-x-2">
-            <div class="font-bold text-slate-900">Order Placed</div>
+            <div class="font-bold text-slate-900">{{ applierStatus.status.status }}</div>
             <time class="font-medium text-indigo-500 font-caveat">{{
               formatTimestampToLocaleString(applierStatus.date)
             }}</time>
           </div>
-          <div v-html="applierStatus.description" class="text-slate-500"></div>
+          <div v-if="applierStatus.description" v-html="applierStatus.description" class="text-slate-500"></div>
+          <div v-else class="text-slate-500">{{ applierStatus.status.definition }}</div>
         </div>
       </div>
     </div>
@@ -43,11 +45,16 @@ import { fetchData } from '@/composables/fetchData'
 
 const props = defineProps(['expanded', 'applier_id', 'status_id'])
 const applierStatuses = ref<any>([])
+const statuses = ref<any>([])
 
 onMounted(async () => {
-  const allStatuses = await fetchData('applier_statuses')
+  let allStatuses = await fetchData('applier_statuses')
+  statuses.value = await fetchData('statuses')
+  allStatuses = allStatuses.map((item: any) => ({
+    ...item,
+    status: statuses.value.find((el: any) => el.id === item.status_id),
+  }))
   applierStatuses.value = allStatuses.filter((item: any) => item.applier_id === props.applier_id)
-  console.log(applierStatuses.value, 'applierStatuses')
 })
 
 function formatTimestampToLocaleString(timestamp: number) {

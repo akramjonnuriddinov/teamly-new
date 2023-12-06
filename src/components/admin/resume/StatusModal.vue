@@ -73,7 +73,6 @@ const comment = ref<any>({
 })
 
 const add = async () => {
-  console.log(comment.value)
   try {
     comment.value.applier_id = props.currentUser.applier_id
     comment.value.vacancy_id = props.currentUser.vacancy_id
