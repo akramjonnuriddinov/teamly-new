@@ -26,7 +26,7 @@
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
-            <base-button :size="ESize.BIG" @click="$emit('open', vacancy.id )" class="mt-auto"> Apply </base-button>
+            <base-button :size="ESize.BIG" @click="handleApply(vacancy.id)" class="mt-auto"> Apply </base-button>
           </div>
         </li>
       </ul>
@@ -37,13 +37,36 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
+import { addDoc, collection } from 'firebase/firestore'
+import { useAuthStore } from "@/store/auth";
+import { useFirestore } from 'vuefire'
 import { ESize } from '@/types'
 import type { Vacancy } from '@/types'
 import { fetchData } from '@/composables/fetchData'
 
 defineProps(['isShow'])
+const emit = defineEmits(['open'])
 const vacancies = ref<Vacancy[]>([])
+const store = useAuthStore();
+const db = useFirestore()
 
+const handleApply = async (id:any) => {
+  if(store.resume){
+    try {
+    const ref = collection(db, 'appliers')
+    const data = {
+      user_id: store.user.id,
+      status_id: null,
+      vacancy_id: id
+    }
+    await addDoc(ref,data)
+  }catch(error) {
+    console.log(error);
+  }
+  } else {
+    emit('open', id)
+  }
+}
 fetchData('vacancies').then((result) => {
   vacancies.value = result
 })

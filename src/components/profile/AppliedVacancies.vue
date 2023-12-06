@@ -46,12 +46,11 @@ onMounted(async () => {
     const querySnapshot = await getDocs(q);
 
     const promises = querySnapshot.docs.map(async (applier) => {
-      const vacancyId = applier.data().vacancyId;
-      const docRef = doc(db, 'vacancies', vacancyId);
+      const vacancy_id = applier.data().vacancy_id;
+      const docRef = doc(db, 'vacancies', vacancy_id);
       const vacancySnapshot = await getDoc(docRef);
-
       if (vacancySnapshot.exists()) {
-        return {...vacancySnapshot.data(), id: vacancyId};
+        return {...vacancySnapshot.data(), id: vacancy_id};
       } else {
         console.log('Vacancy does not exist');
         return null;
@@ -59,6 +58,7 @@ onMounted(async () => {
     });
 
     vacancies.value = await Promise.all(promises);
+
   } catch (error) {
     console.error('Error fetching appliers:', error);
   }

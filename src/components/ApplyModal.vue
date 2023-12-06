@@ -93,7 +93,6 @@ const props =  defineProps(['vacancyId'])
 const store = useAuthStore();
 const isLoading = ref(false)
 const db = useFirestore()
-const collectionRef = collection(db, 'resume')
 const selectedFile = ref<any>(null)
 
 const resume = ref({
@@ -108,26 +107,21 @@ const disabled = computed(() => {
 
 const add = async () => {
   try {
-    const newValue = {
-      ...resume.value,
-      date: Date.now(),
-    }
     isLoading.value = true
-    const res = await addDoc(collectionRef, newValue)
     const ref = collection(db, 'appliers')
     const data = {
       user_id: store.user.id,
-      resume: resume.value,
-      vacancyId: props.vacancyId
+      status_id: null,
+      vacancy_id: props.vacancyId
     }
     await addDoc(ref,data)
 
     if (selectedFile.value) {
-      const userDirectory = `users/${res.id}`
+      const userDirectory = `users/${store.user.id}`
       const fileRef = storageRef(storage, userDirectory)
-
       try {
         await uploadBytes(fileRef, selectedFile.value)
+        store.fetchProfile()
       } catch (error) {
         console.error('Error uploading file: ', error)
       }

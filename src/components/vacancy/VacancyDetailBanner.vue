@@ -17,7 +17,7 @@
             <span>{{ vacancy.time }}</span>
           </div>
         </div>
-        <base-button :size="ESize.BIG" @click="$emit('open')" class="max-[990px]:mt-5">Apply</base-button>
+        <base-button :size="ESize.BIG" @click="handleApply(vacancy.id)" class="max-[990px]:mt-5">Apply</base-button>
       </div>
     </div>
   </section>
@@ -25,9 +25,33 @@
 
 <script setup lang="ts">
 import BaseButton from '@/components/reusables/BaseButton.vue'
+import { addDoc, collection } from 'firebase/firestore'
+import { useAuthStore } from "@/store/auth";
+import { useFirestore } from 'vuefire'
 import { ESize } from '@/types'
 
 defineProps(['vacancy'])
+const emit = defineEmits(['open'])
+const store = useAuthStore();
+const db = useFirestore()
+
+const handleApply = async (id:any) => {
+  if(store.resume){
+    try {
+    const ref = collection(db, 'appliers')
+    const data = {
+      user_id: store.user.id,
+      status_id: null,
+      vacancy_id: id
+    }
+    await addDoc(ref,data)
+  }catch(error) {
+    console.log(error);
+  }
+  } else {
+    emit('open', id)
+  }
+}
 </script>
 
 <style scoped>
