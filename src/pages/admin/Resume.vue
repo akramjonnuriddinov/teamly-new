@@ -16,20 +16,13 @@
               @click.stop="downloadResume(applier.user_id)"
               class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
             >
-              {{ applier?.resume?.name }}
+              {{ applier.resume.name }}
             </button>
-            <!-- <a @click.stop class="w-1/6 mr-2" :href="`tel:${applier.phone}`">{{ applier?.resume?.phone }}</a> -->
             <a @click.stop class="w-1/5 mr-2" href="#">{{ getVacancyTitle(applier.vacancy_id) }}</a>
-            <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier?.resume?.email}`">{{
-              applier?.resume?.email || 'email undefined'
+            <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.resume.email}`">{{
+              applier.resume.email || 'email undefined'
             }}</a>
             <div class="flex ml-auto space-x-5">
-              <status-bar
-                class="hidden"
-                @click="isStatusModal = true"
-                :statusExpanded="statusExpanded"
-                @setStatus="setStatus"
-              />
               <button @click.stop="openStatusModal(applier.id)">{{ applier?.status?.status || 'submitted' }}</button>
               <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
                 Remove
@@ -56,8 +49,6 @@ import { doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { deleteObject, getDownloadURL } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
-import StatusBar from '@/components/admin/resume/StatusBar.vue'
-import { updateDoc, collection } from 'firebase/firestore'
 import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
 import StatusModal from '@/components/admin/resume/StatusModal.vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
@@ -66,8 +57,8 @@ const db = useFirestore()
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
 const applierStatuses = ref<any>([])
-const statuses = ref([])
-const users = ref([])
+const statuses = ref<any>([])
+const users = ref<any>([])
 
 const statusExpanded = ref({ exp: null })
 const detailExpanded = ref(null)
@@ -131,17 +122,5 @@ const downloadResume = async (id: string) => {
   getDownloadURL(storageRef(storage, `users/${id}`)).then((url) => {
     window.open(url, '_blank')
   })
-}
-
-const docRef = doc(collection(db, 'appliers'), '6oQLLk06Rm5mUqpYrr3y')
-const setStatus = async () => {
-  try {
-    await updateDoc(docRef, {
-      status: 'newStatus',
-    })
-  } catch (error) {
-    console.error('error updating status...', error)
-  } finally {
-  }
 }
 </script>
