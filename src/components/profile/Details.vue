@@ -2,7 +2,7 @@
   <div class="relative pb-[135px] border-b border-gray-300">
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Personal information</h1>
-      <span class="text-gray-400 text-sm">Your main profile information</span>
+      <span class="text-sm text-gray-400">Your main profile information</span>
     </div>
     <div class="flex justify-between">
       <div class="flex flex-col w-[400px]">
@@ -34,20 +34,33 @@
       <div class="mb-6 w-full max-[800px]:w-full relative">
         <label for="file-input" class="block mb-2 text-sm font-medium text-gray-900">Upload your CV</label>
         <input
-          class="block w-full p-3 text-sm border border-gray-300 text-gray-900 rounded-md shadow-sm cursor-pointer file:hidden"
+          class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm cursor-pointer file:hidden"
           @change="handleFileChange"
           accept=".docx,.pdf,.txt"
           type="file"
           name="file-input"
           id="file-input"
         />
-        <div v-if="store.resume" @click="showResume" class="my-5 cursor-pointer rounded-lg border-gray-300 border w-[200px]  bg-[#F5F7FB] py-4 px-8">
+        <div
+          v-if="store.resume"
+          @click="showResume"
+          class="my-5 cursor-pointer rounded-lg border-gray-300 border w-[200px] bg-[#F5F7FB] py-4 px-8"
+        >
           <div class="flex items-center justify-between">
-            <span class="truncate  text-base font-medium text-[#07074D]">
-              your resume
-            </span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            <span class="truncate text-base font-medium text-[#07074D]"> your resume </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+              />
             </svg>
           </div>
         </div>
@@ -66,24 +79,22 @@
 import { getAuth, updateProfile, updateEmail } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
 import { useFirestore } from 'vuefire'
-import { uploadBytes, } from 'firebase/storage'
+import { uploadBytes } from 'firebase/storage'
 import { setDoc, doc } from 'firebase/firestore'
 import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth'
 
 const store = useAuthStore()
 const db = useFirestore()
-const user = JSON.parse(JSON.stringify(store.user))
+const user = ref({
+  ...store.user,
+})
 const currentUser = getAuth().currentUser
 const updatedUser = ref({
-  id: user.id,
-  name: user.name,
-  email: user.email,
+  ...user.value,
 })
 
 const selectedFile = ref<any>(null)
-
-
 
 const handleFileChange = (event: any) => {
   selectedFile.value = event.target.files[0]
@@ -104,6 +115,7 @@ const updateFirebaseEmail = (event: any) => {
 }
 
 const updateProfileInformation = async () => {
+  console.log(updatedUser.value)
   try {
     if (currentUser !== null) {
       await updateProfile(currentUser, { displayName: updatedUser.value.name })
@@ -111,15 +123,15 @@ const updateProfileInformation = async () => {
       const colRef = doc(db, 'users', updatedUser.value.id)
       setDoc(colRef, updatedUser.value)
       if (selectedFile.value) {
-      const userDirectory = `users/${store.user.id}`
-      const fileRef = storageRef(storage, userDirectory)
-      try {
-        await uploadBytes(fileRef, selectedFile.value)
-        store.fetchProfile()
-      } catch (error) {
-        console.error('Error uploading file: ', error)
+        const userDirectory = `users/${store.user.id}`
+        const fileRef = storageRef(storage, userDirectory)
+        try {
+          await uploadBytes(fileRef, selectedFile.value)
+          store.fetchProfile()
+        } catch (error) {
+          console.error('Error uploading file: ', error)
+        }
       }
-    }
     }
   } catch (error) {
     console.log(error)
