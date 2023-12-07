@@ -1,6 +1,6 @@
 <template>
   <section class="bg-[#F9F9FA]">
-    <div class="flex flex-col items-center min-h-screen justify-center px-6 py-8 mx-auto lg:py-0">
+    <div class="flex flex-col items-center justify-center min-h-screen px-6 py-8 mx-auto lg:py-0">
       <div v-if="isCreated" class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
           <div class="text-center">
@@ -221,7 +221,7 @@ const signUp = async (): Promise<void> => {
       router.push('/')
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
     newUser.value.name = ''
     newUser.value.email = ''
     newUser.value.password = ''
@@ -242,7 +242,7 @@ const signIn = async () => {
       router.push('/')
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
