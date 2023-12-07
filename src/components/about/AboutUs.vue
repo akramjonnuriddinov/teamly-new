@@ -1,5 +1,5 @@
 <template>
-  <section class="py-[140px] overflow-x-hidden">
+  <section class="py-[140px] bg-tg-white">
     <div class="container w-full px-5 mx-auto max-w-7xl" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <div class="flex max-[1024px]:flex-col max-[1024px]:items-center">
         <div class="relative z-10">
@@ -35,13 +35,13 @@
           </div>
         </div>
       </div>
-      <watch-video />
+      <!-- <watch-video /> -->
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import WatchVideo from '@/components/static/WatchVideo.vue'
+// import WatchVideo from '@/components/static/WatchVideo.vue'
 import { ref } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { EThemes } from '@/types'
