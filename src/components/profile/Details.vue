@@ -133,11 +133,9 @@ const handleFileChange = async (event: any) => {
 }
 
 const deleteResume = async () => {
-  isLoadingResume.value = true
   const desertRef = fireRef(storage, `users/${store.user.id}`)
   await deleteObject(desertRef)
   store.removeResume()
-  isLoadingResume.value = false
 }
 
 const showResume = () => {
