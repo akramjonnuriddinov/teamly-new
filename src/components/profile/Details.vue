@@ -22,19 +22,60 @@
         <input
           type="email"
           required
+          disabled
           @input="updateFirebaseEmail"
           v-model="user.email"
           placeholder="email@company.com"
-          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
         />
       </div>
     </div>
-    <button
+    <div class="flex justify-between mt-5">
+      <div class="flex flex-col w-[400px]">
+        <label for="git" class="block mb-2 text-sm font-medium text-gray-900">Your GitHub</label>
+        <input
+          type="text"
+          name="git"
+          placeholder="link"
+          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        />
+      </div>
+      <div class="flex flex-col w-[400px]">
+        <label for="linkedin" class="block mb-2 text-sm font-medium text-gray-900">Your Linkedin</label>
+        <input
+          type="text"
+          name="linkedin"
+          placeholder="link"
+          class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        />
+      </div>
+    </div>
+    <div class="flex justify-between mt-5">
+      <div class="flex flex-col w-[400px]">
+        <label for="telegram" class="block mb-2 text-sm font-medium text-gray-900">Your telegram</label>
+        <input
+          type="text"
+          name="telegram"
+          placeholder="username"
+          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        />
+      </div>
+      <div class="flex flex-col w-[400px]">
+        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Your phone</label>
+        <input
+          type="text"
+          placeholder="number"
+          class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        />
+      </div>
+    </div>
+    <base-button
       @click="updateProfileInformation"
-      class="w-[250px] transition-all duration-300 bg-tg-primary-color text-tg-white hover:bg-tg-secondary-color absolute right-0 bg-[#7e54f8] text-white mt-[35px] focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-[30px] py-[8px] text-center"
+      :is-loading="isLoadingProfile"
+      class="btn transition-all duration-300 bg-tg-primary-color text-tg-white hover:bg-tg-secondary-color absolute right-0 bg-[#7e54f8] text-white mt-[35px] focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm  text-center"
     >
-      Update profile information
-    </button>
+        Update profile information
+    </base-button>
   </div>
   <div class="flex flex-col w-[400px] mt-5 min-h-fit">
     <div class="mb-6 w-full max-[800px]:w-full relative">
@@ -94,7 +135,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import BaseButton from '@/components/reusables/BaseButton.vue'
 import ButtonLoader from '@/components/static/ButtonLoader.vue'
 import { getAuth, updateProfile, updateEmail } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
@@ -113,8 +155,14 @@ const updatedUser = ref({
   ...user.value,
 })
 
+onMounted(async() => {
+  store.fetchProfile()
+})
+
 const selectedFile = ref<any>(null)
 const isLoadingResume = ref(false)
+const isLoadingProfile = ref(false)
+
 const handleFileChange = async (event: any) => {
   selectedFile.value = event.target.files[0]
   if (selectedFile.value) {
@@ -123,7 +171,6 @@ const handleFileChange = async (event: any) => {
     const fileRef = storageRef(storage, userDirectory)
     try {
       await uploadBytes(fileRef, selectedFile.value)
-      store.fetchProfile()
     } catch (error) {
       console.error('Error uploading file: ', error)
     }finally {
@@ -155,13 +202,26 @@ const updateFirebaseEmail = (event: any) => {
 const updateProfileInformation = async () => {
   try {
     if (currentUser !== null) {
+      isLoadingProfile.value = true
       await updateProfile(currentUser, { displayName: updatedUser.value.name })
       await updateEmail(currentUser, updatedUser.value.email)
       const colRef = doc(db, 'users', updatedUser.value.id)
       setDoc(colRef, updatedUser.value)
+      store.fetchProfile()
     }
   } catch (error) {
     console.log(error)
+  } finally {
+    isLoadingProfile.value = false
   }
 }
 </script>
+
+<style scoped>
+.btn {
+  position: absolute;
+  width: 250px;
+  height: 40px;
+  padding: 8px 30px;
+}
+</style>

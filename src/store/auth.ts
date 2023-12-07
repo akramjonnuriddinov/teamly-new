@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { storageRef, storage } from '@/firebase'
 import { getDownloadURL, } from 'firebase/storage'
+import { log } from "console";
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -26,12 +27,8 @@ export const useAuthStore = defineStore('auth', {
           this.user = { email: user.email, id: user.uid, name: user.displayName };
           const userDirectory = `users/${user.uid}`
           const fileReference = storageRef(storage, userDirectory)
-          try {
-            const url = await getDownloadURL(fileReference)
-            this.resume = url
-          } catch (error) {
-            console.error('Error fetching file: ', error)
-          }
+          const url = await getDownloadURL(fileReference)
+          this.resume = url
         } else {
           this.user = null;
           this.resume = ''
