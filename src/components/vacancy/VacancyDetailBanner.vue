@@ -17,7 +17,7 @@
             <span>{{ vacancy.time }}</span>
           </div>
         </div>
-        <base-button :size="ESize.BIG" @click="$emit('open')" class="max-[990px]:mt-5">Apply</base-button>
+        <base-button :size="ESize.BIG" @click="openSendId(vacancy.id)" class="max-[990px]:mt-5">Apply</base-button>
       </div>
     </div>
   </section>
@@ -28,6 +28,14 @@ import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 
 defineProps(['vacancy'])
+
+const emit = defineEmits<{
+  (e: 'openSendId', id: string | undefined): void
+}>()
+
+const openSendId = (id: string | undefined) => {
+  emit('openSendId', id)
+}
 </script>
 
 <style scoped>

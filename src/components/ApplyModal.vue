@@ -17,7 +17,7 @@
               <label for="name" class="block mb-2">Full name</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="resume.title"
+                v-model="applier.resume.title"
                 type="text"
                 id="name"
                 placeholder="Full name"
@@ -29,7 +29,7 @@
               <label for="username" class="block mb-2">Telegram</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="resume.username"
+                v-model="applier.resume.username"
                 type="text"
                 id="username"
                 placeholder="Telegram username"
@@ -41,7 +41,7 @@
               <label for="text" class="block mb-2">Phone number</label>
               <input
                 class="p-2.5 border rounded-lg w-full outline-none"
-                v-model="resume.phone"
+                v-model="applier.resume.phone"
                 type="text"
                 id="text"
                 placeholder="Phone number"
@@ -86,27 +86,32 @@ import { useFirestore } from 'vuefire'
 import { isDisabled } from '@/composables/isDisabled'
 
 const emit = defineEmits(['close'])
+const props = defineProps(['vacancy_id'])
 
 const isLoading = ref(false)
 const db = useFirestore()
-const collectionRef = collection(db, 'resume')
+const collectionRef = collection(db, 'appliers')
 const selectedFile = ref<any>(null)
 
-const resume = ref({
-  title: '',
-  username: '',
-  phone: '',
+const applier = ref({
+  resume: {
+    title: '',
+    username: '',
+    phone: '',
+  },
 })
 
 const disabled = computed(() => {
-  return isDisabled(resume.value)
+  return isDisabled(applier.value.resume)
 })
 
 const add = async () => {
   try {
     const newValue = {
-      ...resume.value,
+      ...applier.value,
       date: Date.now(),
+      vacancy_id: props.vacancy_id,
+      status_id: null,
     }
     isLoading.value = true
     const res = await addDoc(collectionRef, newValue)
@@ -122,7 +127,7 @@ const add = async () => {
       }
     }
   } catch (error) {
-    console.error('Error adding resume...')
+    console.error('Error adding applier...')
   } finally {
     isLoading.value = false
     emit('close')

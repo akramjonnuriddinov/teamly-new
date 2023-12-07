@@ -2,7 +2,7 @@
   <section class="pt-[50px] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <div class="description" v-html="vacancy.description"></div>
-      <base-button :size="ESize.BIG" class="mt-12" @click="$emit('open')">Apply</base-button>
+      <base-button :size="ESize.BIG" class="mt-12" @click="openSendId(vacancy.id)">Apply</base-button>
     </div>
   </section>
 </template>
@@ -12,6 +12,14 @@ import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 
 defineProps(['vacancy'])
+
+const emit = defineEmits<{
+  (e: 'openSendId', id: string | undefined): void
+}>()
+
+const openSendId = (id: string | undefined) => {
+  emit('openSendId', id)
+}
 </script>
 
 <style>

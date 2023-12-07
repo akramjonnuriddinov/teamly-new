@@ -26,7 +26,7 @@
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
-            <base-button :size="ESize.BIG" @click="$emit('open')" class="mt-auto"> Apply </base-button>
+            <base-button :size="ESize.BIG" @click="openSendId(vacancy.id)" class="mt-auto"> Apply </base-button>
           </div>
         </li>
       </ul>
@@ -43,6 +43,13 @@ import { fetchData } from '@/composables/fetchData'
 
 defineProps(['isShow'])
 const vacancies = ref<Vacancy[]>([])
+const emit = defineEmits<{
+  (e: 'openSendId', id: string | undefined): void
+}>()
+
+function openSendId(id: string | undefined) {
+  emit('openSendId', id)
+}
 
 fetchData('vacancies').then((result) => {
   vacancies.value = result
