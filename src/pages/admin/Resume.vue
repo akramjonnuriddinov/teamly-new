@@ -50,7 +50,7 @@
     :currentUser="currentUser"
     :statuses="statuses"
   />
-  <user-modal class="hidden" />
+  <user-modal v-if="isUserModal" @closeUserModal="closeUserModal" />
 </template>
 
 <script setup lang="ts">
@@ -79,6 +79,7 @@ const currentUser = ref({
   applier_id: '',
   vacancy_id: '',
 })
+const isUserModal = ref(false)
 
 onMounted(async () => {
   vacancies.value = await fetchData('vacancies')
