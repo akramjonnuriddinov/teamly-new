@@ -14,9 +14,9 @@ import ApplyModal from '@/components/ApplyModal.vue'
 
 const isShow = ref(false)
 const vacancyId = ref()
-const isOpen = (id:any) => {
-vacancyId.value = id
-isShow.value = true
+const isOpen = (id: any) => {
+  vacancyId.value = id
+  isShow.value = true
 }
 onUpdated(() => {
   isShow.value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')

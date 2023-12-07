@@ -26,7 +26,9 @@
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
-            <base-button :size="ESize.BIG" @click="handleApply(vacancy.id)" class="mt-auto"> Apply </base-button>
+            <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy.id)" class="mt-auto">
+              Apply
+            </base-button>
           </div>
         </li>
       </ul>
@@ -50,11 +52,13 @@ const emit = defineEmits(['open'])
 const vacancies = ref<Vacancy[]>([])
 const store = useAuthStore()
 const db = useFirestore()
+const isLoading = ref(false)
 
 const router = useRouter()
 const handleApply = async (id: any) => {
   if (store.resume) {
     try {
+      isLoading.value = true
       const ref = collection(db, 'appliers')
       const data = {
         user_id: store.user.id,
@@ -64,6 +68,8 @@ const handleApply = async (id: any) => {
       await addDoc(ref, data)
     } catch (error) {
       console.log(error)
+    } finally {
+      isLoading.value = false
     }
   } else if (!store.user) {
     router.push('/login')

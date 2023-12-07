@@ -14,7 +14,10 @@
         <form class="w-full" @submit.prevent>
           <div class="flex flex-col-reverse items-center justify-between gap-4">
             <div class="mb-6 w-full max-[800px]:w-full relative">
-              <label for="file-input" class="block mb-2">Upload your CV</label>
+              <label for="file-input" class="block mb-2"
+                >To respond, you need to upload a resume, which will be saved in your profile where you can change
+                it</label
+              >
               <input
                 class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer file:hidden"
                 @change="handleFileChange"
@@ -26,7 +29,13 @@
             </div>
           </div>
           <div class="w-full max-[800px]:w-full mx-auto flex justify-center">
-            <base-button @click="add" class="w-full" :disabled="disabled" :is-loading="isLoading" :size="ESize.SMALL">
+            <base-button
+              @click="add"
+              class="w-full"
+              :disabled="!selectedFile"
+              :is-loading="isLoading"
+              :size="ESize.SMALL"
+            >
               Submit
             </base-button>
           </div>
@@ -37,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
@@ -45,7 +54,6 @@ import { uploadBytes } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { isDisabled } from '@/composables/isDisabled'
 import { useAuthStore } from '@/store/auth'
 
 const emit = defineEmits(['close'])
@@ -55,16 +63,6 @@ const store = useAuthStore()
 const isLoading = ref(false)
 const db = useFirestore()
 const selectedFile = ref<any>(null)
-
-const resume = ref({
-  title: '',
-  username: '',
-  phone: '',
-})
-
-const disabled = computed(() => {
-  return isDisabled(resume.value)
-})
 
 const add = async () => {
   try {

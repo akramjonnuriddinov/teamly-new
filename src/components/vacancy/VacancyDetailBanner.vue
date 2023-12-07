@@ -17,7 +17,9 @@
             <span>{{ vacancy.time }}</span>
           </div>
         </div>
-        <base-button :size="ESize.BIG" @click="handleApply(vacancy.id)" class="max-[990px]:mt-5">Apply</base-button>
+        <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy.id)" class="max-[990px]:mt-5"
+          >Apply</base-button
+        >
       </div>
     </div>
   </section>
@@ -25,6 +27,7 @@
 
 <script setup lang="ts">
 import BaseButton from '@/components/reusables/BaseButton.vue'
+import { ref } from 'vue'
 import { addDoc, collection } from 'firebase/firestore'
 import { useAuthStore } from '@/store/auth'
 import { useFirestore } from 'vuefire'
@@ -35,10 +38,12 @@ defineProps(['vacancy'])
 const emit = defineEmits(['open'])
 const store = useAuthStore()
 const db = useFirestore()
+const isLoading = ref(false)
 const router = useRouter()
 const handleApply = async (id: any) => {
   if (store.resume) {
     try {
+      isLoading.value = true
       const ref = collection(db, 'appliers')
       const data = {
         user_id: store.user.id,
@@ -48,6 +53,8 @@ const handleApply = async (id: any) => {
       await addDoc(ref, data)
     } catch (error) {
       console.log(error)
+    } finally {
+      isLoading.value = false
     }
   } else if (!store.user) {
     router.push('/login')

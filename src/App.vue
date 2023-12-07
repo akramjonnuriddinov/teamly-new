@@ -40,7 +40,7 @@ const isAdmin = computed(() => {
 })
 
 const isPorfile = computed(() => {
-  return route.path.includes('profile')
+  return route.path.includes('profile') || route.path.includes('login')
 })
 </script>
 

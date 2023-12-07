@@ -3,14 +3,14 @@
     <vacancy-detail-banner :vacancy="vacancy" @open="isShow = true" />
     <job-description :vacancy="vacancy" @open="isShow = true" />
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="route.params.id"/>
+  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="route.params.id" />
 </template>
 
 <script setup lang="ts">
 import ApplyModal from '@/components/ApplyModal.vue'
 import VacancyDetailBanner from '@/components/vacancy/VacancyDetailBanner.vue'
 import JobDescription from '@/components/job/JobDescription.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useFirestore } from 'vuefire'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs } from 'firebase/firestore'
@@ -37,5 +37,7 @@ const fetchVacancy = async () => {
     toggleLoader()
   }
 }
-fetchVacancy()
+onMounted(() => {
+  fetchVacancy()
+})
 </script>
