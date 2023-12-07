@@ -1,8 +1,8 @@
 <template>
   <div>
     <vacancy-banner />
-    <job-lists @openSendId="openGetId" />
-    <apply-modal :vacancy_id="vacancy_id" v-if="isShow" @close="isShow = false" />
+    <job-lists @open="isOpen" />
+    <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="vacancyId" />
   </div>
 </template>
 
@@ -13,14 +13,14 @@ import JobLists from '@/components/job/JobLists.vue'
 import ApplyModal from '@/components/ApplyModal.vue'
 
 const isShow = ref(false)
+const vacancyId = ref()
+const isOpen = (id: any) => {
+  vacancyId.value = id
+  isShow.value = true
+}
 onUpdated(() => {
   isShow.value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
 })
 
-const vacancy_id = ref<string | undefined>('')
 
-const openGetId = (id: string | undefined) => {
-  isShow.value = true
-  vacancy_id.value = id
-}
 </script>

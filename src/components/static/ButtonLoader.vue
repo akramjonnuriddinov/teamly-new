@@ -1,6 +1,15 @@
 <template>
-  <span class="btn-loader"></span>
+  <span class="btn-loader" :style="`border-color: ${color}; border-bottom-color: transparent`"></span>
 </template>
+<script setup lang="ts">
+defineProps({
+  color: {
+    type: String,
+    default: '#fff'
+  },
+});
+
+</script>
 
 <style scoped>
 .btn-loader {
