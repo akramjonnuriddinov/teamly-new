@@ -5,7 +5,6 @@ import {
 } from "firebase/auth";
 import { storageRef, storage } from '@/firebase'
 import { getDownloadURL, } from 'firebase/storage'
-import { log } from "console";
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
