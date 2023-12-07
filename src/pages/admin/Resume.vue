@@ -50,6 +50,7 @@
     :currentUser="currentUser"
     :statuses="statuses"
   />
+  <user-modal class="hidden" />
 </template>
 
 <script setup lang="ts">
@@ -62,6 +63,7 @@ import { storageRef, storage } from '@/firebase'
 import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
 import StatusModal from '@/components/admin/resume/StatusModal.vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
+import UserModal from '@/components/admin/resume/UserModal.vue'
 
 const db = useFirestore()
 const appliers = ref<any>([])
