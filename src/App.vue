@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+
 import { computed, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import TheNavbar from '@/components/static/Navbar.vue'
@@ -26,17 +27,17 @@ import ScrollTop from '@/components/static/ScrollTop.vue'
 import ContactUs from '@/components/static/ContactUs.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
-import { isLoading, toggleLoader } from '@/composables/loader'
+import { isLoading } from '@/composables/loader'
 
 const route = useRoute()
+
 const TheBrand = defineAsyncComponent(() => import('@/components/static/Brand.vue'))
 window.addEventListener('load', () => {
-  console.log('app loaded')
   toggleLoader()
 })
 
 const isAdmin = computed(() => {
-  return route.path.includes('admin') || route.path.includes('createBlog')
+  return route.path.includes('admin')
 })
 
 const isPorfile = computed(() => {

@@ -49,7 +49,7 @@ const handleApply = async (id: any) => {
   } else {
     emit('open', id)
   }
-}
+
 </script>
 
 <style scoped>

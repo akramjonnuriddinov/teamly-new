@@ -5,7 +5,7 @@ interface LoadingState {
 }
 
 const loadingState = reactive<LoadingState>({
-  isLoading: true,
+  isLoading: false,
 })
 
 export function toggleLoader(status = false) {

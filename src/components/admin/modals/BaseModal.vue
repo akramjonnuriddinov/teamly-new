@@ -76,6 +76,10 @@ const add = async () => {
   }
 }
 
+if (isUpdate) {
+  docRef = doc(collection(db, props.url), props.oldValue.id)
+}
+
 const update = async () => {
   try {
     close()
@@ -87,9 +91,5 @@ const update = async () => {
     console.error('Error updating data:', error)
   } finally {
   }
-}
-
-if (isUpdate) {
-  docRef = doc(collection(db, props.url), props.oldValue.id)
 }
 </script>

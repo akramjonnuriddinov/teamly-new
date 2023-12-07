@@ -18,6 +18,7 @@ import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
 
 defineProps(['vacancy'])
+
 const emit = defineEmits(['open'])
 const store = useAuthStore()
 const isLoading = ref(false)
@@ -32,7 +33,6 @@ const handleApply = async (id: any) => {
   } else {
     emit('open', id)
   }
-}
 </script>
 
 <style>

@@ -21,4 +21,6 @@ const isOpen = (id: any) => {
 onUpdated(() => {
   isShow.value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
 })
+
+
 </script>

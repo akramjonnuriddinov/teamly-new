@@ -5,10 +5,10 @@ import { toggleLoader } from '@/composables/loader'
 
 const db = useFirestore()
 
-export const fetchData = async (path: string) => {
+export const fetchData = async (path: string, isLoading = true) => {
   const options = ref<any>([])
   try {
-    toggleLoader(true)
+    toggleLoader(isLoading)
     const q = query(collection(db, path))
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach(async (doc) => {
