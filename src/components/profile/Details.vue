@@ -48,7 +48,7 @@
         id="file-input"
       />
       <div
-        v-if="store.resume"
+        v-if="store.resume && !isLoadingResume"
         @click="showResume"
         class="my-5 cursor-pointer rounded-lg border-gray-300 border w-[220px] bg-[#F5F7FB] py-4 px-8"
       >
@@ -86,12 +86,16 @@
           </button>
         </div>
       </div>
+      <div class="ml-20 my-8" v-if="isLoadingResume">
+        <button-loader color="#7e54f8"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import ButtonLoader from '@/components/static/ButtonLoader.vue'
 import { getAuth, updateProfile, updateEmail } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
 import { useFirestore } from 'vuefire'
@@ -110,10 +114,11 @@ const updatedUser = ref({
 })
 
 const selectedFile = ref<any>(null)
-
+const isLoadingResume = ref(false)
 const handleFileChange = async (event: any) => {
   selectedFile.value = event.target.files[0]
   if (selectedFile.value) {
+    isLoadingResume.value = true
     const userDirectory = `users/${store.user.id}`
     const fileRef = storageRef(storage, userDirectory)
     try {
@@ -121,14 +126,18 @@ const handleFileChange = async (event: any) => {
       store.fetchProfile()
     } catch (error) {
       console.error('Error uploading file: ', error)
+    }finally {
+      isLoadingResume.value = false
     }
   }
 }
 
 const deleteResume = async () => {
+  isLoadingResume.value = true
   const desertRef = fireRef(storage, `users/${store.user.id}`)
   await deleteObject(desertRef)
   store.removeResume()
+  isLoadingResume.value = false
 }
 
 const showResume = () => {
@@ -146,7 +155,6 @@ const updateFirebaseEmail = (event: any) => {
 }
 
 const updateProfileInformation = async () => {
-  console.log(updatedUser.value)
   try {
     if (currentUser !== null) {
       await updateProfile(currentUser, { displayName: updatedUser.value.name })
