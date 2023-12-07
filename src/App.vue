@@ -6,7 +6,7 @@
     </div>
     <div v-if="!isAdmin && !isLoading()">
       <contact-us v-if="!isPorfile" />
-      <the-brand v-if="!isPorfile" />
+      <!-- <the-brand v-if="!isPorfile" /> -->
       <the-footer class="main-footer" />
       <scroll-top />
     </div>
@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-
-import { computed, defineAsyncComponent } from 'vue'
+import { computed } from 'vue'
+// import {defineAsyncComponent} from 'vue'
 import { useRoute } from 'vue-router'
 import TheNavbar from '@/components/static/Navbar.vue'
 import TheFooter from '@/components/static/Footer.vue'
@@ -31,10 +31,7 @@ import { isLoading } from '@/composables/loader'
 
 const route = useRoute()
 
-const TheBrand = defineAsyncComponent(() => import('@/components/static/Brand.vue'))
-window.addEventListener('load', () => {
-  toggleLoader()
-})
+// const TheBrand = defineAsyncComponent(() => import('@/components/static/Brand.vue'))
 
 const isAdmin = computed(() => {
   return route.path.includes('admin')

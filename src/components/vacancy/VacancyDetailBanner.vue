@@ -41,15 +41,15 @@ const router = useRouter()
 
 const handleApply = async (id: any) => {
   if (store.resume) {
-      isLoading.value = true
-      await vacancyApply(store.user.id, id)
-      isLoading.value = false
+    isLoading.value = true
+    await vacancyApply(store.user.id, id)
+    isLoading.value = false
   } else if (!store.user) {
     router.push('/login')
   } else {
     emit('open', id)
   }
-
+}
 </script>
 
 <style scoped>

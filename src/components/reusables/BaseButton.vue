@@ -14,10 +14,10 @@ import { ESize, EThemes } from '@/types'
 import ButtonLoader from '@/components/static/ButtonLoader.vue'
 
 interface ButtonShape {
-  size: ESize
-  theme: EThemes
-  isLoading: boolean
-  disabled: boolean
+  size?: ESize
+  theme?: EThemes
+  isLoading?: boolean
+  disabled?: boolean
 }
 
 const props = withDefaults(defineProps<ButtonShape>(), {
