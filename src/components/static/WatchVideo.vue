@@ -23,9 +23,7 @@
       >
         <play-icon class="w-14 max-[640px]:w-12 max-[600px]:w-8" />
       </a>
-      <h2 class="text-white font-medium text-[40px] max-[600px]:text-3xl">
-        Watch Video
-      </h2>
+      <h2 class="text-white font-medium text-[40px] max-[600px]:text-3xl">Watch Video</h2>
     </div>
     <div
       class="relative bottom-0 z-10 flex items-center justify-around -translate-y-1/2 max-[1024px]:flex-wrap max-[1024px]:gap-5 max-[1024px]:-translate-y-20"
@@ -36,15 +34,9 @@
         :class="counter.bg_color"
         class="flex rounded-[30px] px-7 py-10 max-[1024px]:min-w-[323px] max-[710px]:w-[80%] max-[600px]:w-[90%] max-[600px]:px-4 max-[600px]:py-6"
       >
-        <img
-          class="mr-4 max-[600px]:mr-2"
-          :src="getImageUrl(counter.img_url)"
-          alt="counter_icon"
-        />
+        <img class="mr-4 max-[600px]:mr-2" :src="getImageUrl(counter.img_url)" alt="counter_icon" />
         <div class="">
-          <h4
-            class="font-bold text-[40px] mb-2 leading-[0.7] max-[640px]:text-3xl whitespace-nowrap"
-          >
+          <h4 class="font-bold text-[40px] mb-2 leading-[0.7] max-[640px]:text-3xl whitespace-nowrap">
             {{ counter.count }}
           </h4>
           <p class="text-xl font-bold leading-[1.2]">{{ counter.title }}</p>
@@ -55,38 +47,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { PlayIcon } from "@heroicons/vue/24/solid"
-import { getImageUrl } from "@/composables/getImgUrl"
+import { ref } from 'vue'
+import { PlayIcon } from '@heroicons/vue/24/solid'
+import { getImageUrl } from '@/composables/getImgUrl'
 
 const counters = ref([
   {
-    id: "1",
-    count: "100 %",
-    title: "Client Satisfaction",
-    img_url: "about/counter_icon01.svg",
-    bg_color: "bg-tg-yellow",
+    id: '1',
+    count: '100 %',
+    title: 'Client Satisfaction',
+    img_url: 'about/counter_icon01.svg',
+    bg_color: 'bg-tg-yellow',
   },
   {
-    id: "2",
-    count: "1150+",
-    title: "Complete Project",
-    img_url: "about/counter_icon02.svg",
-    bg_color: "bg-tg-pink",
+    id: '2',
+    count: '1150+',
+    title: 'Complete Project',
+    img_url: 'about/counter_icon02.svg',
+    bg_color: 'bg-tg-pink',
   },
   {
-    id: "3",
-    count: "1320K",
-    title: "Design Resource",
-    img_url: "about/counter_icon03.svg",
-    bg_color: "bg-tg-indigo",
+    id: '3',
+    count: '1320K',
+    title: 'Design Resource',
+    img_url: 'about/counter_icon03.svg',
+    bg_color: 'bg-tg-indigo',
   },
 ])
 </script>
 
 <style scoped>
 .video-wrap::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;

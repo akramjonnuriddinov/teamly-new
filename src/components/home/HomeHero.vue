@@ -1,5 +1,5 @@
 <template>
-  <section class="banner-area relative overflow-hidden z-[1]">
+  <section class="banner-area relative overflow-hidden z-[1] min-[1400px]:min-h-screen min-[1400px]:h-auto">
     <div
       class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
@@ -7,7 +7,7 @@
         class="flex pt-[75px] justify-between max-[990px]:flex-wrap max-[990px]:flex-col-reverse max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
       >
         <div
-          class="relative pt-[100px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px]"
+          class="relative pt-[100px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px] min-[1400px]:pt-[200px]"
         >
           <img
             class="absolute transition-all duration-1000 ease-out top-10 -left-10 max-sm:top-0"
@@ -19,7 +19,7 @@
             alt=""
           />
           <h1
-            class="mb-4 text-6xl font-bold leading-[1.2] text-tg-dark-blue-color max-[990px]:text-center max-sm:text-4xl"
+            class="mb-4 text-6xl font-bold leading-[1.2] text-tg-dark-blue-color max-[990px]:text-center max-sm:text-4xl min-[1400px]:text-[70px]"
           >
             Shaping Digital Dreams
           </h1>
@@ -29,7 +29,7 @@
           <base-button> Get Started </base-button>
         </div>
         <img
-          class="max-w-[470px] w-full pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 pb-[130px]"
+          class="max-w-[470px] w-full pt-[30px] pb-[130px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:min-w-[632px] min-[1400px]:min-h-[559px] min-[1400px]:mt-12"
           data-aos=""
           data-aos-duration="3000"
           src="@/assets/images/banner_img.png"
@@ -86,6 +86,12 @@ onMounted(() => {
 @media (max-width: 990px) {
   .banner-area::after {
     display: none;
+  }
+}
+@media (min-width: 1400px) {
+  .banner-area::after {
+    width: 1400px;
+    height: 1200px;
   }
 }
 

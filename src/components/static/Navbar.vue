@@ -1,7 +1,7 @@
 <template>
   <header :class="header" class="fixed top-0 z-50 w-full py-5 home-header header">
     <div
-      class="container px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container px-5 mx-auto max-w-7xl max-xl:max-w-[1100px] max-[1050px]:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
       <div class="flex items-center justify-between">
         <router-link class="mr-20 w-[150px] flex" to="/">

@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-white relative our-blog pt-[135px] pb-[340px]">
+  <section class="bg-white relative our-blog py-[135px]">
     <div class="">
       <img class="absolute left-[2%] bottom-2" src="@/assets/images/blog/blog_shape01.png" alt="" />
       <img class="absolute top-[20%] right-36" src="@/assets/images/blog/blog_shape02.png" alt="" />
@@ -16,58 +16,46 @@
           Inside Story
         </h2>
       </div>
-      <div class="flex justify-center">
-        <ul class="flex gap-7 flex-wrap gap-y-[280px] pb-10">
-          <li
-            v-for="blog in blogs"
-            :key="blog.id"
-            class="bg-trasnparent relative min-w-[40%] blog-content rounded-[20px]"
-          >
-            <div class="rounded-[20px] overflow-hidden w-full">
-              <router-link :to="{ name: 'home' }">
-                <img
-                  class="blog-content-img object-cover max-w-[570px] w-full max-[1220px]:max-w-[470px] max-[1020px]:max-w-[400px] max-[880px]:max-w-full"
-                  :src="blog.image"
-                  alt="blog_img"
-                />
-              </router-link>
-            </div>
+      <ul class="flex flex-wrap justify-between w-full max-[1200px]:flex-col">
+        <li v-for="blog in blogs" class="w-1/2 px-4 max-[1200px]:w-auto">
+          <div class="flex rounded-[10px] blog-inner mb-7 transition-all duration-300 max-[650px]:flex-col">
+            <img
+              :src="blog.image"
+              class="h-[230px] w-[240px] object-cover rounded-tl-[10px] rounded-bl-[10px] max-[650px]:w-full max-[650px]:h-full max-[650px]:rounded-bl-none max-[650px]:rounded-tr-[10px]"
+              width="771"
+              height="430"
+              alt=""
+            />
             <div
-              class="blog-post-content flex-col absolute items-center py-[45px] px-[30px] max-w-[510px] w-full top-[100%] translate-y-[-100px] rounded-br-[100px] bg-tg-white max-[880px]:max-w-[90%] max-[880px]:rounded-br-[50px]"
+              class="blog-content flex w-full bg-white px-[30px] py-[25px] flex-col items-start rounded-tr-[10px] rounded-br-[10px] border border-l-0 border-[#f5f2f2] transition-all duration-300 max-[1200px]:w-auto max-[650px]:border max-[650px]:border-t-0 max-[650px]:rounded-tl-none max-[650px]:rounded-tr-none max-[650px]:rounded-bl-[10px]"
             >
+              <span
+                class="text-tg-primary-color-two font-semibold text-xs py-[6px] px-[11px] capitalize mb-4 bg-[#EEE8FF] rounded-[5px] transition-all duration-300 truncate max-w-[250px] hover:bg-tg-primary-color-two hover:text-tg-white max-[1300px]:max-w-[200px]"
+                >{{ blog.subtitle }}</span
+              >
               <router-link
-                class="uppercase text-tg-primary-color font-bold hover:text-tg-secondary-color transition-color duration-300 mb-2.5 flex"
                 :to="{ name: 'home' }"
-                >{{ blog.subtitle }}</router-link
+                class="text-[22px] font-bold mb-4 text-tg-heading-font-color leading-[1.2] line-clamp-3 transition-color duration-300 hover:text-tg-primary-color"
+                >{{ blog.title }}</router-link
               >
-              <h3
-                class="mb-5 text-[30px] font-bold transition-color duration-300 leading-[1.2] hover:text-tg-primary-color max-[1020px]:text-2xl"
+              <div
+                class="flex items-center justify-between w-full mt-auto font-medium text-tg-paragraph-color max-[1200px]:justify-start"
               >
-                <router-link :to="{ name: 'home' }">
-                  {{ blog.title }}
-                </router-link>
-              </h3>
-              <div class="text-tg-paragraph-color">
-                <div class="flex mb-4 max-[500px]:flex-wrap">
-                  <div class="flex mr-12 max-[500px]:mr-0">
-                    <img class="mr-2" src="@/assets/images/blog/calendar.svg" alt="" />
+                <div class="flex items-center mr-8">
+                  <img class="mr-2" src="@/assets/images/blog/calendar.svg" alt="" />
+                  <span class="whitespace-nowrap">
                     {{ formatTimestampToLocaleString(blog.date) }}
-                  </div>
-                  <div class="flex">
-                    <img class="mr-2" src="@/assets/images/blog/comments.svg" alt="" />
-                    {{ 'No Comments' }}
-                  </div>
+                  </span>
                 </div>
-                <div
-                  contenteditable="false"
-                  class="blog-parent leading-[1.8] line-clamp-3 overflow-hidden max-h-[100px]"
-                  v-html="blog.text"
-                ></div>
+                <div class="flex items-center">
+                  <img class="mr-2" src="@/assets/images/blog/user.svg" alt="" />
+                  <span>Admin</span>
+                </div>
               </div>
             </div>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 </template>
@@ -90,22 +78,9 @@ function formatTimestampToLocaleString(timestamp: number) {
 }
 </script>
 
-<style>
-.blog-content-img {
-  transform: scale(1);
-  transition: 0.5s ease-in-out;
-}
-
-.blog-content:hover .blog-content-img {
-  transform: scale(1.08);
-}
-
-.blog-post-content {
+<style scoped>
+.blog-inner:hover .blog-content {
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
-}
-
-.blog-parent * {
-  color: #757589 !important;
-  line-height: 1.8;
+  border-color: transparent;
 }
 </style>
