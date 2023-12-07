@@ -2,7 +2,7 @@
   <the-transition>
     <div v-if="expanded" class="px-5 overflow-hidden">
       <ol @click.stop class="relative border-gray-200 border-s dark:border-gray-700">
-        <li v-for="(applierStatus, index) in applierStatuses" class="pt-4 mb-10 ms-4">
+        <li v-for="applierStatus in applierStatuses" class="pt-4 mb-10 ms-4">
           <div
             :style="`background-color: ${applierStatus.color}`"
             class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
@@ -12,36 +12,9 @@
           }}</time>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ applierStatus.status.status }}</h3>
           <div v-if="applierStatus.description" v-html="applierStatus.description" class="px-5"></div>
-          <div
-            v-else
-            class="px-5 text-slate-500"
-            :class="{ 'line-clamp-none': lineClamp[index], 'line-clamp-5': !lineClamp[index] }"
-          >
+          <div v-else class="px-5 text-slate-500">
             {{ applierStatus.status.definition }}
           </div>
-
-          <button
-            @click="lineClampChange(index)"
-            class="inline-flex items-center px-4 py-2 mt-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700"
-          >
-            <span v-if="!lineClamp[index]">Learn more</span>
-            <span v-else>Learn less</span>
-            <svg
-              class="w-3 h-3 ms-2 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
-          </button>
         </li>
       </ol>
     </div>
@@ -66,11 +39,6 @@ onMounted(async () => {
   }))
   applierStatuses.value = allStatuses.filter((item: any) => item.applier_id === props.applier_id)
 })
-
-const lineClamp = ref<boolean[]>([])
-const lineClampChange = (index: number) => {
-  lineClamp.value[index] = !lineClamp.value[index]
-}
 
 function formatTimestampToLocaleString(timestamp: number) {
   const date = new Date(timestamp)

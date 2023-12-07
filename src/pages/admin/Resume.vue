@@ -23,7 +23,17 @@
               applier.resume.email || 'email undefined'
             }}</a>
             <div class="flex ml-auto space-x-5">
-              <button @click.stop="openStatusModal(applier.id)">{{ applier?.status?.status || 'submitted' }}</button>
+              <button
+                @click.stop="openStatusModal(applier.id)"
+                :style="`
+                  background-color: ${applier?.applierStatus?.color}44;
+                  color: ${applier?.applierStatus?.color};
+                `"
+                class="px-2 opacity-90 rounded-full py-[2px]"
+              >
+                <span v-if="applier.status">{{ applier.status.status }}</span>
+                <span v-else>submitted</span>
+              </button>
               <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
                 Remove
               </button>
@@ -79,6 +89,7 @@ onMounted(async () => {
     status: statuses.value.find((el: any) => el.id === item.status_id),
     resume: users.value.find((el: any) => el.id === item.user_id),
     vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
+    applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
   }))
 })
 

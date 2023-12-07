@@ -66,7 +66,9 @@ const db = useFirestore()
 const collectionRef = collection(db, 'applier_statuses')
 const props = defineProps(['currentUser', 'statuses'])
 const isLoading = ref(false)
-const emit = defineEmits(['closeStatusModal'])
+const emit = defineEmits<{
+  (e: 'closeStatusModal'): void
+}>()
 
 const comment = ref<any>({
   status_id: '',
