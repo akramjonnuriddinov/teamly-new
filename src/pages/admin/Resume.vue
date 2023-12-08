@@ -2,56 +2,57 @@
   <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <div>
       <ul>
-        <li
-          v-for="(applier, index) in appliers"
-          :key="index"
-          @click="toggleAccordion(index)"
-          class="relative flex flex-col mb-5"
-        >
-          <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
-            <button class="mr-4 duration-300 text-tg-paragraph-color transition-color hover:text-tg-heading-font-color">
-              <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
-            </button>
-            <button
-              @click.stop="openUserModal(applier.user)"
-              title="View Profile"
-              class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
-            >
-              {{ applier.user.name }}
-            </button>
-            <a @click.stop class="w-1/5 mr-2" href="#">{{ applier.vacancy }}</a>
-            <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.user.email}`">{{
-              applier.user.email || 'email undefined'
-            }}</a>
-            <div class="flex ml-auto space-x-5">
+        <template v-for="(applier, index) in appliers" :key="index">
+          <li
+            v-if="applier.user"
+            class="relative flex flex-col mb-5"
+            @click="toggleAccordion(index)"
+          >
+            <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
+              <button class="mr-4 duration-300 text-tg-paragraph-color transition-color hover:text-tg-heading-font-color">
+                <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
+              </button>
               <button
-                @click.stop="openStatusModal(applier.id)"
-                :style="`
-                  background-color: ${applier?.applierStatus?.color}44;
-                  color: ${applier?.applierStatus?.color};
-                `"
-                class="px-3 text-sm opacity-90 rounded-full py-[2px]"
+                @click.stop="openUserModal(applier.user)"
+                title="View Profile"
+                class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
               >
-                <span v-if="applier.status">{{ applier.status.status }}</span>
-                <span v-else class="bg-yellow-300 px-3 text-yellow-900 rounded-full py-[2px]">submitted</span>
+                {{ applier.user.name }}
               </button>
-              <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
-                Remove
-              </button>
+              <a @click.stop class="w-1/5 mr-2" href="#">{{ applier.vacancy.title }}</a>
+              <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.user.email}`">{{
+                applier.user.email || 'email undefined'
+              }}</a>
+              <div class="flex ml-auto space-x-5">
+                <button
+                  @click.stop="openStatusModal(applier.id, applier.vacancy.id)"
+                  :style="`
+                    background-color: ${applier?.applierStatus?.color}44;
+                    color: ${applier?.applierStatus?.color};
+                  `"
+                  class="px-3 text-sm opacity-90 rounded-full py-[2px]"
+                >
+                  <span v-if="applier.status">{{ applier.status.status }}</span>
+                  <span v-else class="bg-yellow-300 px-3 text-yellow-900 rounded-full py-[2px]">submitted</span>
+                </button>
+                <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
+                  Remove
+                </button>
+              </div>
             </div>
-          </div>
-          <status-detail :applier_id="applier.id" :status_id="applier.status_id" :expanded="detailExpanded === index" />
-        </li>
+            <status-detail :applier_id="applier.id" :status_id="applier.status_id" :expanded="detailExpanded === index" />
+          </li>
+        </template>
       </ul>
     </div>
   </div>
   <status-modal
     v-if="isStatusModal"
-    @close="closeStatusModal"
+    @close="isStatusModal = false"
     :currentUser="currentUser"
     :statuses="statuses"
   />
-  <user-modal v-if="isUserModal" :user="selectedUser" @close="closeUserModal" />
+  <user-modal v-if="isUserModal" :user="selectedUser" @close="isUserModal = false" />
 </template>
 
 <script setup lang="ts">
@@ -73,10 +74,7 @@ const users = ref<any>([])
 
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
-const currentUser = ref({
-  applier_id: '',
-  vacancy_id: '',
-})
+const currentUser = ref<any>(null)
 const isUserModal = ref(false)
 const selectedUser = ref<any>(null)
 
@@ -90,22 +88,17 @@ onMounted(async () => {
     id: item.id,
     status: statuses.value.find((el: any) => el.id === item.status_id),
     user: users.value.find((el: any) => el.id === item.user_id),
-    vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id).title,
+    vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
     applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
   }))
 })
 
-const closeStatusModal = () => {
-  isStatusModal.value = false
-}
-const openStatusModal = (id: string) => {
+const openStatusModal = (vacancy_id: string, applier_id: string ) => {
   isStatusModal.value = true
-  appliers.value.forEach((item: any) => {
-    if (item.id == id) {
-      currentUser.value.vacancy_id = item.vacancy_id
-      currentUser.value.applier_id = item.id
-    }
-  })
+  currentUser.value = {
+    applier_id,
+    vacancy_id
+  }
 }
 const toggleAccordion = (value: any) => {
   detailExpanded.value = detailExpanded.value === value ? null : value
@@ -118,8 +111,5 @@ const removeUser = async (id: string) => {
 const openUserModal = (user: object) => {
   isUserModal.value = true
   selectedUser.value = user
-}
-const closeUserModal = () => {
-  isUserModal.value = false
 }
 </script>

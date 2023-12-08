@@ -52,37 +52,30 @@ const db = useFirestore()
 const collectionRef = collection(db, 'applier_statuses')
 const props = defineProps(['currentUser', 'statuses'])
 const isLoading = ref(false)
-const emit = defineEmits<{
-  (e: 'close'): void
-}>()
+const emit = defineEmits(['close'])
 
 const comment = ref<any>({
   status_id: '',
   description: '',
   color: '#cccccc',
+  applier_id: props.currentUser.applier_id,
+  vacancy_id: props.currentUser.vacancy_id
 })
 
 const add = async () => {
   try {
     isLoading.value = true
-    comment.value.applier_id = props.currentUser.applier_id
-    comment.value.vacancy_id = props.currentUser.vacancy_id
 
-    const newValue = {
-      ...comment.value,
-      date: Date.now(),
-    }
-
-    await addDoc(collectionRef, newValue)
+    await addDoc(collectionRef, {...comment.value, date: Date.now()})
     // update status of applier
     const docRef = doc(collection(db, 'appliers'), props.currentUser.applier_id)
     await updateDoc(docRef, {
-      status_id: newValue.status_id,
+      status_id: comment.status_id,
     })
   } catch (error) {
     console.error('status adding error...')
   } finally {
-    emit('closeStatusModal')
+    emit('close')
     isLoading.value = false
   }
 }
