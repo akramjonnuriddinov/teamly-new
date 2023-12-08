@@ -13,7 +13,7 @@
               <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
             </button>
             <button
-              @click.stop="openUserModal(applier.user.id)"
+              @click.stop="openUserModal(applier.user)"
               title="View Profile"
               class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
             >
@@ -51,7 +51,7 @@
     :currentUser="currentUser"
     :statuses="statuses"
   />
-  <user-modal v-if="isUserModal" :appliers="appliers" @close="closeUserModal" :user-id="userId" />
+  <user-modal v-if="isUserModal" :user="selectedUser" @close="closeUserModal" />
 </template>
 
 <script setup lang="ts">
@@ -81,7 +81,7 @@ const currentUser = ref({
   vacancy_id: '',
 })
 const isUserModal = ref(false)
-const userId = ref('')
+const selectedUser = ref<any>(null)
 
 onMounted(async () => {
   vacancies.value = await fetchData('vacancies')
@@ -129,9 +129,9 @@ const removeUser = async (id: string) => {
   })
 }
 
-const openUserModal = (id: string) => {
+const openUserModal = (user: object) => {
   isUserModal.value = true
-  userId.value = id
+  selectedUser.value = user
 }
 const closeUserModal = () => {
   isUserModal.value = false

@@ -1,29 +1,29 @@
 <template>
   <BaseModal title="Profile" @close="$emit('close')" width="max-w-[470px]" height="h-auto">
     <span class="flex justify-center w-full my-6 text-2xl leading-none tracking-tighter">{{
-          applier.user.name
+          user.name
         }}</span>
         <ul class="flex flex-col w-full">
           <li class="flex items-center mb-3">
             <inline-svg class="mr-2" src="fontawesome/user-profile/email.svg" />
-            <a :href="`mailto:${applier.user.email}`"> {{ applier.user.email }} </a>
+            <a :href="`mailto:${user.email}`"> {{ user.email }} </a>
           </li>
           <li class="flex items-center mb-3">
             <inline-svg class="mr-2" src="fontawesome/user-profile/github.svg" />
-            <a :href="applier.user.github" target="_blank"> {{ applier.user.github || 'github' }} </a>
+            <a :href="user.github" target="_blank"> {{ user.github || 'github' }} </a>
           </li>
           <li class="flex items-center mb-3">
             <inline-svg class="mr-2" src="fontawesome/user-profile/linkedin.svg" />
-            <a :href="applier.user.linkedin" target="_blank"> {{ applier.user.linkedin || 'Linkedin' }} </a>
+            <a :href="user.linkedin" target="_blank"> {{ user.linkedin || 'Linkedin' }} </a>
           </li>
           <li class="flex items-center mb-3">
             <inline-svg class="mr-2" src="fontawesome/user-profile/phone.svg" />
-            <a :href="`tel:${applier.user.phone}`"> {{ applier.user.phone || 'Phone number' }} </a>
+            <a :href="`tel:${user.phone}`"> {{ user.phone || 'Phone number' }} </a>
           </li>
           <li class="flex items-center mb-3">
             <inline-svg class="mr-2" src="fontawesome/user-profile/telegram.svg" />
-            <a :href="`https://t.me/${applier.user.telegram}`" target="_blank">
-              {{ applier.user.telegram || 'Telegram' }}
+            <a :href="`https://t.me/${user.telegram}`" target="_blank">
+              {{ user.telegram || 'Telegram' }}
             </a>
           </li>
         </ul>
@@ -48,11 +48,8 @@ import { getDownloadURL } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import BaseModal from '@/components/reusables/BaseModal.vue'
 
-const applier = ref<any>({})
-const props = defineProps(['appliers', 'userId'])
+defineProps(['user'])
 defineEmits(['close'])
-
-applier.value = props.appliers.find((item: any) => item.user.id === props.userId)
 
 const downloadResume = async (id: string) => {
   getDownloadURL(storageRef(storage, `users/${id}`)).then((url) => {
