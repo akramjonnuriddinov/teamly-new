@@ -3,8 +3,14 @@ import {
   getAuth,
   onAuthStateChanged,
 } from "firebase/auth";
-import { storageRef, storage } from '@/firebase'
-import { getDownloadURL, } from 'firebase/storage'
+import {  storage } from '@/firebase'
+import { getDownloadURL, list, ref } from 'firebase/storage'
+import { getDoc, doc } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
+import { log } from "console";
+
+
+const db = useFirestore()
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -23,11 +29,22 @@ export const useAuthStore = defineStore('auth', {
       const auth = getAuth();
       onAuthStateChanged(auth, async (user) => {
         if (user) {
-          this.user = { email: user.email, id: user.uid, name: user.displayName };
-          const userDirectory = `users/${user.uid}`
-          const fileReference = storageRef(storage, userDirectory)
-          const url = await getDownloadURL(fileReference)
-          this.resume = url
+          const docRef = doc(db, 'users', user.uid);
+          const userSnapshot = await getDoc(docRef);
+          const userInfo = userSnapshot.data()
+          if (userInfo) {
+            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin };
+          } else {
+            this.user = { email: user.email, id: user.uid, name: user.displayName,};
+          }
+          try {
+            const userDirectory = `users/${user.uid}`;
+            const userRef = ref(storage, userDirectory);
+            const url = await getDownloadURL(userRef);
+            this.resume = url;
+          } catch (error) {
+            // console.error('Ошибка:', error);
+          }
         } else {
           this.user = null;
           this.resume = ''

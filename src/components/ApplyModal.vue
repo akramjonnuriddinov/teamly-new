@@ -1,7 +1,7 @@
 <template>
   <section
     @click="$emit('close')"
-    class="h-full bg-[#00000080] flex justify-center overflow-y-auto items-start p-10 fixed top-0 left-0 w-[100vw] z-[999]"
+    class="h-full bg-[#00000080] flex justify-center overflow-y-auto items-center p-10 fixed top-0 left-0 w-[100vw] z-[999]"
   >
     <div @click.stop class="container rounded-xl overflow-hidden h-auto bg-white relative mx-auto max-w-[500px] w-full">
       <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
@@ -97,4 +97,3 @@ const handleFileChange = (event: any) => {
   selectedFile.value = event.target.files[0]
 }
 </script>
-

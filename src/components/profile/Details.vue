@@ -11,7 +11,7 @@
           type="text"
           required
           name="name"
-          @input="updateFirebaseName"
+          @input="updateValue($event, 'name')"
           v-model="user.name"
           placeholder="name"
           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
@@ -23,7 +23,6 @@
           type="email"
           required
           disabled
-          @input="updateFirebaseEmail"
           v-model="user.email"
           placeholder="email@company.com"
           class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
@@ -36,6 +35,8 @@
         <input
           type="text"
           name="git"
+          @input="updateValue($event, 'github')"
+          v-model="user.github"
           placeholder="link"
           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
         />
@@ -45,6 +46,8 @@
         <input
           type="text"
           name="linkedin"
+          @input="updateValue($event, 'linkedin')"
+          v-model="user.linkedin"
           placeholder="link"
           class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
         />
@@ -56,6 +59,8 @@
         <input
           type="text"
           name="telegram"
+          @input="updateValue($event, 'telegram')"
+          v-model="user.telegram"
           placeholder="username"
           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
         />
@@ -64,6 +69,9 @@
         <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Your phone</label>
         <input
           type="text"
+          name="phone"
+          @input="updateValue($event, 'phone')"
+          v-model="user.phone"
           placeholder="number"
           class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
         />
@@ -135,10 +143,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import ButtonLoader from '@/components/static/ButtonLoader.vue'
-import { getAuth, updateProfile, updateEmail } from 'firebase/auth'
+import { getAuth, updateProfile } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
 import { useFirestore } from 'vuefire'
 import { uploadBytes, deleteObject, ref as fireRef } from 'firebase/storage'
@@ -154,6 +162,17 @@ const currentUser = getAuth().currentUser
 const updatedUser = ref({
   ...user.value,
 })
+
+watch(
+  () => store.user,
+  (newValue) => {
+    user.value = {...newValue}
+  },
+  {
+    immediate: true,
+  },
+);
+
 
 onMounted(async() => {
   store.fetchProfile()
@@ -171,6 +190,7 @@ const handleFileChange = async (event: any) => {
     const fileRef = storageRef(storage, userDirectory)
     try {
       await uploadBytes(fileRef, selectedFile.value)
+      store.fetchProfile()
     } catch (error) {
       console.error('Error uploading file: ', error)
     }finally {
@@ -189,31 +209,25 @@ const showResume = () => {
   window.open(store.resume, '_blank')
 }
 
-const updateFirebaseName = (event: any) => {
+const updateValue = (event: any, slug: string) => {
   const newValue = event.target.value
-  updatedUser.value.name = newValue
-}
-
-const updateFirebaseEmail = (event: any) => {
-  const newValue = event.target.value
-  updatedUser.value.email = newValue
+  updatedUser.value[slug] = newValue
 }
 
 const updateProfileInformation = async () => {
-  try {
-    if (currentUser !== null) {
-      isLoadingProfile.value = true
-      await updateProfile(currentUser, { displayName: updatedUser.value.name })
-      await updateEmail(currentUser, updatedUser.value.email)
-      const colRef = doc(db, 'users', updatedUser.value.id)
-      setDoc(colRef, updatedUser.value)
-      store.fetchProfile()
+  if (currentUser !== null) {
+    try {
+          isLoadingProfile.value = true
+          await updateProfile(currentUser, { displayName: updatedUser.value.name })
+          const colRef = doc(db, 'users', updatedUser.value.id)
+          setDoc(colRef, updatedUser.value)
+          store.fetchProfile()
+      } catch (error) {
+        console.log(error)
+      } finally {
+        isLoadingProfile.value = false
     }
-  } catch (error) {
-    console.log(error)
-  } finally {
-    isLoadingProfile.value = false
-  }
+}
 }
 </script>
 
