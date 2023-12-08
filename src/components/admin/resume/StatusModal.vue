@@ -53,7 +53,7 @@ const collectionRef = collection(db, 'applier_statuses')
 const props = defineProps(['currentUser', 'statuses'])
 const isLoading = ref(false)
 const emit = defineEmits<{
-  (e: 'closeStatusModal'): void
+  (e: 'close'): void
 }>()
 
 const comment = ref<any>({

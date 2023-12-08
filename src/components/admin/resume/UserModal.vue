@@ -50,7 +50,7 @@ import BaseModal from '@/components/reusables/BaseModal.vue'
 
 const applier = ref<any>({})
 const props = defineProps(['appliers', 'userId'])
-defineEmits(['closeUserModal'])
+defineEmits(['close'])
 
 applier.value = props.appliers.find((item: any) => item.user.id === props.userId)
 
