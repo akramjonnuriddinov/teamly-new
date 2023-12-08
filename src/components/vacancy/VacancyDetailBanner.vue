@@ -9,15 +9,15 @@
         <div class="flex flex-col max-w-[750px]">
           <span class="text-[#5B5A78] mb-5">{{ 'Fergana, Uzbekistan' }}</span>
           <h1 class="mb-4 text-[70px] font-extrabold text-[#38386E] leading-[1.2] max-sm:text-4xl max-[800px]:text-5xl">
-            {{ vacancy.title }}
+            {{ vacancy[0].title }}
           </h1>
           <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
-            <span>{{ vacancy.category }}</span>
+            <span>{{ vacancy[0].category }}</span>
             <img width="8" height="8" src="@/assets/images/circle.svg" alt="circle" />
-            <span>{{ vacancy.time }}</span>
+            <span>{{ vacancy[0].time }}</span>
           </div>
         </div>
-        <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy.id)" class="max-[990px]:mt-5"
+        <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy[0].id)" class="max-[990px]:mt-5"
           >Apply</base-button
         >
       </div>

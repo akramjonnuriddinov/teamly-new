@@ -1,8 +1,8 @@
 <template>
   <section class="pt-[50px] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
-      <div class="description" v-html="vacancy.description"></div>
-      <base-button :size="ESize.BIG" class="mt-12" :is-loading="isLoading" @click="handleApply(vacancy.id)"
+      <div class="description" v-html="vacancy[0].description"></div>
+      <base-button :size="ESize.BIG" class="mt-12" :is-loading="isLoading" @click="handleApply(vacancy[0].id)"
         >Apply</base-button
       >
     </div>
@@ -18,7 +18,9 @@ import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
 
 
-defineProps(['vacancy'])
+const props = defineProps(['vacancy'])
+
+console.log(props.vacancy);
 
 const emit = defineEmits(['open'])
 const store = useAuthStore()
