@@ -2,10 +2,13 @@
   <div class="pb-[135px]">
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Applied vacancies</h1>
-      <span class="text-gray-400 text-sm">All of your applied vacancies</span>
+      <span class="text-sm text-gray-400">All of your applied vacancies</span>
       <div>
-        <div  v-for="vacancy in vacancies"
-          :key="vacancy.id" class="shadow-job-inner my-5 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]">
+        <div v-for="(vacancy, index) in vacancies" :key="vacancy.id" class="">
+          <div
+            @click="toggleAccordion(index)"
+            class="shadow-job-inner my-5 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]"
+          >
             <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
             <router-link
               :to="{
@@ -23,44 +26,71 @@
               <span class="block w-2 h-2 rounded-full bg-tg-primary-color"></span>
               <span>{{ vacancy.time }}</span>
             </div>
-            <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
+            <p class="text-[#5B5A78]">{{ vacancy.text }}</p>
           </div>
+          <status-detail
+            :profile_status="true"
+            :vacancy_id="vacancy.id"
+            :applierStatuses="applierStatuses"
+            :expanded="detailExpanded === index"
+          />
         </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useAuthStore } from "@/store/auth";
-import { collection, where, query, getDocs, getDoc, doc} from 'firebase/firestore'
+import { useAuthStore } from '@/store/auth'
+import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
+import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
+import { fetchData } from '@/composables/fetchData'
+import { toggleLoader } from '@/composables/loader'
 
 const db = useFirestore()
-const store = useAuthStore();
-const vacancies = ref();
+const store = useAuthStore()
+const vacancies = ref()
+const detailExpanded = ref(null)
+const appliers = ref<any>([])
+const applierStatuses = ref([])
 
 onMounted(async () => {
-  const q = query(collection(db, "appliers"), where("user_id", "==", store.user.id));
+  toggleLoader(true)
+  appliers.value = await fetchData('appliers')
+  appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
+  applierStatuses.value = await fetchData('applier_statuses')
+  applierStatuses.value = applierStatuses.value.filter((item1: any) =>
+    appliers.value.some((item2: any) => item2.id === item1.applier_id),
+  )
+
+  const q = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
   try {
-    const querySnapshot = await getDocs(q);
-
+    const querySnapshot = await getDocs(q)
     const promises = querySnapshot.docs.map(async (applier) => {
-      const vacancy_id = applier.data().vacancy_id;
-      const docRef = doc(db, 'vacancies', vacancy_id);
-      const vacancySnapshot = await getDoc(docRef);
+      const vacancy_id = applier.data().vacancy_id
+      const docRef = doc(db, 'vacancies', vacancy_id)
+      const vacancySnapshot = await getDoc(docRef)
       if (vacancySnapshot.exists()) {
-        return {...vacancySnapshot.data(), id: vacancy_id};
+        return { ...vacancySnapshot.data(), id: vacancy_id }
       } else {
-        console.log('Vacancy does not exist');
-        return null;
+        console.log('Vacancy does not exist')
+        return null
       }
-    });
-
-    vacancies.value = await Promise.all(promises);
-
+    })
+    vacancies.value = await Promise.all(promises)
+    vacancies.value = vacancies.value.map((item: any) => ({
+      ...item,
+      // statuses: applierStatuses.value.find((el: any) => item.id === el.vacancy_id),
+    }))
   } catch (error) {
-    console.error('Error fetching appliers:', error);
+    console.error('Error fetching appliers:', error)
+  } finally {
+    toggleLoader()
   }
-});
+})
+const toggleAccordion = (value: any) => {
+  detailExpanded.value = detailExpanded.value === value ? null : value
+}
 </script>
