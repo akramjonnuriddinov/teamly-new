@@ -17,7 +17,7 @@
             <span>{{ vacancy.time }}</span>
           </div>
         </div>
-        <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy.id)" class="max-[990px]:mt-5"
+        <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply()" class="max-[990px]:mt-5"
           >Apply</base-button
         >
       </div>
@@ -32,6 +32,9 @@ import { useAuthStore } from '@/store/auth'
 import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 defineProps(['vacancy'])
 const emit = defineEmits(['open'])
@@ -39,15 +42,15 @@ const store = useAuthStore()
 const isLoading = ref(false)
 const router = useRouter()
 
-const handleApply = async (id: any) => {
+const handleApply = async () => {
   if (store.resume) {
     isLoading.value = true
-    await vacancyApply(store.user.id, id)
+    await vacancyApply(store.user.id, route.params.id)
     isLoading.value = false
   } else if (!store.user) {
     router.push('/login')
   } else {
-    emit('open', id)
+    emit('open', route.params.id)
   }
 }
 </script>

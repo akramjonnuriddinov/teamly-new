@@ -26,7 +26,7 @@
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
-            <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy.id)" class="mt-auto">
+            <base-button :size="ESize.BIG" :is-loading="isLoading == vacancy.id" @click="handleApply(vacancy.id)" class="mt-auto">
               Apply
             </base-button>
           </div>
@@ -50,14 +50,14 @@ defineProps(['isShow'])
 const emit = defineEmits(['open'])
 const vacancies = ref<Vacancy[]>([])
 const store = useAuthStore()
-const isLoading = ref(false)
+const isLoading = ref(null)
 
 const router = useRouter()
 const handleApply = async (id: any) => {
   if (store.resume) {
-      isLoading.value = true
+      isLoading.value = id
       await vacancyApply(store.user.id, id)
-      isLoading.value = false
+      isLoading.value = null
   } else if (!store.user) {
     router.push('/login')
   } else {
