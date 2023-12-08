@@ -152,6 +152,8 @@ import { useFirestore } from 'vuefire'
 import { uploadBytes, deleteObject, ref as fireRef } from 'firebase/storage'
 import { setDoc, doc } from 'firebase/firestore'
 import { useAuthStore } from '@/store/auth'
+import { toggleLoader } from '@/composables/loader'
+
 
 const store = useAuthStore()
 const db = useFirestore()
@@ -167,6 +169,7 @@ watch(
   () => store.user,
   (newValue) => {
     user.value = {...newValue}
+    toggleLoader()
   },
   {
     immediate: true,
@@ -176,6 +179,9 @@ watch(
 
 onMounted(async() => {
   store.fetchProfile()
+  if(!store.user) {
+    toggleLoader(true)
+  }
 })
 
 const selectedFile = ref<any>(null)
