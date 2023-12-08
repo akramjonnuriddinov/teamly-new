@@ -5,7 +5,7 @@
   >
     <div @click.stop class="container rounded-xl overflow-hidden h-auto bg-white relative mx-auto max-w-[500px] w-full">
       <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
-        <h1 class="text-4xl text-center">{{ 'Apply' }}</h1>
+        <h1 class="text-4xl text-center">{{ 'Upload your CV' }}</h1>
         <button @click="$emit('close')" class="transition-all duration-300 text-tg-heading-font-color hover:opacity-80">
           <close-icon class="h-[18px]" />
         </button>
@@ -21,11 +21,13 @@
               <input
                 class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer file:hidden"
                 @change="handleFileChange"
+                :class="{'hidden' : !selectedFile}"
                 accept=".docx,.pdf,.txt"
                 type="file"
                 name="file-input"
                 id="file-input"
               />
+              <label  :class="{'hidden' : selectedFile}" for="file-input" class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer">Select file (.docx,.pdf,.txt)</label>
             </div>
           </div>
           <div class="w-full max-[800px]:w-full mx-auto flex justify-center">

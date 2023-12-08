@@ -91,11 +91,13 @@
       <input
         class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm cursor-pointer file:hidden"
         @change="handleFileChange"
+        :class="{'hidden' : !selectedFile}"
         accept=".docx,.pdf,.txt"
         type="file"
         name="file-input"
         id="file-input"
       />
+      <label  :class="{'hidden' : selectedFile}" for="file-input" class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer">Select file (.docx,.pdf,.txt)</label>
       <div
         v-if="store.resume && !isLoadingResume"
         @click="showResume"
@@ -209,6 +211,7 @@ const deleteResume = async () => {
   const desertRef = fireRef(storage, `users/${store.user.id}`)
   await deleteObject(desertRef)
   store.removeResume()
+  selectedFile.value = null
 }
 
 const showResume = () => {
