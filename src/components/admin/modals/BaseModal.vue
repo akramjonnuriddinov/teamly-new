@@ -1,7 +1,7 @@
 <template>
   <section
     @click="close"
-    class="h-full bg-[#00000080] min-h-screen flex justify-center items-start p-10 fixed top-0 left-0 w-[100vw] z-50"
+    class="h-full bg-[#00000080] flex justify-center items-start p-10 fixed top-0 left-0 w-[100vw] z-50"
   >
     <div
       @click.stop
@@ -76,6 +76,10 @@ const add = async () => {
   }
 }
 
+if (isUpdate) {
+  docRef = doc(collection(db, props.url), props.oldValue.id)
+}
+
 const update = async () => {
   try {
     close()
@@ -87,9 +91,5 @@ const update = async () => {
     console.error('Error updating data:', error)
   } finally {
   }
-}
-
-if (isUpdate) {
-  docRef = doc(collection(db, props.url), props.oldValue.id)
 }
 </script>

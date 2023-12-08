@@ -1,16 +1,16 @@
 <template>
   <div>
-    <vacancy-detail-banner :vacancy="vacancy" @open="isShow = true" />
-    <job-description :vacancy="vacancy" @open="isShow = true" />
+    <vacancy-detail-banner :vacancy="vacancy" @openSendId="openGetId" />
+    <job-description :vacancy="vacancy" @openSendId="openGetId" />
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" />
+  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="route.params.id" />
 </template>
 
 <script setup lang="ts">
 import ApplyModal from '@/components/ApplyModal.vue'
 import VacancyDetailBanner from '@/components/vacancy/VacancyDetailBanner.vue'
 import JobDescription from '@/components/job/JobDescription.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useFirestore } from 'vuefire'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs } from 'firebase/firestore'
@@ -20,6 +20,7 @@ const route = useRoute()
 const db = useFirestore()
 const isShow = ref(false)
 const vacancy = ref({})
+const vacancy_id = ref<string | undefined>('')
 
 const fetchVacancy = async () => {
   try {
@@ -37,5 +38,8 @@ const fetchVacancy = async () => {
     toggleLoader()
   }
 }
-fetchVacancy()
+
+onMounted(() => {
+  fetchVacancy()
+})
 </script>

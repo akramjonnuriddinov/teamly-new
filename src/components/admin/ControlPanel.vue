@@ -2,7 +2,10 @@
   <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <h2 class="mb-10 text-3xl capitalize">{{ title }}</h2>
     <div>
-      <div v-if="dataEntries?.length">
+      <div v-if="isLoading" class="flex justify-center py-20">
+        <app-loader />
+      </div>
+      <div v-else-if="dataEntries?.length">
         <div
           class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
           v-for="(item, index) in dataEntries"
@@ -28,13 +31,14 @@
 
 <script setup lang="ts">
 import { ref, watch, defineAsyncComponent } from 'vue'
-import { collection, query, getDocs, doc, deleteDoc } from 'firebase/firestore'
+import { doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import { provide } from 'vue'
-import { toggleLoader } from '@/composables/loader'
 import { UiManager } from '@/types'
+import AppLoader from '../static/AppLoader.vue'
+import { fetchData } from '@/composables/fetchData'
 
 const props = defineProps<{
   title: string
@@ -43,30 +47,15 @@ const db = useFirestore()
 const dataEntries = ref<any>([])
 const currentModal = ref(null)
 const isShow = ref<Boolean>(false)
-
-const fetchData = async (value: string) => {
-  try {
-    toggleLoader(true)
-    const q = query(collection(db, value))
-    const querySnapshot = await getDocs(q)
-    dataEntries.value = []
-    querySnapshot.forEach((doc) => {
-      const item = ref()
-      item.value = doc.data()
-      dataEntries.value.push({ ...item.value, id: doc.id })
-    })
-    currentModal.value = defineAsyncComponent(() => import(`../admin/modals/${props.title}.vue`))
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  } finally {
-    toggleLoader()
-  }
-}
+const isLoading = ref(true)
 
 watch(
   () => props.title,
-  (value) => {
-    fetchData(value)
+  async (value) => {
+    isLoading.value = true
+    dataEntries.value = await fetchData(value, false)
+    currentModal.value = defineAsyncComponent(() => import(`../admin/modals/${props.title}.vue`))
+    isLoading.value = false
   },
   {
     immediate: true,

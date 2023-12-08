@@ -1,7 +1,7 @@
 <template>
-  <aside class="relative top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
+  <aside class="relative top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
-      <router-link :to="{ name: 'vacancy' }" class="flex mb-5">
+      <router-link to="/vacancy" class="flex mb-5">
         <img
           class="w-[150px] min-w-[150px]"
           width="150"
@@ -11,12 +11,12 @@
         />
       </router-link>
       <ul class="space-y-2 font-medium">
-        <li v-for="link in links">
+        <li v-for="link in links" :key="link.name">
           <router-link
             :to="{ name: 'admin' }"
             @click="$emit('change', link.name)"
             type="button"
-            :class="{ 'bg-gray-100': active === link.name }"
+            :class="{ 'bg-gray-100': link.name === active && isActive }"
             class="flex items-center w-full p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
           >
             <component :is="link.icon" />
@@ -24,23 +24,34 @@
           </router-link>
         </li>
       </ul>
-      <div class="flex items-center w-full p-2 space-y-2 font-medium text-gray-900 rounded-lg hover:bg-gray-100 group">
-        <blog-icon />
-        <router-link class="ml-3" :to="{ name: 'resume' }">Resume</router-link>
-      </div>
+      <router-link
+        :to="{ name: 'resume' }"
+        class="flex items-center w-full p-2 mt-2 font-medium text-gray-900 rounded-lg item hover:bg-gray-100 group"
+      >
+        <apply-icon />
+        <span class="ml-3">Appliers</span>
+      </router-link>
     </div>
   </aside>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import AboutIcon from '@/components/icons/admin/AboutIcon.vue'
 import BlogIcon from '@/components/icons/admin/BlogIcon.vue'
 import ServiceIcon from '@/components/icons/admin/ServiceIcon.vue'
+import PortfolioIcon from '@/components/icons/admin/PortfolioIcon.vue'
 import VacancyIcon from '@/components/icons/admin/VacancyIcon.vue'
+import ApplyIcon from '@/components/icons/admin/ApplyIcon.vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const emit = defineEmits(['change'])
-defineProps(['active'])
+const props = defineProps(['active'])
+
+const isActive = computed(() => {
+  return props.active && route.path !== '/admin/resume'
+})
 
 const links = ref([
   {
@@ -49,19 +60,25 @@ const links = ref([
   },
   {
     name: 'portfolio',
-    icon: ServiceIcon,
+    icon: PortfolioIcon,
   },
   {
     name: 'blog',
     icon: BlogIcon,
   },
   {
-    name: 'services',
-    icon: ServiceIcon,
-  },
-  {
     name: 'about',
     icon: AboutIcon,
   },
+  {
+    name: 'services',
+    icon: ServiceIcon,
+  },
 ])
 </script>
+
+<style scoped>
+.item.router-link-exact-active {
+  background-color: rgb(243 244 246);
+}
+</style>
