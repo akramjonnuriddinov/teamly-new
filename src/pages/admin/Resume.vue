@@ -47,11 +47,11 @@
   </div>
   <status-modal
     v-if="isStatusModal"
-    @closeStatusModal="closeStatusModal"
+    @close="closeStatusModal"
     :currentUser="currentUser"
     :statuses="statuses"
   />
-  <user-modal v-if="isUserModal" :appliers="appliers" @closeUserModal="closeUserModal" :user-id="userId" />
+  <user-modal v-if="isUserModal" :appliers="appliers" @close="closeUserModal" :user-id="userId" />
 </template>
 
 <script setup lang="ts">
