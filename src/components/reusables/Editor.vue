@@ -82,7 +82,7 @@ export default {
       default: () => ({}),
     },
     editEditor: {
-      type: Object,
+      type: [Object, String],
       required: true,
       default: () => {},
     },
