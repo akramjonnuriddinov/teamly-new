@@ -13,15 +13,15 @@
               <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
             </button>
             <button
-              @click.stop="openUserModal(applier.user_id)"
-              title="Click me"
+              @click.stop="openUserModal(applier.user.id)"
+              title="View Profile"
               class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
             >
-              {{ applier.resume.name }}
+              {{ applier.user.name }}
             </button>
-            <a @click.stop class="w-1/5 mr-2" href="#">{{ getVacancyTitle(applier.vacancy_id) }}</a>
-            <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.resume.email}`">{{
-              applier.resume.email || 'email undefined'
+            <a @click.stop class="w-1/5 mr-2" href="#">{{ applier.vacancy }}</a>
+            <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.user.email}`">{{
+              applier.user.email || 'email undefined'
             }}</a>
             <div class="flex ml-auto space-x-5">
               <button
@@ -90,10 +90,10 @@ onMounted(async () => {
   applierStatuses.value = await fetchData('applier_statuses')
   const allAppliers = await fetchData('appliers')
   appliers.value = await allAppliers.map((item: any) => ({
-    ...item,
+    id: item.id,
     status: statuses.value.find((el: any) => el.id === item.status_id),
-    resume: users.value.find((el: any) => el.id === item.user_id),
-    vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
+    user: users.value.find((el: any) => el.id === item.user_id),
+    vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id).title,
     applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
   }))
 })
@@ -112,12 +112,6 @@ const openStatusModal = (id: string) => {
 }
 const toggleAccordion = (value: any) => {
   detailExpanded.value = detailExpanded.value === value ? null : value
-}
-const getVacancyTitle = (id: string) => {
-  const list: any = vacancies.value.filter((item: any) => item.id === id)
-  if (list.length) {
-    return list[0].title
-  }
 }
 const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'appliers', id))
