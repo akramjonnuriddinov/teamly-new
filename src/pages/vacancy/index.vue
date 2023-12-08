@@ -1,7 +1,7 @@
 <template>
   <div>
     <vacancy-banner />
-    <job-lists @open="isOpen" />
+    <job-lists @open="isOpen" :vacancyId="vacancyId"/>
     <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="vacancyId" />
   </div>
 </template>
