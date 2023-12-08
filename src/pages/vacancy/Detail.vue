@@ -1,9 +1,9 @@
 <template>
   <div>
-    <vacancy-detail-banner :vacancy="vacancy" @openSendId="openGetId" />
-    <job-description :vacancy="vacancy" @openSendId="openGetId" />
+    <vacancy-detail-banner @open="isOpen"  :vacancy="vacancy"  />
+    <job-description @open="isOpen"  :vacancy="vacancy"  />
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="route.params.id" />
+  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="vacancy_id" />
 </template>
 
 <script setup lang="ts">
@@ -29,7 +29,7 @@ const fetchVacancy = async () => {
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach((doc) => {
       if (doc.id === route.params.id) {
-        vacancy.value = doc.data()
+        vacancy.value = {...doc.data(), id: doc.id}
       }
     })
   } catch {
@@ -37,6 +37,11 @@ const fetchVacancy = async () => {
   } finally {
     toggleLoader()
   }
+}
+
+const isOpen = (id: any) => {
+  vacancy_id.value = id
+  isShow.value = true
 }
 
 onMounted(() => {
