@@ -13,7 +13,8 @@
               <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
             </button>
             <button
-              @click.stop="downloadResume(applier.user_id)"
+              @click.stop="openUserModal(applier.user_id)"
+              title="Click me"
               class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
             >
               {{ applier.resume.name }}
@@ -29,10 +30,10 @@
                   background-color: ${applier?.applierStatus?.color}44;
                   color: ${applier?.applierStatus?.color};
                 `"
-                class="px-2 opacity-90 rounded-full py-[2px]"
+                class="px-3 text-sm opacity-90 rounded-full py-[2px]"
               >
                 <span v-if="applier.status">{{ applier.status.status }}</span>
-                <span v-else>submitted</span>
+                <span v-else class="bg-yellow-300 px-3 text-yellow-900 rounded-full py-[2px]">submitted</span>
               </button>
               <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
                 Remove
@@ -50,7 +51,7 @@
     :currentUser="currentUser"
     :statuses="statuses"
   />
-  <user-modal class="hidden" />
+  <user-modal v-if="isUserModal" :appliers="appliers" @closeUserModal="closeUserModal" :user-id="userId" />
 </template>
 
 <script setup lang="ts">
@@ -58,7 +59,7 @@ import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { deleteObject, getDownloadURL } from 'firebase/storage'
+import { deleteObject } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
 import StatusModal from '@/components/admin/resume/StatusModal.vue'
@@ -79,6 +80,8 @@ const currentUser = ref({
   applier_id: '',
   vacancy_id: '',
 })
+const isUserModal = ref(false)
+const userId = ref('')
 
 onMounted(async () => {
   vacancies.value = await fetchData('vacancies')
@@ -131,9 +134,12 @@ const removeUser = async (id: string) => {
     }
   })
 }
-const downloadResume = async (id: string) => {
-  getDownloadURL(storageRef(storage, `users/${id}`)).then((url) => {
-    window.open(url, '_blank')
-  })
+
+const openUserModal = (id: string) => {
+  isUserModal.value = true
+  userId.value = id
+}
+const closeUserModal = () => {
+  isUserModal.value = false
 }
 </script>
