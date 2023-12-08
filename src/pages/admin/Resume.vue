@@ -1,5 +1,5 @@
 <template>
-  <div @click="statusExpanded.exp = null" class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
     <div>
       <ul>
         <li
@@ -59,8 +59,6 @@ import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { deleteObject } from 'firebase/storage'
-import { storageRef, storage } from '@/firebase'
 import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
 import StatusModal from '@/components/admin/resume/StatusModal.vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
@@ -73,7 +71,6 @@ const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const users = ref<any>([])
 
-const statusExpanded = ref({ exp: null })
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
 const currentUser = ref({
@@ -115,18 +112,7 @@ const toggleAccordion = (value: any) => {
 }
 const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'appliers', id))
-  appliers.value.forEach((item: any) => {
-    if (item.id == id) {
-      const applierRef = storageRef(storage, `users/${item.user_id}`)
-      deleteObject(applierRef)
-        .then(() => {
-          appliers.value = appliers.value.filter((item: any) => item.id !== id)
-        })
-        .catch(() => {
-          console.error('applier deleted error...')
-        })
-    }
-  })
+  appliers.value = appliers.value.filter((item: any) => item.id !== id)
 }
 
 const openUserModal = (user: object) => {
