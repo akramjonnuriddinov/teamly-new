@@ -29,8 +29,12 @@
                 @click="toggleAccordion(index)"
                 class="flex items-center text-tg-body-font-color hover:text-tg-indigo"
               >
-                <inline-svg class="h-4 mr-2" src="fontawesome/arrow-down.svg" />
-                <span>Show statuses</span>
+                <inline-svg
+                  :class="{ 'rotate-180': detailExpanded === index }"
+                  class="h-4 mr-2 transition-transform duration-300"
+                  src="fontawesome/arrow-down.svg"
+                />
+                <span class="text-sm">Show statuses</span>
               </button>
             </div>
             <user-status-detail

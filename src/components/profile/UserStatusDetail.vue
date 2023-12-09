@@ -2,8 +2,7 @@
   <the-transition>
     <div v-if="expanded" class="px-5 overflow-hidden">
       <div v-if="userApplierStatuses.length">
-        <h3 class="my-4 text-lg font-medium text-center text-tg-body-font-color">Your statuses</h3>
-        <ul @click.stop class="relative border-gray-200 border-s">
+        <ul @click.stop class="relative mt-4 border-gray-200 border-s">
           <li v-for="userApplierStatus in userApplierStatuses" class="pt-0 mb-10 ms-4">
             <div
               :style="`background-color: ${userApplierStatus.color}`"
