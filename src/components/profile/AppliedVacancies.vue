@@ -3,7 +3,8 @@
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Applied vacancies</h1>
       <p class="block mb-3 text-sm text-gray-400">All of your applied vacancies</p>
-      <div>
+      <app-loader class="mt-10" v-if="isLoading" />
+      <div v-else>
         <div v-for="(vacancy, index) in vacancies" :key="vacancy.id" class="">
           <div class="shadow-job-inner mb-6 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]">
             <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
@@ -56,9 +57,9 @@ import { useAuthStore } from '@/store/auth'
 import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { fetchData } from '@/composables/fetchData'
-import { toggleLoader } from '@/composables/loader'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import UserStatusDetail from '@/components/profile/UserStatusDetail.vue'
+import AppLoader from '@/components/static/AppLoader.vue'
 
 const db = useFirestore()
 const store = useAuthStore()
@@ -66,9 +67,10 @@ const vacancies = ref()
 const detailExpanded = ref(null)
 const appliers = ref<any>([])
 const applierStatuses = ref([])
+const isLoading = ref(true)
 
 onMounted(async () => {
-  toggleLoader(true)
+  isLoading.value = true
   appliers.value = await fetchData('appliers')
   appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
   applierStatuses.value = await fetchData('applier_statuses')
@@ -94,7 +96,7 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching appliers:', error)
   } finally {
-    toggleLoader()
+    isLoading.value = false
   }
 })
 const toggleAccordion = (value: any) => {
