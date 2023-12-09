@@ -2,13 +2,10 @@
   <div class="pb-[135px]">
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Applied vacancies</h1>
-      <span class="text-sm text-gray-400">All of your applied vacancies</span>
+      <p class="block mb-3 text-sm text-gray-400">All of your applied vacancies</p>
       <div>
         <div v-for="(vacancy, index) in vacancies" :key="vacancy.id" class="">
-          <div
-            @click="toggleAccordion(index)"
-            class="shadow-job-inner my-5 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]"
-          >
+          <div class="shadow-job-inner mb-6 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]">
             <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
             <router-link
               :to="{
@@ -26,14 +23,23 @@
               <span class="block w-2 h-2 rounded-full bg-tg-primary-color"></span>
               <span>{{ vacancy.time }}</span>
             </div>
-            <p class="text-[#5B5A78]">{{ vacancy.text }}</p>
+            <p class="text-[#5B5A78] mb-2">{{ vacancy.text }}</p>
+            <div class="flex justify-end w-full">
+              <button
+                @click="toggleAccordion(index)"
+                class="flex items-center text-tg-body-font-color hover:text-tg-indigo"
+              >
+                <inline-svg class="h-4 mr-2" src="fontawesome/arrow-down.svg" />
+                <span>Show statuses</span>
+              </button>
+            </div>
+            <user-status-detail
+              :profile_status="true"
+              :vacancy_id="vacancy.id"
+              :applierStatuses="applierStatuses"
+              :expanded="detailExpanded === index"
+            />
           </div>
-          <status-detail
-            :profile_status="true"
-            :vacancy_id="vacancy.id"
-            :applierStatuses="applierStatuses"
-            :expanded="detailExpanded === index"
-          />
         </div>
       </div>
     </div>
@@ -45,9 +51,10 @@ import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
 import { fetchData } from '@/composables/fetchData'
 import { toggleLoader } from '@/composables/loader'
+import InlineSvg from '@/components/reusables/InlineSvg.vue'
+import UserStatusDetail from '@/components/profile/UserStatusDetail.vue'
 
 const db = useFirestore()
 const store = useAuthStore()
@@ -80,10 +87,6 @@ onMounted(async () => {
       }
     })
     vacancies.value = await Promise.all(promises)
-    vacancies.value = vacancies.value.map((item: any) => ({
-      ...item,
-      // statuses: applierStatuses.value.find((el: any) => item.id === el.vacancy_id),
-    }))
   } catch (error) {
     console.error('Error fetching appliers:', error)
   } finally {

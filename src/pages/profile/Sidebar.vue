@@ -1,8 +1,8 @@
 <template>
-  <aside class="relative left-0 z-40 w-64 transition-transform -translate-x-full top-10 sm:translate-x-0">
-    <div class="h-auto px-3 py-4 overflow-y-auto bg-gray-50">
+  <aside class="relative left-0 z-40 w-64 pt-10 sm:translate-x-0">
+    <div class="h-full px-3 py-4 overflow-y-auto">
       <h1 class="text-2xl font-medium">Your Profile</h1>
-      <ul class="mt-[57px]">
+      <ul class="mt-[57px] flex flex-col">
         <li
           v-for="nav in navigations"
           onmousedown="return false;"
@@ -11,13 +11,13 @@
             'text-gray-400 cursor-not-allowed ': nav.disabled,
             'hover:text-tg-primary-color cursor-pointer': !nav.disabled,
           }"
-          class="mt-[30px] w-full font-semibold text-base"
+          class="relative w-full mb-3 text-base font-semibold rounded-md"
           :key="nav.name"
           @click="selectNavItem(nav.name, nav.disabled)"
         >
           <span
-            :class="{ 'bg-tg-primary-color text-white rounded-[5px]': selectedNavItem === nav.name }"
-            class="px-5 py-3"
+            :class="{ 'bg-tg-primary-color text-white': selectedNavItem === nav.name }"
+            class="block w-full px-5 py-3 rounded-md"
             >{{ nav.name }}</span
           >
         </li>
