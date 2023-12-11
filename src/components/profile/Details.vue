@@ -80,7 +80,8 @@
     <base-button
       @click="updateProfileInformation"
       :is-loading="isLoadingProfile"
-      class="btn transition-all duration-300 bg-tg-primary-color text-tg-white hover:bg-tg-secondary-color absolute right-0 bg-[#7e54f8] text-white mt-[35px] focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm  text-center"
+      :theme="EThemes.DEFAULT"
+      class="btn absolute right-0 bg-[#7e54f8] text-white mt-[35px] rounded-lg text-sm"
     >
         Update profile information
     </base-button>
@@ -97,7 +98,7 @@
         name="file-input"
         id="file-input"
       />
-      <label  :class="{'hidden' : selectedFile}" for="file-input" class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer">Select file (.docx,.pdf,.txt)</label>
+      <label :class="{'hidden' : selectedFile}" for="file-input" class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer">Select file (.docx,.pdf,.txt)</label>
       <div
         v-if="store.resume && !isLoadingResume"
         @click="showResume"
@@ -151,6 +152,7 @@ import ButtonLoader from '@/components/static/ButtonLoader.vue'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
 import { useFirestore } from 'vuefire'
+import { EThemes } from '@/types'
 import { uploadBytes, deleteObject, ref as fireRef } from 'firebase/storage'
 import { setDoc, doc } from 'firebase/firestore'
 import { useAuthStore } from '@/store/auth'

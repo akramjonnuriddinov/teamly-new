@@ -1,11 +1,11 @@
 <template>
   <div>
     <template v-if="vacancy && Object.keys(vacancy).length > 0">
-      <vacancy-detail-banner @open="isOpen"  :vacancy="vacancy" :applierId="applier_id"/>
-      <job-description @open="isOpen" :vacancy="vacancy" :applierId="applier_id"/>
+      <vacancy-detail-banner @open="isOpen"  :vacancy="vacancy"/>
+      <job-description @open="isOpen" :vacancy="vacancy"/>
     </template>
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="vacancy_id" />
+  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="vacancyId" />
 </template>
 
 <script setup lang="ts">
@@ -26,8 +26,7 @@ const isShow = ref(false)
 
 const user = computed(() => store.user)
 const vacancy = ref<any>(null);
-const vacancy_id = ref<string | undefined>('')
-const applier_id = ref()
+const vacancyId = ref<string | undefined>('')
 
 const fetchVacancy = async () => {
   try {
@@ -45,7 +44,6 @@ const fetchVacancy = async () => {
           if (docSnapshot.exists()) {
             const vacancyData = docSnapshot.data();
             const statusId = applier.data().status_id;
-            applier_id.value = applier.id
             if (route.params.id === appliedVacancyId) {
               return { ...vacancyData, id: appliedVacancyId, status_id: statusId };
             }
@@ -85,7 +83,7 @@ const fetchVacancy = async () => {
 };
 
 const isOpen = (id: any) => {
-  vacancy_id.value = id
+  vacancyId.value = id
   isShow.value = true
 }
 

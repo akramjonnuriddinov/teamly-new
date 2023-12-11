@@ -27,7 +27,7 @@ import { toggleLoader } from '@/composables/loader'
 
 
 
-const props = defineProps(['vacancy', 'applierId'])
+const props = defineProps(['vacancy'])
 const emit = defineEmits(['open',])
 const storeVacancies = useVacanciesStore();
 const store = useAuthStore()
