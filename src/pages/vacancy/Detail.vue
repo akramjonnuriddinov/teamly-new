@@ -5,7 +5,7 @@
       <job-description @open="isOpen" :vacancy="vacancy"/>
     </template>
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="vacancyId" />
+  <apply-modal v-if="isShow" @close="isShow = false" :vacancy-id="vacancyId" />
 </template>
 
 <script setup lang="ts">
