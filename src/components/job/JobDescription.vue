@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import BaseButton from '@/components/reusables/BaseButton.vue'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { useVacanciesStore } from "@/store/vacancies";
 import { useRouter } from 'vue-router'
@@ -33,7 +33,7 @@ const storeVacancies = useVacanciesStore();
 const store = useAuthStore()
 const isLoading = ref(false)
 const router = useRouter()
-const status = ref(storeVacancies.status)
+const status = computed(() => storeVacancies.status)
 
 onMounted ( async() => {
   if(!props.vacancy.status_id) {
@@ -56,15 +56,6 @@ const handleApply = async (id: any) => {
   }
 }
 
-watch(
-  () => storeVacancies.status,
-  (newValue) => {
-    status.value = {...newValue}
-  },
-  {
-    immediate: true,
-  },
-);
 </script>
 
 <style>
