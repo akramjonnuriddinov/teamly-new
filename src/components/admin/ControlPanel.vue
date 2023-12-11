@@ -16,7 +16,13 @@
           </h3>
           <div class="flex gap-4">
             <button @click="editOption(item)" class="text-blue-500 hover:text-blue-700">Edit</button>
-            <button @click="removeItem(item.id)" class="text-red-500 hover:text-red-700">Remove</button>
+            <button
+              @click="removeItem(item.id)"
+              :disabled="removeDisabled"
+              class="text-red-500 hover:text-red-700 disabled:text-gray-600 disabled:cursor-not-allowed"
+            >
+              Remove
+            </button>
           </div>
         </div>
       </div>
@@ -48,6 +54,7 @@ const dataEntries = ref<any>([])
 const currentModal = ref(null)
 const isShow = ref<Boolean>(false)
 const isLoading = ref(true)
+const removeDisabled = ref(false)
 
 watch(
   () => props.title,
@@ -69,8 +76,10 @@ const editOption = (item: any) => {
 }
 
 const removeItem = async (id: any) => {
-  dataEntries.value = dataEntries.value.filter((item: any) => item.id != id)
+  removeDisabled.value = true
   await deleteDoc(doc(db, props.title, id))
+  dataEntries.value = dataEntries.value.filter((item: any) => item.id != id)
+  removeDisabled.value = false
 }
 
 const createModal = () => {

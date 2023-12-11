@@ -20,6 +20,7 @@
         <div class="flex justify-end px-10 pb-5 mt-4">
           <base-button
             v-if="isUpdate"
+            :is-loading="isLoading"
             :size="ESize.SMALL"
             :theme="EThemes.GREEN"
             @click="update"
@@ -88,7 +89,7 @@ if (isUpdate) {
 
 const update = async () => {
   try {
-    close()
+    isLoading.value = true
     updateList(props.oldValue)
     await updateDoc(docRef, {
       ...props.oldValue,
@@ -96,6 +97,8 @@ const update = async () => {
   } catch (error) {
     console.error('Error updating data:', error)
   } finally {
+    isLoading.value = false
+    close()
   }
 }
 </script>
