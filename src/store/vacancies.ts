@@ -7,7 +7,7 @@ const db = useFirestore()
 export const useVacanciesStore = defineStore('vacancies', {
   state: () => ({
     applicationSent: false,
-    statusDefault: { color: "#49e4b0", title: "submitted"},
+    statusDefault: { color: "#49e4b0", title: "Submitted"},
     status: <any>null
   }),
   actions: {
