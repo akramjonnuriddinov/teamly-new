@@ -36,6 +36,7 @@ const router = useRouter()
 const status = computed(() => storeVacancies.status)
 
 onMounted ( async() => {
+  toggleLoader(true)
   if(!props.vacancy.status_id) {
     storeVacancies.updateApplicationSent(false)
   }

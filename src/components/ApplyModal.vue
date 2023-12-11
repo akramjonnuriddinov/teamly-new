@@ -5,7 +5,7 @@
   >
     <div @click.stop class="container rounded-xl overflow-hidden h-auto bg-white relative mx-auto max-w-[500px] w-full">
       <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
-        <h1 class="text-4xl text-center">{{ 'Upload your CV' }}</h1>
+        <h1 class="text-4xl text-center">Upload your CV</h1>
         <button @click="$emit('close')" class="transition-all duration-300 text-tg-heading-font-color hover:opacity-80">
           <close-icon class="h-[18px]" />
         </button>
@@ -56,12 +56,12 @@ import { uploadBytes } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { useVacanciesStore } from "@/store/vacancies";
+
 import { useAuthStore } from '@/store/auth'
 
 const emit = defineEmits(['close'])
 const props = defineProps(['vacancyId'])
-const storeVacancies = useVacanciesStore();
+
 const store = useAuthStore()
 const isLoading = ref(false)
 const db = useFirestore()
@@ -91,7 +91,7 @@ const add = async () => {
     console.error('Error adding resume...')
   } finally {
     isLoading.value = false
-    storeVacancies.updateApplicationSent(true)
+
     emit('close')
   }
 }

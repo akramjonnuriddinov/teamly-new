@@ -12,7 +12,7 @@
 import ApplyModal from '@/components/ApplyModal.vue'
 import VacancyDetailBanner from '@/components/vacancy/VacancyDetailBanner.vue'
 import JobDescription from '@/components/job/JobDescription.vue'
-import { ref, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useFirestore } from 'vuefire'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from "@/store/auth";
@@ -24,9 +24,7 @@ const store = useAuthStore();
 const db = useFirestore()
 const isShow = ref(false)
 
-const user = ref({
-  ...store.user,
-})
+const user = computed(() => store.user)
 const vacancy = ref<any>(null);
 const vacancy_id = ref<string | undefined>('')
 const applier_id = ref()
@@ -95,10 +93,8 @@ const isOpen = (id: any) => {
 
 watch(
   () => store.user,
-  async (newValue) => {
-    user.value = {...newValue}
+  async () => {
     await fetchVacancy();
-    toggleLoader(true)
   },
   {
     immediate: true,
