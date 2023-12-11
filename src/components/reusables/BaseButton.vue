@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<ButtonShape>(), {
 
 const theme = {
   [EThemes.DEFAULT]: 'bg-tg-primary-color text-tg-white hover:bg-tg-secondary-color',
-  [EThemes.GREEN]: 'bg-tg-secondary-color text-tg-white hover:bg-tg-primary-color',
+  [EThemes.GREEN]: 'bg-tg-green text-tg-white hover:bg-tg-secondary-color',
   [EThemes.RED]: 'bg-tg-green text-tg-white hover:bg-tg-teal',
   [EThemes.WHITE]: 'bg-tg-white text-tg-black hover:bg-tg-secondary-color hover:text-tg-white',
 }

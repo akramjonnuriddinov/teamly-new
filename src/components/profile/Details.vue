@@ -137,8 +137,8 @@
           </button>
         </div>
       </div>
-      <div class="ml-20 my-8" v-if="isLoadingResume">
-        <button-loader color="#7e54f8"/>
+      <div class="my-8 ml-20" v-if="isLoadingResume">
+        <button-loader color="#7e54f8" />
       </div>
     </div>
   </div>
@@ -201,7 +201,7 @@ const handleFileChange = async (event: any) => {
       store.fetchProfile()
     } catch (error) {
       console.error('Error uploading file: ', error)
-    }finally {
+    } finally {
       isLoadingResume.value = false
     }
   }

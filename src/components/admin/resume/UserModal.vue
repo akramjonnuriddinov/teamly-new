@@ -1,26 +1,56 @@
 <template>
-  <section
-    class="h-screen overflow-y-auto bg-[#ffffff88] flex justify-center items-start fixed top-0 left-0 w-[100vw] z-50"
-  >
-    <div class="h-auto max-w-lg mx-auto mt-4 mb-4 bg-gray-900 rounded-lg shadow-2xl">
-      <div class="flex flex-col items-center pt-6 pb-6 pl-6 pr-6">
-        <img
-          src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
-          class="flex flex-shrink-0 object-cover object-center w-16 h-16 ml-auto mr-auto -mb-8 rounded-full shadow-xl btn-"
-        />
-        <p class="mt-8 text-2xl font-semibold leading-none tracking-tighter text-white lg:text-3xl">Mark Xenon</p>
-        <p class="mt-3 text-base leading-relaxed text-center text-gray-200">
-          I am a fullstack software developer with ReactJS for frontend and NodeJS for backend
-        </p>
-        <div class="flex justify-center w-full mt-6">
-          <base-button :size="ESize.SMALL">Hire me</base-button>
-        </div>
-      </div>
-    </div>
-  </section>
+  <BaseModal class="" title="Profile" @close="$emit('close')" width="max-w-[470px]" height="h-auto">
+    <span class="flex justify-center w-full my-6 text-2xl leading-none tracking-tighter">{{ user.name }}</span>
+    <ul class="flex flex-col w-full">
+      <li class="flex items-center mb-3">
+        <inline-svg class="mr-2" src="fontawesome/user-profile/email.svg" />
+        <a :href="`mailto:${user.email}`"> {{ user.email }} </a>
+      </li>
+      <li class="flex items-center mb-3">
+        <inline-svg class="mr-2" src="fontawesome/user-profile/github.svg" />
+        <a :href="user.github" target="_blank"> {{ 'github' }} </a>
+      </li>
+      <li class="flex items-center mb-3">
+        <inline-svg class="mr-2" src="fontawesome/user-profile/linkedin.svg" />
+        <a :href="user.linkedin" target="_blank"> {{ 'Linkedin' }} </a>
+      </li>
+      <li class="flex items-center mb-3">
+        <inline-svg class="mr-2" src="fontawesome/user-profile/phone.svg" />
+        <a :href="`tel:${user.phone}`"> {{ user.phone || 'Phone number' }} </a>
+      </li>
+      <li class="flex items-center mb-3">
+        <inline-svg class="mr-2" src="fontawesome/user-profile/telegram.svg" />
+        <a :href="`https://t.me/${user.telegram}`" target="_blank">
+          {{ user.telegram || 'Telegram' }}
+        </a>
+      </li>
+    </ul>
+    <base-button
+      @click.stop="downloadResume(user.id)"
+      :size="ESize.SMALL"
+      :theme="EThemes.GREEN"
+      class="flex items-center w-full mt-5"
+    >
+      <inline-svg class="mr-2" src="fontawesome/user-profile/file-pdf.svg" />
+      <span>Show resume</span>
+    </base-button>
+  </BaseModal>
 </template>
 
 <script setup lang="ts">
+import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
-import { ESize } from '@/types'
+import { ESize, EThemes } from '@/types'
+import { getDownloadURL } from 'firebase/storage'
+import { storageRef, storage } from '@/firebase'
+import BaseModal from '@/components/reusables/BaseModal.vue'
+
+defineProps(['user'])
+defineEmits(['close'])
+
+const downloadResume = async (id: any) => {
+  getDownloadURL(storageRef(storage, `users/${id}`)).then((url) => {
+    window.open(url, '_blank')
+  })
+}
 </script>
