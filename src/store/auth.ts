@@ -7,7 +7,6 @@ import {  storage } from '@/firebase'
 import { getDownloadURL, list, ref } from 'firebase/storage'
 import { getDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { log } from "console";
 
 
 const db = useFirestore()

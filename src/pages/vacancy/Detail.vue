@@ -1,8 +1,8 @@
 <template>
   <div>
     <template v-if="vacancy && Object.keys(vacancy).length > 0">
-      <vacancy-detail-banner @open="isOpen" :vacancy="vacancy" />
-      <job-description @open="isOpen" :vacancy="vacancy" />
+      <vacancy-detail-banner @open="isOpen"  :vacancy="vacancy" :applierId="applier_id"/>
+      <job-description @open="isOpen" :vacancy="vacancy" :applierId="applier_id"/>
     </template>
   </div>
   <apply-modal v-if="isShow" @close="isShow = false" :vacancyId="vacancy_id" />
@@ -12,7 +12,7 @@
 import ApplyModal from '@/components/ApplyModal.vue'
 import VacancyDetailBanner from '@/components/vacancy/VacancyDetailBanner.vue'
 import JobDescription from '@/components/job/JobDescription.vue'
-import { onMounted, ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useFirestore } from 'vuefire'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from "@/store/auth";
@@ -23,46 +23,88 @@ const route = useRoute()
 const store = useAuthStore();
 const db = useFirestore()
 const isShow = ref(false)
-const vacancy = ref({})
+
+const user = ref({
+  ...store.user,
+})
+const vacancy = ref<any>(null);
 const vacancy_id = ref<string | undefined>('')
+const applier_id = ref()
 
 const fetchVacancy = async () => {
   try {
-    toggleLoader(true)
-    const q = query(collection(db, "appliers"), where("user_id", "==", store.user.id));
-    const querySnapshot = await getDocs(q);
-    const promises = querySnapshot.docs.map(async (applier) => {
-      const appliedVacancyId = applier.data().vacancy_id;
-      const docRef = doc(collection(db, 'vacancies'), appliedVacancyId);
-      const docSnapshot = await getDoc(docRef);
+    toggleLoader(true);
+    if (user.value && user.value.id) {
+      const q = query(collection(db, "appliers"), where("user_id", "==", user.value.id));
+      const querySnapshot = await getDocs(q);
 
-      if (docSnapshot.exists()) {
-        const vacancyData = docSnapshot.data();
-        const statusId = applier.data().status_id;
+      if (!querySnapshot.empty) {
+        const promises = querySnapshot.docs.map(async (applier) => {
+          const appliedVacancyId = applier.data().vacancy_id;
+          const docRef = doc(collection(db, 'vacancies'), appliedVacancyId);
+          const docSnapshot = await getDoc(docRef);
 
-        if (route.params.id === appliedVacancyId) {
-          return { ...vacancyData, id: appliedVacancyId, status_id: statusId };
+          if (docSnapshot.exists()) {
+            const vacancyData = docSnapshot.data();
+            const statusId = applier.data().status_id;
+            applier_id.value = applier.id
+            if (route.params.id === appliedVacancyId) {
+              return { ...vacancyData, id: appliedVacancyId, status_id: statusId };
+            }
+          }
+
+          return null;
+        });
+
+        const fetchedVacancies = await Promise.all(promises);
+        const vacancyObject = fetchedVacancies.find(item => item !== null);
+        if (vacancyObject) {
+          vacancy.value = vacancyObject;
+        } else {
+          const qAllVacancies = query(collection(db, 'vacancies'));
+          const querySnapshotAllVacancies = await getDocs(qAllVacancies);
+          querySnapshotAllVacancies.forEach((doc) => {
+            if (doc.id === route.params.id) {
+              vacancy.value = { ...doc.data(), id: doc.id };
+            }
+          });
         }
       } else {
-        console.log(`Document ${appliedVacancyId} does not exist or data is undefined`);
+        const qAllVacancies = query(collection(db, 'vacancies'));
+        const querySnapshotAllVacancies = await getDocs(qAllVacancies);
+        querySnapshotAllVacancies.forEach((doc) => {
+          if (doc.id === route.params.id) {
+            vacancy.value = { ...doc.data(), id: doc.id };
+          }
+        });
       }
-      return null;
-    });
-    vacancy.value = (await Promise.all(promises)).filter(item => item !== null);
-    console.log(vacancy.value);
+    }
   } catch (error) {
     console.error('Error fetching appliers:', error);
   } finally {
     toggleLoader()
   }
-}
+};
 
 const isOpen = (id: any) => {
   vacancy_id.value = id
   isShow.value = true
 }
 
-onMounted(async () => {
-  await fetchVacancy();
-});
+
+
+watch(
+  () => store.user,
+  async (newValue) => {
+    user.value = {...newValue}
+    await fetchVacancy();
+    toggleLoader(true)
+  },
+  {
+    immediate: true,
+  },
+);
+
+
+
 </script>

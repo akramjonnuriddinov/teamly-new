@@ -7,7 +7,7 @@ export const vacancyApply = async (userID: string, id: any) => {
   const ref = collection(db, 'appliers')
   const data = {
     user_id: userID,
-    status_id: null,
+    status_id: 'FaLdBSPRYE1qRkTZXug0',
     vacancy_id: id,
   }
   await addDoc(ref, data)

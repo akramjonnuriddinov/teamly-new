@@ -56,11 +56,12 @@ import { uploadBytes } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
+import { useVacanciesStore } from "@/store/vacancies";
 import { useAuthStore } from '@/store/auth'
 
 const emit = defineEmits(['close'])
 const props = defineProps(['vacancyId'])
-
+const storeVacancies = useVacanciesStore();
 const store = useAuthStore()
 const isLoading = ref(false)
 const db = useFirestore()
@@ -72,11 +73,10 @@ const add = async () => {
     const ref = collection(db, 'appliers')
     const data = {
       user_id: store.user.id,
-      status_id: null,
+      status_id: 'FaLdBSPRYE1qRkTZXug0',
       vacancy_id: props.vacancyId,
     }
     await addDoc(ref, data)
-
     if (selectedFile.value) {
       const userDirectory = `users/${store.user.id}`
       const fileRef = storageRef(storage, userDirectory)
@@ -91,6 +91,7 @@ const add = async () => {
     console.error('Error adding resume...')
   } finally {
     isLoading.value = false
+    storeVacancies.updateApplicationSent(true)
     emit('close')
   }
 }
