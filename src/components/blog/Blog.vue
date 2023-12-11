@@ -34,7 +34,12 @@
                 >{{ blog.subtitle }}</span
               >
               <router-link
-                :to="{ name: 'home' }"
+                :to="{
+                  name: 'blog',
+                  params: {
+                    id: blog.id,
+                  },
+                }"
                 class="text-[22px] font-bold mb-4 text-tg-heading-font-color leading-[1.2] line-clamp-3 transition-color duration-300 hover:text-tg-primary-color"
                 >{{ blog.title }}</router-link
               >
