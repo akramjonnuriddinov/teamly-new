@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-white relative our-blog py-[135px]">
+  <section class="bg-white relative our-blog pt-[135px]">
     <div class="">
       <img class="absolute left-[2%] bottom-2" src="@/assets/images/blog/blog_shape01.png" alt="" />
       <img class="absolute top-[20%] right-36" src="@/assets/images/blog/blog_shape02.png" alt="" />
