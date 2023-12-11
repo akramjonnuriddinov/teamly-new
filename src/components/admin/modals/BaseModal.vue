@@ -28,7 +28,9 @@
           >
             Update
           </base-button>
-          <base-button v-else @click="add" :size="ESize.SMALL" :disabled="disabled"> Add </base-button>
+          <base-button v-else @click="add" :is-loading="isLoading" :size="ESize.SMALL" :disabled="disabled">
+            Add
+          </base-button>
         </div>
       </div>
     </div>
@@ -36,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, computed } from 'vue'
+import { inject, computed, ref } from 'vue'
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { ESize, EThemes, Vacancy } from '@/types'
@@ -50,6 +52,7 @@ const collectionRef = collection(db, props.url)
 let docRef: any = null
 const { close, updateList, addToList } = inject<any>('uiManager')
 const isUpdate = !!props.input
+const isLoading = ref(false)
 
 const disabled = computed(() => {
   return isDisabled(props.oldValue)
@@ -57,11 +60,12 @@ const disabled = computed(() => {
 
 const add = async () => {
   try {
+    isLoading.value = true
     const newValue = {
       ...props.oldValue,
       date: Date.now(),
     }
-    close()
+
     const res = await addDoc(collectionRef, newValue)
     const optionVal: Vacancy = {
       ...newValue,
@@ -73,6 +77,8 @@ const add = async () => {
   } catch (error) {
     console.error('Error adding ...', error)
   } finally {
+    isLoading.value = false
+    close()
   }
 }
 
