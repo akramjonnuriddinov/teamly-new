@@ -74,8 +74,8 @@ onMounted(async () => {
   isLoading.value = true
   appliers.value = await fetchData('appliers')
   applierStatuses.value = await fetchData('applier_statuses')
-  applierStatuses.value = applierStatuses.value.filter((item1: any) =>
-    appliers.value.some((item2: any) => item2.id === item1.applier_id),
+  applierStatuses.value = applierStatuses.value.filter((applierStatus: any) =>
+    appliers.value.some((applier: any) => applier.id === applierStatus.applier_id),
   )
   appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
 
