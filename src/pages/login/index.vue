@@ -53,8 +53,21 @@
                 type="email"
                 required
                 name="email"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 placeholder="name@company.com"
+                :class="[
+                  'bg-gray-50',
+                  'border',
+                  'border-gray-300',
+                  'text-gray-900',
+                  'sm:text-sm',
+                  'rounded-lg',
+                  'focus:ring-primary-600',
+                  'focus:border-primary-600',
+                  'block',
+                  'w-full',
+                  'p-2.5',
+                  { 'border-red-500': isError }
+                ]"
               />
             </div>
             <div>
@@ -65,8 +78,22 @@
                 required
                 name="password"
                 placeholder="••••••••"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                :class="[
+                  'bg-gray-50',
+                  'border',
+                  'border-gray-300',
+                  'text-gray-900',
+                  'sm:text-sm',
+                  'rounded-lg',
+                  'focus:ring-primary-600',
+                  'focus:border-primary-600',
+                  'block',
+                  'w-full',
+                  'p-2.5',
+                  { 'border-red-500': isError }
+                ]"
               />
+              <p v-if="isError" class="text-red-500">Please write your correct email & password</p>
             </div>
             <button
               @click="signIn"
@@ -140,8 +167,21 @@
                 type="email"
                 required
                 name="email"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 placeholder="name@company.com"
+                :class="[
+                  'bg-gray-50',
+                  'border',
+                  'border-gray-300',
+                  'text-gray-900',
+                  'sm:text-sm',
+                  'rounded-lg',
+                  'focus:ring-primary-600',
+                  'focus:border-primary-600',
+                  'block',
+                  'w-full',
+                  'p-2.5',
+                  { 'border-red-500': isError }
+                ]"
               />
             </div>
             <div>
@@ -153,8 +193,22 @@
                 name="password"
                 id="password"
                 placeholder="••••••••"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                :class="[
+                  'bg-gray-50',
+                  'border',
+                  'border-gray-300',
+                  'text-gray-900',
+                  'sm:text-sm',
+                  'rounded-lg',
+                  'focus:ring-primary-600',
+                  'focus:border-primary-600',
+                  'block',
+                  'w-full',
+                  'p-2.5',
+                  { 'border-red-500': isError }
+                ]"
               />
+              <p v-if="isError" class="text-red-500">Somthing get wrong, please try again</p>
             </div>
             <button
               @click="signUp()"
@@ -222,12 +276,16 @@ const signUp = async (): Promise<void> => {
     }
   } catch (error) {
     console.error(error)
+    isError.value = true
+    setTimeout(() => {
+      isError.value = false
+    }, 3000);
     newUser.value.name = ''
     newUser.value.email = ''
     newUser.value.password = ''
   }
 }
-
+const isError = ref(false)
 const user = ref({
   email: '',
   password: '',
@@ -241,8 +299,11 @@ const signIn = async () => {
       store.signIn(userCredential.user)
       router.push('/')
     }
-  } catch (error) {
-    console.error(error)
+  } catch {
+    isError.value = true
+    setTimeout(() => {
+      isError.value = false
+    }, 3000);
   }
 }
 
@@ -266,6 +327,7 @@ const signWithGoogle = async () => {
     router.push('/')
   } catch (error) {
     console.error(error)
+
   }
 }
 </script>
