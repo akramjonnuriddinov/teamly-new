@@ -5,7 +5,7 @@
       <div v-if="isLoading" class="flex justify-center py-20">
         <app-loader />
       </div>
-      <ul v-if="appliers.length">
+      <ul v-else-if="appliers.length">
         <template v-for="(applier, index) in appliers" :key="index">
           <li v-if="applier.user" class="relative flex flex-col mb-5" @click="toggleAccordion(index)">
             <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
