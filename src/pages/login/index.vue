@@ -54,20 +54,8 @@
                 required
                 name="email"
                 placeholder="name@company.com"
-                :class="[
-                  'bg-gray-50',
-                  'border',
-                  'border-gray-300',
-                  'text-gray-900',
-                  'sm:text-sm',
-                  'rounded-lg',
-                  'focus:ring-primary-600',
-                  'focus:border-primary-600',
-                  'block',
-                  'w-full',
-                  'p-2.5',
-                  { 'border-red-500': isError }
-                ]"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                :class="{ 'border-red-500': isError }"
               />
             </div>
             <div>
@@ -78,20 +66,8 @@
                 required
                 name="password"
                 placeholder="••••••••"
-                :class="[
-                  'bg-gray-50',
-                  'border',
-                  'border-gray-300',
-                  'text-gray-900',
-                  'sm:text-sm',
-                  'rounded-lg',
-                  'focus:ring-primary-600',
-                  'focus:border-primary-600',
-                  'block',
-                  'w-full',
-                  'p-2.5',
-                  { 'border-red-500': isError }
-                ]"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                :class="{ 'border-red-500': isError }"
               />
               <p v-if="isError" class="text-red-500">Please write your correct email & password</p>
             </div>
@@ -168,20 +144,8 @@
                 required
                 name="email"
                 placeholder="name@company.com"
-                :class="[
-                  'bg-gray-50',
-                  'border',
-                  'border-gray-300',
-                  'text-gray-900',
-                  'sm:text-sm',
-                  'rounded-lg',
-                  'focus:ring-primary-600',
-                  'focus:border-primary-600',
-                  'block',
-                  'w-full',
-                  'p-2.5',
-                  { 'border-red-500': isError }
-                ]"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                :class="{ 'border-red-500': isError }"
               />
             </div>
             <div>
@@ -193,20 +157,8 @@
                 name="password"
                 id="password"
                 placeholder="••••••••"
-                :class="[
-                  'bg-gray-50',
-                  'border',
-                  'border-gray-300',
-                  'text-gray-900',
-                  'sm:text-sm',
-                  'rounded-lg',
-                  'focus:ring-primary-600',
-                  'focus:border-primary-600',
-                  'block',
-                  'w-full',
-                  'p-2.5',
-                  { 'border-red-500': isError }
-                ]"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                :class="{ 'border-red-500': isError }"
               />
               <p v-if="isError" class="text-red-500">Somthing get wrong, please try again</p>
             </div>
