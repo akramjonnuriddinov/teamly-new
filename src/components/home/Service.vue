@@ -1,5 +1,8 @@
 <template>
-  <section class="bg-[#fff] pt-[80px] pb-[90px] relative z-10 text-tg-black">
+  <loader-wrapper v-if="isLoading">
+    <app-loader />
+  </loader-wrapper>
+  <section v-else class="bg-[#fff] pt-[80px] pb-[90px] relative z-10 text-tg-black">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <div class="absolute hidden -z-50 transition-all duration-1000 right-[4%] top-[9%]">
         <img src="@/assets/images/service/services_shape.png" alt="" />
@@ -49,14 +52,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import ArrowRight from '@/components/icons/ArrowRight.vue'
 import { Service } from '@/types'
 import { fetchData } from '@/composables/fetchData'
+import AppLoader from '../static/AppLoader.vue'
+import LoaderWrapper from '../static/LoaderWrapper.vue'
 
 const services = ref<Service[]>([])
-fetchData('services').then((result) => {
-  services.value = result
+const isLoading = ref(true)
+
+onMounted(async () => {
+  isLoading.value = true
+  services.value = await fetchData('services')
+  isLoading.value = false
 })
 
 const isHover = ref<boolean[]>([])

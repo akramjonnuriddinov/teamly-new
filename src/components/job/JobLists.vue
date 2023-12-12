@@ -1,6 +1,9 @@
 <template>
-  <section id="vacancies" class="pt-[115px] pb-[45px] relative z-10">
-    <div class="container relative w-full px-5 mx-auto max-w-7xl">
+  <section id="vacancies" class="pt-[115px] pb-[45px] relative z-10 mb-[100px]">
+    <loader-wrapper v-if="vacancyLoading">
+      <app-loader />
+    </loader-wrapper>
+    <div v-else class="container relative w-full px-5 mx-auto max-w-7xl">
       <ul class="flex flex-wrap justify-start">
         <li
           class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
@@ -37,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
@@ -45,12 +48,15 @@ import type { Vacancy } from '@/types'
 import { useRouter } from 'vue-router'
 import { fetchData } from '@/composables/fetchData'
 import { vacancyApply } from '@/composables/vacancyApply'
+import AppLoader from '../static/AppLoader.vue'
+import LoaderWrapper from '../static/LoaderWrapper.vue'
 
 defineProps(['isShow'])
 const emit = defineEmits(['open'])
 const vacancies = ref<Vacancy[]>([])
 const store = useAuthStore()
 const isLoading = ref(false)
+const vacancyLoading = ref(true)
 
 const router = useRouter()
 const handleApply = async (id: any) => {
@@ -64,7 +70,9 @@ const handleApply = async (id: any) => {
     emit('open', id)
   }
 }
-fetchData('vacancies').then((result) => {
-  vacancies.value = result
+onMounted(async () => {
+  vacancyLoading.value = true
+  vacancies.value = await fetchData('vacancies')
+  vacancyLoading.value = false
 })
 </script>
