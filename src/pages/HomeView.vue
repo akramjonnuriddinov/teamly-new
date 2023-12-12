@@ -5,7 +5,7 @@
     <about-us />
     <works />
     <Project />
-    <Testimonial />
+    <the-testimonial />
     <Team />
     <Blog />
   </div>
@@ -19,7 +19,7 @@ import HomeHero from '@/components/home/HomeHero.vue'
 import Service from '@/components/home/Service.vue'
 import AboutUs from '@/components/about/AboutUs.vue'
 import Project from '@/components/portfolio/Project.vue'
-import Testimonial from '@/components/static/Testimonial.vue'
+import TheTestimonial from '@/components/static/TheTestimonial.vue'
 import Team from '@/components/team/Team.vue'
 import Blog from '@/components/blog/Blog.vue'
 import AppLoader from '@/components/static/AppLoader.vue'

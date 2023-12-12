@@ -1,9 +1,6 @@
 <template>
   <section id="vacancies" class="pt-[115px] pb-[45px] relative z-10 mb-[100px]">
-    <loader-wrapper v-if="vacancyLoading">
-      <app-loader />
-    </loader-wrapper>
-    <div v-else class="container relative w-full px-5 mx-auto max-w-7xl">
+    <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <ul class="flex flex-wrap justify-start">
         <li
           class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
@@ -62,7 +59,6 @@ import { useFirestore } from 'vuefire'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { toggleLoader } from '@/composables/loader'
 
-
 const props = defineProps(['vacancyId'])
 const db = useFirestore()
 const emit = defineEmits(['open'])
@@ -70,7 +66,6 @@ const vacancies = ref()
 const store = useAuthStore()
 const user = ref({ ...store.user })
 const isLoading = ref(null)
-
 
 const router = useRouter()
 const handleApply = async (id: any) => {
@@ -126,7 +121,7 @@ const fetchDataAndApply = async () => {
   }
 }
 
-onMounted (() => {
+onMounted(() => {
   fetchDataAndApply()
 })
 watch(
