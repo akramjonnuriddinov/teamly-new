@@ -17,14 +17,15 @@
             <span>{{ vacancy.time }}</span>
           </div>
         </div>
-        <base-button v-if="!storeVacancies.applicationSent && !vacancy.status_id" :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy.id)" class="max-[990px]:mt-5"
-          >Apply</base-button
+        <base-button
+          :size="ESize.BIG"
+          class="mt-12"
+          :is-loading="isLoading"
+          :disabled="!curButton"
+          @click="curButton ? handleApply(vacancy.id) : ''"
+          :color="curButton ? '#7e54f8 ' : status ? status.color : storeVacancies.statusDefault.color"
         >
-        <base-button v-else-if="status" :size="ESize.BIG" :color="status.color" class="mt-12">
-          {{status.title}}
-        </base-button>
-        <base-button v-else :size="ESize.BIG" :color="storeVacancies.statusDefault.color" class="mt-12">
-          {{storeVacancies.statusDefault.title}}
+          {{ curButton ? 'Apply' : status ? status.title : storeVacancies.statusDefault.title }}
         </base-button>
       </div>
     </div>
@@ -35,14 +36,14 @@
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ref, onMounted, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import { useVacanciesStore } from "@/store/vacancies";
+import { useVacanciesStore } from '@/store/vacancies'
 import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
 import { toggleLoader } from '@/composables/loader'
 
-
-const storeVacancies = useVacanciesStore();
+const storeVacancies = useVacanciesStore()
+const curButton = computed(() => !props.vacancy.status_id && !storeVacancies.applicationSent)
 const props = defineProps(['vacancy'])
 const emit = defineEmits(['open'])
 const store = useAuthStore()
@@ -50,9 +51,9 @@ const isLoading = ref(false)
 const router = useRouter()
 const status = computed(() => storeVacancies.status)
 
-onMounted ( async() => {
+onMounted(async () => {
   toggleLoader(true)
-  if(!props.vacancy.status_id) {
+  if (!props.vacancy.status_id) {
     storeVacancies.updateApplicationSent(false)
   }
   await storeVacancies.fetchStatus(props.vacancy.status_id)
@@ -68,7 +69,7 @@ const handleApply = async (id: any) => {
   } else if (!store.user) {
     router.push('/login')
   } else {
-    emit('open',id)
+    emit('open', id)
   }
 }
 </script>

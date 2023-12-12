@@ -2,15 +2,16 @@
   <section class="pt-[50px] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <div class="description" v-html="vacancy.description"></div>
-      <base-button v-if="!storeVacancies.applicationSent && !vacancy.status_id" :size="ESize.BIG" class="mt-12" :is-loading="isLoading" @click="handleApply(vacancy.id)"
-        >Apply</base-button
+      <base-button
+        :size="ESize.BIG"
+        class="mt-12"
+        :is-loading="isLoading"
+        :disabled="!curButton"
+        @click="curButton ? handleApply(vacancy.id) : ''"
+        :color="curButton ? '#7e54f8 ' : status ? status.color : storeVacancies.statusDefault.color"
       >
-      <base-button v-else-if="status" :size="ESize.BIG" :color="status.color" class="mt-12">
-        {{status.title}}
+        {{ curButton ? 'Apply' : status ? status.title : storeVacancies.statusDefault.title }}
       </base-button>
-      <base-button v-else :size="ESize.BIG" :color="storeVacancies.statusDefault.color" class="mt-12">
-          {{storeVacancies.statusDefault.title}}
-        </base-button>
     </div>
   </section>
 </template>
@@ -19,25 +20,24 @@
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { onMounted, ref, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import { useVacanciesStore } from "@/store/vacancies";
+import { useVacanciesStore } from '@/store/vacancies'
 import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
 import { toggleLoader } from '@/composables/loader'
 
-
-
+const curButton = computed(() => !props.vacancy.status_id && !storeVacancies.applicationSent)
 const props = defineProps(['vacancy'])
-const emit = defineEmits(['open',])
-const storeVacancies = useVacanciesStore();
+const emit = defineEmits(['open'])
+const storeVacancies = useVacanciesStore()
 const store = useAuthStore()
 const isLoading = ref(false)
 const router = useRouter()
 const status = computed(() => storeVacancies.status)
 
-onMounted ( async() => {
+onMounted(async () => {
   toggleLoader(true)
-  if(!props.vacancy.status_id) {
+  if (!props.vacancy.status_id) {
     storeVacancies.updateApplicationSent(false)
   }
   await storeVacancies.fetchStatus(props.vacancy.status_id)
@@ -53,10 +53,9 @@ const handleApply = async (id: any) => {
   } else if (!store.user) {
     router.push('/login')
   } else {
-    emit('open',id)
+    emit('open', id)
   }
 }
-
 </script>
 
 <style>
