@@ -47,7 +47,12 @@ const router = createRouter({
           path: '/admin/resume',
           name: 'resume',
           component: () => import('@/pages/admin/Resume.vue')
-        }
+        },
+        // {
+        //   path: '/admin/resume/:id',
+        //   name: 'resumeFilter',
+        //   component: () => import('@/pages/admin/Resume.vue')
+        // }
       ]
     },
     {
