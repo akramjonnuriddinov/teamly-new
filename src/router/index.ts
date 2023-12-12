@@ -47,7 +47,12 @@ const router = createRouter({
           path: '/admin/resume',
           name: 'resume',
           component: () => import('@/pages/admin/Resume.vue')
-        }
+        },
+        // {
+        //   path: '/admin/resume/:id',
+        //   name: 'resumeFilter',
+        //   component: () => import('@/pages/admin/Resume.vue')
+        // }
       ]
     },
     {
@@ -70,6 +75,11 @@ const router = createRouter({
       meta: {
         authRequired: true,
       }
+    },
+    {
+      path: '/:id',
+      name: 'blog',
+      component: () => import('@/pages/blog/index.vue')
     },
   ]
 })

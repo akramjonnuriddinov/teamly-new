@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-white relative our-blog py-[135px]">
+  <section class="bg-white relative our-blog pt-[135px]">
     <div class="">
       <img class="absolute left-[2%] bottom-2" src="@/assets/images/blog/blog_shape01.png" alt="" />
       <img class="absolute top-[20%] right-36" src="@/assets/images/blog/blog_shape02.png" alt="" />
@@ -34,7 +34,12 @@
                 >{{ blog.subtitle }}</span
               >
               <router-link
-                :to="{ name: 'home' }"
+                :to="{
+                  name: 'blog',
+                  params: {
+                    id: blog.id,
+                  },
+                }"
                 class="text-[22px] font-bold mb-4 text-tg-heading-font-color leading-[1.2] line-clamp-3 transition-color duration-300 hover:text-tg-primary-color"
                 >{{ blog.title }}</router-link
               >

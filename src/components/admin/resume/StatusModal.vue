@@ -1,41 +1,39 @@
 <template>
   <BaseModal title="Status" @close="$emit('close')">
-    <div class="h-full overflow-y-auto pb-[110px]">
-        <div class="px-10">
-          <form class="w-full h-auto overflow-y-auto">
-            <div class="flex flex-col w-full">
-              <div class="flex items-center justify-between w-full mb-2">
-                <label class="text-gray-700" for="category">Status</label>
-                <div class="flex relative items-center w-[80%]">
-                  <select
-                    v-model="comment.status_id"
-                    class="w-full p-2 border border-gray-200 rounded-md outline-blue-300"
-                    id="category"
-                  >
-                    <option value="" disabled selected>Status</option>
-                    <option class="flex items-center" :value="status.id" :key="status.id" v-for="status in statuses">
-                      {{ status.status }}
-                    </option>
-                  </select>
-                  <input
-                    class="absolute right-0 h-full p-0 bg-transparent"
-                    id="nativeColorPicker1"
-                    type="color"
-                    v-model="comment.color"
-                  />
-                </div>
-              </div>
-              <div class="flex items-center justify-between w-full mt-2 mb-2">
-                <label class="text-gray-700" for="text">Comment</label>
-                <editor @input="handleDescriptionFromChild" :edit-editor="comment.description" class="w-[80%]" />
+    <div class="flex flex-col justify-between h-full">
+      <div class="px-10">
+        <form class="w-full h-full overflow-y-auto">
+          <div class="flex flex-col w-full">
+            <div class="flex items-center justify-between w-full mb-2">
+              <label class="text-gray-700" for="category">Status</label>
+              <div class="flex relative items-center w-[80%]">
+                <select
+                  v-model="comment.status_id"
+                  class="w-full p-2 border border-gray-200 rounded-md outline-blue-300"
+                  id="category"
+                >
+                  <option value="" disabled selected>Status</option>
+                  <option class="flex items-center" :value="status.id" :key="status.id" v-for="status in statuses">
+                    {{ status.title }}
+                  </option>
+                </select>
               </div>
             </div>
-          </form>
-        </div>
-        <div class="flex justify-end px-10 pb-5 mt-4">
-          <base-button :is-loading="isLoading" @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
-        </div>
+            <div class="flex items-center justify-between w-full mt-2 mb-2">
+              <label class="text-gray-700" for="text">Comment</label>
+              <editor
+                @input="handleShortDescriptionFromChild"
+                :edit-editor="comment.shortDescription"
+                class="w-[80%]"
+              />
+            </div>
+          </div>
+        </form>
       </div>
+      <div class="flex justify-end px-10 pt-5 mt-auto">
+        <base-button :is-loading="isLoading" @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
+      </div>
+    </div>
   </BaseModal>
 </template>
 
@@ -54,33 +52,34 @@ const props = defineProps(['currentUser', 'statuses'])
 const isLoading = ref(false)
 const emit = defineEmits(['close'])
 
+const statuses = ref()
+statuses.value = props.statuses
+
 const comment = ref<any>({
   status_id: '',
-  description: '',
-  color: '#cccccc',
+  shortDescription: '',
   applier_id: props.currentUser.applier_id,
-  vacancy_id: props.currentUser.vacancy_id
+  vacancy_id: props.currentUser.vacancy_id,
 })
 
 const add = async () => {
   try {
     isLoading.value = true
-
-    await addDoc(collectionRef, {...comment.value, date: Date.now()})
+    await addDoc(collectionRef, { ...comment.value, date: Date.now() })
     // update status of applier
     const docRef = doc(collection(db, 'appliers'), props.currentUser.applier_id)
     await updateDoc(docRef, {
-      status_id: comment.status_id,
+      status_id: comment.value.status_id,
     })
   } catch (error) {
-    console.error('status adding error...')
+    console.error('status adding error...', error)
   } finally {
     emit('close')
     isLoading.value = false
   }
 }
 
-const handleDescriptionFromChild = (description: string) => {
-  comment.value.description = description
+const handleShortDescriptionFromChild = (shortDescription: string) => {
+  comment.value.shortDescription = shortDescription
 }
 </script>

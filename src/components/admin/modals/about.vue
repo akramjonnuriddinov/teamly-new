@@ -28,10 +28,10 @@
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
               <inline-svg class="text-3xl text-gray-500" src="svg/fontawesome/upload.svg" />
 
-              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+              <p class="mb-2 text-sm text-gray-500">
                 <span class="font-semibold">Click to upload</span> or drag and drop
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+              <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
               <img
                 v-if="about.image"
                 class="absolute top-0 object-cover w-full h-full rounded-lg"

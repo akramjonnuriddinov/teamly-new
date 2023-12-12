@@ -17,6 +17,5 @@ export const fetchData = async (path: string, isLoading = true) => {
     return options.value
   } catch (error) {
     console.error('Error fetching data: ', error)
-  } finally {
   }
 }
