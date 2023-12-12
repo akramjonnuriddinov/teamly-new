@@ -326,8 +326,10 @@ const signWithGoogle = async () => {
     store.signIn(result.user)
     router.push('/')
   } catch (error) {
-    console.error(error)
-
+    isError.value = true
+    setTimeout(() => {
+      isError.value = false
+    }, 3000);
   }
 }
 </script>
