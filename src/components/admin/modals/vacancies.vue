@@ -55,7 +55,7 @@
             rows="10"
           ></textarea>
         </div>
-        <div class="flex items-center justify-between w-full mt-2 mb-2">
+        <div class="flex items-center justify-between w-full mt-2">
           <label class="text-gray-700" for="text">Description</label>
           <editor @input="handleDescriptionFromChild" :edit-editor="vacancy.description" class="w-[80%]" />
         </div>

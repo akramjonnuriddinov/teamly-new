@@ -10,6 +10,13 @@
           alt="logo"
         />
       </router-link>
+      <router-link
+        :to="{ name: 'resume' }"
+        class="flex items-center w-full p-2 mb-2 font-medium text-gray-900 rounded-lg item hover:bg-gray-100 group"
+      >
+        <apply-icon />
+        <span class="ml-3">Appliers</span>
+      </router-link>
       <ul class="space-y-2 font-medium">
         <li v-for="link in links" :key="link.name">
           <router-link
@@ -24,13 +31,6 @@
           </router-link>
         </li>
       </ul>
-      <router-link
-        :to="{ name: 'resume' }"
-        class="flex items-center w-full p-2 mt-2 font-medium text-gray-900 rounded-lg item hover:bg-gray-100 group"
-      >
-        <apply-icon />
-        <span class="ml-3">Appliers</span>
-      </router-link>
     </div>
   </aside>
 </template>
@@ -43,6 +43,7 @@ import ServiceIcon from '@/components/icons/admin/ServiceIcon.vue'
 import PortfolioIcon from '@/components/icons/admin/PortfolioIcon.vue'
 import VacancyIcon from '@/components/icons/admin/VacancyIcon.vue'
 import ApplyIcon from '@/components/icons/admin/ApplyIcon.vue'
+import StatusIcon from '@/components/icons/admin/StatusIcon.vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -73,6 +74,10 @@ const links = ref([
   {
     name: 'services',
     icon: ServiceIcon,
+  },
+  {
+    name: 'statuses',
+    icon: StatusIcon,
   },
 ])
 </script>

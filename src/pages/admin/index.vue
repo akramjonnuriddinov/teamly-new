@@ -17,6 +17,7 @@ const route = useRoute()
 const sidebarSelected = ref('vacancies')
 
 const changeSidebarSelected = (name: string) => {
+  if (name === 'appliers') return
   sidebarSelected.value = name
 }
 </script>
