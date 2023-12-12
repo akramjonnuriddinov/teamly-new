@@ -3,7 +3,9 @@
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Applied vacancies</h1>
       <p class="block mb-3 text-sm text-gray-400">All of your applied vacancies</p>
-      <app-loader class="mt-10" v-if="isLoading" />
+      <div v-if="isLoading" class="flex justify-center py-20">
+        <app-loader />
+      </div>
       <div v-else>
         <div v-for="(vacancy, index) in vacancies" :key="vacancy.id" class="">
           <div class="shadow-job-inner mb-6 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]">
@@ -99,6 +101,7 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
+
 const toggleAccordion = (value: any) => {
   detailExpanded.value = detailExpanded.value === value ? null : value
 }
