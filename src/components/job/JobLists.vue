@@ -1,5 +1,5 @@
 <template>
-  <section id="vacancies" class="pt-[115px] pb-[45px] relative z-10 mb-[100px]">
+  <section id="vacancies" class="pt-[115px] pb-[45px] relative z-10">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <ul class="flex flex-wrap justify-start">
         <li
@@ -55,9 +55,9 @@ const isLoading = ref(false)
 const router = useRouter()
 const handleApply = async (id: any) => {
   if (store.resume) {
-      isLoading.value = true
-      await vacancyApply(store.user.id, id)
-      isLoading.value = false
+    isLoading.value = true
+    await vacancyApply(store.user.id, id)
+    isLoading.value = false
   } else if (!store.user) {
     router.push('/login')
   } else {

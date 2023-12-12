@@ -71,6 +71,11 @@ const router = createRouter({
         authRequired: true,
       }
     },
+    {
+      path: '/:id',
+      name: 'blog',
+      component: () => import('@/pages/blog/index.vue')
+    },
   ]
 })
 

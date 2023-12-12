@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-[#EFF7FF] relative -mt-[620px] pt-[520px] pb-[105px]">
+  <section class="bg-[#EFF7FF] relative pt-[40px] pb-[105px]">
     <div class="container w-full px-5 mx-auto max-w-7xl">
       <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="pb-[70px]">
         <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
