@@ -77,7 +77,9 @@ import StatusModal from '@/components/admin/resume/StatusModal.vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import UserModal from '@/components/admin/resume/UserModal.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const db = useFirestore()
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
@@ -106,6 +108,9 @@ onMounted(async () => {
     vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
     applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
   }))
+  if (route.query.id) {
+    appliers.value = await appliers.value.filter((item: any) => item.vacancy.id === route.query.id)
+  }
   isLoading.value = false
 })
 

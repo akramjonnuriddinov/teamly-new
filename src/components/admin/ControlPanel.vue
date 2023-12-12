@@ -11,9 +11,16 @@
           v-for="(item, index) in dataEntries"
           :key="index"
         >
-          <h3>
+          <router-link
+            :to="{
+              name: 'resume',
+              query: {
+                id: item.id,
+              },
+            }"
+          >
             {{ item.title }}
-          </h3>
+          </router-link>
           <div class="flex gap-4">
             <button @click="editOption(item)" class="text-blue-500 hover:text-blue-700">Edit</button>
             <button
