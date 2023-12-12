@@ -2,11 +2,13 @@
   <div class="pb-[135px]">
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Applied vacancies</h1>
-      <span class="text-gray-400 text-sm">All of your applied vacancies</span>
-      <div>
-        <template v-if="vacancies">
-        <div  v-for="vacancy in vacancies"
-          :key="vacancy.id" class="shadow-job-inner my-5 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]">
+      <p class="block mb-3 text-sm text-gray-400">All of your applied vacancies</p>
+      <div v-if="isLoading" class="flex justify-center py-20">
+        <app-loader />
+      </div>
+      <div v-else>
+        <div v-for="(vacancy, index) in vacancies" :key="vacancy.id" class="">
+          <div class="shadow-job-inner mb-6 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]">
             <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
             <router-link
               :to="{
@@ -24,53 +26,83 @@
               <span class="block w-2 h-2 rounded-full bg-tg-primary-color"></span>
               <span>{{ vacancy.time }}</span>
             </div>
-            <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
+            <p class="text-[#5B5A78] mb-2">{{ vacancy.text }}</p>
+            <div class="flex justify-end w-full">
+              <button
+                @click="toggleAccordion(index)"
+                class="flex items-center text-tg-body-font-color hover:text-tg-indigo"
+              >
+                <inline-svg
+                  :class="{ 'rotate-180': detailExpanded === index }"
+                  class="h-4 mr-2 transition-transform duration-300"
+                  src="fontawesome/arrow-down.svg"
+                />
+                <span class="text-sm">Show statuses</span>
+              </button>
+            </div>
+            <user-status-detail
+              :vacancy_id="vacancy.id"
+              :applierStatuses="applierStatuses"
+              :expanded="detailExpanded === index"
+            />
+          </div>
         </div>
-        </template>
-        <div v-else class="mt-20">
-          <h1 class="text-[20px] font-medium">There are no applications for vacancies yet</h1>
-        </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useAuthStore } from "@/store/auth";
-import { collection, where, query, getDocs, getDoc, doc} from 'firebase/firestore'
+import { useAuthStore } from '@/store/auth'
+import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-import { toggleLoader } from '@/composables/loader'
-
+import { fetchData } from '@/composables/fetchData'
+import InlineSvg from '@/components/reusables/InlineSvg.vue'
+import UserStatusDetail from '@/components/profile/UserStatusDetail.vue'
+import AppLoader from '@/components/static/AppLoader.vue'
 
 const db = useFirestore()
-const store = useAuthStore();
-const vacancies = ref();
+const store = useAuthStore()
+const vacancies = ref()
+const detailExpanded = ref(null)
+const appliers = ref<any>([])
+const applierStatuses = ref([])
+const isLoading = ref(true)
 
 onMounted(async () => {
-  const q = query(collection(db, "appliers"), where("user_id", "==", store.user.id));
+  isLoading.value = true
+  appliers.value = await fetchData('appliers')
+  applierStatuses.value = await fetchData('applier_statuses')
+  applierStatuses.value = applierStatuses.value.filter((applierStatus: any) =>
+    appliers.value.some((applier: any) => applier.id === applierStatus.applier_id),
+  )
+  appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
+
+  const q = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
   try {
-    toggleLoader(true)
-    const querySnapshot = await getDocs(q);
-
+    const querySnapshot = await getDocs(q)
     const promises = querySnapshot.docs.map(async (applier) => {
-      const vacancy_id = applier.data().vacancy_id;
-      const docRef = doc(db, 'vacancies', vacancy_id);
-      const vacancySnapshot = await getDoc(docRef);
+      const vacancy_id = applier.data().vacancy_id
+      const docRef = doc(db, 'vacancies', vacancy_id)
+      const vacancySnapshot = await getDoc(docRef)
       if (vacancySnapshot.exists()) {
-        return {...vacancySnapshot.data(), id: vacancy_id};
+        return { ...vacancySnapshot.data(), id: vacancy_id }
       } else {
-        console.log('Vacancy does not exist');
-        return null;
+        console.log('Vacancy does not exist')
+        return null
       }
-    });
-
-    vacancies.value = await Promise.all(promises);
-
+    })
+    vacancies.value = await Promise.all(promises)
   } catch (error) {
-    console.error('Error fetching appliers:', error);
+
+    console.error('Error fetching appliers:', error)
   } finally {
-    toggleLoader()
+    isLoading.value = false
   }
-});
+})
+
+const toggleAccordion = (value: any) => {
+  detailExpanded.value = detailExpanded.value === value ? null : value
+}
 </script>

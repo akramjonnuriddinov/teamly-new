@@ -1,7 +1,7 @@
 <template>
   <the-transition>
     <div v-if="expanded" class="px-5 overflow-hidden">
-      <ol @click.stop class="relative border-gray-200 border-s">
+      <ul @click.stop class="relative border-gray-200 border-s">
         <li v-for="applierStatus in applierStatuses" class="pt-4 mb-10 ms-4">
           <div
             :style="`background-color: ${applierStatus.status.color}`"
@@ -16,7 +16,7 @@
             {{ applierStatus.status?.definition }}
           </div>
         </li>
-      </ol>
+      </ul>
     </div>
   </the-transition>
 </template>
