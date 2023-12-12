@@ -45,13 +45,16 @@ onMounted(async () => {
 })
 
 const handleApply = async (id: any) => {
+  if (!store.user) {
+    router.push('/login')
+    return
+  }
+
   if (store.resume && !storeVacancies.applicationSent) {
     isLoading.value = true
     await vacancyApply(store.user.id, id)
     isLoading.value = false
     storeVacancies.updateApplicationSent(true)
-  } else if (!store.user) {
-    router.push('/login')
   } else {
     emit('open', id)
   }

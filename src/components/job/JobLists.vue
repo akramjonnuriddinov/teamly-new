@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
@@ -69,13 +69,16 @@ const isLoading = ref(null)
 
 const router = useRouter()
 const handleApply = async (id: any) => {
+  if (!store.user) {
+    router.push('/login')
+    return
+  }
+
   if (store.resume) {
     isLoading.value = id
     await vacancyApply(store.user.id, id)
     currentApply(id)
     isLoading.value = null
-  } else if (!store.user) {
-    router.push('/login')
   } else {
     emit('open', id)
   }
@@ -119,6 +122,9 @@ const fetchDataAndApply = async () => {
   }
 }
 
+onMounted (() => {
+  fetchDataAndApply()
+})
 watch(
   () => store.user,
   (newValue) => {
