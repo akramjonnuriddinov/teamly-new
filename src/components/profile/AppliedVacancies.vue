@@ -41,6 +41,8 @@
               </button>
             </div>
             <user-status-detail
+              v-if="isApplierStatusesReady"
+              :commentLoading="commentLoading"
               :vacancy_id="vacancy.id"
               :applierStatuses="applierStatuses"
               :expanded="detailExpanded === index"
@@ -69,16 +71,13 @@ const detailExpanded = ref(null)
 const appliers = ref<any>([])
 const applierStatuses = ref([])
 const isLoading = ref(true)
+const commentLoading = ref(true)
+const isApplierStatusesReady = ref(false)
 
 onMounted(async () => {
   isLoading.value = true
   appliers.value = await fetchData('appliers')
-  applierStatuses.value = await fetchData('applier_statuses')
-  applierStatuses.value = applierStatuses.value.filter((applierStatus: any) =>
-    appliers.value.some((applier: any) => applier.id === applierStatus.applier_id),
-  )
   appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
-
   const q = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
   try {
     const querySnapshot = await getDocs(q)
@@ -95,14 +94,24 @@ onMounted(async () => {
     })
     vacancies.value = await Promise.all(promises)
   } catch (error) {
-
     console.error('Error fetching appliers:', error)
   } finally {
     isLoading.value = false
   }
 })
 
+const loadApplierStatuses = async () => {
+  commentLoading.value = true
+  applierStatuses.value = await fetchData('applier_statuses')
+  applierStatuses.value = applierStatuses.value.filter((applierStatus: any) =>
+    appliers.value.some((applier: any) => applier.id === applierStatus.applier_id),
+  )
+  isApplierStatusesReady.value = true
+  commentLoading.value = false
+}
+
 const toggleAccordion = (value: any) => {
+  loadApplierStatuses()
   detailExpanded.value = detailExpanded.value === value ? null : value
 }
 </script>
