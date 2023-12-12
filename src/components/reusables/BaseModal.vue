@@ -6,7 +6,7 @@
   >
     <div
       @click.stop
-      class="container rounded-xl overflow-y-hidden bg-white h-full relative mx-auto w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl pb-20"
+      class="container rounded-xl flex flex-col overflow-y-hidden bg-white h-full relative mx-auto w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
       :class="width"
     >
       <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
@@ -15,7 +15,7 @@
           <close-icon class="h-[18px]" @click="$emit('close')" />
         </button>
       </div>
-      <div class="h-full px-10 pb-10 overflow-y-auto">
+      <div class="h-full px-10 pb-5 overflow-y-auto">
         <slot />
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <BaseModal title="Status" @close="$emit('close')">
-    <div class="flex flex-col justify-between h-auto">
+    <div class="flex flex-col justify-between h-full">
       <div class="px-10">
         <form class="w-full h-full overflow-y-auto">
           <div class="flex flex-col w-full">
@@ -30,7 +30,7 @@
           </div>
         </form>
       </div>
-      <div class="flex justify-end flex-1 h-full px-10 pt-5 mt-auto">
+      <div class="flex justify-end px-10 pt-5 mt-auto">
         <base-button :is-loading="isLoading" @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
       </div>
     </div>
