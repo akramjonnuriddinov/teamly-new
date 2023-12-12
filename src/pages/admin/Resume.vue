@@ -37,17 +37,6 @@
                 >
                   {{ applier.status?.title }}
                 </button>
-                <button
-                  v-else
-                  @click.stop="openStatusModal(applier.id, applier.vacancy.id)"
-                  :style="`
-                    background-color: #49e4b044;
-                    color: #49e4b0;
-                  `"
-                  class="px-3 text-sm opacity-90 rounded-full py-[2px]"
-                >
-                  submitted
-                </button>
                 <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
                   Remove
                 </button>
