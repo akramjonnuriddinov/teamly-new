@@ -4,8 +4,9 @@
       <div v-if="userApplierStatuses.length">
         <ul @click.stop class="relative mt-4 border-gray-200 border-s">
           <li v-for="userApplierStatus in userApplierStatuses" class="pt-0 mb-10 ms-4">
+            <!-- {{ userApplierStatus }} -->
             <div
-              :style="`background-color: ${userApplierStatus.color}`"
+              :style="`background-color: ${userApplierStatus.userStatus.color}`"
               class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white"
             ></div>
             <time class="mb-1 text-sm font-bold leading-none text-tg-primary-color">{{
