@@ -29,8 +29,18 @@
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
-            <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy.id)" class="mt-auto">
-              Apply
+            <base-button
+              :color="getColor(vacancy.applied)"
+              :disabled="vacancy.applied"
+              :size="ESize.BIG"
+              :is-loading="isLoading == vacancy.id"
+              @click="handleApply(vacancy.id)"
+              class="mt-auto"
+            >
+              <template v-if="vacancy.applied">
+                <inline-svg fill="none" src="check.svg" />
+              </template>
+              <template v-else> Apply </template>
             </base-button>
           </div>
         </li>
@@ -40,39 +50,99 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import InlineSvg from '@/components/reusables/InlineSvg.vue'
+import { onMounted, ref, watch } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
-import type { Vacancy } from '@/types'
 import { useRouter } from 'vue-router'
 import { fetchData } from '@/composables/fetchData'
+import { collection, where, query, getDocs } from 'firebase/firestore'
+import { useFirestore } from 'vuefire'
 import { vacancyApply } from '@/composables/vacancyApply'
-import AppLoader from '../static/AppLoader.vue'
-import LoaderWrapper from '../static/LoaderWrapper.vue'
+import { toggleLoader } from '@/composables/loader'
 
-defineProps(['isShow'])
+
+const props = defineProps(['vacancyId'])
+const db = useFirestore()
 const emit = defineEmits(['open'])
-const vacancies = ref<Vacancy[]>([])
+const vacancies = ref()
 const store = useAuthStore()
-const isLoading = ref(false)
-const vacancyLoading = ref(true)
+const user = ref({ ...store.user })
+const isLoading = ref(null)
+
 
 const router = useRouter()
 const handleApply = async (id: any) => {
-  if (store.resume) {
-    isLoading.value = true
-    await vacancyApply(store.user.id, id)
-    isLoading.value = false
-  } else if (!store.user) {
+  if (!store.user) {
     router.push('/login')
+    return
+  }
+
+  if (store.resume) {
+    isLoading.value = id
+    await vacancyApply(store.user.id, id)
+    currentApply(id)
+    isLoading.value = null
   } else {
     emit('open', id)
   }
 }
-onMounted(async () => {
-  vacancyLoading.value = true
-  vacancies.value = await fetchData('vacancies')
-  vacancyLoading.value = false
+const currentApply = (id: string) => {
+  const appliedVacancy = vacancies.value.find((vacancy: any) => vacancy.id === id)
+  if (appliedVacancy) {
+    appliedVacancy.applied = true
+    vacancies.value = vacancies.value.map((vacancy: any) =>
+      vacancy.id === appliedVacancy.id ? appliedVacancy : vacancy,
+    )
+  }
+}
+
+const fetchDataAndApply = async () => {
+  if (props.vacancyId) {
+    currentApply(props.vacancyId)
+  } else {
+    try {
+      toggleLoader(true)
+      const result = await fetchData('vacancies', false)
+      vacancies.value = result
+
+      const q = query(collection(db, 'appliers'), where('user_id', '==', user.value.id))
+      const querySnapshot = await getDocs(q)
+
+      querySnapshot.docs.forEach((applier) => {
+        const vacancy_id = applier.data().vacancy_id
+        const index = vacancies.value.findIndex((vacancy: any) => vacancy.id === vacancy_id)
+
+        if (index !== -1) {
+          vacancies.value[index] = { ...vacancies.value[index], applied: true }
+        }
+      })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      toggleLoader()
+    }
+  }
+}
+
+onMounted (() => {
+  fetchDataAndApply()
 })
+watch(
+  () => store.user,
+  (newValue) => {
+    user.value = { ...newValue }
+    if (newValue && newValue.id) {
+      fetchDataAndApply()
+    }
+  },
+  {
+    immediate: true,
+  },
+)
+
+const getColor = (isApplied: string) => {
+  return isApplied ? '#198754' : ''
+}
 </script>

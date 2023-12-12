@@ -11,11 +11,13 @@
             'text-gray-400 cursor-not-allowed ': nav.disabled,
             'hover:text-tg-primary-color cursor-pointer': !nav.disabled,
           }"
+
           class="relative w-full mb-3 text-base font-semibold rounded-md"
           :key="nav.name"
           @click="selectNavItem(nav.name, nav.disabled)"
         >
           <span
+
             :class="{ 'bg-tg-primary-color text-white': selectedNavItem === nav.name }"
             class="block w-full px-5 py-3 rounded-md"
             >{{ nav.name }}</span

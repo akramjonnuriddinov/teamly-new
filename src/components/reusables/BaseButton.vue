@@ -3,6 +3,7 @@
     :disabled="disabled || isLoading"
     :class="`${theme[props.theme]} ${size[props.size]}`"
     class="rounded-[10px] font-bold flex relative justify-center items-center text-center whitespace-nowrap tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500"
+    :style="`background: ${color}`"
   >
     <button-loader v-if="isLoading" />
     <slot v-else></slot>
@@ -17,7 +18,8 @@ interface ButtonShape {
   size?: ESize
   theme?: EThemes
   isLoading?: boolean
-  disabled?: boolean
+  disabled?: boolean,
+  color?: string
 }
 
 const props = withDefaults(defineProps<ButtonShape>(), {
@@ -25,6 +27,7 @@ const props = withDefaults(defineProps<ButtonShape>(), {
   theme: EThemes.DEFAULT,
   isLoading: false,
   disabled: false,
+  color: ''
 })
 
 const theme = {

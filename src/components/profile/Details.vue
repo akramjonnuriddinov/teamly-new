@@ -11,7 +11,7 @@
           type="text"
           required
           name="name"
-          @input="updateFirebaseName"
+          @input="updateValue($event, 'name')"
           v-model="user.name"
           placeholder="name"
           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
@@ -22,19 +22,69 @@
         <input
           type="email"
           required
-          @input="updateFirebaseEmail"
+          disabled
           v-model="user.email"
           placeholder="email@company.com"
-          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
         />
       </div>
     </div>
-    <button
+    <div class="flex justify-between mt-5">
+      <div class="flex flex-col w-[400px]">
+        <label for="git" class="block mb-2 text-sm font-medium text-gray-900">Your GitHub</label>
+        <input
+          type="text"
+          name="git"
+          @input="updateValue($event, 'github')"
+          v-model="user.github"
+          placeholder="link"
+          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        />
+      </div>
+      <div class="flex flex-col w-[400px]">
+        <label for="linkedin" class="block mb-2 text-sm font-medium text-gray-900">Your Linkedin</label>
+        <input
+          type="text"
+          name="linkedin"
+          @input="updateValue($event, 'linkedin')"
+          v-model="user.linkedin"
+          placeholder="link"
+          class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        />
+      </div>
+    </div>
+    <div class="flex justify-between mt-5">
+      <div class="flex flex-col w-[400px]">
+        <label for="telegram" class="block mb-2 text-sm font-medium text-gray-900">Your telegram</label>
+        <input
+          type="text"
+          name="telegram"
+          @input="updateValue($event, 'telegram')"
+          v-model="user.telegram"
+          placeholder="username"
+          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        />
+      </div>
+      <div class="flex flex-col w-[400px]">
+        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Your phone</label>
+        <input
+          type="text"
+          name="phone"
+          @input="updateValue($event, 'phone')"
+          v-model="user.phone"
+          placeholder="number"
+          class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        />
+      </div>
+    </div>
+    <base-button
       @click="updateProfileInformation"
-      class="w-[250px] transition-all duration-300 bg-tg-primary-color text-tg-white hover:bg-tg-secondary-color absolute right-0 bg-[#7e54f8] text-white mt-[35px] focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-[30px] py-[8px] text-center"
+      :is-loading="isLoadingProfile"
+      :theme="EThemes.DEFAULT"
+      class="btn absolute right-0 bg-[#7e54f8] text-white mt-[35px] rounded-lg text-sm"
     >
-      Update profile information
-    </button>
+        Update profile information
+    </base-button>
   </div>
   <div class="flex flex-col w-[400px] mt-5 min-h-fit">
     <div class="mb-6 w-full max-[800px]:w-full relative">
@@ -42,11 +92,13 @@
       <input
         class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm cursor-pointer file:hidden"
         @change="handleFileChange"
+        :class="{'hidden' : !selectedFile}"
         accept=".docx,.pdf,.txt"
         type="file"
         name="file-input"
         id="file-input"
       />
+      <label :class="{'hidden' : selectedFile}" for="file-input" class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer">Select file (.docx,.pdf,.txt)</label>
       <div
         v-if="store.resume && !isLoadingResume"
         @click="showResume"
@@ -94,14 +146,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import BaseButton from '@/components/reusables/BaseButton.vue'
 import ButtonLoader from '@/components/static/ButtonLoader.vue'
-import { getAuth, updateProfile, updateEmail } from 'firebase/auth'
+import { getAuth, updateProfile } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
 import { useFirestore } from 'vuefire'
+import { EThemes } from '@/types'
 import { uploadBytes, deleteObject, ref as fireRef } from 'firebase/storage'
 import { setDoc, doc } from 'firebase/firestore'
 import { useAuthStore } from '@/store/auth'
+import { toggleLoader } from '@/composables/loader'
+
 
 const store = useAuthStore()
 const db = useFirestore()
@@ -113,8 +169,29 @@ const updatedUser = ref({
   ...user.value,
 })
 
+watch(
+  () => store.user,
+  (newValue) => {
+    user.value = {...newValue}
+    toggleLoader()
+  },
+  {
+    immediate: true,
+  },
+);
+
+
+onMounted(async() => {
+  store.fetchProfile()
+  if(!store.user) {
+    toggleLoader(true)
+  }
+})
+
 const selectedFile = ref<any>(null)
 const isLoadingResume = ref(false)
+const isLoadingProfile = ref(false)
+
 const handleFileChange = async (event: any) => {
   selectedFile.value = event.target.files[0]
   if (selectedFile.value) {
@@ -136,32 +213,40 @@ const deleteResume = async () => {
   const desertRef = fireRef(storage, `users/${store.user.id}`)
   await deleteObject(desertRef)
   store.removeResume()
+  selectedFile.value = null
 }
 
 const showResume = () => {
   window.open(store.resume, '_blank')
 }
 
-const updateFirebaseName = (event: any) => {
+const updateValue = (event: any, slug: string) => {
   const newValue = event.target.value
-  updatedUser.value.name = newValue
-}
-
-const updateFirebaseEmail = (event: any) => {
-  const newValue = event.target.value
-  updatedUser.value.email = newValue
+  updatedUser.value[slug] = newValue
 }
 
 const updateProfileInformation = async () => {
-  try {
-    if (currentUser !== null) {
-      await updateProfile(currentUser, { displayName: updatedUser.value.name })
-      await updateEmail(currentUser, updatedUser.value.email)
-      const colRef = doc(db, 'users', updatedUser.value.id)
-      setDoc(colRef, updatedUser.value)
+  if (currentUser !== null) {
+    try {
+          isLoadingProfile.value = true
+          await updateProfile(currentUser, { displayName: updatedUser.value.name })
+          const colRef = doc(db, 'users', updatedUser.value.id)
+          setDoc(colRef, updatedUser.value)
+          store.fetchProfile()
+      } catch (error) {
+        console.log(error)
+      } finally {
+        isLoadingProfile.value = false
     }
-  } catch (error) {
-    console.error(error)
-  }
+}
 }
 </script>
+
+<style scoped>
+.btn {
+  position: absolute;
+  width: 250px;
+  height: 40px;
+  padding: 8px 30px;
+}
+</style>

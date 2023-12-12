@@ -95,6 +95,7 @@ onMounted(async () => {
     })
     vacancies.value = await Promise.all(promises)
   } catch (error) {
+
     console.error('Error fetching appliers:', error)
   } finally {
     isLoading.value = false

@@ -17,9 +17,16 @@
             <span>{{ vacancy.time }}</span>
           </div>
         </div>
-        <base-button :size="ESize.BIG" :is-loading="isLoading" @click="handleApply(vacancy.id)" class="max-[990px]:mt-5"
-          >Apply</base-button
+        <base-button
+          :size="ESize.BIG"
+          class="mt-12"
+          :is-loading="isLoading"
+          :disabled="!curButton"
+          @click="curButton ? handleApply(vacancy.id) : ''"
+          :color="curButton ? '#7e54f8 ' : status ? status.color : storeVacancies.statusDefault.color"
         >
+          {{ curButton ? 'Apply' : status ? status.title : storeVacancies.statusDefault.title }}
+        </base-button>
       </div>
     </div>
   </section>
@@ -27,25 +34,43 @@
 
 <script setup lang="ts">
 import BaseButton from '@/components/reusables/BaseButton.vue'
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
+import { useVacanciesStore } from '@/store/vacancies'
 import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
+import { toggleLoader } from '@/composables/loader'
 
-defineProps(['vacancy'])
+const storeVacancies = useVacanciesStore()
+const curButton = computed(() => !props.vacancy.status_id && !storeVacancies.applicationSent)
+const props = defineProps(['vacancy'])
 const emit = defineEmits(['open'])
 const store = useAuthStore()
 const isLoading = ref(false)
 const router = useRouter()
+const status = computed(() => storeVacancies.status)
+
+onMounted(async () => {
+  toggleLoader(true)
+  if (!props.vacancy.status_id) {
+    storeVacancies.updateApplicationSent(false)
+  }
+  await storeVacancies.fetchStatus(props.vacancy.status_id)
+  toggleLoader()
+})
 
 const handleApply = async (id: any) => {
-  if (store.resume) {
+  if (!store.user) {
+    router.push('/login')
+    return
+  }
+
+  if (store.resume && !storeVacancies.applicationSent) {
     isLoading.value = true
     await vacancyApply(store.user.id, id)
     isLoading.value = false
-  } else if (!store.user) {
-    router.push('/login')
+    storeVacancies.updateApplicationSent(true)
   } else {
     emit('open', id)
   }
