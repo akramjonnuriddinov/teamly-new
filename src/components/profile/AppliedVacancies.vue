@@ -41,7 +41,6 @@
               </button>
             </div>
             <user-status-detail
-              :profile_status="true"
               :vacancy_id="vacancy.id"
               :applierStatuses="applierStatuses"
               :expanded="detailExpanded === index"
@@ -74,11 +73,11 @@ const isLoading = ref(true)
 onMounted(async () => {
   isLoading.value = true
   appliers.value = await fetchData('appliers')
-  appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
   applierStatuses.value = await fetchData('applier_statuses')
   applierStatuses.value = applierStatuses.value.filter((item1: any) =>
     appliers.value.some((item2: any) => item2.id === item1.applier_id),
   )
+  appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
 
   const q = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
   try {
