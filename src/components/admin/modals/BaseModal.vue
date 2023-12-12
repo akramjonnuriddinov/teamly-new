@@ -5,7 +5,7 @@
   >
     <div
       @click.stop
-      class="container rounded-xl overflow-y-hidden h-full bg-white relative mx-auto max-w-[620px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container flex flex-col rounded-xl overflow-y-hidden h-full bg-white relative mx-auto max-w-[620px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
       <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
         <h1 class="text-4xl text-center">{{ modal_title }}</h1>
@@ -13,11 +13,11 @@
           <close-icon class="h-[18px]" />
         </button>
       </div>
-      <div class="h-full overflow-y-auto pb-[110px]">
+      <div class="flex flex-col h-full pb-5 overflow-y-auto">
         <div class="px-10">
           <slot></slot>
         </div>
-        <div class="flex justify-end px-10 pb-5 mt-4">
+        <div class="flex justify-end px-10 pt-5 mt-auto">
           <base-button
             v-if="isUpdate"
             :is-loading="isLoading"
