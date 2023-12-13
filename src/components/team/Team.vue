@@ -11,7 +11,36 @@
           Players.
         </h2>
       </div>
-      <ul class="flex flex-wrap justify-center gap-4 gap-y-20">
+      <ul v-if="isLoading" class="flex flex-wrap justify-center gap-4 gap-y-20">
+        <li
+          class="bg-trasnparent relative team-content rounded-[30px] max-[700px]:max-w-full max-[700px]:w-full"
+          v-for="(team) in [1,2,3,4]"
+          :key="team"
+        >
+          <div class="rounded-[30px] overflow-hidden w-full">
+              <Skeleton
+                class="max-w-full min-w-[318px] object-cover h-[331px] scale-100 w-full team-content-img ease-in-out duration-700 max-[700px]:max-w-full"
+                width="331px"
+                height="331px"
+                :theme="ESkeletonTheme.LIGHT"
+              />
+          </div>
+          <div
+            class="flex flex-col absolute items-center p-[30px] max-w-[90%] w-full bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-[20px] justify-center bg-tg-white max-[700px]:max-w-[80%] max-[600px]:px-5 max-[400px]:max-w-[90%] max-[400px]:p-4"
+          >
+            <h3
+              class="leading-[1.2] font-bold text-2xl text-tg-heading-font-color transition-all duration-300 max-w-[258px] overflow-hidden text-ellipsis text-center max-[480px]:text-xl max-[700px]:max-w-full hover:text-tg-primary-color"
+            >
+              <Skeleton width="251px" height="31px" :theme="ESkeletonTheme.LIGHT" />
+            </h3>
+            <span
+              class="text-lg leadin-1 mt-4 whitespace-nowrap text-tg-paragraph-color max-w-[258px] overflow-hidden text-ellipsis text-center"
+              ><Skeleton width="168px" height="28px" :theme="ESkeletonTheme.LIGHT" /></span
+            >
+          </div>
+        </li>
+      </ul>
+      <ul v-else class="flex flex-wrap justify-center gap-4 gap-y-20">
         <li
           class="bg-trasnparent relative team-content rounded-[30px] max-[700px]:max-w-full max-[700px]:w-full"
           v-for="(team, index) in teams"
@@ -47,12 +76,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
+import Skeleton , { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
+
 
 const teams = ref<any>([])
-fetchData('about').then((result) => {
-  teams.value = result
+const isLoading = ref(true)
+
+onMounted(async () => {
+  isLoading.value = true
+  teams.value = await fetchData('about')
+  isLoading.value = false
 })
 </script>
 

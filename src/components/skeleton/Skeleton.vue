@@ -39,7 +39,7 @@ export default defineComponent({
 </template>
 <style scoped>
 .skeleton {
-  border-radius: 4px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;

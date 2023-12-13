@@ -1,6 +1,35 @@
 <template>
   <section class="bg-no-repeat bg-cover bg-tg-white my-[86px]">
-    <div
+    <div v-if="isLoading"
+      class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+    >
+      <h1
+        class="text-tg-heading-font-color max-w-[1170px] w-full pt-[90px] mb-4 font-medium leading-[1.2] text-[50px] max-sm:text-4xl"
+      >
+      <Skeleton width="100%" height="80px" :theme="ESkeletonTheme.LIGHT" />
+      </h1>
+      <div class="flex flex-col rounded-[10px] blog-inner mb-7 transition-all duration-300">
+        <Skeleton
+          class="w-[770px] h-[430px] object-cover rounded-[10px] max-[650px]:w-full max-[650px]:h-full"
+          width="770px"
+          height="430px"
+          :theme="ESkeletonTheme.LIGHT"
+        />
+        <div
+          class="flex items-center py-10 w-full mt-auto font-medium text-tg-paragraph-color max-[1200px]:justify-start"
+        >
+          <div class="flex items-center mr-8">
+            <Skeleton width="170px" height="24px" :theme="ESkeletonTheme.LIGHT" />
+          </div>
+          <div class="flex items-center">
+            <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.LIGHT" />
+          </div>
+        </div>
+        <Skeleton width="100%" height="100vh" :theme="ESkeletonTheme.LIGHT" />
+
+      </div>
+    </div>
+    <div v-else
       class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
       <h1
@@ -40,15 +69,19 @@
 import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { useRoute } from 'vue-router'
+import Skeleton , { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
 const route = useRoute()
 const blogs = ref<any>([])
 const blog = ref<any>([])
+const isLoading = ref(true)
+
 
 onMounted(async () => {
+  isLoading.value = true
   blogs.value = await fetchData('blog')
   blog.value = await blogs.value.filter((item: any) => item.id === route.params.id)[0]
-  console.log(blog.value)
+  isLoading.value = false
 })
 
 function formatTimestampToLocaleString(timestamp: number) {
