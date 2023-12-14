@@ -43,6 +43,7 @@
               </div>
             </div>
             <status-detail
+              v-if="isApplierStatusesReady"
               :applier_id="applier.id"
               :status_id="applier.status_id"
               :expanded="detailExpanded === index"
@@ -104,6 +105,13 @@ onMounted(async () => {
   isLoading.value = false
 })
 
+const isApplierStatusesReady = ref(false)
+
+const loadApplierStatuses = async () => {
+  applierStatuses.value = await fetchData('applier_statuses')
+  isApplierStatusesReady.value = true
+}
+
 const openStatusModal = (applier_id: string, vacancy_id: string) => {
   isStatusModal.value = true
   currentUser.value = {
@@ -112,6 +120,7 @@ const openStatusModal = (applier_id: string, vacancy_id: string) => {
   }
 }
 const toggleAccordion = (value: any) => {
+  loadApplierStatuses()
   detailExpanded.value = detailExpanded.value === value ? null : value
 }
 const removeUser = async (id: string) => {
