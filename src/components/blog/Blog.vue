@@ -16,7 +16,32 @@
           Inside Story
         </h2>
       </div>
-      <ul class="flex flex-wrap justify-between w-full max-[1200px]:flex-col">
+      <ul v-if="isLoading" class="flex flex-wrap justify-between w-full max-[1200px]:flex-col">
+        <li v-for="blog in 5" class="w-1/2 px-4 max-[1200px]:w-auto" :key="blog">
+          <div class="flex rounded-[10px] blog-inner mb-7 transition-all duration-300 max-[650px]:flex-col">
+            <Skeleton width="318px" height="230px" :theme="ESkeletonTheme.LIGHT" />
+            <div
+              class="flex w-full bg-white px-[30px] py-[25px] flex-col items-start rounded-tr-[10px] rounded-br-[10px] border border-l-0 border-[#f5f2f2] transition-all duration-300 max-[1200px]:w-auto max-[650px]:border max-[650px]:border-t-0 max-[650px]:rounded-tl-none max-[650px]:rounded-tr-none max-[650px]:rounded-bl-[10px]"
+            >
+              <Skeleton width="140px" height="28px" :theme="ESkeletonTheme.LIGHT" />
+              <div class="mt-4">
+                <Skeleton width="287px" height="80px" :theme="ESkeletonTheme.LIGHT" />
+              </div>
+              <div
+                class="flex items-center justify-between w-full mt-auto font-medium text-tg-paragraph-color max-[1200px]:justify-start"
+              >
+                <div class="flex items-center mr-8">
+                  <Skeleton width="193px" height="24px" :theme="ESkeletonTheme.LIGHT" />
+                </div>
+                <div class="flex items-center">
+                  <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.LIGHT" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul v-else class="flex flex-wrap justify-between w-full max-[1200px]:flex-col">
         <li v-for="blog in blogs" class="w-1/2 px-4 max-[1200px]:w-auto">
           <div class="flex rounded-[10px] blog-inner mb-7 transition-all duration-300 max-[650px]:flex-col">
             <img
@@ -66,13 +91,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
+import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
 const blogs = ref<any>([])
+const isLoading = ref(true)
 
-fetchData('blog').then((result) => {
-  blogs.value = result
+onMounted(async () => {
+  isLoading.value = true
+  blogs.value = await fetchData('blog')
+  isLoading.value = false
 })
 
 function formatTimestampToLocaleString(timestamp: number) {
