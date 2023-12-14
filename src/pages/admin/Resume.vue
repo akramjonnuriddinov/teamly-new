@@ -90,7 +90,6 @@ onMounted(async () => {
   vacancies.value = await fetchData('vacancies')
   statuses.value = await fetchData('statuses')
   users.value = await fetchData('users')
-  applierStatuses.value = await fetchData('applier_statuses')
   const allAppliers = await fetchData('appliers')
   appliers.value = await allAppliers.map((item: any) => ({
     id: item.id,
