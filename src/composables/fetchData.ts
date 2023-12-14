@@ -4,7 +4,7 @@ import { useFirestore } from 'vuefire'
 
 const db = useFirestore()
 
-export const fetchData = async (path: string, isLoading = true) => {
+export const fetchData = async (path: string) => {
   const options = ref<any>([])
   try {
     const q = query(collection(db, path))

@@ -99,7 +99,7 @@ const fetchDataAndApply = async () => {
   } else {
     try {
       toggleLoader(true)
-      const result = await fetchData('vacancies', false)
+      const result = await fetchData('vacancies')
       vacancies.value = result
 
       const q = query(collection(db, 'appliers'), where('user_id', '==', user.value.id))

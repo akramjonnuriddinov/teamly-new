@@ -1,28 +1,23 @@
 import { ref } from 'vue'
-import { collection, query, where, limit, getDocs } from 'firebase/firestore'
+import { collection, query, getDocs, limit, startAfter, orderBy } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 
 const db = useFirestore()
 
-export const fetchDataWithLimit = async (path: string, conditions = [], customLimit = 10) => {
+export const fetchDataWithLimit = async (path: string, limitCount: number, lastDoc: any = null) => {
   const options = ref<any>([])
   try {
-    let q = query(collection(db, path));
+    let q = query(collection(db, path), orderBy('date', 'desc'), limit(limitCount))
 
-    // Apply where conditions
-    conditions.forEach((condition) => {
-      const { field, operator, value } = condition
-      q = query(q, where(field, operator, value))
-    })
-
-    // Apply default or custom limit
-    q = query(q, limit(customLimit))
+    if (lastDoc) {
+      q = query(q, startAfter(lastDoc))
+    }
 
     const querySnapshot = await getDocs(q)
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach(async (doc) => {
       const item = ref()
       item.value = doc.data()
-      options.value.push({ ...item.value, id: doc.id })
+      await options.value.push({ ...item.value, id: doc.id })
     })
 
     return options.value
