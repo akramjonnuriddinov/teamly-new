@@ -9,12 +9,13 @@
       <Skeleton width="100%" height="80px" :theme="ESkeletonTheme.LIGHT" />
       </h1>
       <div class="flex flex-col rounded-[10px] blog-inner mb-7 transition-all duration-300">
-        <Skeleton
-          class="w-[770px] h-[430px] object-cover rounded-[10px] max-[650px]:w-full max-[650px]:h-full"
-          width="770px"
+        <div class="max-w-[770px]">
+          <Skeleton
+          width="100%"
           height="430px"
           :theme="ESkeletonTheme.LIGHT"
         />
+        </div>
         <div
           class="flex items-center py-10 w-full mt-auto font-medium text-tg-paragraph-color max-[1200px]:justify-start"
         >

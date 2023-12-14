@@ -36,7 +36,6 @@
                 class="flex items-center gap-2 mt-auto font-medium transition-colors duration-300 hover:text-tg-primary-color"
               >
                 <span><Skeleton width="330px" height="24px" :theme="ESkeletonTheme.LIGHT" /></span>
-                <arrow-right />
               </div>
             </div>
           </li>

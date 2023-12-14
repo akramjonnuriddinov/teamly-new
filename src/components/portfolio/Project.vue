@@ -14,7 +14,7 @@
           :key="project"
           class="relative project-wrapper overflow-hidden border-red-400 rounded-[30px] max-w-[290px] w-full max-[970px]:max-w-[40%] max-[760px]:max-w-[100%]"
         >
-          <Skeleton width="290px" height="393px" :theme="ESkeletonTheme.LIGHT" />
+          <Skeleton width="100%" height="393px" :theme="ESkeletonTheme.LIGHT" />
         </li>
       </ul>
       <ul v-else class="flex flex-wrap items-center justify-center gap-x-6 gap-y-10">

@@ -19,7 +19,7 @@
       <ul v-if="isLoading" class="flex flex-wrap justify-between w-full max-[1200px]:flex-col">
         <li v-for="blog in 5" class="w-1/2 px-4 max-[1200px]:w-auto" :key="blog">
           <div class="flex rounded-[10px] blog-inner mb-7 transition-all duration-300 max-[650px]:flex-col">
-            <Skeleton width="100%" height="230px" :theme="ESkeletonTheme.LIGHT" />
+            <Skeleton width="318px" height="230px" :theme="ESkeletonTheme.LIGHT" />
             <div
               class="flex w-full bg-white px-[30px] py-[25px] flex-col items-start rounded-tr-[10px] rounded-br-[10px] border border-l-0 border-[#f5f2f2] transition-all duration-300 max-[1200px]:w-auto max-[650px]:border max-[650px]:border-t-0 max-[650px]:rounded-tl-none max-[650px]:rounded-tr-none max-[650px]:rounded-bl-[10px]"
             >

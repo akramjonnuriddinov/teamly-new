@@ -17,7 +17,7 @@
                 <Skeleton width="200px" height="24px" :theme="ESkeletonTheme.DARK" />
               </span>
               <div class="mb-4">
-                <Skeleton width="600px" height="168px" :theme="ESkeletonTheme.DARK" />
+                <Skeleton width="350px" height="168px" :theme="ESkeletonTheme.DARK" />
               </div>
               <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
                 <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.DARK" />

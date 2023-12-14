@@ -20,7 +20,7 @@
           <div class="rounded-[30px] overflow-hidden w-full">
             <Skeleton
               class="max-w-full min-w-[318px] object-cover h-[331px] scale-100 w-full team-content-img ease-in-out duration-700 max-[700px]:max-w-full"
-              width="331px"
+              width="100%"
               height="331px"
               :theme="ESkeletonTheme.LIGHT"
             />
