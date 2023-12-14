@@ -2,26 +2,28 @@
   <section id="vacancies" class="pt-[115px] pb-[45px] relative z-10 mb-[100px]">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <ul v-if="listLoading" class="flex flex-wrap justify-start">
-          <li
-            class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
-            v-for="vacancy in 4"
-            :key="vacancy"
-          >
-            <div class="shadow-job-inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
-              <span class="mb-5"><Skeleton width="100%" height="24px" :theme="ESkeletonTheme.LIGHT" /></span>
-              <div class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7 transition-all duration-300 hover:text-tg-secondary-color">
-                <Skeleton width="100%" height="72px" :theme="ESkeletonTheme.LIGHT" />
-              </div>
-              <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
-                <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.LIGHT" />
-                <Skeleton width="8px" height="8px" :theme="ESkeletonTheme.LIGHT" />
-                <Skeleton width="116px" height="24px" :theme="ESkeletonTheme.LIGHT" />
-              </div>
-              <p class="mb-12"><Skeleton width="100%" height="24px" :theme="ESkeletonTheme.LIGHT" /></p>
-              <Skeleton width="100%" height="60px" :theme="ESkeletonTheme.LIGHT" />
+        <li
+          class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
+          v-for="vacancy in 4"
+          :key="vacancy"
+        >
+          <div class="shadow-job-inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
+            <span class="mb-5"><Skeleton width="100%" height="24px" :theme="ESkeletonTheme.LIGHT" /></span>
+            <div
+              class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7 transition-all duration-300 hover:text-tg-secondary-color"
+            >
+              <Skeleton width="100%" height="72px" :theme="ESkeletonTheme.LIGHT" />
             </div>
-          </li>
-        </ul>
+            <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
+              <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.LIGHT" />
+              <Skeleton width="8px" height="8px" :theme="ESkeletonTheme.LIGHT" />
+              <Skeleton width="116px" height="24px" :theme="ESkeletonTheme.LIGHT" />
+            </div>
+            <p class="mb-12"><Skeleton width="100%" height="24px" :theme="ESkeletonTheme.LIGHT" /></p>
+            <Skeleton width="100%" height="60px" :theme="ESkeletonTheme.LIGHT" />
+          </div>
+        </li>
+      </ul>
       <ul v-else class="flex flex-wrap justify-start">
         <li
           class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
@@ -69,7 +71,7 @@
 
 <script setup lang="ts">
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
-import {  ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
@@ -80,8 +82,6 @@ import { useFirestore } from 'vuefire'
 import { vacancyApply } from '@/composables/vacancyApply'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
-
-
 const props = defineProps(['vacancyId'])
 const db = useFirestore()
 const emit = defineEmits(['open'])
@@ -90,7 +90,6 @@ const store = useAuthStore()
 const user = ref({ ...store.user })
 const isLoading = ref(null)
 const listLoading = ref(true)
-
 
 const router = useRouter()
 const handleApply = async (id: any) => {
@@ -145,15 +144,11 @@ const fetchDataAndApply = async () => {
   }
 }
 
-
-
 watch(
   () => store.user,
   async (newValue) => {
     user.value = { ...newValue }
-    if (newValue && newValue.id) {
-      await fetchDataAndApply()
-    }
+    await fetchDataAndApply()
   },
   {
     immediate: true,
