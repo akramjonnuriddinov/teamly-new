@@ -99,7 +99,7 @@ let lastVisible: any = null
 const options = ref<any>([])
 
 async function loadMore() {
-  const q = query(collection(db, 'appliers'), orderBy('date'), startAfter(lastVisible), limit(3))
+  const q = query(collection(db, 'appliers'), orderBy('date'), startAfter(lastVisible), limit(6))
 
   const querySnapshot = await getDocs(q)
 
@@ -111,8 +111,6 @@ async function loadMore() {
       item.value = doc.data()
       options.value.push({ ...item.value, id: doc.id })
     })
-
-    console.log(options.value)
 
     isLoading2.value = true
     vacancies.value = await fetchData('vacancies')
