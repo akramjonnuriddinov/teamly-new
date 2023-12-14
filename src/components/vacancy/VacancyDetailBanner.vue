@@ -12,7 +12,7 @@
             <Skeleton width="200px" height="24px" :theme="ESkeletonTheme.DARK" />
           </span>
           <div class="mb-4">
-            <Skeleton width="500px" height="40px" :theme="ESkeletonTheme.DARK" />
+            <Skeleton width="600px" height="168px" :theme="ESkeletonTheme.DARK" />
           </div>
           <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
             <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.DARK" />
@@ -75,10 +75,10 @@ const router = useRouter()
 const status = computed(() => storeVacancies.status)
 
 onMounted(async () => {
-  if (!props.vacancy.status_id) {
+  if (!props.vacancy?.status_id) {
     storeVacancies.updateApplicationSent(false)
   }
-  await storeVacancies.fetchStatus(props.vacancy.status_id)
+  await storeVacancies.fetchStatus(props.vacancy?.status_id)
   listLoading.value = false
 })
 

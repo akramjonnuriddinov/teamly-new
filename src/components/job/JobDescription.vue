@@ -43,10 +43,10 @@ const router = useRouter()
 const status = computed(() => storeVacancies.status)
 
 onMounted(async () => {
-  if (!props.vacancy.status_id) {
+  if (!props.vacancy?.status_id) {
     storeVacancies.updateApplicationSent(false)
   }
-  await storeVacancies.fetchStatus(props.vacancy.status_id)
+  await storeVacancies.fetchStatus(props.vacancy?.status_id)
   listLoading.value = false
 })
 
