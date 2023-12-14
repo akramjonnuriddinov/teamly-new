@@ -5,16 +5,23 @@
 defineProps({
   color: {
     type: String,
-    default: '#fff'
+    default: '#fff',
   },
-});
-
+  width: {
+    type: String,
+    default: '30px',
+  },
+  height: {
+    type: String,
+    default: '30px',
+  },
+})
 </script>
 
 <style scoped>
 .btn-loader {
-  width: 30px;
-  height: 30px;
+  width: v-bind(width);
+  height: v-bind(height);
   border: 3px solid #fff;
   border-bottom-color: transparent;
   border-radius: 50%;

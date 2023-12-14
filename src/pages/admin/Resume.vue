@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll" @scroll="detectScroll">
     <div>
       <h2 class="mb-10 text-3xl capitalize">Appliers</h2>
       <div v-if="isLoading" class="flex justify-center py-20">
@@ -50,16 +50,8 @@
             />
           </li>
         </template>
-        <div v-if="isLoading2">
-          <div class="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-        <div v-else class="flex justify-center pt-4">
-          <base-button :disabled="disabled" @click="loadMore" :size="ESize.SMALL">Load more</base-button>
+        <div v-if="isLoading2" class="flex justify-center">
+          <button-loader color="#7E54F8" width="50px" height="50px" />
         </div>
       </ul>
       <div v-else>Nothing found...</div>
@@ -70,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
@@ -81,8 +73,7 @@ import UserModal from '@/components/admin/resume/UserModal.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
-import BaseButton from '@/components/reusables/BaseButton.vue'
-import { ESize } from '@/types'
+import ButtonLoader from '@/components/static/ButtonLoader.vue'
 
 const route = useRoute()
 const db = useFirestore()
@@ -101,12 +92,10 @@ const isUserModal = ref(false)
 const selectedUser = ref<any>(null)
 let lastVisible: any = null
 const options = ref<any>([])
-const isDisabled = ref(false)
-
-const disabled = computed(() => isDisabled.value)
+const isLoadMore = ref(true)
 
 async function loadMore() {
-  const q = query(collection(db, 'appliers'), orderBy('date'), startAfter(lastVisible), limit(6))
+  const q = query(collection(db, 'appliers'), orderBy('date'), startAfter(lastVisible), limit(20))
 
   const querySnapshot = await getDocs(q)
 
@@ -131,10 +120,18 @@ async function loadMore() {
       applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
     }))
     isLoading2.value = false
-    isDisabled.value = false
   } else {
-    isDisabled.value = true
+    isLoadMore.value = false
     console.log('No more documents to load.')
+  }
+}
+
+const detectScroll = async (event: any) => {
+  const element = event.target
+  const scrollHeight = element.scrollHeight - window.innerHeight
+  if (scrollHeight <= element.scrollTop && !isLoading2.value && isLoadMore.value) {
+    await loadMore()
+    console.log(scrollHeight, element.scrollTop)
   }
 }
 
@@ -175,61 +172,3 @@ const openUserModal = (user: object) => {
   selectedUser.value = user
 }
 </script>
-
-<style scoped>
-.lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #757589;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
-}
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(24px, 0);
-  }
-}
-</style>
