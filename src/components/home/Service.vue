@@ -1,5 +1,5 @@
 <template>
-  <section  class="bg-[#fff] pt-[80px] pb-[90px] relative z-10 text-tg-black">
+  <section class="bg-[#fff] pt-[80px] pb-[90px] relative z-10 text-tg-black">
     <div class="container relative w-full px-5 mx-auto max-w-7xl">
       <div class="absolute hidden -z-50 transition-all duration-1000 right-[4%] top-[9%]">
         <img src="@/assets/images/service/services_shape.png" alt="" />
@@ -13,35 +13,34 @@
           lifecycle
         </h2>
       </div>
-      <div  v-if="isLoading" class="flex items-center justify-center">
-        <ul  class="flex flex-wrap justify-between">
+      <div v-if="isLoading" class="flex items-center justify-center">
+        <ul class="flex flex-wrap justify-between">
           <li
-                class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
-                v-for="(service) in [1, 2, 3]"
-                :key="service"
+            class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
+            v-for="service in 3"
+            :key="service"
+          >
+            <div class="service-item-inner flex flex-col h-full bg-[#F6F9FB1] px-[35px] py-[50px] rounded-[20px]">
+              <div
+                class="mb-[22px] text-2xl font-bold transition-colors duration-300 whitespace-nowrap hover:text-tg-primary-color"
               >
-                <div
-                  class="service-item-inner flex flex-col h-full bg-[#F6F9FB1] px-[35px] py-[50px] rounded-[20px]"
-                >
-                  <div
-                    class="mb-[22px] text-2xl font-bold transition-colors duration-300 whitespace-nowrap hover:text-tg-primary-color"
-                    ><Skeleton width="330px" height="32px" :theme="ESkeletonTheme.LIGHT"/></div
-                  >
-                  <div class="mb-6 w-[75px] h-[75px] object-cover">
-                    <Skeleton width="70px" height="75px" :theme="ESkeletonTheme.LIGHT" class="rounded-md" />
-                  </div>
-                  <p class="service-item-text mb-4 leading-[1.8] text-tg-paragraph-color">
-                    <Skeleton width="330px" height="90px" :theme="ESkeletonTheme.LIGHT"/>
-                  </p>
-                  <div
-                    class="flex items-center gap-2 mt-auto font-medium transition-colors duration-300 hover:text-tg-primary-color"
-                  >
-                    <span><Skeleton width="330px" height="24px"  :theme="ESkeletonTheme.LIGHT"/></span>
-                    <arrow-right />
-                </div>
-                </div>
-              </li>
-      </ul>
+                <Skeleton width="330px" height="32px" :theme="ESkeletonTheme.LIGHT" />
+              </div>
+              <div class="mb-6 w-[75px] h-[75px] object-cover">
+                <Skeleton width="70px" height="75px" :theme="ESkeletonTheme.LIGHT" class="rounded-md" />
+              </div>
+              <p class="service-item-text mb-4 leading-[1.8] text-tg-paragraph-color">
+                <Skeleton width="330px" height="90px" :theme="ESkeletonTheme.LIGHT" />
+              </p>
+              <div
+                class="flex items-center gap-2 mt-auto font-medium transition-colors duration-300 hover:text-tg-primary-color"
+              >
+                <span><Skeleton width="330px" height="24px" :theme="ESkeletonTheme.LIGHT" /></span>
+                <arrow-right />
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
       <ul v-else class="flex flex-wrap justify-between">
         <li
@@ -80,10 +79,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import ArrowRight from '@/components/icons/ArrowRight.vue'
-import Skeleton , { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
+import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 import { Service } from '@/types'
 import { fetchData } from '@/composables/fetchData'
-
 
 const services = ref<Service[]>([])
 const isLoading = ref(true)

@@ -3,8 +3,23 @@
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Applied vacancies</h1>
       <p class="block mb-3 text-sm text-gray-400">All of your applied vacancies</p>
-      <div v-if="isLoading" class="flex justify-center py-20">
-        <app-loader />
+      <div v-if="isLoading">
+        <div v-for="vacancy in 4" :key="vacancy" class="">
+          <div class="shadow-job-inner mb-6 bg-white flex flex-col rounded-[32px] px-[35px] py-[50px]">
+            <span class="mb-5"><Skeleton width="100%" height="24px" :theme="ESkeletonTheme.LIGHT" /></span>
+            <div
+              class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7 transition-all duration-300 hover:text-tg-secondary-color"
+            >
+              <Skeleton width="100%" height="72px" :theme="ESkeletonTheme.LIGHT" />
+            </div>
+            <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
+              <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.LIGHT" />
+              <Skeleton width="8px" height="8px" :theme="ESkeletonTheme.LIGHT" />
+              <Skeleton width="116px" height="24px" :theme="ESkeletonTheme.LIGHT" />
+            </div>
+            <p><Skeleton width="100%" height="24px" :theme="ESkeletonTheme.LIGHT" /></p>
+          </div>
+        </div>
       </div>
       <div v-else>
         <div v-for="(vacancy, index) in vacancies" :key="vacancy.id" class="">
@@ -60,7 +75,7 @@ import { useFirestore } from 'vuefire'
 import { fetchData } from '@/composables/fetchData'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import UserStatusDetail from '@/components/profile/UserStatusDetail.vue'
-import AppLoader from '@/components/static/AppLoader.vue'
+import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
 const db = useFirestore()
 const store = useAuthStore()
@@ -95,7 +110,6 @@ onMounted(async () => {
     })
     vacancies.value = await Promise.all(promises)
   } catch (error) {
-
     console.error('Error fetching appliers:', error)
   } finally {
     isLoading.value = false
