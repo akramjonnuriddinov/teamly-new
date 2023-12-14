@@ -58,7 +58,9 @@
             <div></div>
           </div>
         </div>
-        <button @click="loadMore">Load more...</button>
+        <div v-else class="flex justify-center pt-4">
+          <base-button :disabled="disabled" @click="loadMore" :size="ESize.SMALL">Load more</base-button>
+        </div>
       </ul>
       <div v-else>Nothing found...</div>
     </div>
@@ -68,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
@@ -79,6 +81,8 @@ import UserModal from '@/components/admin/resume/UserModal.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
+import BaseButton from '@/components/reusables/BaseButton.vue'
+import { ESize } from '@/types'
 
 const route = useRoute()
 const db = useFirestore()
@@ -97,6 +101,9 @@ const isUserModal = ref(false)
 const selectedUser = ref<any>(null)
 let lastVisible: any = null
 const options = ref<any>([])
+const isDisabled = ref(false)
+
+const disabled = computed(() => isDisabled.value)
 
 async function loadMore() {
   const q = query(collection(db, 'appliers'), orderBy('date'), startAfter(lastVisible), limit(6))
@@ -124,7 +131,9 @@ async function loadMore() {
       applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
     }))
     isLoading2.value = false
+    isDisabled.value = false
   } else {
+    isDisabled.value = true
     console.log('No more documents to load.')
   }
 }
