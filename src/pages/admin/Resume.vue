@@ -50,6 +50,15 @@
             />
           </li>
         </template>
+        <div v-if="isLoading2">
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <button @click="loadMore">Load more...</button>
       </ul>
       <div v-else>Nothing found...</div>
     </div>
@@ -69,6 +78,7 @@ import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import UserModal from '@/components/admin/resume/UserModal.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import { useRoute } from 'vue-router'
+import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
 
 const route = useRoute()
 const db = useFirestore()
@@ -78,30 +88,56 @@ const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const users = ref<any>([])
 const isLoading = ref(true)
+const isLoading2 = ref(false)
 
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
 const currentUser = ref<any>(null)
 const isUserModal = ref(false)
 const selectedUser = ref<any>(null)
+let lastVisible: any = null
+const options = ref<any>([])
+
+async function loadMore() {
+  const q = query(collection(db, 'appliers'), orderBy('date'), startAfter(lastVisible), limit(3))
+
+  const querySnapshot = await getDocs(q)
+
+  if (querySnapshot.docs.length > 0) {
+    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
+
+    querySnapshot.forEach((doc) => {
+      const item = ref()
+      item.value = doc.data()
+      options.value.push({ ...item.value, id: doc.id })
+    })
+
+    console.log(options.value)
+
+    isLoading2.value = true
+    vacancies.value = await fetchData('vacancies')
+    statuses.value = await fetchData('statuses')
+    users.value = await fetchData('users')
+    appliers.value = await options.value.map((item: any) => ({
+      id: item.id,
+      status: statuses.value.find((el: any) => el.id === item.status_id),
+      user: users.value.find((el: any) => el.id === item.user_id),
+      vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
+      applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
+    }))
+    isLoading2.value = false
+  } else {
+    console.log('No more documents to load.')
+  }
+}
 
 onMounted(async () => {
-  isLoading.value = true
-  vacancies.value = await fetchData('vacancies')
-  statuses.value = await fetchData('statuses')
-  users.value = await fetchData('users')
-  const allAppliers = await fetchData('appliers')
-  appliers.value = await allAppliers.map((item: any) => ({
-    id: item.id,
-    status: statuses.value.find((el: any) => el.id === item.status_id),
-    user: users.value.find((el: any) => el.id === item.user_id),
-    vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
-    applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
-  }))
+  await loadMore()
+  isLoading.value = false
+
   if (route.query.id) {
     appliers.value = await appliers.value.filter((item: any) => item.vacancy.id === route.query.id)
   }
-  isLoading.value = false
 })
 
 const isApplierStatusesReady = ref(false)
@@ -132,3 +168,61 @@ const openUserModal = (user: object) => {
   selectedUser.value = user
 }
 </script>
+
+<style scoped>
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #757589;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+</style>
