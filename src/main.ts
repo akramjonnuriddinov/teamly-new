@@ -12,6 +12,7 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import { createHead } from '@unhead/vue'
 
 import SwiperClass, { } from 'swiper'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
@@ -19,6 +20,7 @@ import 'swiper/css'
 
 const pinia = createPinia()
 const app = createApp(App)
+const head = createHead()
 
 SwiperClass.use([]);
 
@@ -32,6 +34,7 @@ app.use(pinia)
 app.use(VueAwesomeSwiper)
 app.use(router)
 app.use(VueQuillEditor)
+app.use(head)
 router.isReady().then(() => {
   app.mount('#app')
 })

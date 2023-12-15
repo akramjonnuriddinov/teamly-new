@@ -10,4 +10,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  // fix  console dependency error in useHead
+  optimizeDeps: {
+    exclude: ['js-big-decimal']
+  }
 })
