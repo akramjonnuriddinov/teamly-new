@@ -25,9 +25,34 @@
               <time class="mb-1 text-sm font-bold leading-none text-tg-primary-color">{{
                 formatTimestampToLocaleString(userApplierStatus.date)
               }}</time>
-              <h3 class="text-lg font-semibold text-gray-900">{{ userApplierStatus.userStatus?.status }}</h3>
+              <h3 class="text-lg font-semibold text-gray-900">{{ userApplierStatus.userStatus?.title }}</h3>
               <div class="px-5 text-slate-500">
-                {{ userApplierStatus.userStatus?.definition }}
+                <div v-if="userApplierStatus.task" class="flex flex-col">
+                  <div class="flex items-center mb-1 space-x-2">
+                    <span class="block w-1.5 h-1.5 rounded-full bg-tg-body-font-color"></span>
+                    <span>Task:</span>
+                    <a
+                      :href="userApplierStatus.task.link"
+                      class="text-lg font-medium underline text-tg-primary-color-two hover:text-tg-secondary-color"
+                      target="_blank"
+                    >
+                      {{ userApplierStatus.task.title }}</a
+                    >
+                  </div>
+                  <div class="flex items-center mb-1 space-x-2">
+                    <span class="block w-1.5 h-1.5 rounded-full bg-tg-body-font-color"></span>
+                    <span>Dedline:</span>
+                    <span>
+                      {{ userApplierStatus.task.dedline }}
+                    </span>
+                  </div>
+                  <div>
+                    {{ userApplierStatus.task.definition }}
+                  </div>
+                </div>
+                <span v-else>
+                  {{ userApplierStatus.userStatus?.definition }}
+                </span>
               </div>
             </li>
           </template>
@@ -47,6 +72,7 @@ const props = defineProps(['expanded', 'applierStatuses', 'vacancy_id', 'comment
 
 const statuses = ref<any>([])
 const isLoading = ref(false)
+const tasks = ref<any>([])
 
 const userApplierStatuses = ref<any>([])
 userApplierStatuses.value = props.applierStatuses.filter((item: any) => item.vacancy_id === props.vacancy_id)
@@ -54,11 +80,12 @@ userApplierStatuses.value = props.applierStatuses.filter((item: any) => item.vac
 onMounted(async () => {
   isLoading.value = true
   statuses.value = await fetchData('statuses')
+  tasks.value = await fetchData('tasks')
   userApplierStatuses.value = userApplierStatuses.value.map((item: any) => ({
     ...item,
     userStatus: statuses.value.find((el: any) => item.status_id === el.id),
+    task: tasks.value.filter((task: any) => task.id === item.task_id)[0],
   }))
-  console.log(userApplierStatuses, 'asdafa')
   isLoading.value = false
 })
 

@@ -11,8 +11,22 @@
             formatTimestampToLocaleString(applierStatus.date)
           }}</time>
           <h3 class="text-lg font-semibold text-gray-900">{{ applierStatus?.status?.title }}</h3>
-          <div v-if="applierStatus.shortDescription" v-html="applierStatus.shortDescription" class="px-5"></div>
-          <div v-else class="px-5 text-slate-500">
+          <div v-if="applierStatus.task">
+            <div class="flex items-center mt-2 space-x-2">
+              <span>Dedline:</span>
+              <span>
+                {{ applierStatus.task.dedline }}
+              </span>
+            </div>
+            <a
+              class="my-2 text-lg font-medium underline text-tg-primary-color-two hover:text-tg-secondary-color"
+              :href="applierStatus.task.link"
+              target="_blank"
+              >{{ applierStatus.task.title }}</a
+            >
+          </div>
+
+          <div class="px-5 text-slate-500">
             {{ applierStatus.status?.definition }}
           </div>
         </li>
@@ -29,8 +43,10 @@ import TheTransition from '@/components/reusables/TheTransition.vue'
 const props = defineProps(['expanded', 'applier_id', 'status_id'])
 const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
+const tasks = ref<any>([])
 
 onMounted(async () => {
+  tasks.value = await fetchData('tasks')
   let allStatuses = await fetchData('applier_statuses')
   statuses.value = await fetchData('statuses')
   allStatuses = allStatuses.map((item: any) => ({
@@ -38,6 +54,10 @@ onMounted(async () => {
     status: statuses.value.find((el: any) => el.id === item.status_id),
   }))
   applierStatuses.value = allStatuses.filter((item: any) => item.applier_id === props.applier_id)
+  applierStatuses.value = applierStatuses.value.map((item: any) => ({
+    ...item,
+    task: tasks.value.filter((task: any) => task.id === item.task_id)[0],
+  }))
 })
 
 function formatTimestampToLocaleString(timestamp: number) {

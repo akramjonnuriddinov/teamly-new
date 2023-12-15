@@ -19,6 +19,21 @@
                 </select>
               </div>
             </div>
+            <div v-if="isTaskShow" class="flex items-center justify-between w-full mb-2">
+              <label class="text-gray-700" for="tasks">Tasks</label>
+              <div class="flex relative items-center w-[80%]">
+                <select
+                  v-model="comment.task_id"
+                  class="w-full p-2 border border-gray-200 rounded-md outline-blue-300"
+                  id="tasks"
+                >
+                  <option value="" disabled selected>Task</option>
+                  <option v-for="task in tasks" class="flex items-center" :value="task.id" :key="task.id">
+                    {{ task.title }}
+                  </option>
+                </select>
+              </div>
+            </div>
             <div class="flex items-center justify-between w-full mt-2 mb-2">
               <label class="text-gray-700" for="text">Comment</label>
               <editor
@@ -38,13 +53,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import Editor from '@/components/reusables/Editor.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import BaseModal from '@/components/reusables/BaseModal.vue'
+import { fetchData } from '@/composables/fetchData'
 
 const db = useFirestore()
 const collectionRef = collection(db, 'applier_statuses')
@@ -60,7 +76,28 @@ const comment = ref<any>({
   shortDescription: '',
   applier_id: props.currentUser.applier_id,
   vacancy_id: props.currentUser.vacancy_id,
+  task_id: '',
 })
+const tasks = ref<any>([])
+const isTaskShow = ref(false)
+
+onMounted(async () => {
+  if (!tasks.value) {
+    tasks.value = await fetchData('tasks')
+  }
+})
+
+watch(
+  comment,
+  (newVal: any) => {
+    if (newVal.status_id === '8nJTTRTAQephYvWWQNWx') {
+      isTaskShow.value = true
+    } else isTaskShow.value = false
+  },
+  {
+    deep: true,
+  },
+)
 
 const add = async () => {
   try {
