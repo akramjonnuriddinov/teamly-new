@@ -88,7 +88,7 @@ onMounted(async () => {
       if (vacancySnapshot.exists()) {
         return { ...vacancySnapshot.data(), id: vacancy_id }
       } else {
-        console.log('Vacancy does not exist')
+        console.error('Vacancy does not exist')
         return null
       }
     })

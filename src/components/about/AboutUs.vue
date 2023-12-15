@@ -35,13 +35,11 @@
           </div>
         </div>
       </div>
-      <!-- <watch-video /> -->
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-// import WatchVideo from '@/components/static/WatchVideo.vue'
 import { ref } from 'vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { EThemes } from '@/types'

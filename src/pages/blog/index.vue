@@ -48,7 +48,6 @@ const blog = ref<any>([])
 onMounted(async () => {
   blogs.value = await fetchData('blog')
   blog.value = await blogs.value.filter((item: any) => item.id === route.params.id)[0]
-  console.log(blog.value)
 })
 
 function formatTimestampToLocaleString(timestamp: number) {

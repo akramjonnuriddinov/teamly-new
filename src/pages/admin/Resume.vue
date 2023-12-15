@@ -17,7 +17,7 @@
               <button
                 @click.stop="openUserModal(applier.user)"
                 title="View Profile"
-                class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
+                class="flex justify-start w-1/5 mr-2 overflow-hidden font-semibold text-center whitespace-nowrap text-ellipsis text-tg-green hover:opacity-80"
               >
                 {{ applier.user.name }}
               </button>
@@ -131,7 +131,6 @@ const detectScroll = async (event: any) => {
   const scrollHeight = element.scrollHeight - window.innerHeight
   if (scrollHeight <= element.scrollTop && !isLoading2.value && isLoadMore.value) {
     await loadMore()
-    console.log(scrollHeight, element.scrollTop)
   }
 }
 

@@ -5,7 +5,7 @@
     >
       <div class="flex items-center justify-between">
         <router-link class="flex mr-20" to="/">
-          <img width="150" height="36" src="@/assets/images/logos/logo-new-2.png" alt="logo" />
+          <the-logo />
         </router-link>
 
         <nav
@@ -16,7 +16,7 @@
         >
           <div class="hidden bg-tg-white w-full max-w-[300px] justify-between py-[30px] px-[25px] max-[990px]:flex">
             <router-link to="/">
-              <img width="150" height="36" src="@/assets/images/logos/logo-new-2.png" alt="logo" />
+              <the-logo />
             </router-link>
             <button class="flex items-center justify-center w-9 h-7" @click="toggleModal">
               <img class="w-4 h-5" src="@/assets/images/svg/close.svg" alt="close-icon" />
@@ -113,6 +113,8 @@ import { useAuthStore } from '@/store/auth'
 import TheLanguage from '@/components/static/TheLanguage.vue'
 import { getSVG } from '@/composables/getSVG'
 import { useRouter } from 'vue-router'
+import TheLogo from './TheLogo.vue'
+
 const router = useRouter()
 const store = useAuthStore()
 

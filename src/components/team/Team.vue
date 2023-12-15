@@ -36,7 +36,7 @@
               <router-link class="whitespace-nowrap" :to="{ name: 'home' }">{{ team.title }}</router-link>
             </h3>
             <span
-              class="text-lg leadin-1 whitespace-nowrap text-tg-paragraph-color max-w-[258px] overflow-hidden text-ellipsis text-center"
+              class="text-lg leading-[1] whitespace-nowrap text-tg-paragraph-color max-w-[258px] overflow-hidden text-ellipsis text-center"
               >{{ team.position }}</span
             >
           </div>
