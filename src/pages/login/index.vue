@@ -180,7 +180,8 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { useFirestore } from 'vuefire'
-import { setDoc, doc, getDoc } from 'firebase/firestore'
+import { firebaseApp } from '@/firebase/index'
+import { setDoc, doc, getDoc,collection, addDoc, getFirestore } from 'firebase/firestore'
 import {
   getAuth,
   onAuthStateChanged,
@@ -202,29 +203,68 @@ const newUser = ref({
   password: '',
 })
 
+
+const firestore = getFirestore(firebaseApp);
+const addToMailCollection = async (email:any, id: any) => {
+  try {
+    const mailCollection = collection(firestore, 'mail');
+    const currentDate = new Date();
+
+    const dateTime = {
+      year: currentDate.getFullYear(),
+      month: currentDate.getMonth() + 1,
+      day: currentDate.getDate(),
+      hours: currentDate.getHours(),
+      minutes: currentDate.getMinutes(),
+      seconds: currentDate.getSeconds()
+    };
+
+    const verifyLink = `http://localhost:5173/verify?id=${id}`;
+
+    const data = {
+      to: email,
+      message: {
+        subject: 'Verify your email for Teamly.uz',
+        html: `
+          <h1>Hello,</h1>
+          <p>We received a request to sign in to Teamly.uz using this email address, at ${dateTime.year}-${dateTime.month}-${dateTime.day} ${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}. If you want to sign in with your ${email} account, click this <br> <a href="${verifyLink}">link</a>.</p>
+          <img src="https://media.licdn.com/dms/image/D4D3DAQEOUK939l3CAA/image-scale_191_1128/0/1693891453607/teamly_uz_cover?e=2147483647&v=beta&t=rm4pmArgwdoeuCen8YkujxA4-jSMtqJI9UvJEVAjRDA" alt="Teamly Logo" style="display:block; width: 200px; height: auto;">
+        `
+      }
+    };
+
+    await addDoc(mailCollection, data);
+    console.log('Queued email for delivery!');
+  } catch (error) {
+    console.error('Error adding data to Firestore: ', error);
+  }
+};
+
 const signUp = async (): Promise<void> => {
   try {
+    const auth = getAuth()
     if (newUser.value.email && newUser.value.name && newUser.value.password) {
-      const auth = getAuth()
       const userCredential = await createUserWithEmailAndPassword(auth, newUser.value.email, newUser.value.password)
       const user = userCredential.user
       await updateProfile(user, {
         displayName: newUser.value.name,
       })
-
       onAuthStateChanged(auth, (user) => {
         if (user) {
           const newUser = ref({
             id: user.uid,
             name: user.displayName,
             email: user.email,
+            verified: false
           })
-          store.signIn(auth.currentUser)
+          console.log(user);
+
+          // store.signIn(auth.currentUser)
           const colRef = doc(db, 'users', user.uid)
           setDoc(colRef, newUser.value)
+          addToMailCollection(newUser.value.email, newUser.value.id)
         }
       })
-      router.push('/')
     }
   } catch (error) {
     console.error(error)
@@ -237,6 +277,9 @@ const signUp = async (): Promise<void> => {
     newUser.value.password = ''
   }
 }
+
+
+
 const isError = ref(false)
 const user = ref({
   email: '',
@@ -248,7 +291,7 @@ const signIn = async () => {
     if (user.value.email && user.value.password) {
       const auth = getAuth()
       const userCredential = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
-      store.signIn(userCredential.user)
+      await store.signIn(userCredential.user)
       router.push('/')
     }
   } catch {
@@ -275,7 +318,7 @@ const signWithGoogle = async () => {
       })
     }
 
-    store.signIn(result.user)
+    await store.signIn(result.user)
     router.push('/')
   } catch (error) {
     isError.value = true

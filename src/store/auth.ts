@@ -19,10 +19,15 @@ export const useAuthStore = defineStore('auth', {
     token: localStorage.getItem('token')
   }),
   actions: {
-    signIn(payload: any) {
-      localStorage.setItem('token', payload.accessToken)
-      this.token = payload.accessToken
-      this.user = { email: payload.email, id: payload.uid, name: payload.displayName };
+    async signIn(payload: any) {
+      const docRef = doc(db, 'users', payload.uid);
+      const userSnapshot = await getDoc(docRef);
+      const userInfo = userSnapshot.data()
+      if(userInfo?.verified) {
+        localStorage.setItem('token', payload.accessToken)
+        this.token = payload.accessToken
+        this.user = { email: payload.email, id: payload.uid, name: payload.displayName };
+      }
     },
     fetchProfile() {
       const auth = getAuth();

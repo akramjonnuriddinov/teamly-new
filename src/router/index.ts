@@ -76,6 +76,11 @@ const router = createRouter({
       name: 'blog',
       component: () => import('@/pages/blog/index.vue')
     },
+    {
+      path: '/verify',
+      component: () => import('@/pages/verify/VerifyEmail.vue'),
+      props: (route) => ({ id: route.query.id})
+    }
   ]
 })
 
