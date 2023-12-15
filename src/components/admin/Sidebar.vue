@@ -38,6 +38,7 @@ import PortfolioIcon from '@/components/icons/admin/PortfolioIcon.vue'
 import VacancyIcon from '@/components/icons/admin/VacancyIcon.vue'
 import ApplyIcon from '@/components/icons/admin/ApplyIcon.vue'
 import StatusIcon from '@/components/icons/admin/StatusIcon.vue'
+import TaskIcon from '@/components/icons/admin/TaskIcon.vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -72,6 +73,10 @@ const links = ref([
   {
     name: 'statuses',
     icon: StatusIcon,
+  },
+  {
+    name: 'tasks',
+    icon: TaskIcon,
   },
 ])
 </script>
