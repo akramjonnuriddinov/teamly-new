@@ -1,6 +1,12 @@
 <template>
   <section class="pt-[50px] pb-[45px] relative z-10 mb-[100px]">
-    <div class="container relative w-full px-5 mx-auto max-w-7xl">
+    <div v-if="listLoading" class="container relative w-full px-5 mx-auto max-w-7xl">
+      <div class="description"><Skeleton width="100%" height="100vh" :theme="ESkeletonTheme.LIGHT" /></div>
+      <div class="mt-12">
+        <Skeleton width="314px" height="60px" :theme="ESkeletonTheme.LIGHT" />
+      </div>
+    </div>
+    <div v-else class="container relative w-full px-5 mx-auto max-w-7xl">
       <div class="description" v-html="vacancy.description"></div>
       <base-button
         :size="ESize.BIG"
@@ -24,7 +30,7 @@ import { useVacanciesStore } from '@/store/vacancies'
 import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
-import { toggleLoader } from '@/composables/loader'
+import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
 const curButton = computed(() => !props.vacancy.status_id && !storeVacancies.applicationSent)
 const props = defineProps(['vacancy'])
@@ -32,16 +38,16 @@ const emit = defineEmits(['open'])
 const storeVacancies = useVacanciesStore()
 const store = useAuthStore()
 const isLoading = ref(false)
+const listLoading = ref(true)
 const router = useRouter()
 const status = computed(() => storeVacancies.status)
 
 onMounted(async () => {
-  toggleLoader(true)
-  if (!props.vacancy.status_id) {
+  if (!props.vacancy?.status_id) {
     storeVacancies.updateApplicationSent(false)
   }
-  await storeVacancies.fetchStatus(props.vacancy.status_id)
-  toggleLoader()
+  await storeVacancies.fetchStatus(props.vacancy?.status_id)
+  listLoading.value = false
 })
 
 const handleApply = async (id: any) => {

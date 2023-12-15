@@ -4,6 +4,28 @@
       class="container relative px-5 mx-auto max-w-7xl max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
       <div
+        v-if="listLoading"
+        class="relative pt-[100px] pb-[60px] flex items-center justify-between w-full max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
+      >
+        <div class="flex flex-col max-w-[750px]">
+          <span class="text-[#5B5A78] mb-5">
+            <Skeleton width="200px" height="24px" :theme="ESkeletonTheme.DARK" />
+          </span>
+          <div class="mb-4">
+            <Skeleton width="350px" height="168px" :theme="ESkeletonTheme.DARK" />
+          </div>
+          <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
+            <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.DARK" />
+            <Skeleton width="8px" height="8px" :theme="ESkeletonTheme.DARK" />
+            <Skeleton width="116px" height="24px" :theme="ESkeletonTheme.DARK" />
+          </div>
+        </div>
+        <div class="mt-12">
+          <Skeleton width="314px" height="60px" :theme="ESkeletonTheme.DARK" />
+        </div>
+      </div>
+      <div
+        v-else
         class="relative pt-[100px] pb-[60px] flex items-center justify-between w-full max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
       >
         <div class="flex flex-col max-w-[750px]">
@@ -40,7 +62,7 @@ import { useVacanciesStore } from '@/store/vacancies'
 import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
-import { toggleLoader } from '@/composables/loader'
+import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
 const storeVacancies = useVacanciesStore()
 const curButton = computed(() => !props.vacancy.status_id && !storeVacancies.applicationSent)
@@ -48,16 +70,16 @@ const props = defineProps(['vacancy'])
 const emit = defineEmits(['open'])
 const store = useAuthStore()
 const isLoading = ref(false)
+const listLoading = ref(true)
 const router = useRouter()
 const status = computed(() => storeVacancies.status)
 
 onMounted(async () => {
-  toggleLoader(true)
-  if (!props.vacancy.status_id) {
+  if (!props.vacancy?.status_id) {
     storeVacancies.updateApplicationSent(false)
   }
-  await storeVacancies.fetchStatus(props.vacancy.status_id)
-  toggleLoader()
+  await storeVacancies.fetchStatus(props.vacancy?.status_id)
+  listLoading.value = false
 })
 
 const handleApply = async (id: any) => {

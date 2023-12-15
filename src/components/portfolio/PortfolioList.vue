@@ -8,7 +8,16 @@
           23 Creative Works.
         </h2>
       </div>
-      <ul class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
+      <ul v-if="isLoading" class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
+        <li
+          v-for="project in 3"
+          :key="project"
+          class="relative project-wrapper overflow-hidden rounded-[30px] max-w-[47%] w-full max-[760px]:max-w-[100%]"
+        >
+          <Skeleton width="582px" height="393px" :theme="ESkeletonTheme.DARK" />
+        </li>
+      </ul>
+      <ul v-else class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
         <li
           v-for="project in projects"
           class="relative project-wrapper overflow-hidden rounded-[30px] max-w-[47%] w-full max-[760px]:max-w-[100%]"
@@ -44,14 +53,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import ArrowRight from '@/components/icons/ArrowRight.vue'
 import { Portfolio } from '@/types'
 import { fetchData } from '@/composables/fetchData'
+import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
 const projects = ref<Portfolio[]>([])
-fetchData('portfolio').then((result) => {
-  projects.value = result
+const isLoading = ref(true)
+
+onMounted(async () => {
+  isLoading.value = true
+  projects.value = await fetchData('portfolio')
+  isLoading.value = false
 })
 </script>
 
