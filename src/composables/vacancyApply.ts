@@ -12,5 +12,4 @@ export const vacancyApply = async (userID: string, id: any) => {
     date: Date.now()
   }
   await addDoc(ref, data)
-
 }
