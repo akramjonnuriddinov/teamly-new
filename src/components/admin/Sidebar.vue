@@ -2,13 +2,7 @@
   <aside class="relative top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
       <router-link to="/vacancy" class="flex mb-5">
-        <img
-          class="w-[150px] min-w-[150px]"
-          width="150"
-          height="36"
-          src="@/assets/images/logos/custom-logo17.png"
-          alt="logo"
-        />
+        <img width="130" height="36" src="@/assets/images/logos/logo.png" alt="logo" />
       </router-link>
       <router-link
         :to="{ name: 'resume' }"

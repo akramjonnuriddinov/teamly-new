@@ -7,8 +7,8 @@
           <template v-if="isLoading">
             <li v-for="status in 1" class="pt-0 mb-10 ms-4" :key="status">
             <div
-              class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white"
-            ><Skeleton width="12px" height="12px" :theme="ESkeletonTheme.LIGHT" /></div>
+              class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white">
+            <Skeleton width="12px" height="12px" :theme="ESkeletonTheme.LIGHT" /></div>
             <time class="mb-1">
               <Skeleton width="203px" height="18px" :theme="ESkeletonTheme.LIGHT" />
             </time>
@@ -45,7 +45,7 @@ import TheTransition from '@/components/reusables/TheTransition.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
 
-const props = defineProps(['expanded', 'applierStatuses', 'vacancy_id'])
+const props = defineProps(['expanded', 'applierStatuses', 'vacancy_id', 'commentLoading'])
 
 const statuses = ref<any>([])
 const isLoading = ref(false)
@@ -54,11 +54,13 @@ const userApplierStatuses = ref<any>([])
 userApplierStatuses.value = props.applierStatuses.filter((item: any) => item.vacancy_id === props.vacancy_id)
 
 onMounted(async () => {
+  isLoading.value = true
   statuses.value = await fetchData('statuses')
   userApplierStatuses.value = userApplierStatuses.value.map((item: any) => ({
     ...item,
     userStatus: statuses.value.find((el: any) => item.status_id === el.id),
   }))
+  isLoading.value = false
 })
 
 function formatTimestampToLocaleString(timestamp: number) {

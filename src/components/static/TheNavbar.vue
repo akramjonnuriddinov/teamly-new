@@ -4,14 +4,8 @@
       class="container px-5 mx-auto max-w-7xl max-xl:max-w-[1100px] max-[1050px]:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
     >
       <div class="flex items-center justify-between">
-        <router-link class="mr-20 w-[150px] flex" to="/">
-          <img
-            class="w-[150px] min-w-[150px]"
-            width="150"
-            height="36"
-            src="@/assets/images/logos/custom-logo17.png"
-            alt="logo"
-          />
+        <router-link class="flex mr-20" to="/">
+          <the-logo />
         </router-link>
 
         <nav
@@ -21,14 +15,8 @@
           }"
         >
           <div class="hidden bg-tg-white w-full max-w-[300px] justify-between py-[30px] px-[25px] max-[990px]:flex">
-            <router-link class="mobile-logo w-[150px]" to="/">
-              <img
-                class="w-[150px] min-w-[150px]"
-                width="150"
-                height="36"
-                src="@/assets/images/logos/custom-logo17.png"
-                alt="logo"
-              />
+            <router-link to="/">
+              <the-logo />
             </router-link>
             <button class="flex items-center justify-center w-9 h-7" @click="toggleModal">
               <img class="w-4 h-5" src="@/assets/images/svg/close.svg" alt="close-icon" />
@@ -84,7 +72,7 @@
             onmousedown="return false;"
             onselectstart="return false;"
           >
-            <div class="flex items-center cursor-pointer user hover:text-tg-primary-color">
+            <div class="flex items-center cursor-pointer whitespace-nowrap user hover:text-tg-primary-color">
               <div class="p-2 font-semibold">{{ user.name }}</div>
               <svg
                 :class="{ 'rotate-180': isDropDown }"
@@ -105,7 +93,7 @@
             <div
               @click.stop
               v-show="isDropDown"
-              class="w-full absolute top-10 border border-slate-200 p-2 bg-white rounded-[10px]"
+              class="min-w-full whitespace-nowrap absolute top-10 border border-slate-200 p-2 bg-white rounded-[10px]"
             >
               <router-link @click="isDropDown = false" to="/profile" class="cursor-pointer hover:text-tg-primary-color"
                 >My profile</router-link
@@ -125,6 +113,8 @@ import { useAuthStore } from '@/store/auth'
 import TheLanguage from '@/components/static/TheLanguage.vue'
 import { getSVG } from '@/composables/getSVG'
 import { useRouter } from 'vue-router'
+import TheLogo from './TheLogo.vue'
+
 const router = useRouter()
 const store = useAuthStore()
 

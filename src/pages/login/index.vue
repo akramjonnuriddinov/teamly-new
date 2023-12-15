@@ -1,6 +1,6 @@
 <template>
-  <section class="bg-[#F9F9FA]">
-    <div class="flex flex-col items-center justify-center min-h-screen px-6 py-8 mx-auto lg:py-0">
+  <section class="bg-[#F9F9FA] pt-20 mt-[86px]">
+    <div class="flex flex-col items-center min-h-screen px-6 py-8 mx-auto lg:py-0">
       <div v-if="isCreated" class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
           <div class="text-center">
@@ -231,7 +231,7 @@ const signUp = async (): Promise<void> => {
     isError.value = true
     setTimeout(() => {
       isError.value = false
-    }, 3000);
+    }, 3000)
     newUser.value.name = ''
     newUser.value.email = ''
     newUser.value.password = ''
@@ -255,7 +255,7 @@ const signIn = async () => {
     isError.value = true
     setTimeout(() => {
       isError.value = false
-    }, 3000);
+    }, 3000)
   }
 }
 
@@ -281,7 +281,7 @@ const signWithGoogle = async () => {
     isError.value = true
     setTimeout(() => {
       isError.value = false
-    }, 3000);
+    }, 3000)
   }
 }
 </script>
