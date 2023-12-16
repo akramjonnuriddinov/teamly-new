@@ -82,7 +82,7 @@ const tasks = ref<any>([])
 const isTaskShow = ref(false)
 
 onMounted(async () => {
-  if (!tasks.value) {
+  if (!tasks.value.length) {
     tasks.value = await fetchData('tasks')
   }
 })

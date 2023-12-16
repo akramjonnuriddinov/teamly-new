@@ -48,7 +48,7 @@ const tasks = ref<any>([])
 onMounted(async () => {
   tasks.value = await fetchData('tasks')
   let allStatuses = await fetchData('applier_statuses')
-  statuses.value = await fetchData('statuses')
+  if (!statuses.value.length) statuses.value = await fetchData('statuses')
   allStatuses = allStatuses.map((item: any) => ({
     ...item,
     status: statuses.value.find((el: any) => el.id === item.status_id),
