@@ -79,10 +79,9 @@
 import { ref, onMounted } from 'vue'
 import ArrowRight from '@/components/icons/ArrowRight.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
-import { Service } from '@/types'
 import { fetchData } from '@/composables/fetchData'
 
-const services = ref<Service[]>([])
+const services = ref<any[]>([])
 const isLoading = ref(true)
 
 onMounted(async () => {

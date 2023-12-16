@@ -67,7 +67,7 @@ watch(
   () => props.title,
   async (value) => {
     isLoading.value = true
-    dataEntries.value = await fetchData(value, false)
+    dataEntries.value = await fetchData(value)
     currentModal.value = defineAsyncComponent(() => import(`../admin/modals/${props.title}.vue`))
     isLoading.value = false
   },

@@ -66,7 +66,6 @@ const add = async () => {
       ...props.oldValue,
       date: Date.now(),
     }
-
     const res = await addDoc(collectionRef, newValue)
     const optionVal: Vacancy = {
       ...newValue,

@@ -55,11 +55,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import ArrowRight from '@/components/icons/ArrowRight.vue'
-import { Portfolio } from '@/types'
 import { fetchData } from '@/composables/fetchData'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
-const projects = ref<Portfolio[]>([])
+const projects = ref<any>([])
 const isLoading = ref(true)
 
 onMounted(async () => {
