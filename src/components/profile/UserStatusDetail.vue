@@ -29,7 +29,6 @@
               <div class="px-5 text-slate-500">
                 <div v-if="userApplierStatus.task" class="flex flex-col">
                   <div class="flex items-center mb-1 space-x-2">
-                    <span class="block w-1.5 h-1.5 rounded-full bg-tg-body-font-color"></span>
                     <span>Task:</span>
                     <a
                       :href="userApplierStatus.task.link"
@@ -40,8 +39,7 @@
                     >
                   </div>
                   <div class="flex items-center mb-1 space-x-2">
-                    <span class="block w-1.5 h-1.5 rounded-full bg-tg-body-font-color"></span>
-                    <span>Dedline:</span>
+                    <span>Term:</span>
                     <span>
                       {{ userApplierStatus.task.dedline }}
                     </span>

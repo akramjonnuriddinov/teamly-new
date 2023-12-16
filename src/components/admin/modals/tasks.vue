@@ -21,12 +21,12 @@
           />
         </div>
         <div class="flex items-center justify-between w-full mb-3">
-          <label class="text-gray-700" for="dedline">Dedline</label>
+          <label class="text-gray-700" for="dedline">Term</label>
           <input
             id="dedline"
             v-model="task.dedline"
             class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-            type="date"
+            type="text"
           />
         </div>
         <div class="flex items-center justify-between w-full mb-2">

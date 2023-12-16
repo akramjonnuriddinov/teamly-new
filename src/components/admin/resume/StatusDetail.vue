@@ -12,8 +12,8 @@
           }}</time>
           <h3 class="text-lg font-semibold text-gray-900">{{ applierStatus?.status?.title }}</h3>
           <div v-if="applierStatus.task">
-            <div class="flex items-center mt-2 space-x-2">
-              <span>Dedline:</span>
+            <div class="flex items-center mt-2 space-x-2 text-slate-500">
+              <span>Term:</span>
               <span>
                 {{ applierStatus.task.dedline }}
               </span>
