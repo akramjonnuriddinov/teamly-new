@@ -6,124 +6,124 @@
     </div>
     <div v-if="isLoading">
       <div class="flex justify-between">
-          <div class="flex flex-col w-[400px]">
-            <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
-            <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
-          </div>
-          <div class="flex flex-col w-[400px]">
-            <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
-            <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
-          </div>
+        <div class="flex flex-col w-[400px]">
+          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
+          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
         </div>
-        <div class="flex justify-between mt-5">
-          <div class="flex flex-col w-[400px]">
-            <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
-            <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
-          </div>
-          <div class="flex flex-col w-[400px]">
-            <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
-            <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
-          </div>
-        </div>
-        <div class="flex justify-between mt-5">
-          <div class="flex flex-col w-[400px]">
-            <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
-            <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
-          </div>
-          <div class="flex flex-col w-[400px]">
-            <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
-            <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
-          </div>
-        </div>
-        <div class="absolute right-0 mt-7">
-          <Skeleton width="250px" height="40px" :theme="ESkeletonTheme.DARK" />
+        <div class="flex flex-col w-[400px]">
+          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
+          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
         </div>
       </div>
+      <div class="flex justify-between mt-5">
+        <div class="flex flex-col w-[400px]">
+          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
+          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
+        </div>
+        <div class="flex flex-col w-[400px]">
+          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
+          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
+        </div>
+      </div>
+      <div class="flex justify-between mt-5">
+        <div class="flex flex-col w-[400px]">
+          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
+          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
+        </div>
+        <div class="flex flex-col w-[400px]">
+          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
+          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
+        </div>
+      </div>
+      <div class="absolute right-0 mt-7">
+        <Skeleton width="250px" height="40px" :theme="ESkeletonTheme.DARK" />
+      </div>
+    </div>
     <div v-else>
-      <div class="flex justify-between">
-          <div class="flex flex-col w-[400px]">
-            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Your name</label>
-            <input
-              type="text"
-              required
-              name="name"
-              @input="updateValue($event, 'name')"
-              v-model="user.name"
-              placeholder="name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-            />
-          </div>
-          <div class="flex flex-col w-[400px]">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email address</label>
-            <input
-              type="email"
-              required
-              disabled
-              v-model="user.email"
-              placeholder="email@company.com"
-              class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-            />
-          </div>
+      <div class="flex flex-wrap justify-between space-y-2">
+        <div class="flex flex-col w-[400px]">
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Your name</label>
+          <input
+            type="text"
+            required
+            name="name"
+            @input="updateValue($event, 'name')"
+            v-model="user.name"
+            placeholder="name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          />
         </div>
-        <div class="flex justify-between mt-5">
-          <div class="flex flex-col w-[400px]">
-            <label for="git" class="block mb-2 text-sm font-medium text-gray-900">Your GitHub</label>
-            <input
-              type="text"
-              name="git"
-              @input="updateValue($event, 'github')"
-              v-model="user.github"
-              placeholder="link"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-            />
-          </div>
-          <div class="flex flex-col w-[400px]">
-            <label for="linkedin" class="block mb-2 text-sm font-medium text-gray-900">Your Linkedin</label>
-            <input
-              type="text"
-              name="linkedin"
-              @input="updateValue($event, 'linkedin')"
-              v-model="user.linkedin"
-              placeholder="link"
-              class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-            />
-          </div>
+        <div class="flex flex-col w-[400px]">
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email address</label>
+          <input
+            type="email"
+            required
+            disabled
+            v-model="user.email"
+            placeholder="email@company.com"
+            class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          />
         </div>
-        <div class="flex justify-between mt-5">
-          <div class="flex flex-col w-[400px]">
-            <label for="telegram" class="block mb-2 text-sm font-medium text-gray-900">Your telegram</label>
-            <input
-              type="text"
-              name="telegram"
-              @input="updateValue($event, 'telegram')"
-              v-model="user.telegram"
-              placeholder="username"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-            />
-          </div>
-          <div class="flex flex-col w-[400px]">
-            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Your phone</label>
-            <input
-              type="text"
-              name="phone"
-              @input="updateValue($event, 'phone')"
-              v-model="user.phone"
-              placeholder="number"
-              class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-            />
-          </div>
+      </div>
+      <div class="flex flex-wrap justify-between mt-5 space-y-2">
+        <div class="flex flex-col w-[400px]">
+          <label for="git" class="block mb-2 text-sm font-medium text-gray-900">Your GitHub</label>
+          <input
+            type="text"
+            name="git"
+            @input="updateValue($event, 'github')"
+            v-model="user.github"
+            placeholder="link"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          />
         </div>
-        <base-button
-          @click="updateProfileInformation"
-          :is-loading="isLoadingProfile"
-          :theme="EThemes.DEFAULT"
-          class="btn absolute right-0 bg-[#7e54f8] text-white mt-[35px] rounded-lg text-sm"
-        >
-            Update profile information
-        </base-button>
+        <div class="flex flex-col w-[400px]">
+          <label for="linkedin" class="block mb-2 text-sm font-medium text-gray-900">Your Linkedin</label>
+          <input
+            type="text"
+            name="linkedin"
+            @input="updateValue($event, 'linkedin')"
+            v-model="user.linkedin"
+            placeholder="link"
+            class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          />
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-between mt-5 space-y-2">
+        <div class="flex flex-col w-[400px]">
+          <label for="telegram" class="block mb-2 text-sm font-medium text-gray-900">Your telegram</label>
+          <input
+            type="text"
+            name="telegram"
+            @input="updateValue($event, 'telegram')"
+            v-model="user.telegram"
+            placeholder="username"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          />
+        </div>
+        <div class="flex flex-col w-[400px]">
+          <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Your phone</label>
+          <input
+            type="text"
+            name="phone"
+            @input="updateValue($event, 'phone')"
+            v-model="user.phone"
+            placeholder="number"
+            class="bg-gray-50 opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          />
+        </div>
+      </div>
+      <base-button
+        @click="updateProfileInformation"
+        :is-loading="isLoadingProfile"
+        :theme="EThemes.DEFAULT"
+        class="btn absolute right-0 bg-[#7e54f8] text-white mt-[35px] rounded-lg text-sm"
+      >
+        Update profile information
+      </base-button>
     </div>
   </div>
-  <div class="flex flex-col w-[400px] mt-5 min-h-fit">
+  <div class="flex flex-col w-full max-w-[400px] mt-5 min-h-fit">
     <div class="mb-6 w-full max-[800px]:w-full relative">
       <label for="file-input" class="block mb-2 text-sm font-medium text-gray-900">Upload your CV</label>
       <input
@@ -148,35 +148,9 @@
       >
         <div class="flex items-center justify-between">
           <span class="truncate text-base font-medium text-[#07074D]"> your resume </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-            />
-          </svg>
+          <inline-svg fill="none" src="fontawesome/file.svg" />
           <button @click.stop="deleteResume" class="text-[#07074D] ml-5">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M0.279337 0.279338C0.651787 -0.0931121 1.25565 -0.0931121 1.6281 0.279338L9.72066 8.3719C10.0931 8.74435 10.0931 9.34821 9.72066 9.72066C9.34821 10.0931 8.74435 10.0931 8.3719 9.72066L0.279337 1.6281C-0.0931125 1.25565 -0.0931125 0.651788 0.279337 0.279338Z"
-                fill="currentColor"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M0.279337 9.72066C-0.0931125 9.34821 -0.0931125 8.74435 0.279337 8.3719L8.3719 0.279338C8.74435 -0.0931127 9.34821 -0.0931123 9.72066 0.279338C10.0931 0.651787 10.0931 1.25565 9.72066 1.6281L1.6281 9.72066C1.25565 10.0931 0.651787 10.0931 0.279337 9.72066Z"
-                fill="currentColor"
-              />
-            </svg>
+            <inline-svg src="fontawesome/xmark.svg" />
           </button>
         </div>
       </div>
@@ -199,6 +173,7 @@ import { uploadBytes, deleteObject, ref as fireRef } from 'firebase/storage'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 import { setDoc, doc } from 'firebase/firestore'
 import { useAuthStore } from '@/store/auth'
+import InlineSvg from '../reusables/InlineSvg.vue'
 
 const isLoading = ref(false)
 const store = useAuthStore()
@@ -214,7 +189,7 @@ const updatedUser = ref({
 watch(
   () => store.user,
   (newValue) => {
-    user.value = {...newValue}
+    user.value = { ...newValue }
     isLoading.value = false
   },
   {
@@ -224,7 +199,7 @@ watch(
 
 onMounted(async () => {
   store.fetchProfile()
-  if(!store.user) {
+  if (!store.user) {
     isLoading.value = true
   }
 })
