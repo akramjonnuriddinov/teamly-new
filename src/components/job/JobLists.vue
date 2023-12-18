@@ -70,7 +70,7 @@ const isLoading = ref(null)
 const router = useRouter()
 const handleApply = async (id: any) => {
   if (!store.user) {
-    router.push('/login')
+    router.push('/sign-in')
     return
   }
 
