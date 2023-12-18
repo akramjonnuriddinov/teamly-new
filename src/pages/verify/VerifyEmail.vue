@@ -32,7 +32,6 @@ const props = defineProps({
   }
 });
 
-console.log(window.location.origin);
 const userInfo = ref(null);
 const isLoading = ref(true)
 
