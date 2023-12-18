@@ -4,13 +4,12 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import {  storage } from '@/firebase'
-import { getDownloadURL, list, ref } from 'firebase/storage'
+import { getDownloadURL, ref } from 'firebase/storage'
 import { getDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-
+import { router } from '@/router/index'
 
 const db = useFirestore()
-
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: <any>null,
@@ -23,10 +22,14 @@ export const useAuthStore = defineStore('auth', {
       const docRef = doc(db, 'users', payload.uid);
       const userSnapshot = await getDoc(docRef);
       const userInfo = userSnapshot.data()
-      if(userInfo?.verified) {
+
+      if(userInfo && userInfo?.verified) {
         localStorage.setItem('token', payload.accessToken)
         this.token = payload.accessToken
         this.user = { email: payload.email, id: payload.uid, name: payload.displayName };
+        router.push('/')
+      } else if(userInfo && !userInfo?.verified) {
+        return `Your account isn't verified please check your email (don't forget check spam)`
       }
     },
     fetchProfile() {

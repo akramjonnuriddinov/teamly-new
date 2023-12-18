@@ -69,15 +69,17 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 :class="{ 'border-red-500': isError }"
               />
-              <p v-if="isError" class="text-red-500">Please write your correct email & password</p>
+              <p v-if="isError && !errorMessage" class="text-red-500">Please write your correct email & password</p>
+              <p v-else-if="isError" class="text-red-500">{{ errorMessage }}</p>
             </div>
-            <button
+            <base-button
               @click="signIn"
               type="submit"
-              class="bg-[#7e54f8] text-white w-full border border-gray-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              :is-loading="isLoading"
+              class="bg-[#7e54f8] w-full h-[52px]"
             >
               Sign in
-            </button>
+            </base-button>
           </form>
         </div>
       </div>
@@ -95,7 +97,15 @@
               </a>
             </p>
           </div>
-          <button
+          <div v-if="isVerification">
+            <div class="bg-yellow-200 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+              <p class="font-bold">Verification Link Sent!</p>
+              <p>We've sent a verification link to your email address. Please check your inbox and follow the link to verify.</p>
+              <a class="text-[#3498db] underline" href="https://mail.google.com/" target="_blank">Check your email</a>
+            </div>
+          </div>
+          <div v-else>
+            <button
             @click="signWithGoogle()"
             type="button"
             class="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
@@ -162,14 +172,16 @@
               />
               <p v-if="isError" class="text-red-500">Somthing get wrong, please try again</p>
             </div>
-            <button
+            <base-button
               @click="signUp()"
               type="submit"
-              class="w-full bg-[#7e54f8] text-white border border-gray-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              :is-loading="isLoading"
+              class="bg-[#7e54f8] w-full h-[52px]"
             >
               Sign up
-            </button>
+            </base-button>
           </form>
+          </div>
         </div>
       </div>
     </div>
@@ -180,8 +192,7 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { useFirestore } from 'vuefire'
-import { firebaseApp } from '@/firebase/index'
-import { setDoc, doc, getDoc,collection, addDoc, getFirestore } from 'firebase/firestore'
+import { setDoc, doc, getDoc } from 'firebase/firestore'
 import {
   getAuth,
   onAuthStateChanged,
@@ -191,12 +202,16 @@ import {
   signInWithPopup,
   updateProfile,
 } from 'firebase/auth'
+import { sendMailMessage } from '@/composables/sendMailMessage'
+import BaseButton from '@/components/reusables/BaseButton.vue'
 import { useRouter } from 'vue-router'
 
 const store = useAuthStore()
 const router = useRouter()
 const db = useFirestore()
 const isCreated = ref(true)
+const isVerification = ref(false)
+const isLoading = ref(false)
 const newUser = ref({
   email: '',
   name: '',
@@ -204,44 +219,9 @@ const newUser = ref({
 })
 
 
-const firestore = getFirestore(firebaseApp);
-const addToMailCollection = async (email:any, id: any) => {
-  try {
-    const mailCollection = collection(firestore, 'mail');
-    const currentDate = new Date();
-
-    const dateTime = {
-      year: currentDate.getFullYear(),
-      month: currentDate.getMonth() + 1,
-      day: currentDate.getDate(),
-      hours: currentDate.getHours(),
-      minutes: currentDate.getMinutes(),
-      seconds: currentDate.getSeconds()
-    };
-
-    const verifyLink = `http://localhost:5173/verify?id=${id}`;
-
-    const data = {
-      to: email,
-      message: {
-        subject: 'Verify your email for Teamly.uz',
-        html: `
-          <h1>Hello,</h1>
-          <p>We received a request to sign in to Teamly.uz using this email address, at ${dateTime.year}-${dateTime.month}-${dateTime.day} ${dateTime.hours}:${dateTime.minutes}:${dateTime.seconds}. If you want to sign in with your ${email} account, click this <br> <a href="${verifyLink}">link</a>.</p>
-          <img src="https://media.licdn.com/dms/image/D4D3DAQEOUK939l3CAA/image-scale_191_1128/0/1693891453607/teamly_uz_cover?e=2147483647&v=beta&t=rm4pmArgwdoeuCen8YkujxA4-jSMtqJI9UvJEVAjRDA" alt="Teamly Logo" style="display:block; width: 200px; height: auto;">
-        `
-      }
-    };
-
-    await addDoc(mailCollection, data);
-    console.log('Queued email for delivery!');
-  } catch (error) {
-    console.error('Error adding data to Firestore: ', error);
-  }
-};
-
 const signUp = async (): Promise<void> => {
   try {
+    isLoading.value = true
     const auth = getAuth()
     if (newUser.value.email && newUser.value.name && newUser.value.password) {
       const userCredential = await createUserWithEmailAndPassword(auth, newUser.value.email, newUser.value.password)
@@ -249,7 +229,7 @@ const signUp = async (): Promise<void> => {
       await updateProfile(user, {
         displayName: newUser.value.name,
       })
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, async (user) => {
         if (user) {
           const newUser = ref({
             id: user.uid,
@@ -257,12 +237,11 @@ const signUp = async (): Promise<void> => {
             email: user.email,
             verified: false
           })
-          console.log(user);
-
-          // store.signIn(auth.currentUser)
           const colRef = doc(db, 'users', user.uid)
           setDoc(colRef, newUser.value)
-          addToMailCollection(newUser.value.email, newUser.value.id)
+          await sendMailMessage(newUser.value.email, newUser.value.id)
+          isVerification.value = true
+          isLoading.value = false
         }
       })
     }
@@ -275,12 +254,14 @@ const signUp = async (): Promise<void> => {
     newUser.value.name = ''
     newUser.value.email = ''
     newUser.value.password = ''
+    isLoading.value = false
   }
 }
 
 
 
 const isError = ref(false)
+const errorMessage = ref('')
 const user = ref({
   email: '',
   password: '',
@@ -288,17 +269,20 @@ const user = ref({
 
 const signIn = async () => {
   try {
+    isLoading.value = true
     if (user.value.email && user.value.password) {
       const auth = getAuth()
       const userCredential = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
-      await store.signIn(userCredential.user)
-      router.push('/')
+      const response =  await store.signIn(userCredential.user)
+      if(response) {
+        errorMessage.value = response
+        errorHandler()
+      }
     }
   } catch {
-    isError.value = true
-    setTimeout(() => {
-      isError.value = false
-    }, 3000);
+    errorHandler()
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -321,10 +305,15 @@ const signWithGoogle = async () => {
     await store.signIn(result.user)
     router.push('/')
   } catch (error) {
-    isError.value = true
+    errorHandler()
+  }
+}
+
+const errorHandler = () => {
+  isError.value = true
     setTimeout(() => {
       isError.value = false
+      errorMessage.value = ''
     }, 3000);
-  }
 }
 </script>
