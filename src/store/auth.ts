@@ -3,7 +3,7 @@ import {
   getAuth,
   onAuthStateChanged,
 } from "firebase/auth";
-import {  storage } from '@/firebase'
+import { storage } from '@/firebase'
 import { getDownloadURL, ref } from 'firebase/storage'
 import { getDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
