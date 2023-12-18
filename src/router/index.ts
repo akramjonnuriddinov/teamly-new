@@ -55,9 +55,18 @@ export const router = createRouter({
       component: import('@/pages/NotFound.vue')
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/pages/login/index.vue'),
+      path: '/sign-in',
+      name: 'sign in',
+      component: () => import('@/pages/login/SignIn.vue'),
+      meta: {
+        authRequired: false,
+        guest: true
+      }
+    },
+    {
+      path: '/sign-up',
+      name: 'sign up',
+      component: () => import('@/pages/login/SignUp.vue'),
       meta: {
         authRequired: false,
         guest: true
