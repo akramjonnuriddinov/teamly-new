@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
-import { useAuthStore } from "@/store/auth";
-
+import { useAuthStore } from "@/store/auth"
+import { onAuthStateChanged } from "firebase/auth"
+import { auth } from "@/firebase"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -79,9 +80,27 @@ const router = createRouter({
   ]
 })
 
-
-router.beforeEach(async (to) => {
+router.beforeEach(async (to, _, next) => {
   const store = useAuthStore()
+  try {
+    await new Promise<void>((resolve) => {
+      const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+        if ((to.name === 'admin' || to.name === 'resume') && (authUser?.email !== 'nn.akramjon@gmail.com' && authUser?.email !== 'rustamidastan0414@gmail.com' && authUser?.email !== 'rajabov.diyorbek.it@gmail.com' && authUser?.email !== 'akramjonmohirdev@gmail.com')) {
+          console.log('User has logged out')
+          next({ name: 'login' })
+          unsubscribe()
+        } else {
+          resolve()
+          next()
+        }
+      })
+    })
+  } catch (error) {
+    console.error('Error checking authentication state:', error)
+    next({ name: 'login' })
+  }
+
+  // Diyorbek
   if (to.matched.some((record) => record.meta.authRequired) && !store.token) {
     return {
       name: 'login'
@@ -95,12 +114,11 @@ router.beforeEach(async (to) => {
   }
   if (store.token && !store.user) {
     try {
-      store.fetchProfile();
+      store.fetchProfile()
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error('Error fetching user profile:', error)
     }
   }
-
 })
 
 export default router

@@ -120,8 +120,8 @@ const store = useAuthStore()
 
 const user = computed(() => store.user)
 
-const logout = () => {
-  store.logout()
+const logout = async () => {
+  await store.logout()
   router.push('/')
 }
 const isDropDown = ref(false)

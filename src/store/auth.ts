@@ -2,12 +2,12 @@ import { defineStore } from "pinia";
 import {
   getAuth,
   onAuthStateChanged,
+  signOut
 } from "firebase/auth";
 import { storage } from '@/firebase'
-import { getDownloadURL, list, ref } from 'firebase/storage'
+import { getDownloadURL, ref } from 'firebase/storage'
 import { getDoc, doc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
-
 
 const db = useFirestore()
 
@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', {
     user: <any>null,
     users: <any>[],
     resume: '',
-    token: localStorage.getItem('token')
+    token: localStorage.getItem('token'),
   }),
   actions: {
     signIn(payload: any) {
@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
       this.token = payload.accessToken
       this.user = { email: payload.email, id: payload.uid, name: payload.displayName };
     },
-    fetchProfile() {
+    async fetchProfile() {
       const auth = getAuth();
       onAuthStateChanged(auth, async (user) => {
         if (user) {
@@ -53,11 +53,26 @@ export const useAuthStore = defineStore('auth', {
     removeResume() {
       this.resume = ''
     },
-    logout() {
-      localStorage.removeItem('token')
-      this.token = ''
-      this.user = null;
-      this.resume = ''
+    async logout() {
+      const auth = getAuth();
+
+      try {
+        await signOut(auth);
+        localStorage.removeItem('token');
+        this.token = '';
+        this.user = null;
+        this.resume = '';
+        return await new Promise<void>((resolve) => {
+          const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (!user) {
+              unsubscribe();
+              resolve();
+            }
+          });
+        });
+      } catch (error) {
+        console.error('Error during logout:', error);
+      }
     }
   }
 })
