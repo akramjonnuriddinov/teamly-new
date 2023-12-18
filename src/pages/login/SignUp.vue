@@ -117,8 +117,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth'
-import { sendMailMessage } from '@/composables/sendMailMessage'
-import { signWithGoogle } from '@/composables/auth'
+import { signWithGoogle, sendMailMessage } from '@/composables/auth'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 
 const db = useFirestore()
