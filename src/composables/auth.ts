@@ -6,10 +6,9 @@ import {
 import { setDoc, doc, getDoc } from 'firebase/firestore'
 import { useFirestore } from 'vuefire'
 import { useAuthStore } from '@/store/auth'
-import { useRouter } from 'vue-router'
+import { router } from '@/router/index'
 
 const store = useAuthStore()
-const router = useRouter()
 const db = useFirestore()
 
 export const signWithGoogle = async () => {
