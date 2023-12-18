@@ -122,8 +122,6 @@
             Update profile information
         </base-button>
     </div>
-
-
   </div>
   <div class="flex flex-col w-[400px] mt-5 min-h-fit">
     <div class="mb-6 w-full max-[800px]:w-full relative">
@@ -131,13 +129,18 @@
       <input
         class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm cursor-pointer file:hidden"
         @change="handleFileChange"
-        :class="{'hidden' : !selectedFile}"
+        :class="{ hidden: !selectedFile }"
         accept=".docx,.pdf,.txt"
         type="file"
         name="file-input"
         id="file-input"
       />
-      <label :class="{'hidden' : selectedFile}" for="file-input" class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer">Select file (.docx,.pdf,.txt)</label>
+      <label
+        :class="{ hidden: selectedFile }"
+        for="file-input"
+        class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer"
+        >Select file (.docx,.pdf,.txt)</label
+      >
       <div
         v-if="store.resume && !isLoadingResume"
         @click="showResume"
@@ -217,10 +220,9 @@ watch(
   {
     immediate: true,
   },
-);
+)
 
-
-onMounted(async() => {
+onMounted(async () => {
   store.fetchProfile()
   if(!store.user) {
     isLoading.value = true
@@ -267,17 +269,17 @@ const updateValue = (event: any, slug: string) => {
 const updateProfileInformation = async () => {
   if (currentUser !== null) {
     try {
-          isLoadingProfile.value = true
-          await updateProfile(currentUser, { displayName: updatedUser.value.name })
-          const colRef = doc(db, 'users', updatedUser.value.id)
-          setDoc(colRef, updatedUser.value)
-          store.fetchProfile()
-      } catch (error) {
-        console.log(error)
-      } finally {
-        isLoadingProfile.value = false
+      isLoadingProfile.value = true
+      await updateProfile(currentUser, { displayName: updatedUser.value.name })
+      const colRef = doc(db, 'users', updatedUser.value.id)
+      setDoc(colRef, updatedUser.value)
+      store.fetchProfile()
+    } catch (error) {
+      console.error(error)
+    } finally {
+      isLoadingProfile.value = false
     }
-}
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll" @scroll="detectScroll">
     <div>
       <h2 class="mb-10 text-3xl capitalize">Appliers</h2>
       <div v-if="isLoading" class="flex justify-center py-20">
@@ -17,7 +17,7 @@
               <button
                 @click.stop="openUserModal(applier.user)"
                 title="View Profile"
-                class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
+                class="flex justify-start w-1/5 mr-2 overflow-hidden font-semibold text-center whitespace-nowrap text-ellipsis text-tg-green hover:opacity-80"
               >
                 {{ applier.user.name }}
               </button>
@@ -43,12 +43,16 @@
               </div>
             </div>
             <status-detail
+              v-if="isApplierStatusesReady"
               :applier_id="applier.id"
               :status_id="applier.status_id"
               :expanded="detailExpanded === index"
             />
           </li>
         </template>
+        <div v-if="isLoading2" class="flex justify-center">
+          <button-loader color="#7E54F8" width="50px" height="50px" />
+        </div>
       </ul>
       <div v-else>Nothing found...</div>
     </div>
@@ -68,6 +72,8 @@ import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import UserModal from '@/components/admin/resume/UserModal.vue'
 import AppLoader from '@/components/static/AppLoader.vue'
 import { useRoute } from 'vue-router'
+import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
+import ButtonLoader from '@/components/static/ButtonLoader.vue'
 
 const route = useRoute()
 const db = useFirestore()
@@ -77,32 +83,72 @@ const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const users = ref<any>([])
 const isLoading = ref(true)
+const isLoading2 = ref(false)
 
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
 const currentUser = ref<any>(null)
 const isUserModal = ref(false)
 const selectedUser = ref<any>(null)
+let lastVisible: any = null
+const options = ref<any>([])
+const isLoadMore = ref(true)
+
+async function loadMore() {
+  const q = query(collection(db, 'appliers'), orderBy('date'), startAfter(lastVisible), limit(20))
+
+  const querySnapshot = await getDocs(q)
+
+  if (querySnapshot.docs.length > 0) {
+    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
+
+    querySnapshot.forEach((doc) => {
+      const item = ref()
+      item.value = doc.data()
+      options.value.push({ ...item.value, id: doc.id })
+    })
+
+    isLoading2.value = true
+    vacancies.value = await fetchData('vacancies')
+    statuses.value = await fetchData('statuses')
+    users.value = await fetchData('users')
+    appliers.value = await options.value.map((item: any) => ({
+      id: item.id,
+      status: statuses.value.find((el: any) => el.id === item.status_id),
+      user: users.value.find((el: any) => el.id === item.user_id),
+      vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
+      applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
+    }))
+    isLoading2.value = false
+  } else {
+    isLoadMore.value = false
+    console.log('No more documents to load.')
+  }
+}
+
+const detectScroll = async (event: any) => {
+  const element = event.target
+  const scrollHeight = element.scrollHeight - window.innerHeight
+  if (scrollHeight <= element.scrollTop && !isLoading2.value && isLoadMore.value) {
+    await loadMore()
+  }
+}
 
 onMounted(async () => {
-  isLoading.value = true
-  vacancies.value = await fetchData('vacancies')
-  statuses.value = await fetchData('statuses')
-  users.value = await fetchData('users')
-  applierStatuses.value = await fetchData('applier_statuses')
-  const allAppliers = await fetchData('appliers')
-  appliers.value = await allAppliers.map((item: any) => ({
-    id: item.id,
-    status: statuses.value.find((el: any) => el.id === item.status_id),
-    user: users.value.find((el: any) => el.id === item.user_id),
-    vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
-    applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
-  }))
+  await loadMore()
+  isLoading.value = false
+
   if (route.query.id) {
     appliers.value = await appliers.value.filter((item: any) => item.vacancy.id === route.query.id)
   }
-  isLoading.value = false
 })
+
+const isApplierStatusesReady = ref(false)
+
+const loadApplierStatuses = async () => {
+  applierStatuses.value = await fetchData('applier_statuses')
+  isApplierStatusesReady.value = true
+}
 
 const openStatusModal = (applier_id: string, vacancy_id: string) => {
   isStatusModal.value = true
@@ -112,6 +158,7 @@ const openStatusModal = (applier_id: string, vacancy_id: string) => {
   }
 }
 const toggleAccordion = (value: any) => {
+  loadApplierStatuses()
   detailExpanded.value = detailExpanded.value === value ? null : value
 }
 const removeUser = async (id: string) => {

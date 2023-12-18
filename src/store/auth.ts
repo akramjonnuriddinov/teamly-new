@@ -42,7 +42,7 @@ export const useAuthStore = defineStore('auth', {
           if (userInfo) {
             this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin };
           } else {
-            this.user = { email: user.email, id: user.uid, name: user.displayName,};
+            this.user = { email: user.email, id: user.uid, name: user.displayName, };
           }
           try {
             const userDirectory = `users/${user.uid}`;
@@ -50,7 +50,7 @@ export const useAuthStore = defineStore('auth', {
             const url = await getDownloadURL(userRef);
             this.resume = url;
           } catch (error) {
-            // console.error('Ошибка:', error);
+            console.error('Error:', error);
           }
         } else {
           this.user = null;

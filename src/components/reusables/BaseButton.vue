@@ -18,7 +18,7 @@ interface ButtonShape {
   size?: ESize
   theme?: EThemes
   isLoading?: boolean
-  disabled?: boolean,
+  disabled?: boolean
   color?: string
 }
 
@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<ButtonShape>(), {
   theme: EThemes.DEFAULT,
   isLoading: false,
   disabled: false,
-  color: ''
+  color: '',
 })
 
 const theme = {

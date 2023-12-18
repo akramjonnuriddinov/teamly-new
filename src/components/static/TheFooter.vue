@@ -4,13 +4,7 @@
       <div class="teamly-container">
         <div class="flex flex-col lg:!flex-row text-center lg:!text-start max-[767px]:pt-[100px]">
           <router-link class="mr-32" to="/">
-            <img
-              class="max-w-[150px] w-full"
-              width="150"
-              height="36"
-              src="@/assets/images/logos/custom-logo-white17.png"
-              alt=""
-            />
+            <the-logo color="white" />
           </router-link>
         </div>
 
@@ -126,6 +120,10 @@
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+import TheLogo from './TheLogo.vue'
+</script>
 
 <style>
 .footer {
