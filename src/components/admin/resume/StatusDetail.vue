@@ -39,16 +39,22 @@
 import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import TheTransition from '@/components/reusables/TheTransition.vue'
+import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
 
-const props = defineProps(['expanded', 'applier_id', 'status_id'])
+const props = defineProps(['expanded', 'applier_id', 'status_id', 'data'])
 const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const tasks = ref<any>([])
+const statusesData = ref<any>([])
+
+console.log(props.data, 'props')
 
 onMounted(async () => {
   tasks.value = await fetchData('tasks')
-  let allStatuses = await fetchData('applier_statuses')
+  statusesData.value = await fetchDataWithWhere('statuses', 'id', '==', '')
+
   if (!statuses.value.length) statuses.value = await fetchData('statuses')
+  let allStatuses = await fetchData('applier_statuses')
   allStatuses = allStatuses.map((item: any) => ({
     ...item,
     status: statuses.value.find((el: any) => el.id === item.status_id),

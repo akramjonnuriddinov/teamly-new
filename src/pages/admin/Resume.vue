@@ -10,7 +10,7 @@
           <li v-if="applier.user" class="relative flex flex-col mb-5">
             <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
               <button
-                @click="toggleAccordion(index)"
+                @click="toggleAccordion(index, applier)"
                 class="mr-4 duration-300 text-tg-paragraph-color transition-color hover:text-tg-heading-font-color"
               >
                 <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
@@ -22,7 +22,7 @@
               >
                 {{ applier.user.name }}
               </button>
-              <a @click.stop class="w-1/5 mr-2" href="#">{{ applier.vacancy.title }}</a>
+              <span @click.stop class="w-1/5 mr-2">{{ applier.vacancy.title }}</span>
               <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.user.email}`">{{
                 applier.user.email || 'email undefined'
               }}</a>
@@ -48,6 +48,7 @@
               :applier_id="applier.id"
               :status_id="applier.status_id"
               :expanded="detailExpanded === index"
+              :data="data"
             />
           </li>
         </template>
@@ -75,6 +76,7 @@ import AppLoader from '@/components/static/AppLoader.vue'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
 import ButtonLoader from '@/components/static/ButtonLoader.vue'
+import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
 
 const route = useRoute()
 const db = useFirestore()
@@ -146,9 +148,10 @@ onMounted(async () => {
 
 const isApplierStatusesReady = ref(false)
 
-const loadApplierStatuses = async () => {
+const data = ref<any>([])
+const loadApplierStatuses = async (applier: any) => {
   if (!applierStatuses.value.length) {
-    console.log('laod')
+    data.value = await fetchDataWithWhere('applier_statuses', 'applier_id', '==', applier.id)
     applierStatuses.value = await fetchData('applier_statuses')
   }
   isApplierStatusesReady.value = true
@@ -161,8 +164,8 @@ const openStatusModal = (applier_id: string, vacancy_id: string) => {
     vacancy_id,
   }
 }
-const toggleAccordion = (value: any) => {
-  loadApplierStatuses()
+const toggleAccordion = (value: any, applier: any) => {
+  loadApplierStatuses(applier)
   detailExpanded.value = detailExpanded.value === value ? null : value
 }
 const removeUser = async (id: string) => {
