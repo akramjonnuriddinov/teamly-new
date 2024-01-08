@@ -12,7 +12,6 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-
 import SwiperClass, { } from 'swiper'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css'
@@ -20,9 +19,9 @@ import 'swiper/css'
 const pinia = createPinia()
 const app = createApp(App)
 
-SwiperClass.use([]);
+SwiperClass.use([])
 
-AOS.init();
+AOS.init()
 app.component('inline-svg', InlineSvg)
 app.use(VueFire, {
   firebaseApp,

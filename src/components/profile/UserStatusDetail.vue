@@ -23,7 +23,13 @@
                 class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white"
               ></div>
               <time class="mb-1 text-sm font-bold leading-none text-tg-primary-color">{{
-                formatTimestampToLocaleString(userApplierStatus.date)
+                formatTimestampToLocaleString(userApplierStatus.date, {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+                })
               }}</time>
               <h3 class="text-lg font-semibold text-gray-900">{{ userApplierStatus.userStatus?.title }}</h3>
               <div class="px-5 text-slate-500">
@@ -65,6 +71,7 @@ import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import TheTransition from '@/components/reusables/TheTransition.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
+import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
 
 const props = defineProps(['expanded', 'applierStatuses', 'vacancy_id', 'commentLoading'])
 
@@ -86,11 +93,4 @@ onMounted(async () => {
   }))
   isLoading.value = false
 })
-
-function formatTimestampToLocaleString(timestamp: number) {
-  const date = new Date(timestamp)
-  const options: object = { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }
-  const formattedDate = date.toLocaleDateString('en-US', options)
-  return formattedDate
-}
 </script>

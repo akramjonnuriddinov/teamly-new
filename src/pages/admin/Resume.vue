@@ -48,7 +48,6 @@
               :applier_id="applier.id"
               :status_id="applier.status_id"
               :expanded="detailExpanded === index"
-              :data="data"
             />
           </li>
         </template>
@@ -125,7 +124,7 @@ async function loadMore() {
     isLoading2.value = false
   } else {
     isLoadMore.value = false
-    console.log('No more documents to load.')
+    console.log('No more documents to load...')
   }
 }
 
@@ -150,11 +149,20 @@ const isApplierStatusesReady = ref(false)
 
 const data = ref<any>([])
 const loadApplierStatuses = async (applier: any) => {
-  if (!applierStatuses.value.length) {
-    data.value = await fetchDataWithWhere('applier_statuses', 'applier_id', '==', applier.id)
-    applierStatuses.value = await fetchData('applier_statuses')
+  try {
+    // Check if applier statuses are already loaded
+    if (!applierStatuses.value.length) {
+      applierStatuses.value = await fetchDataWithWhere('applier_statuses', 'applier_id', '==', applier.id)
+      // Fetch applier statuses for the given applier
+    }
+
+    // Set data and update the flag
+    data.value = applierStatuses.value
+    isApplierStatusesReady.value = true
+  } catch (error) {
+    console.error('Error loading applier statuses:', error)
+    isApplierStatusesReady.value = false
   }
-  isApplierStatusesReady.value = true
 }
 
 const openStatusModal = (applier_id: string, vacancy_id: string) => {

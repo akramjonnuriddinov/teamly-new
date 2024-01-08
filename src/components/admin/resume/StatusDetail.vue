@@ -8,7 +8,13 @@
             class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white"
           ></div>
           <time class="mb-1 text-sm font-normal leading-none text-gray-400">{{
-            formatTimestampToLocaleString(applierStatus.date)
+            formatTimestampToLocaleString(applierStatus.date, {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })
           }}</time>
           <h3 class="text-lg font-semibold text-gray-900">{{ applierStatus?.status?.title }}</h3>
           <div v-if="applierStatus.task">
@@ -40,21 +46,25 @@ import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import TheTransition from '@/components/reusables/TheTransition.vue'
 import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
+import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
 
-const props = defineProps(['expanded', 'applier_id', 'status_id', 'data'])
+const props = defineProps(['expanded', 'applier_id', 'status_id'])
 const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const tasks = ref<any>([])
 const statusesData = ref<any>([])
 
-console.log(props.data, 'props')
-
 onMounted(async () => {
+  console.log(new Date().getSeconds(), '1')
   tasks.value = await fetchData('tasks')
   statusesData.value = await fetchDataWithWhere('statuses', 'id', '==', '')
+  console.log(new Date().getSeconds(), '2')
 
   if (!statuses.value.length) statuses.value = await fetchData('statuses')
   let allStatuses = await fetchData('applier_statuses')
+  console.log(new Date().getSeconds(), '3')
+
+  console.log(allStatuses, 'allStatuses')
   allStatuses = allStatuses.map((item: any) => ({
     ...item,
     status: statuses.value.find((el: any) => el.id === item.status_id),
@@ -65,13 +75,6 @@ onMounted(async () => {
     task: tasks.value.filter((task: any) => task.id === item.task_id)[0],
   }))
 })
-
-function formatTimestampToLocaleString(timestamp: number) {
-  const date = new Date(timestamp)
-  const options: object = { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }
-  const formattedDate = date.toLocaleDateString('en-US', options)
-  return formattedDate
-}
 </script>
 
 <style>

@@ -94,6 +94,7 @@
 import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
+import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
 
 const blogs = ref<any>([])
 const isLoading = ref(true)
@@ -103,13 +104,6 @@ onMounted(async () => {
   blogs.value = await fetchData('blog')
   isLoading.value = false
 })
-
-function formatTimestampToLocaleString(timestamp: number) {
-  const date = new Date(timestamp)
-  const options: object = { month: 'long', day: 'numeric', year: 'numeric' }
-  const formattedDate = date.toLocaleDateString('en-US', options)
-  return formattedDate
-}
 </script>
 
 <style scoped>
