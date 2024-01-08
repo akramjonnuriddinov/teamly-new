@@ -179,7 +179,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 import { setDoc, doc, getDoc } from 'firebase/firestore'
 import {
   getAuth,
@@ -194,7 +194,6 @@ import { useRouter } from 'vue-router'
 
 const store = useAuthStore()
 const router = useRouter()
-const db = useFirestore()
 const isCreated = ref(true)
 const newUser = ref({
   email: '',

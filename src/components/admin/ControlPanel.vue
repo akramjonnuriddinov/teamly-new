@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import { ref, watch, defineAsyncComponent } from 'vue'
 import { doc, deleteDoc } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import { provide } from 'vue'
@@ -56,7 +56,6 @@ import { fetchData } from '@/composables/fetchData'
 const props = defineProps<{
   title: string
 }>()
-const db = useFirestore()
 const dataEntries = ref<any>([])
 const currentModal = ref(null)
 const isShow = ref<Boolean>(false)

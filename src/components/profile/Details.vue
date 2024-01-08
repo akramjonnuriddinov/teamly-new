@@ -167,7 +167,7 @@ import BaseButton from '@/components/reusables/BaseButton.vue'
 import ButtonLoader from '@/components/static/ButtonLoader.vue'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 import { EThemes } from '@/types'
 import { uploadBytes, deleteObject, ref as fireRef } from 'firebase/storage'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
@@ -177,7 +177,6 @@ import InlineSvg from '../reusables/InlineSvg.vue'
 
 const isLoading = ref(false)
 const store = useAuthStore()
-const db = useFirestore()
 const user = ref({
   ...store.user,
 })

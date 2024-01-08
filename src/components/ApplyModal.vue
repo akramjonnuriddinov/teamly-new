@@ -21,13 +21,18 @@
               <input
                 class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer file:hidden"
                 @change="handleFileChange"
-                :class="{'hidden' : !selectedFile}"
+                :class="{ hidden: !selectedFile }"
                 accept=".docx,.pdf,.txt"
                 type="file"
                 name="file-input"
                 id="file-input"
               />
-              <label  :class="{'hidden' : selectedFile}" for="file-input" class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer">Select file (.docx,.pdf,.txt)</label>
+              <label
+                :class="{ hidden: selectedFile }"
+                for="file-input"
+                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer"
+                >Select file (.docx,.pdf,.txt)</label
+              >
             </div>
           </div>
           <div class="w-full max-[800px]:w-full mx-auto flex justify-center">
@@ -55,7 +60,7 @@ import { ESize } from '@/types'
 import { uploadBytes } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 
 import { useAuthStore } from '@/store/auth'
 
@@ -64,7 +69,7 @@ const props = defineProps(['vacancyId'])
 
 const store = useAuthStore()
 const isLoading = ref(false)
-const db = useFirestore()
+
 const selectedFile = ref<any>(null)
 
 const add = async () => {

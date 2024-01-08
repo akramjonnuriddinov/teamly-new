@@ -1,7 +1,5 @@
 import { collection, query, getDocs } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
-
-const db = useFirestore()
+import { db } from '@/firebase'
 
 export const fetchData = async (path: string) => {
   try {

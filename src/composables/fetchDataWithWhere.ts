@@ -1,7 +1,5 @@
 import { collection, query, where, getDocs } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
-
-const db = useFirestore()
+import { db } from '@/firebase'
 
 export const fetchDataWithWhere = async (path: string, field: string, operator: any, value: any) => {
   try {

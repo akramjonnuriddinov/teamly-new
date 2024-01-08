@@ -73,13 +73,12 @@
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 import { fetchData } from '@/composables/fetchData'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import UserStatusDetail from '@/components/profile/UserStatusDetail.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
 
-const db = useFirestore()
 const store = useAuthStore()
 const vacancies = ref()
 const detailExpanded = ref(null)

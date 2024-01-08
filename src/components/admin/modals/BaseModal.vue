@@ -41,13 +41,12 @@
 <script setup lang="ts">
 import { inject, computed, ref } from 'vue'
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 import { ESize, EThemes, Vacancy } from '@/types'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
 import { isDisabled } from '@/composables/isDisabled'
 
-const db = useFirestore()
 const props = defineProps(['oldValue', 'url', 'close', 'input', 'modal_title'])
 const collectionRef = collection(db, props.url)
 let docRef: any = null

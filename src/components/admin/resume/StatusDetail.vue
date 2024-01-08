@@ -45,26 +45,19 @@
 import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import TheTransition from '@/components/reusables/TheTransition.vue'
-import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
 import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
 
 const props = defineProps(['expanded', 'applier_id', 'status_id'])
 const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const tasks = ref<any>([])
-const statusesData = ref<any>([])
 
 onMounted(async () => {
-  console.log(new Date().getSeconds(), '1')
   tasks.value = await fetchData('tasks')
-  statusesData.value = await fetchDataWithWhere('statuses', 'id', '==', '')
-  console.log(new Date().getSeconds(), '2')
 
   if (!statuses.value.length) statuses.value = await fetchData('statuses')
   let allStatuses = await fetchData('applier_statuses')
-  console.log(new Date().getSeconds(), '3')
 
-  console.log(allStatuses, 'allStatuses')
   allStatuses = allStatuses.map((item: any) => ({
     ...item,
     status: statuses.value.find((el: any) => el.id === item.status_id),

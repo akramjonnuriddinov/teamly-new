@@ -5,8 +5,6 @@ import router from './router'
 import { createPinia } from 'pinia'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { VueFire } from 'vuefire'
-import { firebaseApp } from '@/firebase/index'
 import InlineSvg from 'vue-inline-svg'
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
@@ -23,10 +21,6 @@ SwiperClass.use([])
 
 AOS.init()
 app.component('inline-svg', InlineSvg)
-app.use(VueFire, {
-  firebaseApp,
-  modules: [],
-})
 app.use(pinia)
 app.use(VueAwesomeSwiper)
 app.use(router)

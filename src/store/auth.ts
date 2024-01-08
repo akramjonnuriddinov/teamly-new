@@ -7,9 +7,7 @@ import {
 import { storage } from '@/firebase'
 import { getDownloadURL, ref } from 'firebase/storage'
 import { getDoc, doc } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
-
-const db = useFirestore()
+import { db } from '@/firebase'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({

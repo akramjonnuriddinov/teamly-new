@@ -66,7 +66,7 @@
 import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { doc, deleteDoc } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
 import StatusModal from '@/components/admin/resume/StatusModal.vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
@@ -78,7 +78,6 @@ import ButtonLoader from '@/components/static/ButtonLoader.vue'
 import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
 
 const route = useRoute()
-const db = useFirestore()
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
 const applierStatuses = ref<any>([])
@@ -147,7 +146,6 @@ onMounted(async () => {
 
 const isApplierStatusesReady = ref(false)
 
-const data = ref<any>([])
 const loadApplierStatuses = async (applier: any) => {
   try {
     // Check if applier statuses are already loaded
@@ -157,7 +155,6 @@ const loadApplierStatuses = async (applier: any) => {
     }
 
     // Set data and update the flag
-    data.value = applierStatuses.value
     isApplierStatusesReady.value = true
   } catch (error) {
     console.error('Error loading applier statuses:', error)

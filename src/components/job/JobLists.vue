@@ -55,12 +55,12 @@ import { ESize } from '@/types'
 import { useRouter } from 'vue-router'
 import { fetchData } from '@/composables/fetchData'
 import { collection, where, query, getDocs } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { toggleLoader } from '@/composables/loader'
 
 const props = defineProps(['vacancyId'])
-const db = useFirestore()
+
 const emit = defineEmits(['open'])
 const vacancies = ref()
 const store = useAuthStore()

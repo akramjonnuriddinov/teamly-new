@@ -58,11 +58,10 @@ import Editor from '@/components/reusables/Editor.vue'
 import BaseButton from '@/components/reusables/BaseButton.vue'
 import { ESize } from '@/types'
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
+import { db } from '@/firebase'
 import BaseModal from '@/components/reusables/BaseModal.vue'
 import { fetchData } from '@/composables/fetchData'
 
-const db = useFirestore()
 const collectionRef = collection(db, 'applier_statuses')
 const props = defineProps(['currentUser', 'statuses'])
 const isLoading = ref(false)
