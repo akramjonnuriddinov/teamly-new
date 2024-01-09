@@ -48,6 +48,7 @@
               :applier_id="applier.id"
               :status_id="applier.status_id"
               :expanded="detailExpanded === index"
+              :statuses="statuses"
             />
           </li>
         </template>
@@ -67,14 +68,14 @@ import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
-import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
-import StatusModal from '@/components/admin/resume/StatusModal.vue'
-import InlineSvg from '@/components/reusables/InlineSvg.vue'
-import UserModal from '@/components/admin/resume/UserModal.vue'
-import AppLoader from '@/components/static/AppLoader.vue'
+import StatusDetail from '@/pages/admin/StatusDetail.vue'
+import StatusModal from '@/pages/admin/StatusModal.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
+import UserModal from '@/pages/admin/UserModal.vue'
+import AppLoader from '@/components/AppLoader.vue'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
-import ButtonLoader from '@/components/static/ButtonLoader.vue'
+import ButtonLoader from '@/components/ButtonLoader.vue'
 import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
 
 const route = useRoute()
@@ -110,9 +111,9 @@ async function loadMore() {
     })
 
     isLoading2.value = true
-    vacancies.value = await fetchData('vacancies')
-    statuses.value = await fetchData('statuses')
-    users.value = await fetchData('users')
+    vacancies.value = await fetchData('vacancies') // only the required vacancies should be loaded
+    statuses.value = await fetchData('statuses') // only the required statuses should be loaded
+    users.value = await fetchData('users') // only the required users should be loaded
     appliers.value = await options.value.map((item: any) => ({
       id: item.id,
       status: statuses.value.find((el: any) => el.id === item.status_id),

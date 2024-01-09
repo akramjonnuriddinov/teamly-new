@@ -20,13 +20,13 @@
 import { computed } from 'vue'
 // import {defineAsyncComponent} from 'vue'
 import { useRoute } from 'vue-router'
-import TheNavbar from '@/components/static/TheNavbar.vue'
-import TheFooter from '@/components/static/TheFooter.vue'
+import TheNavbar from '@/components/TheNavbar.vue'
+import TheFooter from '@/components/TheFooter.vue'
 import ScrollTop from '@/components/static/ScrollTop.vue'
 // import TheBrand from '@/components/static/TheBrand.vue'
 import ContactUs from '@/components/static/ContactUs.vue'
-import AppLoader from '@/components/static/AppLoader.vue'
-import LoaderWrapper from '@/components/static/LoaderWrapper.vue'
+import AppLoader from '@/components/AppLoader.vue'
+import LoaderWrapper from '@/components/LoaderWrapper.vue'
 import { isLoading } from '@/composables/loader'
 
 const route = useRoute()

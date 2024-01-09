@@ -12,37 +12,37 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/pages/HomeView.vue')
+      component: () => import('@/pages/home/HomeView.vue')
     },
     {
       path: '/service',
       name: 'service',
-      component: () => import('@/pages/service/index.vue')
+      component: () => import('@/pages/service/ServiceView.vue')
     },
     {
       path: '/portfolio',
       name: 'portfolio',
-      component: () => import('@/pages/portfolio/index.vue')
+      component: () => import('@/pages/portfolio/PortfolioView.vue')
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('@/pages/about/index.vue')
+      component: () => import('@/pages/about/AboutView.vue')
     },
     {
       path: '/vacancy',
       name: 'vacancy',
-      component: () => import('@/pages/vacancy/index.vue')
+      component: () => import('@/pages/vacancy/VacancyView.vue')
     },
     {
       path: '/vacancy/:id',
       name: 'vacancyDetail',
-      component: () => import('@/pages/vacancy/Detail.vue')
+      component: () => import('@/pages/vacancy/VacancyDetail.vue')
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('@/pages/admin/index.vue'),
+      component: () => import('@/pages/admin/AdminView.vue'),
       children: [
         {
           path: '/admin/resume',
@@ -67,7 +67,7 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: () => import('@/pages/profile/index.vue'),
+      component: () => import('@/pages/profile/ProfileView.vue'),
       meta: {
         authRequired: true,
       }
@@ -75,7 +75,7 @@ const router = createRouter({
     {
       path: '/:id',
       name: 'blog',
-      component: () => import('@/pages/blog/index.vue')
+      component: () => import('@/pages/blog/BlogView.vue')
     },
   ]
 })
