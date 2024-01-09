@@ -72,14 +72,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
-import { db } from '@/firebase'
 import { fetchData } from '@/composables/fetchData'
 import InlineSvg from '@/components/InlineSvg.vue'
 import UserStatusDetail from '@/pages/profile/UserStatusDetail.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
+import { useAllVacanciesStore } from '@/store/allVacancies'
+import { useAppliersStore } from '@/store/appliers'
 
 const store = useAuthStore()
+const vacanciesStore = useAllVacanciesStore()
+const appliersStore = useAppliersStore()
 const vacancies = ref()
 const detailExpanded = ref(null)
 const appliers = ref<any>([])
@@ -88,30 +90,18 @@ const isLoading = ref(true)
 const commentLoading = ref(true)
 const isApplierStatusesReady = ref(false)
 
+function filterByVacancyId(arr1: [], arr2: []) {
+  return arr1.flatMap((item1: any) => arr2.filter((item2: any) => item1.vacancy_id === item2.id))
+}
 onMounted(async () => {
   isLoading.value = true
-  appliers.value = await fetchData('appliers')
+  if (!vacanciesStore.vacancies) await vacanciesStore.fetchVacancy()
+  if (!appliersStore.appliers) await appliersStore.fetchVacancy()
+  appliers.value = appliersStore.appliers
   appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
-  const q = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
-  try {
-    const querySnapshot = await getDocs(q)
-    const promises = querySnapshot.docs.map(async (applier) => {
-      const vacancy_id = applier.data().vacancy_id
-      const docRef = doc(db, 'vacancies', vacancy_id)
-      const vacancySnapshot = await getDoc(docRef)
-      if (vacancySnapshot.exists()) {
-        return { ...vacancySnapshot.data(), id: vacancy_id }
-      } else {
-        console.error('Vacancy does not exist')
-        return null
-      }
-    })
-    vacancies.value = await Promise.all(promises)
-  } catch (error) {
-    console.error('Error fetching appliers:', error)
-  } finally {
-    isLoading.value = false
-  }
+  vacancies.value = vacanciesStore.vacancies
+  vacancies.value = filterByVacancyId(appliers.value, vacanciesStore.vacancies)
+  isLoading.value = false
 })
 
 const loadApplierStatuses = async () => {
