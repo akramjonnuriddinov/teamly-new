@@ -77,6 +77,7 @@ import { useRoute } from 'vue-router'
 import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
 import ButtonLoader from '@/components/ButtonLoader.vue'
 import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
+import { useAllVacanciesStore } from '@/store/allVacancies'
 
 const route = useRoute()
 const appliers = ref<any>([])
@@ -86,6 +87,7 @@ const statuses = ref<any>([])
 const users = ref<any>([])
 const isLoading = ref(true)
 const isLoading2 = ref(false)
+const allVacancies = useAllVacanciesStore()
 
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
@@ -111,7 +113,8 @@ async function loadMore() {
     })
 
     isLoading2.value = true
-    vacancies.value = await fetchData('vacancies') // only the required vacancies should be loaded
+    await allVacancies.fetchVacancy()
+    vacancies.value = allVacancies.vacancies // only the required vacancies should be loaded
     statuses.value = await fetchData('statuses') // only the required statuses should be loaded
     users.value = await fetchData('users') // only the required users should be loaded
     appliers.value = await options.value.map((item: any) => ({
