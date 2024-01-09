@@ -127,7 +127,7 @@ async function loadMore() {
     isLoading2.value = false
   } else {
     isLoadMore.value = false
-    console.log('No more documents to load...')
+    console.info('No more documents to load...')
   }
 }
 

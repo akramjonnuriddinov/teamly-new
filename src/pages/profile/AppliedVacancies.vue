@@ -95,8 +95,8 @@ function filterByVacancyId(arr1: [], arr2: []) {
 }
 onMounted(async () => {
   isLoading.value = true
-  if (!vacanciesStore.vacancies) await vacanciesStore.fetchVacancy()
-  if (!appliersStore.appliers) await appliersStore.fetchAppliers()
+  await vacanciesStore.fetchVacancy()
+  await appliersStore.fetchAppliers()
   appliers.value = appliersStore.appliers
   appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
   vacancies.value = vacanciesStore.vacancies

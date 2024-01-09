@@ -70,10 +70,10 @@ const vacancyId = ref<string | undefined>('')
 
 const fetchVacancy = async () => {
   try {
-    if (!vacanciesStore.vacancies) await vacanciesStore.fetchVacancy()
+    await vacanciesStore.fetchVacancy()
     const fetchedVacancy = vacanciesStore.vacancies.filter((item: any) => item.id === route.params.id)
     if (user.value?.id) {
-      if (!appliersStore.appliers) await appliersStore.fetchAppliers()
+      await appliersStore.fetchAppliers()
       const vacanciesId = appliersStore.appliers.map((item: any) => item.vacancy_id)
       vacancy.value = {
         ...fetchedVacancy[0],

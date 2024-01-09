@@ -53,11 +53,10 @@ import BaseButton from '@/components/BaseButton.vue'
 import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
 import { useRouter } from 'vue-router'
-import { collection, where, query, getDocs } from 'firebase/firestore'
-import { db } from '@/firebase'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { toggleLoader } from '@/composables/loader'
 import { useAllVacanciesStore } from '@/store/allVacancies'
+import { useAppliersStore } from '@/store/appliers'
 
 const props = defineProps(['vacancyId'])
 
@@ -65,8 +64,10 @@ const emit = defineEmits(['open'])
 const vacancies = ref()
 const store = useAuthStore()
 const vacanciesStore = useAllVacanciesStore()
+const appliersStore = useAppliersStore()
 const user = ref({ ...store.user })
 const isLoading = ref(null)
+const appliers = ref()
 
 const router = useRouter()
 const handleApply = async (id: any) => {
@@ -101,20 +102,15 @@ const fetchDataAndApply = async () => {
     try {
       toggleLoader(true)
       if (!vacanciesStore.vacancies) await vacanciesStore.fetchVacancy()
-      const result = vacanciesStore.vacancies
-      vacancies.value = result
+      vacancies.value = vacanciesStore.vacancies
 
-      const q = query(collection(db, 'appliers'), where('user_id', '==', user.value.id))
-      const querySnapshot = await getDocs(q)
+      if (!appliersStore.appliers) await appliersStore.fetchAppliers()
+      appliers.value = appliersStore.appliers.filter((item: any) => item.user_id === user.value.id)
 
-      querySnapshot.docs.forEach((applier) => {
-        const vacancy_id = applier.data().vacancy_id
-        const index = vacancies.value.findIndex((vacancy: any) => vacancy.id === vacancy_id)
-
-        if (index !== -1) {
-          vacancies.value[index] = { ...vacancies.value[index], applied: true }
-        }
-      })
+      vacancies.value = vacancies.value.map((item: any) => ({
+        ...item,
+        applied: appliers.value.find((item2: any) => item2.vacancy_id === item.id),
+      }))
     } catch (error) {
       console.error(error)
     } finally {
