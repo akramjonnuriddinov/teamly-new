@@ -53,17 +53,18 @@ import BaseButton from '@/components/BaseButton.vue'
 import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
 import { useRouter } from 'vue-router'
-import { fetchData } from '@/composables/fetchData'
 import { collection, where, query, getDocs } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { toggleLoader } from '@/composables/loader'
+import { useAllVacanciesStore } from '@/store/allVacancies'
 
 const props = defineProps(['vacancyId'])
 
 const emit = defineEmits(['open'])
 const vacancies = ref()
 const store = useAuthStore()
+const vacanciesStore = useAllVacanciesStore()
 const user = ref({ ...store.user })
 const isLoading = ref(null)
 
@@ -99,7 +100,8 @@ const fetchDataAndApply = async () => {
   } else {
     try {
       toggleLoader(true)
-      const result = await fetchData('vacancies')
+      await vacanciesStore.fetchVacancy()
+      const result = vacanciesStore.vacancies
       vacancies.value = result
 
       const q = query(collection(db, 'appliers'), where('user_id', '==', user.value.id))

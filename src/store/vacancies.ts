@@ -10,7 +10,7 @@ export const useVacanciesStore = defineStore('vacancies', {
   }),
   actions: {
     updateApplicationSent(value: boolean) {
-      this.applicationSent = value;
+      this.applicationSent = value
       this.status = this.statusDefault
     },
     async fetchStatus(status_id: string) {

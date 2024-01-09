@@ -52,11 +52,13 @@ import { ref, computed, watch } from 'vue'
 import { db } from '@/firebase'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
-import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
+import { collection, where, query, getDocs } from 'firebase/firestore'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
+import { useAllVacanciesStore } from '@/store/allVacancies'
 
 const route = useRoute()
 const store = useAuthStore()
+const vacanciesStore = useAllVacanciesStore()
 
 const isShow = ref(false)
 
@@ -66,40 +68,20 @@ const vacancyId = ref<string | undefined>('')
 
 const fetchVacancy = async () => {
   try {
-    if (user.value && user.value.id) {
-      const q = query(collection(db, 'appliers'), where('user_id', '==', user.value.id))
-      const querySnapshot = await getDocs(q)
-
-      if (!querySnapshot.empty) {
-        const promises = querySnapshot.docs.map(async (applier) => {
-          const appliedVacancyId = applier.data().vacancy_id
-          const docRef = doc(collection(db, 'vacancies'), appliedVacancyId)
-          const docSnapshot = await getDoc(docRef)
-
-          if (docSnapshot.exists()) {
-            const vacancyData = docSnapshot.data()
-            const statusId = applier.data().status_id
-            if (route.params.id === appliedVacancyId) {
-              return { ...vacancyData, id: appliedVacancyId, status_id: statusId }
-            }
-          }
-
-          return null
-        })
-        const fetchedVacancies = await Promise.all(promises)
-        const vacancyObject = fetchedVacancies.find((item) => item !== null)
-        if (vacancyObject) {
-          vacancy.value = vacancyObject
-        }
+    if (!vacanciesStore.vacancies) await vacanciesStore.fetchVacancy()
+    const fetchedVacancy = vacanciesStore.vacancies.filter((item: any) => item.id === route.params.id)
+    if (user.value?.id) {
+      const fetchedAppliers = await getDocs(query(collection(db, 'appliers'), where('user_id', '==', user.value.id)))
+      const appliers2 = fetchedAppliers.docs.map((item) => item.data())
+      const vacanciesId = appliers2.map((item) => item.vacancy_id)
+      vacancy.value = {
+        ...fetchedVacancy[0],
+        status_id: vacanciesId.includes(route.params.id)
+          ? appliers2[vacanciesId.findIndex((item) => item === route.params.id)].status_id
+          : null,
       }
     } else {
-      const qAllVacancies = query(collection(db, 'vacancies'))
-      const querySnapshotAllVacancies = await getDocs(qAllVacancies)
-      querySnapshotAllVacancies.forEach((doc) => {
-        if (doc.id === route.params.id) {
-          vacancy.value = { ...doc.data(), id: doc.id }
-        }
-      })
+      vacancy.value = fetchedVacancy[0]
     }
   } catch (error) {
     console.error('Error fetching appliers:', error)
