@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import InlineSvg from '@/components/InlineSvg.vue'
-import AdminBaseModal from '@/components/admin_modals/AdminBaseModal.vue'
+import AdminBaseModal from '@/pages/admin/modals/AdminBaseModal.vue'
 import Editor from '@/components/Editor.vue'
 
 const props = defineProps(['input'])

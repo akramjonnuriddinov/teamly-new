@@ -1,20 +1,20 @@
 <template>
-  <admin-base-modal :input="props.input" url="portfolio" :old-value="portfolio" modal_title="Portfolio">
+  <admin-base-modal :input="props.input" url="services" :old-value="service" modal_title="Service">
     <form class="w-full h-auto overflow-y-auto">
       <div class="flex flex-col w-full">
         <div class="flex items-center justify-between w-full">
           <label class="text-gray-700" for="username">Title</label>
           <input
-            v-model="portfolio.title"
+            v-model="service.title"
             class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
             type="text"
           />
         </div>
-        <div class="flex items-center justify-between w-full">
+        <div class="flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="category">Category</label>
           <select
             class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
-            v-model="portfolio.category"
+            v-model="service.category"
             id="category"
           >
             <option value="" disabled selected>Select Category</option>
@@ -23,10 +23,10 @@
             </option>
           </select>
         </div>
-        <div class="flex items-center justify-between w-full my-2">
+        <div class="flex items-center justify-between w-full mb-2">
           <label class="text-gray-700" for="username">Text</label>
           <textarea
-            v-model="portfolio.text"
+            v-model="service.text"
             class="w-[80%] h-[180px] resize-none p-2 border border-gray-200 rounded-md outline-blue-300"
             name=""
             id="text"
@@ -48,16 +48,16 @@
               </p>
               <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
               <img
-                v-if="portfolio.image"
+                v-if="service.image"
                 class="absolute top-0 object-cover w-full h-full rounded-lg"
-                :src="portfolio.image"
+                :src="service.image"
                 alt=""
               />
             </div>
             <input id="dropzone-file" @change="uploadImage" type="file" class="hidden" />
           </label>
           <button
-            v-if="portfolio.image"
+            v-if="service.image"
             @click="deleteImage"
             class="absolute flex items-center justify-center text-2xl text-white transition-all bg-gray-900 rounded-[3px] w-7 h-7 top-5 right-5 hover:text-red-500"
             type="button"
@@ -74,18 +74,18 @@
 import { ref } from 'vue'
 import { Category } from '@/types'
 import InlineSvg from '@/components/InlineSvg.vue'
-import AdminBaseModal from '@/components/admin_modals/AdminBaseModal.vue'
+import AdminBaseModal from '@/pages/admin/modals/AdminBaseModal.vue'
 
 const props = defineProps(['input'])
 const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
-const initialPortfolio = {
+const initialService = {
   title: '',
   category: '',
   text: '',
   image: null,
 }
-const portfolio = ref({
-  ...initialPortfolio,
+const service = ref({
+  ...initialService,
   ...props.input,
 })
 
@@ -94,13 +94,13 @@ const uploadImage = (e: any) => {
   const reader = new FileReader()
   reader.readAsDataURL(image)
   reader.onload = (event: any) => {
-    if (portfolio.value) {
-      portfolio.value.image = event.target.result
+    if (service.value) {
+      service.value.image = event.target.result
     }
   }
 }
 
 const deleteImage = () => {
-  portfolio.value.image = null
+  service.value.image = null
 }
 </script>

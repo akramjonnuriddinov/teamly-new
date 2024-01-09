@@ -68,7 +68,7 @@
 import { ref } from 'vue'
 import { Category } from '@/types'
 import type { Vacancy } from '@/types'
-import AdminBaseModal from '@/components/admin_modals/AdminBaseModal.vue'
+import AdminBaseModal from '@/pages/admin/modals/AdminBaseModal.vue'
 import Editor from '@/components/Editor.vue'
 
 const props = defineProps(['input'])
