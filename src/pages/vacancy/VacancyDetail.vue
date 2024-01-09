@@ -49,16 +49,18 @@ import ApplyModal from '@/pages/vacancy/ApplyModal.vue'
 import VacancyDetailBanner from '@/pages/vacancy/VacancyDetailBanner.vue'
 import JobDescription from '@/pages/vacancy/JobDescription.vue'
 import { ref, computed, watch } from 'vue'
-import { db } from '@/firebase'
+// import { db } from '@/firebase'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
-import { collection, where, query, getDocs } from 'firebase/firestore'
+// import { collection, where, query, getDocs } from 'firebase/firestore'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { useAllVacanciesStore } from '@/store/allVacancies'
+import { useAppliersStore } from '@/store/appliers'
 
 const route = useRoute()
 const store = useAuthStore()
 const vacanciesStore = useAllVacanciesStore()
+const appliersStore = useAppliersStore()
 
 const isShow = ref(false)
 
@@ -71,13 +73,12 @@ const fetchVacancy = async () => {
     if (!vacanciesStore.vacancies) await vacanciesStore.fetchVacancy()
     const fetchedVacancy = vacanciesStore.vacancies.filter((item: any) => item.id === route.params.id)
     if (user.value?.id) {
-      const fetchedAppliers = await getDocs(query(collection(db, 'appliers'), where('user_id', '==', user.value.id)))
-      const appliers2 = fetchedAppliers.docs.map((item) => item.data())
-      const vacanciesId = appliers2.map((item) => item.vacancy_id)
+      if (!appliersStore.appliers) await appliersStore.fetchAppliers()
+      const vacanciesId = appliersStore.appliers.map((item: any) => item.vacancy_id)
       vacancy.value = {
         ...fetchedVacancy[0],
         status_id: vacanciesId.includes(route.params.id)
-          ? appliers2[vacanciesId.findIndex((item) => item === route.params.id)].status_id
+          ? appliersStore.appliers[vacanciesId.findIndex((item: any) => item === route.params.id)].status_id
           : null,
       }
     } else {

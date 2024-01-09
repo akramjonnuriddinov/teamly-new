@@ -6,7 +6,7 @@ export const useAppliersStore = defineStore('allAppliers', {
     appliers: <any>null
   }),
   actions: {
-    async fetchVacancy() {
+    async fetchAppliers() {
       if (!this.appliers)
         this.appliers = await fetchData('appliers')
     }
