@@ -100,7 +100,7 @@ const fetchDataAndApply = async () => {
   } else {
     try {
       toggleLoader(true)
-      await vacanciesStore.fetchVacancy()
+      if (!vacanciesStore.vacancies) await vacanciesStore.fetchVacancy()
       const result = vacanciesStore.vacancies
       vacancies.value = result
 

@@ -1,9 +1,9 @@
-import { defineStore } from "pinia";
+import { defineStore } from "pinia"
 import {
   getAuth,
   onAuthStateChanged,
   signOut
-} from "firebase/auth";
+} from "firebase/auth"
 import { storage } from '@/firebase'
 import { getDownloadURL, ref } from 'firebase/storage'
 import { getDoc, doc } from 'firebase/firestore'
@@ -20,30 +20,30 @@ export const useAuthStore = defineStore('auth', {
     signIn(payload: any) {
       localStorage.setItem('token', payload.accessToken)
       this.token = payload.accessToken
-      this.user = { email: payload.email, id: payload.uid, name: payload.displayName };
+      this.user = { email: payload.email, id: payload.uid, name: payload.displayName }
     },
     async fetchProfile() {
-      const auth = getAuth();
+      const auth = getAuth()
       onAuthStateChanged(auth, async (user) => {
         if (user) {
-          const docRef = doc(db, 'users', user.uid);
-          const userSnapshot = await getDoc(docRef);
+          const docRef = doc(db, 'users', user.uid)
+          const userSnapshot = await getDoc(docRef)
           const userInfo = userSnapshot.data()
           if (userInfo) {
-            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin };
+            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin }
           } else {
-            this.user = { email: user.email, id: user.uid, name: user.displayName, };
+            this.user = { email: user.email, id: user.uid, name: user.displayName, }
           }
           try {
-            const userDirectory = `users/${user.uid}`;
-            const userRef = ref(storage, userDirectory);
-            const url = await getDownloadURL(userRef);
-            this.resume = url;
+            const userDirectory = `users/${user.uid}`
+            const userRef = ref(storage, userDirectory)
+            const url = await getDownloadURL(userRef)
+            this.resume = url
           } catch (error) {
-            console.error('Error:', error);
+            console.error('Error:', error)
           }
         } else {
-          this.user = null;
+          this.user = null
           this.resume = ''
         }
       })
@@ -52,24 +52,24 @@ export const useAuthStore = defineStore('auth', {
       this.resume = ''
     },
     async logout() {
-      const auth = getAuth();
+      const auth = getAuth()
 
       try {
-        await signOut(auth);
-        localStorage.removeItem('token');
-        this.token = '';
-        this.user = null;
-        this.resume = '';
+        await signOut(auth)
+        localStorage.removeItem('token')
+        this.token = ''
+        this.user = null
+        this.resume = ''
         return await new Promise<void>((resolve) => {
           const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (!user) {
-              unsubscribe();
-              resolve();
+              unsubscribe()
+              resolve()
             }
-          });
-        });
+          })
+        })
       } catch (error) {
-        console.error('Error during logout:', error);
+        console.error('Error during logout:', error)
       }
     }
   }

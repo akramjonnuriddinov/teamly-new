@@ -117,7 +117,7 @@ async function loadMore() {
     vacancies.value = allVacancies.vacancies // only the required vacancies should be loaded
     statuses.value = await fetchData('statuses') // only the required statuses should be loaded
     users.value = await fetchData('users') // only the required users should be loaded
-    appliers.value = await options.value.map((item: any) => ({
+    appliers.value = options.value.map((item: any) => ({
       id: item.id,
       status: statuses.value.find((el: any) => el.id === item.status_id),
       user: users.value.find((el: any) => el.id === item.user_id),
