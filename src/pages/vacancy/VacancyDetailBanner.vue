@@ -78,7 +78,7 @@ onMounted(async () => {
   if (!props.vacancy?.status_id) {
     storeVacancies.updateApplicationSent(false)
   }
-  await storeVacancies.fetchStatus(props.vacancy?.status_id)
+  if (store.user) await storeVacancies.fetchStatus(props.vacancy?.status_id)
   listLoading.value = false
 })
 
