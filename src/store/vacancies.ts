@@ -1,6 +1,5 @@
-import { doc, getDoc } from 'firebase/firestore'
 import { defineStore } from 'pinia'
-import { db } from '@/firebase'
+import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
 
 export const useVacanciesStore = defineStore('vacancies', {
   state: () => ({
@@ -14,10 +13,8 @@ export const useVacanciesStore = defineStore('vacancies', {
       this.status = this.statusDefault
     },
     async fetchStatus(status_id: string) {
-      const documentPath = `statuses/${status_id}`
-      const docRef = doc(db, documentPath)
-      const docSnapshot = await getDoc(docRef)
-      this.status = docSnapshot.data()
+      this.status = await fetchDataWithWhere('statuses', 'id', '==', status_id)
+      this.status = this.status[0]
     }
   }
 })
