@@ -1,12 +1,12 @@
-import { doc, getDoc } from 'firebase/firestore'
 import { defineStore } from 'pinia'
-import { db } from '@/firebase'
+import { fetchData } from '@/composables/fetchData'
 
 export const useVacanciesStore = defineStore('vacancies', {
   state: () => ({
     applicationSent: false,
     statusDefault: { color: "#49e4b0", title: "Submitted" },
-    status: <any>null
+    status: <any>null,
+    statuses: <any>null
   }),
   actions: {
     updateApplicationSent(value: boolean) {
@@ -14,10 +14,10 @@ export const useVacanciesStore = defineStore('vacancies', {
       this.status = this.statusDefault
     },
     async fetchStatus(status_id: string) {
-      const documentPath = `statuses/${status_id}`
-      const docRef = doc(db, documentPath)
-      const docSnapshot = await getDoc(docRef)
-      this.status = docSnapshot.data()
+      if (!this.statuses) {
+        this.statuses = await fetchData('statuses')
+      }
+      this.status = (this.statuses.filter((item: any) => item.id === status_id))[0]
     }
   }
 })

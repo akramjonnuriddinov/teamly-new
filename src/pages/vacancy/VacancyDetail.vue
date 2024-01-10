@@ -49,10 +49,8 @@ import ApplyModal from '@/pages/vacancy/ApplyModal.vue'
 import VacancyDetailBanner from '@/pages/vacancy/VacancyDetailBanner.vue'
 import JobDescription from '@/pages/vacancy/JobDescription.vue'
 import { ref, computed, watch } from 'vue'
-// import { db } from '@/firebase'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
-// import { collection, where, query, getDocs } from 'firebase/firestore'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { useAllVacanciesStore } from '@/store/allVacancies'
 import { useAppliersStore } from '@/store/appliers'
@@ -75,6 +73,7 @@ const fetchVacancy = async () => {
     if (user.value?.id) {
       await appliersStore.fetchAppliers()
       const vacanciesId = appliersStore.appliers.map((item: any) => item.vacancy_id)
+
       vacancy.value = {
         ...fetchedVacancy[0],
         status_id: vacanciesId.includes(route.params.id)
