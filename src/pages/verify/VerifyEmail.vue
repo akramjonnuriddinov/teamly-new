@@ -17,7 +17,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import InlineSvg from '@/components/reusables/InlineSvg.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
 import { useAuthStore } from '@/store/auth'
 import { getDoc, doc, updateDoc } from 'firebase/firestore'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
