@@ -89,7 +89,7 @@ export const router = createRouter({
     {
       path: '/verify',
       component: () => import('@/pages/verify/VerifyEmail.vue'),
-      props: (route) => ({ id: route.query.id})
+      props: (route) => ({ id: route.query.id })
     }
   ]
 })

@@ -4,34 +4,33 @@ import {
   signInWithPopup,
 } from 'firebase/auth'
 import { setDoc, doc, getDoc, collection, addDoc, getFirestore } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
 import { useAuthStore } from '@/store/auth'
 import { firebaseApp } from '@/firebase/index'
 import { router } from '@/router/index'
+import { db } from '@/firebase/index'
 
 const store = useAuthStore()
-const db = useFirestore()
 const firestore = getFirestore(firebaseApp);
 
 export const signWithGoogle = async () => {
-    const provider = new GoogleAuthProvider()
-    const result = await signInWithPopup(getAuth(), provider)
-    const colRef = doc(db, 'users', result.user.uid)
-    const docSnapshot = await getDoc(colRef)
+  const provider = new GoogleAuthProvider()
+  const result = await signInWithPopup(getAuth(), provider)
+  const colRef = doc(db, 'users', result.user.uid)
+  const docSnapshot = await getDoc(colRef)
 
-    if (!docSnapshot.exists()) {
-      await setDoc(colRef, {
-        id: result.user.uid,
-        email: result.user.email,
-        name: result.user.displayName,
-        verified: true
-      })
-    }
-    await store.signIn(result.user)
-    router.push('/')
+  if (!docSnapshot.exists()) {
+    await setDoc(colRef, {
+      id: result.user.uid,
+      email: result.user.email,
+      name: result.user.displayName,
+      verified: true
+    })
+  }
+  await store.signIn(result.user)
+  router.push('/')
 }
 
-export const sendMailMessage = async (email:any, id: any) => {
+export const sendMailMessage = async (email: any, id: any) => {
   try {
     const mailCollection = collection(firestore, 'mail');
     const currentDate = new Date();

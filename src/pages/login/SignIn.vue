@@ -7,10 +7,7 @@
             <h1 class="block text-2xl font-bold text-gray-800">Sign in</h1>
             <p class="mt-2 text-sm text-gray-600">
               Don't have an account yet?
-              <router-link
-                to="/sign-up"
-                class="cursor-pointer text-[#7e54f8] decoration-2 hover:underline font-medium"
-              >
+              <router-link to="/sign-up" class="cursor-pointer text-[#7e54f8] decoration-2 hover:underline font-medium">
                 Sign up here
               </router-link>
             </p>
@@ -72,12 +69,7 @@
               <p v-if="isError && !errorMessage" class="text-red-500">Please write your correct email & password</p>
               <p v-else-if="isError" class="text-red-500">{{ errorMessage }}</p>
             </div>
-            <base-button
-              @click="signIn"
-              type="submit"
-              :is-loading="isLoading"
-              class="bg-[#7e54f8] w-full h-[52px]"
-            >
+            <base-button @click="signIn" type="submit" :is-loading="isLoading" class="bg-[#7e54f8] w-full h-[52px]">
               Sign in
             </base-button>
           </form>
@@ -90,12 +82,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-} from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { signWithGoogle } from '@/composables/auth'
-import BaseButton from '@/components/reusables/BaseButton.vue'
+import BaseButton from '@/components/BaseButton.vue'
 
 const store = useAuthStore()
 const isCreated = ref(true)
@@ -113,8 +102,8 @@ const signIn = async () => {
     if (user.value.email && user.value.password) {
       const auth = getAuth()
       const userCredential = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
-      const response =  await store.signIn(userCredential.user)
-      if(response) {
+      const response = await store.signIn(userCredential.user)
+      if (response) {
         errorMessage.value = response
         errorHandler()
       }
@@ -128,9 +117,9 @@ const signIn = async () => {
 
 const errorHandler = () => {
   isError.value = true
-    setTimeout(() => {
-      isError.value = false
-      errorMessage.value = ''
-    }, 3000);
+  setTimeout(() => {
+    isError.value = false
+    errorMessage.value = ''
+  }, 3000)
 }
 </script>

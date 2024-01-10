@@ -19,16 +19,16 @@ export const useAuthStore = defineStore('auth', {
   }),
   actions: {
     async signIn(payload: any) {
-      const docRef = doc(db, 'users', payload.uid);
-      const userSnapshot = await getDoc(docRef);
+      const docRef = doc(db, 'users', payload.uid)
+      const userSnapshot = await getDoc(docRef)
       const userInfo = userSnapshot.data()
-
-      if (userInfo && userInfo?.verified) {
+      // console.log(userInfo?.verified)
+      if (userInfo) {
         localStorage.setItem('token', payload.accessToken)
         this.token = payload.accessToken
-        this.user = { email: payload.email, id: payload.uid, name: payload.displayName };
+        this.user = { email: payload.email, id: payload.uid, name: payload.displayName }
         router.push('/')
-      } else if (userInfo && !userInfo?.verified) {
+      } else if (userInfo) {
         return `Your account isn't verified please check your email (don't forget check spam)`
       }
     },
