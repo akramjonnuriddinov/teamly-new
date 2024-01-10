@@ -27,7 +27,7 @@ export const useAuthStore = defineStore('auth', {
         localStorage.setItem('token', payload.accessToken)
         this.token = payload.accessToken
         this.user = { email: payload.email, id: payload.uid, name: payload.displayName }
-        router.push('/')
+        router.go(-1)
       } else if (userInfo) {
         return `Your account isn't verified please check your email (don't forget check spam)`
       }

@@ -6,7 +6,6 @@ import {
 import { setDoc, doc, getDoc, collection, addDoc, getFirestore } from 'firebase/firestore'
 import { useAuthStore } from '@/store/auth'
 import { firebaseApp } from '@/firebase/index'
-import { router } from '@/router/index'
 import { db } from '@/firebase/index'
 
 const store = useAuthStore()
@@ -25,8 +24,8 @@ export const signWithGoogle = async () => {
       verified: true
     })
   }
+
   await store.signIn(result.user)
-  router.push('/')
 }
 
 export const sendMailMessage = async (email: any, id: any) => {
