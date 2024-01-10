@@ -123,7 +123,7 @@ const fetchDataAndApply = async () => {
     currentApply(props.vacancyId)
   } else {
     try {
-      if (!vacanciesStore.vacancies) await vacanciesStore.fetchVacancy()
+      await vacanciesStore.fetchVacancy()
       vacancies.value = vacanciesStore.vacancies
 
       if (!appliersStore.appliers) await appliersStore.fetchAppliers()
