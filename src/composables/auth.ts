@@ -11,7 +11,6 @@ import { db } from '@/firebase/index'
 
 const store = useAuthStore()
 const firestore = getFirestore(firebaseApp);
-
 export const signWithGoogle = async () => {
   const provider = new GoogleAuthProvider()
   const result = await signInWithPopup(getAuth(), provider)
