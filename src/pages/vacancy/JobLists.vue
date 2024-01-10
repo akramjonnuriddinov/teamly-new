@@ -96,7 +96,7 @@ const appliers = ref()
 const router = useRouter()
 const handleApply = async (id: any) => {
   if (!store.user) {
-    router.push('/login')
+    router.push('/sign-in')
     return
   }
 
