@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
-import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
+import { fetchData } from '@/composables/fetchData'
 
 export const useVacanciesStore = defineStore('vacancies', {
   state: () => ({
     applicationSent: false,
     statusDefault: { color: "#49e4b0", title: "Submitted" },
-    status: <any>null
+    status: <any>null,
+    statuses: <any>null
   }),
   actions: {
     updateApplicationSent(value: boolean) {
@@ -13,8 +14,10 @@ export const useVacanciesStore = defineStore('vacancies', {
       this.status = this.statusDefault
     },
     async fetchStatus(status_id: string) {
-      this.status = await fetchDataWithWhere('statuses', 'id', '==', status_id)
-      this.status = this.status[0]
+      if (!this.statuses) {
+        this.statuses = await fetchData('statuses')
+      }
+      this.status = (this.statuses.filter((item: any) => item.id === status_id))[0]
     }
   }
 })
