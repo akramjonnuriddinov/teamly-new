@@ -91,7 +91,6 @@ const appliersStore = useAppliersStore()
 const user = ref({ ...store.user })
 const isLoading = ref(null)
 const listLoading = ref(true)
-const appliers = ref()
 
 const router = useRouter()
 const handleApply = async (id: any) => {
@@ -128,11 +127,10 @@ const fetchDataAndApply = async () => {
       vacancies.value = vacanciesStore.vacancies
 
       if (!appliersStore.appliers) await appliersStore.fetchAppliers()
-      appliers.value = appliersStore.appliers.filter((item: any) => item.user_id === user.value.id)
 
       vacancies.value = vacancies.value.map((item: any) => ({
         ...item,
-        applied: appliers.value.find((item2: any) => item2.vacancy_id === item.id),
+        applied: appliersStore.appliers.find((item2: any) => item2.vacancy_id === item.id),
       }))
     } catch (error) {
       console.error(error)
