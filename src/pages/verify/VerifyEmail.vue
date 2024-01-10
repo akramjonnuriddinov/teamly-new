@@ -4,7 +4,7 @@
       <div v-if="isLoading">
         <Skeleton width="300px" height="148px" :theme="ESkeletonTheme.DARK" />
       </div>
-      <div v-else class="bg-green-500 text-white p-8 rounded-lg shadow-lg">
+      <div v-else class="p-8 text-white bg-green-500 rounded-lg shadow-lg">
         <div class="flex items-center justify-center mb-4">
           <inline-svg fill="none" src="check.svg" />
           <h1 class="text-3xl font-bold">Success!</h1>
@@ -16,11 +16,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue'
 import InlineSvg from '@/components/reusables/InlineSvg.vue'
 import { useAuthStore } from '@/store/auth'
-import { getDoc, doc, updateDoc } from 'firebase/firestore';
-import Skeleton, { ESkeletonTheme } from '@/components/skeleton/Skeleton.vue'
+import { getDoc, doc, updateDoc } from 'firebase/firestore'
+import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { useFirestore } from 'vuefire'
 
 const store = useAuthStore()
@@ -28,26 +28,26 @@ const db = useFirestore()
 const props = defineProps({
   id: {
     type: String,
-    required: true
-  }
-});
+    required: true,
+  },
+})
 
-const userInfo = ref(null);
+const userInfo = ref(null)
 const isLoading = ref(true)
 
 onMounted(async () => {
-  const docRef = doc(db, 'users', props.id);
+  const docRef = doc(db, 'users', props.id)
   try {
-    const userSnapshot = await getDoc(docRef);
-    let userData = userSnapshot.data();
-    userData = { ...userData, verified: true };
+    const userSnapshot = await getDoc(docRef)
+    let userData = userSnapshot.data()
+    userData = { ...userData, verified: true }
 
-    await updateDoc(docRef, userData);
-    userInfo.value = userData;
+    await updateDoc(docRef, userData)
+    userInfo.value = userData
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    console.error('Error fetching user data:', error)
   } finally {
     isLoading.value = false
   }
-});
+})
 </script>

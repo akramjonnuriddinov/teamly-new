@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
-import { useAuthStore } from "@/store/auth";
-
+import { useAuthStore } from "@/store/auth"
+import { onAuthStateChanged } from "firebase/auth"
+import { auth } from "@/firebase"
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -11,37 +12,37 @@ export const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/pages/HomeView.vue')
+      component: () => import('@/pages/home/HomeView.vue')
     },
     {
       path: '/service',
       name: 'service',
-      component: () => import('@/pages/service/index.vue')
+      component: () => import('@/pages/service/ServiceView.vue')
     },
     {
       path: '/portfolio',
       name: 'portfolio',
-      component: () => import('@/pages/portfolio/index.vue')
+      component: () => import('@/pages/portfolio/PortfolioView.vue')
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('@/pages/about/index.vue')
+      component: () => import('@/pages/about/AboutView.vue')
     },
     {
       path: '/vacancy',
       name: 'vacancy',
-      component: () => import('@/pages/vacancy/index.vue')
+      component: () => import('@/pages/vacancy/VacancyView.vue')
     },
     {
       path: '/vacancy/:id',
       name: 'vacancyDetail',
-      component: () => import('@/pages/vacancy/Detail.vue')
+      component: () => import('@/pages/vacancy/VacancyDetail.vue')
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('@/pages/admin/index.vue'),
+      component: () => import('@/pages/admin/AdminView.vue'),
       children: [
         {
           path: '/admin/resume',
@@ -75,7 +76,7 @@ export const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: () => import('@/pages/profile/index.vue'),
+      component: () => import('@/pages/profile/ProfileView.vue'),
       meta: {
         authRequired: true,
       }
@@ -83,19 +84,37 @@ export const router = createRouter({
     {
       path: '/:id',
       name: 'blog',
-      component: () => import('@/pages/blog/index.vue')
+      component: () => import('@/pages/blog/BlogView.vue')
     },
     {
       path: '/verify',
       component: () => import('@/pages/verify/VerifyEmail.vue'),
-      props: (route) => ({ id: route.query.id})
+      props: (route) => ({ id: route.query.id })
     }
   ]
 })
 
-
-router.beforeEach(async (to) => {
+router.beforeEach(async (to, _, next) => {
   const store = useAuthStore()
+  try {
+    await new Promise<void>((resolve) => {
+      const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+        if ((to.name === 'admin' || to.name === 'resume') && (authUser?.email !== 'nn.akramjon@gmail.com' && authUser?.email !== 'rustamidastan0414@gmail.com' && authUser?.email !== 'rajabov.diyorbek.it@gmail.com' && authUser?.email !== 'akramjonmohirdev@gmail.com')) {
+          console.info('User has logged out')
+          next({ name: 'login' })
+          unsubscribe()
+        } else {
+          resolve()
+          next()
+        }
+      })
+    })
+  } catch (error) {
+    console.error('Error checking authentication state:', error)
+    next({ name: 'login' })
+  }
+
+  // Diyorbek
   if (to.matched.some((record) => record.meta.authRequired) && !store.token) {
     return {
       name: 'login'
@@ -109,12 +128,11 @@ router.beforeEach(async (to) => {
   }
   if (store.token && !store.user) {
     try {
-      store.fetchProfile();
+      store.fetchProfile()
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error('Error fetching user profile:', error)
     }
   }
-
 })
 
 export default router

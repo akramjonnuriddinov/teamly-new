@@ -1,7 +1,5 @@
 import { addDoc, collection } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
-
-const db = useFirestore()
+import { db } from '@/firebase'
 
 export const vacancyApply = async (userID: string, id: any) => {
   const ref = collection(db, 'appliers')

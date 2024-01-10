@@ -7,9 +7,10 @@
       </div>
       <ul v-else-if="appliers.length">
         <template v-for="(applier, index) in appliers" :key="index">
-          <li v-if="applier.user" class="relative flex flex-col mb-5" @click="toggleAccordion(index)">
+          <li v-if="applier.user" class="relative flex flex-col mb-5">
             <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
               <button
+                @click="toggleAccordion(index, applier)"
                 class="mr-4 duration-300 text-tg-paragraph-color transition-color hover:text-tg-heading-font-color"
               >
                 <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
@@ -21,7 +22,7 @@
               >
                 {{ applier.user.name }}
               </button>
-              <a @click.stop class="w-1/5 mr-2" href="#">{{ applier.vacancy.title }}</a>
+              <span @click.stop class="w-1/5 mr-2">{{ applier.vacancy.title }}</span>
               <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.user.email}`">{{
                 applier.user.email || 'email undefined'
               }}</a>
@@ -47,6 +48,7 @@
               :applier_id="applier.id"
               :status_id="applier.status_id"
               :expanded="detailExpanded === index"
+              :statuses="statuses"
             />
           </li>
         </template>
@@ -65,18 +67,19 @@
 import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { doc, deleteDoc } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
-import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
-import StatusModal from '@/components/admin/resume/StatusModal.vue'
-import InlineSvg from '@/components/reusables/InlineSvg.vue'
-import UserModal from '@/components/admin/resume/UserModal.vue'
-import AppLoader from '@/components/static/AppLoader.vue'
+import { db } from '@/firebase'
+import StatusDetail from '@/pages/admin/StatusDetail.vue'
+import StatusModal from '@/pages/admin/StatusModal.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
+import UserModal from '@/pages/admin/UserModal.vue'
+import AppLoader from '@/components/AppLoader.vue'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
-import ButtonLoader from '@/components/static/ButtonLoader.vue'
+import ButtonLoader from '@/components/ButtonLoader.vue'
+import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
+import { useAllVacanciesStore } from '@/store/allVacancies'
 
 const route = useRoute()
-const db = useFirestore()
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
 const applierStatuses = ref<any>([])
@@ -84,6 +87,7 @@ const statuses = ref<any>([])
 const users = ref<any>([])
 const isLoading = ref(true)
 const isLoading2 = ref(false)
+const allVacancies = useAllVacanciesStore()
 
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
@@ -109,10 +113,11 @@ async function loadMore() {
     })
 
     isLoading2.value = true
-    vacancies.value = await fetchData('vacancies')
-    statuses.value = await fetchData('statuses')
-    users.value = await fetchData('users')
-    appliers.value = await options.value.map((item: any) => ({
+    await allVacancies.fetchVacancy()
+    vacancies.value = allVacancies.vacancies // only the required vacancies should be loaded
+    statuses.value = await fetchData('statuses') // only the required statuses should be loaded
+    users.value = await fetchData('users') // only the required users should be loaded
+    appliers.value = options.value.map((item: any) => ({
       id: item.id,
       status: statuses.value.find((el: any) => el.id === item.status_id),
       user: users.value.find((el: any) => el.id === item.user_id),
@@ -122,7 +127,7 @@ async function loadMore() {
     isLoading2.value = false
   } else {
     isLoadMore.value = false
-    console.log('No more documents to load.')
+    console.info('No more documents to load...')
   }
 }
 
@@ -145,9 +150,20 @@ onMounted(async () => {
 
 const isApplierStatusesReady = ref(false)
 
-const loadApplierStatuses = async () => {
-  applierStatuses.value = await fetchData('applier_statuses')
-  isApplierStatusesReady.value = true
+const loadApplierStatuses = async (applier: any) => {
+  try {
+    // Check if applier statuses are already loaded
+    if (!applierStatuses.value.length) {
+      applierStatuses.value = await fetchDataWithWhere('applier_statuses', 'applier_id', '==', applier.id)
+      // Fetch applier statuses for the given applier
+    }
+
+    // Set data and update the flag
+    isApplierStatusesReady.value = true
+  } catch (error) {
+    console.error('Error loading applier statuses:', error)
+    isApplierStatusesReady.value = false
+  }
 }
 
 const openStatusModal = (applier_id: string, vacancy_id: string) => {
@@ -157,8 +173,8 @@ const openStatusModal = (applier_id: string, vacancy_id: string) => {
     vacancy_id,
   }
 }
-const toggleAccordion = (value: any) => {
-  loadApplierStatuses()
+const toggleAccordion = (value: any, applier: any) => {
+  loadApplierStatuses(applier)
   detailExpanded.value = detailExpanded.value === value ? null : value
 }
 const removeUser = async (id: string) => {

@@ -1,9 +1,9 @@
-import { collection, query, getDocs } from 'firebase/firestore'
+import { collection, query, where, getDocs } from 'firebase/firestore'
 import { db } from '@/firebase'
 
-export const fetchData = async (path: string) => {
+export const fetchDataWithWhere = async (path: string, field: string, operator: any, value: any) => {
   try {
-    const q = query(collection(db, path))
+    const q = query(collection(db, path), where(field, operator, value))
     const querySnapshot = await getDocs(q)
     const options = await Promise.all(
       querySnapshot.docs.map(async (doc) => {
