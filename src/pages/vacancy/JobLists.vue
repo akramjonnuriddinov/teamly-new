@@ -58,7 +58,7 @@
               class="mt-auto"
             >
               <template v-if="vacancy.applied">
-                <inline-svg fill="none" src="check.svg" />
+                <inline-svg class="max-h-[40px] min-h-[40px] min-w-[40px] max-w-[40px]" fill="none" src="check.svg" />
               </template>
               <template v-else> Apply </template>
             </base-button>
