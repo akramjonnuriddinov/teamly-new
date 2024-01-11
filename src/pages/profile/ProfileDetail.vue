@@ -130,7 +130,7 @@
         class="block w-full cursor-pointer rounded-md border border-gray-300 p-3 text-sm text-gray-900 shadow-sm file:hidden"
         @change="handleFileChange"
         :class="{ hidden: !selectedFile }"
-        accept=".docx,.pdf,.txt"
+        accept=".docx,.pdf"
         type="file"
         name="file-input"
         id="file-input"
@@ -139,7 +139,7 @@
         :class="{ hidden: selectedFile }"
         for="file-input"
         class="block w-full cursor-pointer rounded-md border border-gray-200 p-3 text-sm shadow-sm"
-        >Select file (.docx,.pdf,.txt)</label
+        >Select file (.docx,.pdf)</label
       >
       <div
         v-if="store.resume && !isLoadingResume"

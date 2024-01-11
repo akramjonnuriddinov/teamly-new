@@ -1,28 +1,28 @@
 <template>
   <section
     @click="$emit('close')"
-    class="h-full bg-[#00000080] flex justify-center overflow-y-auto items-center p-10 fixed top-0 left-0 w-[100vw] z-[999]"
+    class="fixed left-0 top-0 z-[999] flex h-full w-[100vw] items-center justify-center overflow-y-auto bg-[#00000080] p-10"
   >
-    <div @click.stop class="container rounded-xl overflow-hidden h-auto bg-white relative mx-auto max-w-[500px] w-full">
-      <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
-        <h1 class="text-4xl text-center">Upload your CV</h1>
-        <button @click="$emit('close')" class="transition-all duration-300 text-tg-heading-font-color hover:opacity-80">
+    <div @click.stop class="container relative mx-auto h-auto w-full max-w-[500px] overflow-hidden rounded-xl bg-white">
+      <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
+        <h1 class="text-center text-4xl">Upload your CV</h1>
+        <button @click="$emit('close')" class="text-tg-heading-font-color transition-all duration-300 hover:opacity-80">
           <close-icon class="h-[18px]" />
         </button>
       </div>
-      <div class="flex w-full h-full px-10 pb-10 overflow-y-auto">
+      <div class="flex h-full w-full overflow-y-auto px-10 pb-10">
         <form class="w-full" @submit.prevent>
           <div class="flex flex-col-reverse items-center justify-between gap-4">
-            <div class="mb-6 w-full max-[800px]:w-full relative">
-              <label for="file-input" class="block mb-2"
+            <div class="relative mb-6 w-full max-[800px]:w-full">
+              <label for="file-input" class="mb-2 block"
                 >To respond, you need to upload a resume, which will be saved in your profile where you can change
                 it</label
               >
               <input
-                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer file:hidden"
+                class="block w-full cursor-pointer rounded-md border border-gray-200 p-3 text-sm shadow-sm file:hidden"
                 @change="handleFileChange"
                 :class="{ hidden: !selectedFile }"
-                accept=".docx,.pdf,.txt"
+                accept=".docx,.pdf"
                 type="file"
                 name="file-input"
                 id="file-input"
@@ -30,12 +30,12 @@
               <label
                 :class="{ hidden: selectedFile }"
                 for="file-input"
-                class="block w-full p-3 text-sm border border-gray-200 rounded-md shadow-sm cursor-pointer"
-                >Select file (.docx,.pdf,.txt)</label
+                class="block w-full cursor-pointer rounded-md border border-gray-200 p-3 text-sm shadow-sm"
+                >Select file (.docx,.pdf)</label
               >
             </div>
           </div>
-          <div class="w-full max-[800px]:w-full mx-auto flex justify-center">
+          <div class="mx-auto flex w-full justify-center max-[800px]:w-full">
             <base-button
               @click="add"
               class="w-full"

@@ -33,7 +33,7 @@
                 <div
                   class="user mb-2 flex cursor-pointer items-center whitespace-nowrap px-[25px] hover:text-tg-primary-color"
                 >
-                  <img class="mr-2 flex h-10 w-10 rounded-full" :src="user.photoURL" alt="" />
+                  <img class="mr-2 flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
                   <div class="mr-4 max-w-full overflow-hidden truncate whitespace-nowrap py-4 font-semibold">
                     {{ user?.name }}
                   </div>
@@ -111,7 +111,7 @@
             onselectstart="return false;"
           >
             <div class="user flex cursor-pointer items-center whitespace-nowrap hover:text-tg-primary-color">
-              <img class="flex h-10 w-10 rounded-full" :src="user.photoURL" alt="" />
+              <img class="flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
               <inline-svg
                 class="h-6 w-6 font-bold opacity-60"
                 :class="{ 'rotate-180': isDropDown }"
