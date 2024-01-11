@@ -9,7 +9,7 @@
         </router-link>
 
         <nav
-          class="navbar mr-20 transition-all duration-300 max-[990px]:overflow-y-auto"
+          class="navbar mr-20 transition-all duration-300 max-[990px]:flex max-[990px]:flex-col max-[990px]:overflow-y-auto"
           :class="{
             'translate-x-full-custom transition-all duration-500': isHidden,
           }"
@@ -78,7 +78,7 @@
               </router-link>
             </li>
           </ul>
-          <div class="hidden flex-wrap justify-center gap-2.5 px-5 py-[30px] max-[990px]:flex">
+          <div class="mt-auto hidden flex-wrap justify-center gap-2.5 px-5 py-[30px] max-[990px]:flex">
             <a
               v-for="(social, index) in socials"
               :key="index"
