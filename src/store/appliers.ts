@@ -9,7 +9,7 @@ export const useAppliersStore = defineStore('allAppliers', {
   }),
   actions: {
     async fetchAppliers() {
-      if (!this.appliers)
+      if (!this.appliers && store.user)
         this.appliers = (await fetchDataWithWhere('appliers', 'user_id', '==', store.user.id))
     }
   }

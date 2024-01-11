@@ -188,7 +188,7 @@ const updatedUser = ref({
 watch(
   () => store.user,
   (newValue) => {
-    user.value = { ...newValue }
+    user.value = { ...newValue, date: Date.now() }
     isLoading.value = false
   },
   {

@@ -26,7 +26,6 @@ export const useAuthStore = defineStore('auth', {
       if (userInfo) {
         localStorage.setItem('token', payload.accessToken)
         this.token = payload.accessToken
-        console.log(payload)
         this.user = { email: payload.email, id: payload.uid, name: payload.displayName, photoURL: payload.photoURL }
         router.go(-1)
       } else if (userInfo) {

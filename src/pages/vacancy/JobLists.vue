@@ -130,7 +130,7 @@ const fetchDataAndApply = async () => {
 
       vacancies.value = vacancies.value.map((item: any) => ({
         ...item,
-        applied: appliersStore.appliers.find((item2: any) => item2.vacancy_id === item.id),
+        applied: appliersStore.appliers?.find((item2: any) => item2.vacancy_id === item.id),
       }))
     } catch (error) {
       console.error(error)

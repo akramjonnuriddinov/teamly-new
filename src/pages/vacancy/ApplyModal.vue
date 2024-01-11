@@ -80,6 +80,7 @@ const add = async () => {
       user_id: store.user.id,
       status_id: 'FaLdBSPRYE1qRkTZXug0',
       vacancy_id: props.vacancyId,
+      date: Date.now(),
     }
     await addDoc(ref, data)
     if (selectedFile.value) {
