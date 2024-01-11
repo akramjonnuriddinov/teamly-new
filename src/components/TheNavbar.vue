@@ -1,31 +1,69 @@
 <template>
-  <header :class="header" class="fixed top-0 z-50 w-full py-5 home-header header">
+  <header :class="header" class="home-header header fixed top-0 z-50 w-full py-5">
     <div
-      class="container px-5 mx-auto max-w-7xl max-xl:max-w-[1100px] max-[1050px]:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container mx-auto max-w-7xl px-5 max-xl:max-w-[1100px] max-[1050px]:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
       <div class="flex items-center justify-between">
-        <router-link class="flex mr-20" to="/">
+        <router-link class="mr-20 flex" to="/">
           <the-logo />
         </router-link>
 
         <nav
-          class="mr-20 transition-all duration-300 max-[990px]:overflow-y-auto navbar"
+          class="navbar mr-20 transition-all duration-300 max-[990px]:overflow-y-auto"
           :class="{
             'translate-x-full-custom transition-all duration-500': isHidden,
           }"
         >
-          <div class="hidden bg-tg-white w-full max-w-[300px] justify-between py-[30px] px-[25px] max-[990px]:flex">
+          <div class="hidden w-full max-w-[300px] justify-between bg-tg-white px-[25px] py-[30px] max-[990px]:flex">
             <router-link to="/">
               <the-logo />
             </router-link>
-            <button class="flex items-center justify-center w-9 h-7" @click="toggleModal">
-              <img class="w-4 h-5" src="@/assets/images/svg/close.svg" alt="close-icon" />
+            <button class="flex h-7 w-9 items-center justify-center" @click="toggleModal">
+              <img class="h-5 w-4" src="@/assets/images/svg/close.svg" alt="close-icon" />
             </button>
           </div>
-          <ul class="flex justify-between top-[100px] navbar__list">
-            <li class="relative mr-10 navbar__item" v-for="(link, index) in links" :key="index">
+          <ul class="navbar__list top-[100px] flex justify-between">
+            <li class="hidden max-[990px]:block">
+              <div
+                @click.stop="isDropDown = !isDropDown"
+                class="relative"
+                onmousedown="return false;"
+                onselectstart="return false;"
+              >
+                <div class="user mb-2 flex cursor-pointer items-center whitespace-nowrap hover:text-tg-primary-color">
+                  <div class="mr-4 py-4 pl-[25px] font-semibold">{{ user?.name }}</div>
+                  <inline-svg
+                    class="h-6 w-6 font-bold opacity-60"
+                    :class="{ 'rotate-180': isDropDown }"
+                    src="fontawesome/profile-toggle.svg"
+                  />
+                </div>
+                <the-transition>
+                  <div
+                    @click.stop
+                    v-show="isDropDown"
+                    class="relative right-0 w-auto whitespace-nowrap bg-white font-semibold"
+                  >
+                    <router-link
+                      @click="isDropDown = false"
+                      to="/profile"
+                      class="flex cursor-pointer items-center gap-1 py-2.5 pl-12 hover:text-tg-primary-color"
+                    >
+                      My profile
+                    </router-link>
+                    <div
+                      @click="logout"
+                      class="flex cursor-pointer items-center gap-1 py-2.5 pl-12 hover:text-tg-primary-color"
+                    >
+                      Logout
+                    </div>
+                  </div>
+                </the-transition>
+              </div>
+            </li>
+            <li class="navbar__item relative mr-10 bg-white" v-for="(link, index) in links" :key="index">
               <router-link
-                class="py-0 font-semibold transition-colors duration-200 nav-link navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
+                class="nav-link py-0 font-semibold text-tg-heading-font-color transition-colors duration-200 hover:text-tg-primary-color"
                 @click="isHidden = true"
                 :to="link.url"
               >
@@ -33,11 +71,11 @@
               </router-link>
             </li>
           </ul>
-          <div class="hidden py-[30px] flex-wrap justify-center px-5 gap-2.5 max-[990px]:flex">
+          <div class="hidden flex-wrap justify-center gap-2.5 px-5 py-[30px] max-[990px]:flex">
             <a
               v-for="(social, index) in socials"
               :key="index"
-              class="flex items-center justify-center w-10 text-base h-10 border rounded-[3px] border-[#e3e3e3] transition-all duration-300 hover:bg-tg-primary-color hover:text-white"
+              class="flex h-10 w-10 items-center justify-center rounded-[3px] border border-[#e3e3e3] text-base transition-all duration-300 hover:bg-tg-primary-color hover:text-white"
               :href="social.url"
               target="_blank"
             >
@@ -48,7 +86,7 @@
         <div
           @click="toggleModal"
           v-if="!isHidden"
-          class="bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] -z-50"
+          class="fixed left-0 top-0 -z-50 h-[150vh] w-[100vw] bg-[#00000080]"
         ></div>
 
         <div class="flex items-center">
@@ -61,14 +99,14 @@
           <div
             v-else
             @click.stop="isDropDown = !isDropDown"
-            class="relative"
+            class="relative max-[990px]:hidden"
             onmousedown="return false;"
             onselectstart="return false;"
           >
-            <div class="flex items-center cursor-pointer whitespace-nowrap user hover:text-tg-primary-color">
-              <img class="flex w-10 h-10 rounded-full" :src="user.photoURL" alt="" />
+            <div class="user flex cursor-pointer items-center whitespace-nowrap hover:text-tg-primary-color">
+              <img class="flex h-10 w-10 rounded-full" :src="user.photoURL" alt="" />
               <inline-svg
-                class="w-6 h-6 font-bold opacity-60"
+                class="h-6 w-6 font-bold opacity-60"
                 :class="{ 'rotate-180': isDropDown }"
                 src="fontawesome/profile-toggle.svg"
               />
@@ -76,7 +114,7 @@
             <div
               @click.stop
               v-show="isDropDown"
-              class="min-w-full w-[200px] shadow-2xl whitespace-nowrap absolute right-0 top-12 border border-slate-200 p-3 bg-white rounded-[10px]"
+              class="absolute right-0 top-12 w-[200px] min-w-full whitespace-nowrap rounded-[10px] border border-slate-200 bg-white p-3 shadow-2xl"
             >
               <div class="mb-2 font-semibold">{{ user.name }}</div>
               <router-link @click="isDropDown = false" to="/profile" class="cursor-pointer hover:text-tg-primary-color"
@@ -85,9 +123,9 @@
               <div @click="logout" class="cursor-pointer hover:text-tg-primary-color">Logout</div>
             </div>
           </div>
-          <button @click="toggleModal" class="h-[30px] hidden w-[26px] max-[990px]:flex">
+          <button @click="toggleModal" class="hidden h-[30px] w-[26px] max-[990px]:flex">
             <img
-              class="w-[26px] block h-[30px]"
+              class="block h-[30px] w-[26px]"
               width="26"
               height="30"
               src="@/assets/images/fontawesome/bars.svg"
@@ -107,6 +145,7 @@ import TheLanguage from '@/components/static/TheLanguage.vue'
 import { getSVG } from '@/composables/getSVG'
 import TheLogo from '@/components/TheLogo.vue'
 import InlineSvg from '@/components/InlineSvg.vue'
+import TheTransition from '@/components/TheTransition.vue'
 
 const store = useAuthStore()
 

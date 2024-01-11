@@ -1,20 +1,20 @@
 <template>
-  <section id="vacancies" class="pt-[115px] pb-[45px] relative z-10 mb-[100px]">
-    <div class="container relative w-full px-5 mx-auto max-w-7xl">
+  <section id="vacancies" class="relative z-10 mb-[100px] pb-[45px] pt-[115px]">
+    <div class="container relative mx-auto w-full max-w-7xl px-5">
       <ul v-if="listLoading" class="flex flex-wrap justify-start">
         <li
-          class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
+          class="service-item w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
           v-for="vacancy in 4"
           :key="vacancy"
         >
-          <div class="shadow-job-inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
+          <div class="flex h-full flex-col rounded-[32px] bg-white px-[35px] py-[50px] shadow-job-inner">
             <span class="mb-5"><Skeleton width="100%" height="24px" :theme="ESkeletonTheme.LIGHT" /></span>
             <div
-              class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7 transition-all duration-300 hover:text-tg-secondary-color"
+              class="mb-7 text-3xl font-bold leading-[1.2em] text-[#1C1C37] transition-all duration-300 hover:text-tg-secondary-color"
             >
               <Skeleton width="100%" height="72px" :theme="ESkeletonTheme.LIGHT" />
             </div>
-            <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
+            <div class="mb-5 flex items-center gap-3 font-bold tracking-[-0.3px] text-tg-primary-color">
               <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.LIGHT" />
               <Skeleton width="8px" height="8px" :theme="ESkeletonTheme.LIGHT" />
               <Skeleton width="116px" height="24px" :theme="ESkeletonTheme.LIGHT" />
@@ -26,12 +26,12 @@
       </ul>
       <ul v-else class="flex flex-wrap justify-start">
         <li
-          class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
+          class="service-item w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
           v-for="vacancy in vacancies"
           :key="vacancy.id"
         >
-          <div class="shadow-job-inner bg-white flex flex-col h-full rounded-[32px] px-[35px] py-[50px]">
-            <span class="text-[#5B5A78] mb-5">{{ vacancy.location }}</span>
+          <div class="flex h-full flex-col rounded-[32px] bg-white px-[35px] py-[50px] shadow-job-inner">
+            <span class="mb-5 text-[#5B5A78]">{{ vacancy.location }}</span>
             <router-link
               :to="{
                 name: 'vacancyDetail',
@@ -39,16 +39,16 @@
                   id: vacancy.id,
                 },
               }"
-              class="text-3xl font-bold text-[#1C1C37] leading-[1.2em] mb-7 transition-all duration-300 hover:text-tg-secondary-color"
+              class="mb-7 text-3xl font-bold leading-[1.2em] text-[#1C1C37] transition-all duration-300 hover:text-tg-secondary-color"
             >
               {{ vacancy.title }}
             </router-link>
-            <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
+            <div class="mb-5 flex items-center gap-3 font-bold tracking-[-0.3px] text-tg-primary-color">
               <span>{{ vacancy.category }}</span>
-              <span class="block w-2 h-2 rounded-full bg-tg-primary-color"></span>
+              <span class="block h-2 w-2 rounded-full bg-tg-primary-color"></span>
               <span>{{ vacancy.time }}</span>
             </div>
-            <p class="text-[#5B5A78] mb-12">{{ vacancy.text }}</p>
+            <p class="mb-12 text-[#5B5A78]">{{ vacancy.text }}</p>
             <base-button
               :color="getColor(vacancy.applied)"
               :disabled="vacancy.applied"
