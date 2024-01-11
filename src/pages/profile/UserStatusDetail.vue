@@ -1,11 +1,11 @@
 <template>
   <the-transition>
-    <div v-if="expanded" class="px-5 overflow-hidden">
+    <div v-if="expanded" class="overflow-hidden px-5">
       <div>
-        <ul @click.stop class="relative mt-4 border-gray-200 border-s">
+        <ul @click.stop class="relative mt-4 border-s border-gray-200">
           <template v-if="isLoading">
-            <li v-for="status in 1" class="pt-0 mb-10 ms-4" :key="status">
-              <div class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white">
+            <li v-for="status in 1" class="mb-10 ms-4 pt-0" :key="status">
+              <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white">
                 <Skeleton width="12px" height="12px" :theme="ESkeletonTheme.LIGHT" />
               </div>
               <time class="mb-1">
@@ -17,10 +17,10 @@
             </li>
           </template>
           <template v-else>
-            <li v-for="userApplierStatus in userApplierStatuses" class="pt-0 mb-10 ms-4">
+            <li v-for="userApplierStatus in userApplierStatuses" class="mb-10 ms-4 pt-0">
               <div
                 :style="`background-color: ${userApplierStatus.userStatus?.color}`"
-                class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white"
+                class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white"
               ></div>
               <time class="mb-1 text-sm font-bold leading-none text-tg-primary-color">{{
                 formatTimestampToLocaleString(userApplierStatus.date, {
@@ -34,17 +34,17 @@
               <h3 class="text-lg font-semibold text-gray-900">{{ userApplierStatus.userStatus?.title }}</h3>
               <div class="px-5 text-slate-500">
                 <div v-if="userApplierStatus.task" class="flex flex-col">
-                  <div class="flex items-center mb-1 space-x-2">
+                  <div class="mb-1 flex items-center space-x-2">
                     <span>Task:</span>
                     <a
                       :href="userApplierStatus.task.link"
-                      class="text-lg font-medium underline text-tg-primary-color-two hover:text-tg-secondary-color"
+                      class="text-lg font-medium text-tg-primary-color-two underline hover:text-tg-secondary-color"
                       target="_blank"
                     >
                       {{ userApplierStatus.task.title }}</a
                     >
                   </div>
-                  <div class="flex items-center mb-1 space-x-2">
+                  <div class="mb-1 flex items-center space-x-2">
                     <span>Term:</span>
                     <span>
                       {{ userApplierStatus.task.dedline }}
