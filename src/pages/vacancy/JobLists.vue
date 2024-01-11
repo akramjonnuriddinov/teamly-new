@@ -80,8 +80,11 @@ import { vacancyApply } from '@/composables/vacancyApply'
 import { useAllVacanciesStore } from '@/store/allVacancies'
 import { useAppliersStore } from '@/store/appliers'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '@/firebase'
 
 const props = defineProps(['vacancyId'])
+const collectionRef = collection(db, 'applier_statuses')
 
 const emit = defineEmits(['open'])
 const vacancies = ref()
@@ -101,9 +104,15 @@ const handleApply = async (id: any) => {
 
   if (store.resume) {
     isLoading.value = id
-    await vacancyApply(store.user.id, id)
+    const res = await vacancyApply(store.user.id, id)
     currentApply(id)
     isLoading.value = null
+    await addDoc(collectionRef, {
+      applier_id: res.id,
+      status_id: 'FaLdBSPRYE1qRkTZXug0',
+      vacancy_id: id,
+      date: Date.now(),
+    })
   } else {
     emit('open', id)
   }
@@ -140,7 +149,7 @@ const fetchDataAndApply = async () => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   fetchDataAndApply()
 })
 watch(
