@@ -30,10 +30,15 @@
                 onmousedown="return false;"
                 onselectstart="return false;"
               >
-                <div class="user mb-2 flex cursor-pointer items-center whitespace-nowrap hover:text-tg-primary-color">
-                  <div class="mr-4 py-4 pl-[25px] font-semibold">{{ user?.name }}</div>
+                <div
+                  class="user mb-2 flex cursor-pointer items-center whitespace-nowrap px-[25px] hover:text-tg-primary-color"
+                >
+                  <img class="mr-2 flex h-10 w-10 rounded-full" :src="user.photoURL" alt="" />
+                  <div class="mr-4 max-w-full overflow-hidden truncate whitespace-nowrap py-4 font-semibold">
+                    {{ user?.name }}
+                  </div>
                   <inline-svg
-                    class="h-6 w-6 font-bold opacity-60"
+                    class="ml-auto h-6 w-6 font-bold opacity-60"
                     :class="{ 'rotate-180': isDropDown }"
                     src="fontawesome/profile-toggle.svg"
                   />
@@ -42,19 +47,21 @@
                   <div
                     @click.stop
                     v-show="isDropDown"
-                    class="relative right-0 w-auto whitespace-nowrap bg-white font-semibold"
+                    class="relative right-0 ml-[73px] w-auto whitespace-nowrap bg-white font-semibold"
                   >
                     <router-link
                       @click="isDropDown = false"
                       to="/profile"
-                      class="flex cursor-pointer items-center gap-1 py-2.5 pl-12 hover:text-tg-primary-color"
+                      class="flex cursor-pointer items-center gap-3 pb-2.5 hover:text-tg-primary-color"
                     >
+                      <inline-svg src="fontawesome/user-profile/user.svg" />
                       My profile
                     </router-link>
                     <div
                       @click="logout"
-                      class="flex cursor-pointer items-center gap-1 py-2.5 pl-12 hover:text-tg-primary-color"
+                      class="flex cursor-pointer items-center gap-3 py-2.5 hover:text-tg-primary-color"
                     >
+                      <inline-svg src="fontawesome/user-profile/log-out.svg" />
                       Logout
                     </div>
                   </div>
