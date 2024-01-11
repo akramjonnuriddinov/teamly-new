@@ -61,16 +61,14 @@ import { uploadBytes } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
 import { addDoc, collection } from 'firebase/firestore'
 import { db } from '@/firebase'
-
 import { useAuthStore } from '@/store/auth'
 
 const emit = defineEmits(['close'])
 const props = defineProps(['vacancyId'])
-
 const store = useAuthStore()
 const isLoading = ref(false)
-
 const selectedFile = ref<any>(null)
+const collectionRef = collection(db, 'applier_statuses')
 
 const add = async () => {
   try {
@@ -82,7 +80,13 @@ const add = async () => {
       vacancy_id: props.vacancyId,
       date: Date.now(),
     }
-    await addDoc(ref, data)
+    const res = await addDoc(ref, data)
+    await addDoc(collectionRef, {
+      applier_id: res.id,
+      status_id: 'FaLdBSPRYE1qRkTZXug0',
+      vacancy_id: props.vacancyId,
+      date: Date.now(),
+    })
     if (selectedFile.value) {
       const userDirectory = `users/${store.user.id}`
       const fileRef = storageRef(storage, userDirectory)

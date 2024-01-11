@@ -289,7 +289,6 @@ onMounted(() => {
     top: 0;
     margin-right: 0;
     bottom: 0;
-    padding-bottom: 100px;
   }
 
   .navbar__list {

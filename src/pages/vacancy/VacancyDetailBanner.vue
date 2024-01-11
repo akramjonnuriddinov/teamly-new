@@ -1,20 +1,20 @@
 <template>
-  <section class="bg-[#F9F9FA] vacancy-detail mt-[86px]">
+  <section class="vacancy-detail mt-[86px] bg-[#F9F9FA]">
     <div
-      class="container relative px-5 mx-auto max-w-7xl max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container relative mx-auto max-w-7xl px-5 max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
       <div
         v-if="listLoading"
-        class="relative pt-[100px] pb-[60px] flex items-center justify-between w-full max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
+        class="relative flex w-full items-center justify-between pb-[60px] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
       >
-        <div class="flex flex-col max-w-[750px]">
-          <span class="text-[#5B5A78] mb-5">
+        <div class="flex max-w-[750px] flex-col">
+          <span class="mb-5 text-[#5B5A78]">
             <Skeleton width="200px" height="24px" :theme="ESkeletonTheme.DARK" />
           </span>
           <div class="mb-4">
             <Skeleton width="350px" height="168px" :theme="ESkeletonTheme.DARK" />
           </div>
-          <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
+          <div class="mb-5 flex items-center gap-3 font-bold tracking-[-0.3px] text-tg-primary-color">
             <Skeleton width="70px" height="24px" :theme="ESkeletonTheme.DARK" />
             <Skeleton width="8px" height="8px" :theme="ESkeletonTheme.DARK" />
             <Skeleton width="116px" height="24px" :theme="ESkeletonTheme.DARK" />
@@ -26,14 +26,14 @@
       </div>
       <div
         v-else
-        class="relative pt-[100px] pb-[60px] flex items-center justify-between w-full max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
+        class="relative flex w-full items-center justify-between pb-[60px] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
       >
-        <div class="flex flex-col max-w-[750px]">
-          <span class="text-[#5B5A78] mb-5">{{ 'Fergana, Uzbekistan' }}</span>
-          <h1 class="mb-4 text-[70px] font-extrabold text-[#38386E] leading-[1.2] max-sm:text-4xl max-[800px]:text-5xl">
+        <div class="flex max-w-[750px] flex-col">
+          <span class="mb-5 text-[#5B5A78]">{{ vacancy.location }}</span>
+          <h1 class="mb-4 text-[70px] font-extrabold leading-[1.2] text-[#38386E] max-[800px]:text-5xl max-sm:text-4xl">
             {{ vacancy.title }}
           </h1>
-          <div class="text-tg-primary-color tracking-[-0.3px] font-bold flex items-center gap-3 mb-5">
+          <div class="mb-5 flex items-center gap-3 font-bold tracking-[-0.3px] text-tg-primary-color">
             <span>{{ vacancy.category }}</span>
             <img width="8" height="8" src="@/assets/images/circle.svg" alt="circle" />
             <span>{{ vacancy.time }}</span>
@@ -63,7 +63,10 @@ import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '@/firebase'
 
+const collectionRef = collection(db, 'applier_statuses')
 const storeVacancies = useVacanciesStore()
 const curButton = computed(() => !props.vacancy.status_id && !storeVacancies.applicationSent)
 const props = defineProps(['vacancy'])
@@ -90,9 +93,15 @@ const handleApply = async (id: any) => {
 
   if (store.resume && !storeVacancies.applicationSent) {
     isLoading.value = true
-    await vacancyApply(store.user.id, id)
+    const res = await vacancyApply(store.user.id, id)
     isLoading.value = false
     storeVacancies.updateApplicationSent(true)
+    await addDoc(collectionRef, {
+      applier_id: res.id,
+      status_id: 'FaLdBSPRYE1qRkTZXug0',
+      vacancy_id: id,
+      date: Date.now(),
+    })
   } else {
     emit('open', id)
   }
