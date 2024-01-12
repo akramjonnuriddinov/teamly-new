@@ -234,7 +234,7 @@ const logoutHandle = async () => {
   router.push('/')
   setTimeout(() => {
     window.location.reload()
-  }, 100)
+  }, 500)
 }
 const toggleModal = () => {
   isHidden.value = !isHidden.value
