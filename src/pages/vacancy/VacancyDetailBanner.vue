@@ -5,7 +5,7 @@
     >
       <div
         v-if="listLoading"
-        class="relative flex w-full items-center justify-between pb-[60px] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
+        class="relative flex w-full items-center justify-between pb-[60px] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-start max-[990px]:justify-center max-sm:pt-[100px]"
       >
         <div class="flex max-w-[750px] flex-col">
           <span class="mb-5 text-[#5B5A78]">
@@ -26,7 +26,7 @@
       </div>
       <div
         v-else
-        class="relative flex w-full items-center justify-between pb-[60px] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
+        class="relative flex w-full items-center justify-between pb-[60px] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-start max-[990px]:justify-center max-sm:pt-[100px]"
       >
         <div class="flex max-w-[750px] flex-col">
           <span class="mb-5 text-[#5B5A78]">{{ vacancy.location }}</span>
