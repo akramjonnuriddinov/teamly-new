@@ -26,7 +26,7 @@ export const useAuthStore = defineStore('auth', {
       if (userInfo) {
         localStorage.setItem('token', payload.accessToken)
         this.token = payload.accessToken
-        this.user = { email: payload.email, id: payload.uid, name: payload.displayName }
+        this.user = { email: payload.email, id: payload.uid, name: payload.displayName, photoURL: payload.photoURL }
         router.go(-1)
       } else if (userInfo) {
         return `Your account isn't verified please check your email (don't forget check spam)`
@@ -40,7 +40,7 @@ export const useAuthStore = defineStore('auth', {
           const userSnapshot = await getDoc(docRef)
           const userInfo = userSnapshot.data()
           if (userInfo) {
-            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin }
+            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin, photoURL: user.photoURL }
           } else {
             this.user = { email: user.email, id: user.uid, name: user.displayName, }
           }

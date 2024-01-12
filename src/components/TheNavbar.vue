@@ -1,31 +1,76 @@
 <template>
-  <header :class="header" class="fixed top-0 z-50 w-full py-5 home-header header">
+  <header :class="header" class="home-header header fixed top-0 z-50 w-full py-5">
     <div
-      class="container px-5 mx-auto max-w-7xl max-xl:max-w-[1100px] max-[1050px]:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container mx-auto max-w-7xl px-5 max-xl:max-w-[1100px] max-[1050px]:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
       <div class="flex items-center justify-between">
-        <router-link class="flex mr-20" to="/">
+        <router-link class="mr-20 flex" to="/">
           <the-logo />
         </router-link>
 
         <nav
-          class="mr-20 transition-all duration-300 max-[990px]:overflow-y-auto navbar"
+          class="navbar mr-20 transition-all duration-300 max-[990px]:flex max-[990px]:flex-col max-[990px]:overflow-y-auto"
           :class="{
             'translate-x-full-custom transition-all duration-500': isHidden,
           }"
         >
-          <div class="hidden bg-tg-white w-full max-w-[300px] justify-between py-[30px] px-[25px] max-[990px]:flex">
+          <div class="hidden w-full max-w-[300px] justify-between bg-tg-white px-[25px] py-[30px] max-[990px]:flex">
             <router-link to="/">
               <the-logo />
             </router-link>
-            <button class="flex items-center justify-center w-9 h-7" @click="toggleModal">
-              <img class="w-4 h-5" src="@/assets/images/svg/close.svg" alt="close-icon" />
+            <button class="flex h-7 w-9 items-center justify-center" @click="toggleModal">
+              <img class="h-5 w-4" src="@/assets/images/svg/close.svg" alt="close-icon" />
             </button>
           </div>
-          <ul class="flex justify-between top-[100px] navbar__list">
-            <li class="relative mr-10 navbar__item" v-for="(link, index) in links" :key="index">
+          <ul class="navbar__list top-[100px] flex justify-between">
+            <li class="hidden max-[990px]:block">
+              <div
+                @click.stop="isDropDown = !isDropDown"
+                class="relative"
+                onmousedown="return false;"
+                onselectstart="return false;"
+              >
+                <div
+                  class="user mb-2 flex cursor-pointer items-center whitespace-nowrap px-[25px] hover:text-tg-primary-color"
+                >
+                  <img class="mr-2 flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
+                  <div class="mr-4 max-w-full overflow-hidden truncate whitespace-nowrap py-4 font-semibold">
+                    {{ user?.name }}
+                  </div>
+                  <inline-svg
+                    class="ml-auto h-6 w-6 font-bold opacity-60"
+                    :class="{ 'rotate-180': isDropDown }"
+                    src="fontawesome/profile-toggle.svg"
+                  />
+                </div>
+                <the-transition>
+                  <div
+                    @click.stop
+                    v-show="isDropDown"
+                    class="relative right-0 ml-[73px] w-auto whitespace-nowrap bg-white font-semibold"
+                  >
+                    <router-link
+                      @click="isDropDown = false"
+                      to="/profile"
+                      class="flex cursor-pointer items-center gap-3 pb-2.5 hover:text-tg-primary-color"
+                    >
+                      <inline-svg src="fontawesome/user-profile/user.svg" />
+                      My profile
+                    </router-link>
+                    <div
+                      @click="logout"
+                      class="flex cursor-pointer items-center gap-3 py-2.5 hover:text-tg-primary-color"
+                    >
+                      <inline-svg src="fontawesome/user-profile/log-out.svg" />
+                      Logout
+                    </div>
+                  </div>
+                </the-transition>
+              </div>
+            </li>
+            <li class="navbar__item relative mr-10 bg-white" v-for="(link, index) in links" :key="index">
               <router-link
-                class="py-0 font-semibold transition-colors duration-200 nav-link navbar__link text-tg-heading-font-color hover:text-tg-primary-color"
+                class="nav-link py-0 font-semibold text-tg-heading-font-color transition-colors duration-200 hover:text-tg-primary-color"
                 @click="isHidden = true"
                 :to="link.url"
               >
@@ -33,11 +78,11 @@
               </router-link>
             </li>
           </ul>
-          <div class="hidden py-[30px] flex-wrap justify-center px-5 gap-2.5 max-[990px]:flex">
+          <div class="mt-auto hidden flex-wrap justify-center gap-2.5 px-5 py-[30px] max-[990px]:flex">
             <a
               v-for="(social, index) in socials"
               :key="index"
-              class="flex items-center justify-center w-10 text-base h-10 border rounded-[3px] border-[#e3e3e3] transition-all duration-300 hover:bg-tg-primary-color hover:text-white"
+              class="flex h-10 w-10 items-center justify-center rounded-[3px] border border-[#e3e3e3] text-base transition-all duration-300 hover:bg-tg-primary-color hover:text-white"
               :href="social.url"
               target="_blank"
             >
@@ -48,59 +93,52 @@
         <div
           @click="toggleModal"
           v-if="!isHidden"
-          class="bg-[#00000080] h-[150vh] fixed top-0 left-0 w-[100vw] -z-50"
+          class="fixed left-0 top-0 -z-50 h-[150vh] w-[100vw] bg-[#00000080]"
         ></div>
 
         <div class="flex items-center">
-          <div class="max-[990px]:hidden">
+          <div class="mr-5 max-[990px]:hidden">
             <the-language />
           </div>
           <router-link v-if="!store.user" to="/sign-in">
-            <svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
-              <path
-                fill="#111827"
-                fill-rule="evenodd"
-                d="M3.72 12.887a4.167 4.167 0 0 1 2.947-1.22h6.666a4.167 4.167 0 0 1 4.167 4.166V17.5a.833.833 0 0 1-1.667 0v-1.667a2.5 2.5 0 0 0-2.5-2.5H6.667a2.5 2.5 0 0 0-2.5 2.5V17.5a.833.833 0 0 1-1.667 0v-1.667c0-1.105.439-2.165 1.22-2.946zM10 3.333a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm-4.167 2.5a4.167 4.167 0 1 1 8.334 0 4.167 4.167 0 0 1-8.334 0z"
-                clip-rule="evenodd"
-              />
-            </svg>
+            <inline-svg src="fontawesome/user-profile/user.svg" />
           </router-link>
           <div
             v-else
             @click.stop="isDropDown = !isDropDown"
-            class="relative"
+            class="relative max-[990px]:hidden"
             onmousedown="return false;"
             onselectstart="return false;"
           >
-            <div class="flex items-center cursor-pointer whitespace-nowrap user hover:text-tg-primary-color">
-              <div class="p-2 font-semibold">{{ user.name }}</div>
-              <svg
+            <div class="user flex cursor-pointer items-center whitespace-nowrap hover:text-tg-primary-color">
+              <img class="flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
+              <inline-svg
+                class="h-6 w-6 font-bold opacity-60"
                 :class="{ 'rotate-180': isDropDown }"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="#111827"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M5.23017 7.20938C5.52875 6.92228 6.00353 6.93159 6.29063 7.23017L10 11.1679L13.7094 7.23017C13.9965 6.93159 14.4713 6.92228 14.7698 7.20938C15.0684 7.49647 15.0777 7.97125 14.7906 8.26983L10.5406 12.7698C10.3992 12.9169 10.204 13 10 13C9.79599 13 9.60078 12.9169 9.45938 12.7698L5.20938 8.26983C4.92228 7.97125 4.93159 7.49647 5.23017 7.20938Z"
-                />
-              </svg>
+                src="fontawesome/profile-toggle.svg"
+              />
             </div>
             <div
               @click.stop
               v-show="isDropDown"
-              class="min-w-full whitespace-nowrap absolute top-10 border border-slate-200 p-2 bg-white rounded-[10px]"
+              class="absolute right-0 top-12 w-[200px] min-w-full whitespace-nowrap rounded-[10px] border border-slate-200 bg-white p-3 shadow-2xl"
             >
+              <div class="mb-2 font-semibold">{{ user.name }}</div>
               <router-link @click="isDropDown = false" to="/profile" class="cursor-pointer hover:text-tg-primary-color"
                 >My profile</router-link
               >
               <div @click="logout" class="cursor-pointer hover:text-tg-primary-color">Logout</div>
             </div>
           </div>
+          <button @click="toggleModal" class="hidden h-[30px] w-[26px] max-[990px]:flex">
+            <img
+              class="block h-[30px] w-[26px]"
+              width="26"
+              height="30"
+              src="@/assets/images/fontawesome/bars.svg"
+              alt="bars_icon"
+            />
+          </button>
         </div>
       </div>
     </div>
@@ -113,6 +151,8 @@ import { useAuthStore } from '@/store/auth'
 import TheLanguage from '@/components/static/TheLanguage.vue'
 import { getSVG } from '@/composables/getSVG'
 import TheLogo from '@/components/TheLogo.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
+import TheTransition from '@/components/TheTransition.vue'
 
 const store = useAuthStore()
 
@@ -249,7 +289,6 @@ onMounted(() => {
     top: 0;
     margin-right: 0;
     bottom: 0;
-    padding-bottom: 100px;
   }
 
   .navbar__list {

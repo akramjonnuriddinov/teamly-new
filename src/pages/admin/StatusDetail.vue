@@ -1,11 +1,11 @@
 <template>
   <the-transition>
-    <div v-if="expanded" class="px-5 overflow-hidden">
-      <ul @click.stop class="relative border-gray-200 border-s">
-        <li v-for="applierStatus in applierStatuses" class="pt-4 mb-10 ms-4">
+    <div v-if="expanded" class="overflow-hidden px-5">
+      <ul @click.stop class="relative border-s border-gray-200">
+        <li v-for="applierStatus in applierStatuses" class="mb-10 ms-4 pt-4">
           <div
             :style="`background-color: ${applierStatus.status.color}`"
-            class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white"
+            class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white"
           ></div>
           <time class="mb-1 text-sm font-normal leading-none text-gray-400">{{
             formatTimestampToLocaleString(applierStatus.date, {
@@ -18,14 +18,14 @@
           }}</time>
           <h3 class="text-lg font-semibold text-gray-900">{{ applierStatus?.status?.title }}</h3>
           <div v-if="applierStatus.task">
-            <div class="flex items-center mt-2 space-x-2 text-slate-500">
+            <div class="mt-2 flex items-center space-x-2 text-slate-500">
               <span>Term:</span>
               <span>
                 {{ applierStatus.task.dedline }}
               </span>
             </div>
             <a
-              class="my-2 text-lg font-medium underline text-tg-primary-color-two hover:text-tg-secondary-color"
+              class="my-2 text-lg font-medium text-tg-primary-color-two underline hover:text-tg-secondary-color"
               :href="applierStatus.task.link"
               target="_blank"
               >{{ applierStatus.task.title }}</a
@@ -88,6 +88,6 @@ onMounted(async () => {
 .comment h1,
 .comment h2,
 .comment h3 {
-  @apply text-xl font-semibold text-[#1C1C37] mb-5 mt-5;
+  @apply mb-5 mt-5 text-xl font-semibold text-[#1C1C37];
 }
 </style>

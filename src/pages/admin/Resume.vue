@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll" @scroll="detectScroll">
+  <div class="flex h-screen w-full flex-col overflow-y-scroll p-8" @scroll="detectScroll">
     <div>
       <h2 class="mb-10 text-3xl capitalize">Appliers</h2>
       <div v-if="isLoading" class="flex justify-center py-20">
@@ -7,26 +7,26 @@
       </div>
       <ul v-else-if="appliers.length">
         <template v-for="(applier, index) in appliers" :key="index">
-          <li v-if="applier.user" class="relative flex flex-col mb-5">
-            <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
+          <li v-if="applier.user" class="relative mb-5 flex flex-col">
+            <div class="flex h-full items-center justify-between rounded-md border bg-gray-50 p-5">
               <button
                 @click="toggleAccordion(index, applier)"
-                class="mr-4 duration-300 text-tg-paragraph-color transition-color hover:text-tg-heading-font-color"
+                class="transition-color mr-4 text-tg-paragraph-color duration-300 hover:text-tg-heading-font-color"
               >
-                <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
+                <inline-svg title="Show history" class="h-5 w-5" src="history.svg" />
               </button>
               <button
                 @click.stop="openUserModal(applier.user)"
                 title="View Profile"
-                class="flex justify-start w-1/5 mr-2 overflow-hidden font-semibold text-center whitespace-nowrap text-ellipsis text-tg-green hover:opacity-80"
+                class="mr-2 flex w-1/5 justify-start overflow-hidden text-ellipsis whitespace-nowrap text-center font-semibold text-tg-green hover:opacity-80"
               >
                 {{ applier.user.name }}
               </button>
-              <span @click.stop class="w-1/5 mr-2">{{ applier.vacancy.title }}</span>
-              <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.user.email}`">{{
+              <span @click.stop class="mr-2 w-1/5">{{ applier.vacancy.title }}</span>
+              <a @click.stop class="mr-2 w-1/6" :href="`mailto://${applier.user.email}`">{{
                 applier.user.email || 'email undefined'
               }}</a>
-              <div class="flex ml-auto space-x-5">
+              <div class="ml-auto flex space-x-5">
                 <button
                   v-if="applier.status?.title"
                   @click.stop="openStatusModal(applier.id, applier.vacancy.id)"
@@ -34,7 +34,7 @@
                     background-color: ${applier.status?.color}44;
                     color: ${applier.status?.color};
                   `"
-                  class="px-3 text-sm opacity-90 rounded-full py-[2px]"
+                  class="rounded-full px-3 py-[2px] text-sm opacity-90"
                 >
                   {{ applier.status?.title }}
                 </button>

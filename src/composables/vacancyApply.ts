@@ -9,5 +9,6 @@ export const vacancyApply = async (userID: string, id: any) => {
     vacancy_id: id,
     date: Date.now()
   }
-  await addDoc(ref, data)
+  const res = await addDoc(ref, data)
+  return res
 }
