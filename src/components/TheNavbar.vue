@@ -23,7 +23,7 @@
             </button>
           </div>
           <ul class="navbar__list top-[100px] flex justify-between">
-            <li class="hidden max-[990px]:block">
+            <li v-if="store.user" class="hidden max-[990px]:block">
               <div
                 @click.stop="isDropDown = !isDropDown"
                 class="relative"
@@ -47,10 +47,10 @@
                   <div
                     @click.stop
                     v-show="isDropDown"
-                    class="relative right-0 ml-[73px] w-auto whitespace-nowrap bg-white font-semibold"
+                    class="relative right-0 ml-[43px] w-auto whitespace-nowrap bg-white font-semibold"
                   >
                     <router-link
-                      @click="isDropDown = false"
+                      @click="(isDropDown = false), (isHidden = true)"
                       to="/profile"
                       class="flex cursor-pointer items-center gap-3 pb-2.5 hover:text-tg-primary-color"
                     >
@@ -58,7 +58,7 @@
                       My profile
                     </router-link>
                     <div
-                      @click="logout"
+                      @click="logoutHandle(), (isHidden = true)"
                       class="flex cursor-pointer items-center gap-3 py-2.5 hover:text-tg-primary-color"
                     >
                       <inline-svg src="fontawesome/user-profile/log-out.svg" />
@@ -68,7 +68,17 @@
                 </the-transition>
               </div>
             </li>
-            <li class="navbar__item relative mr-10 bg-white" v-for="(link, index) in links" :key="index">
+            <li v-else class="min-[990px]:hidden">
+              <router-link
+                @click="isHidden = true"
+                to="/sign-in"
+                class="flex max-w-full overflow-hidden truncate whitespace-nowrap px-[25px] py-4 font-semibold"
+              >
+                <inline-svg fill="currentColor" class="mr-3" src="fontawesome/user-profile/user.svg" />
+                <span>Login</span>
+              </router-link>
+            </li>
+            <li class="navbar__item relative mr-10 max-[990px]:bg-white" v-for="(link, index) in links" :key="index">
               <router-link
                 class="nav-link py-0 font-semibold text-tg-heading-font-color transition-colors duration-200 hover:text-tg-primary-color"
                 @click="isHidden = true"
@@ -100,7 +110,7 @@
           <div class="mr-5 max-[990px]:hidden">
             <the-language />
           </div>
-          <router-link v-if="!store.user" to="/sign-in">
+          <router-link v-if="!store.user" to="/sign-in" class="max-[990px]:hidden">
             <inline-svg src="fontawesome/user-profile/user.svg" />
           </router-link>
           <div
@@ -127,7 +137,7 @@
               <router-link @click="isDropDown = false" to="/profile" class="cursor-pointer hover:text-tg-primary-color"
                 >My profile</router-link
               >
-              <div @click="logout" class="cursor-pointer hover:text-tg-primary-color">Logout</div>
+              <div @click="logoutHandle" class="cursor-pointer hover:text-tg-primary-color">Logout</div>
             </div>
           </div>
           <button @click="toggleModal" class="hidden h-[30px] w-[26px] max-[990px]:flex">
@@ -153,23 +163,12 @@ import { getSVG } from '@/composables/getSVG'
 import TheLogo from '@/components/TheLogo.vue'
 import InlineSvg from '@/components/InlineSvg.vue'
 import TheTransition from '@/components/TheTransition.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useAuthStore()
-
 const user = computed(() => store.user)
-
-const logout = async () => {
-  await store.logout()
-  window.location.reload()
-}
 const isDropDown = ref(false)
-
-onMounted(() => {
-  window.addEventListener('click', () => {
-    isDropDown.value = false
-  })
-})
-
 const header = ref('')
 const socials = [
   {
@@ -217,21 +216,30 @@ const links = [
 ]
 const isHidden = ref(true)
 
-const toggleModal = () => {
-  isHidden.value = !isHidden.value
-  isHidden.value ? document.body.classList.remove('overflow-hidden') : document.body.classList.add('overflow-hidden')
-}
-
-onUpdated(() => {
-  isHidden.value ? document.body.classList.remove('overflow-hidden') : document.body.classList.add('overflow-hidden')
-})
-
 onMounted(() => {
+  window.addEventListener('click', () => {
+    isDropDown.value = false
+  })
   window.addEventListener('scroll', () => {
     const list = window.scrollY >= 300 ? 'bg-tg-white header-shadow fixed' : 'transparent absolute'
     header.value = list + ' transition-all top-0 duration-300'
   })
 })
+onUpdated(() => {
+  isHidden.value ? document.body.classList.remove('overflow-hidden') : document.body.classList.add('overflow-hidden')
+})
+
+const logoutHandle = async () => {
+  await store.logout()
+  router.push('/')
+  setTimeout(() => {
+    window.location.reload()
+  }, 100)
+}
+const toggleModal = () => {
+  isHidden.value = !isHidden.value
+  isHidden.value ? document.body.classList.remove('overflow-hidden') : document.body.classList.add('overflow-hidden')
+}
 </script>
 
 <style scoped>
