@@ -57,13 +57,14 @@
                       <inline-svg src="fontawesome/user-profile/user.svg" />
                       My profile
                     </router-link>
-                    <div
+                    <button
                       @click="logoutHandle(), (isHidden = true)"
+                      type="button"
                       class="flex cursor-pointer items-center gap-3 py-2.5 hover:text-tg-primary-color"
                     >
                       <inline-svg src="fontawesome/user-profile/log-out.svg" />
                       Logout
-                    </div>
+                    </button>
                   </div>
                 </the-transition>
               </div>
@@ -131,13 +132,18 @@
             <div
               @click.stop
               v-show="isDropDown"
-              class="absolute right-0 top-12 w-[200px] min-w-full whitespace-nowrap rounded-[10px] border border-slate-200 bg-white p-3 shadow-2xl"
+              class="absolute right-0 top-12 w-[220px] min-w-full whitespace-nowrap rounded-[10px] border border-slate-200 bg-white p-3 px-4 shadow-md"
             >
-              <div class="mb-2 font-semibold">{{ user.name }}</div>
-              <router-link @click="isDropDown = false" to="/profile" class="cursor-pointer hover:text-tg-primary-color"
+              <div class="mb-4 font-semibold">{{ user.name }}</div>
+              <router-link
+                @click="isDropDown = false"
+                to="/profile"
+                class="mb-1 flex cursor-pointer hover:text-tg-primary-color"
                 >My profile</router-link
               >
-              <div @click="logoutHandle" class="cursor-pointer hover:text-tg-primary-color">Logout</div>
+              <button type="button" @click="logoutHandle" class="cursor-pointer hover:text-tg-primary-color">
+                Logout
+              </button>
             </div>
           </div>
           <button @click="toggleModal" class="hidden h-[30px] w-[26px] max-[990px]:flex">
