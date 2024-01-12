@@ -1,6 +1,6 @@
 <template>
   <the-transition>
-    <div v-if="expanded" class="overflow-hidden px-5">
+    <div v-if="expanded" class="overflow-hidden px-5 max-[990px]:p-0" style="padding-left: 8px">
       <div>
         <ul @click.stop class="relative mt-4 border-s border-gray-200">
           <template v-if="isLoading">
