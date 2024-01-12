@@ -1,27 +1,27 @@
 <template>
   <aside
-    class="max-[990px]: relative left-0 z-[400] w-64 pt-10 max-[990px]:mt-[100px] max-[990px]:flex max-[990px]:w-full max-[990px]:justify-center max-[990px]:pt-0 sm:translate-x-0"
+    class="max-[990px]: relative left-0 z-[400] w-64 pt-10 max-[990px]:mt-[50px] max-[990px]:flex max-[990px]:w-full max-[990px]:justify-center max-[990px]:pt-0 sm:translate-x-0"
   >
-    <div
-      class="max-[990px]:shadow- h-full overflow-y-auto px-3 py-4 max-[990px]:w-full max-[990px]:rounded-2xl max-[990px]:border max-[990px]:p-4"
-    >
-      <h1 class="text-2xl font-medium max-[990px]:hidden">Your Profile</h1>
-      <ul class="mt-[57px] flex flex-col max-[990px]:mt-0 max-[990px]:flex-row max-[990px]:justify-between">
+    <div class="h-full overflow-y-auto px-3 py-4 max-[990px]:w-full max-[990px]:p-0 max-[990px]:pb-1">
+      <h1 class="text-2xl font-medium max-[990px]:mb-4">Your Profile</h1>
+      <ul
+        class="mt-[57px] flex flex-col max-[990px]:mt-0 max-[990px]:flex-row max-[990px]:justify-start max-[990px]:gap-2"
+      >
         <li
           v-for="nav in navigations"
           onmousedown="return false;"
           onselectstart="return false;"
           :class="{
-            'cursor-not-allowed text-gray-400 max-[990px]:hidden': nav.disabled,
+            'cursor-not-allowed text-gray-400 max-[990px]:px-0': nav.disabled,
             'cursor-pointer hover:text-tg-primary-color': !nav.disabled,
           }"
-          class="relative mb-3 w-full rounded-md text-base font-semibold max-[990px]:mb-0 max-[990px]:w-[40%] max-[540px]:w-[50%]"
+          class="relative mb-3 w-full rounded-md text-base font-semibold max-[990px]:mb-0 max-[990px]:w-auto max-[990px]:border"
           :key="nav.name"
           @click="selectNavItem(nav.name, nav.disabled)"
         >
           <span
             :class="{ 'bg-tg-primary-color text-white': selectedNavItem === nav.name }"
-            class="block w-full whitespace-nowrap rounded-md px-5 py-3"
+            class="block w-full whitespace-nowrap rounded-md px-5 py-3 max-[990px]:py-2"
             >{{ nav.name }}</span
           >
         </li>
@@ -61,3 +61,9 @@ const selectNavItem = (itemName: string, disabled: boolean) => {
   }
 }
 </script>
+
+<style scoped>
+::-webkit-scrollbar {
+  height: 0px !important;
+}
+</style>
