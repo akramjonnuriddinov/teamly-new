@@ -90,6 +90,11 @@ export const router = createRouter({
       path: '/verify',
       component: () => import('@/pages/verify/VerifyEmail.vue'),
       props: (route) => ({ id: route.query.id })
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('@/pages/TestView.vue'),
     }
   ]
 })
@@ -99,7 +104,7 @@ router.beforeEach(async (to, _, next) => {
   try {
     await new Promise<void>((resolve) => {
       const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-        if ((to.name === 'admin' || to.name === 'resume') && (authUser?.email !== 'nn.akramjon@gmail.com' && authUser?.email !== 'rustamidastan0414@gmail.com' && authUser?.email !== 'rajabov.diyorbek.it@gmail.com' && authUser?.email !== 'akramjonmohirdev@gmail.com')) {
+        if ((to.name === 'admin1' || to.name === 'resume1') && (authUser?.email !== 'nn.akramjon@gmail.com' && authUser?.email !== 'rustamidastan0414@gmail.com' && authUser?.email !== 'rajabov.diyorbek.it@gmail.com' && authUser?.email !== 'akramjonmohirdev@gmail.com')) {
           console.info('User has logged out')
           next({ name: 'login' })
           unsubscribe()

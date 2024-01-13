@@ -22,7 +22,7 @@ export const useAuthStore = defineStore('auth', {
       const docRef = doc(db, 'users', payload.uid)
       const userSnapshot = await getDoc(docRef)
       const userInfo = userSnapshot.data()
-      // console.log(userInfo?.verified)
+      // console.log(userInfo?.verified, 'a')
       if (userInfo) {
         localStorage.setItem('token', payload.accessToken)
         this.token = payload.accessToken
