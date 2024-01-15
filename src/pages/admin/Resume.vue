@@ -6,7 +6,7 @@
         <app-loader />
       </div>
       <ul v-else-if="appliers.length">
-        <template v-for="(applier, index) in appliers" :key="index">
+        <template v-for="(applier, index) in allData" :key="index">
           <li v-if="applier.user" class="relative mb-5 flex flex-col">
             <div class="flex h-full items-center justify-between rounded-md border bg-gray-50 p-5">
               <button
@@ -52,7 +52,7 @@
             />
           </li>
         </template>
-        <div v-if="isLoading2" class="flex justify-center">
+        <div v-if="false" class="flex justify-center">
           <button-loader color="#7E54F8" width="50px" height="50px" />
         </div>
       </ul>
@@ -65,8 +65,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { fetchData } from '@/composables/fetchData'
-import { doc, deleteDoc } from 'firebase/firestore'
+import { doc, deleteDoc, where } from 'firebase/firestore'
 import { db } from '@/firebase'
 import StatusDetail from '@/pages/admin/StatusDetail.vue'
 import StatusModal from '@/pages/admin/StatusModal.vue'
@@ -74,10 +73,9 @@ import InlineSvg from '@/components/InlineSvg.vue'
 import UserModal from '@/pages/admin/UserModal.vue'
 import AppLoader from '@/components/AppLoader.vue'
 import { useRoute } from 'vue-router'
-import { collection, query, getDocs, limit, orderBy, startAfter } from 'firebase/firestore'
+import { collection, query, getDocs, orderBy } from 'firebase/firestore'
 import ButtonLoader from '@/components/ButtonLoader.vue'
 import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
-import { useAllVacanciesStore } from '@/store/allVacancies'
 
 const route = useRoute()
 const appliers = ref<any>([])
@@ -86,61 +84,20 @@ const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const users = ref<any>([])
 const isLoading = ref(true)
-const isLoading2 = ref(false)
-const allVacancies = useAllVacanciesStore()
 
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
 const currentUser = ref<any>(null)
 const isUserModal = ref(false)
 const selectedUser = ref<any>(null)
-let lastVisible: any = null
-const options = ref<any>([])
+// let lastVisible: any = null
+// const options = ref<any>([])
 const isLoadMore = ref(true)
 
-async function loadMore() {
-  const q = query(collection(db, 'appliers'), orderBy('date'), startAfter(lastVisible), limit(20))
-
-  const querySnapshot = await getDocs(q)
-
-  if (querySnapshot.docs.length > 0) {
-    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
-
-    querySnapshot.forEach((doc) => {
-      const item = ref()
-      item.value = doc.data()
-      options.value.push({ ...item.value, id: doc.id })
-    })
-
-    isLoading2.value = true
-    await allVacancies.fetchVacancy()
-    vacancies.value = allVacancies.vacancies // only the required vacancies should be loaded
-    statuses.value = await fetchData('statuses') // only the required statuses should be loaded
-    users.value = await fetchData('users') // only the required users should be loaded
-    appliers.value = options.value.map((item: any) => ({
-      id: item.id,
-      status: statuses.value.find((el: any) => el.id === item.status_id),
-      user: users.value.find((el: any) => el.id === item.user_id),
-      vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
-      applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
-    }))
-    isLoading2.value = false
-  } else {
-    isLoadMore.value = false
-    console.info('No more documents to load...')
-  }
-}
-
-const detectScroll = async (event: any) => {
-  const element = event.target
-  const scrollHeight = element.scrollHeight - window.innerHeight
-  if (scrollHeight <= element.scrollTop && !isLoading2.value && isLoadMore.value) {
-    await loadMore()
-  }
-}
-
 onMounted(async () => {
+  console.log(new Date().getSeconds(), 'first')
   await loadMore()
+  console.log(new Date().getSeconds(), 'second')
   isLoading.value = false
 
   if (route.query.id) {
@@ -149,23 +106,70 @@ onMounted(async () => {
 })
 
 const isApplierStatusesReady = ref(false)
+const loadMoreLoading = ref(false)
+const allData = ref<any>([])
+const loadMore = async () => {
+  loadMoreLoading.value = true
+
+  const appliersQuery = query(collection(db, 'appliers'), orderBy('date'))
+  const appliersSnapshot = await getDocs(appliersQuery)
+
+  const userIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().user_id))]
+  const usersQuery = query(collection(db, 'users'), where('id', 'in', userIds))
+  const usersSnapshot = await getDocs(usersQuery)
+
+  const vacancyIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().vacancy_id))]
+  const vacanciesQuery = query(collection(db, 'vacancies'), where('id', 'in', vacancyIds))
+  const vacanciesSnapshot = await getDocs(vacanciesQuery)
+
+  const statusIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().status_id))]
+  const statusesQuery = query(collection(db, 'statuses'), where('id', 'in', statusIds))
+  const statusesSnapshot = await getDocs(statusesQuery)
+
+  appliers.value = appliersSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
+
+  users.value = usersSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }))
+
+  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }))
+
+  statuses.value = statusesSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }))
+
+  allData.value = appliers.value.map((applier: any) => ({
+    id: applier.id,
+    user: users.value.find((user: any) => user.id === applier.user_id),
+    status: statuses.value.find((status: any) => status.id === applier.status_id),
+    vacancy: vacancies.value.find((vacancy: any) => vacancy.id === applier.vacancy_id),
+  }))
+}
+
+const detectScroll = async (event: any) => {
+  const element = event.target
+  const scrollHeight = element.scrollHeight - window.innerHeight
+  if (scrollHeight <= element.scrollTop && !loadMoreLoading.value && isLoadMore.value) {
+    await loadMore()
+  }
+}
 
 const loadApplierStatuses = async (applier: any) => {
   try {
-    // Check if applier statuses are already loaded
     if (!applierStatuses.value.length) {
       applierStatuses.value = await fetchDataWithWhere('applier_statuses', 'applier_id', '==', applier.id)
-      // Fetch applier statuses for the given applier
     }
-
-    // Set data and update the flag
     isApplierStatusesReady.value = true
   } catch (error) {
     console.error('Error loading applier statuses:', error)
     isApplierStatusesReady.value = false
   }
 }
-
 const openStatusModal = (applier_id: string, vacancy_id: string) => {
   isStatusModal.value = true
   currentUser.value = {
@@ -181,7 +185,6 @@ const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'appliers', id))
   appliers.value = appliers.value.filter((item: any) => item.id !== id)
 }
-
 const openUserModal = (user: object) => {
   isUserModal.value = true
   selectedUser.value = user

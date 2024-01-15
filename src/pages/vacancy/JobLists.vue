@@ -80,7 +80,7 @@ import { vacancyApply } from '@/composables/vacancyApply'
 import { useAllVacanciesStore } from '@/store/allVacancies'
 import { useAppliersStore } from '@/store/appliers'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 
 const props = defineProps(['vacancyId'])
@@ -107,7 +107,15 @@ const handleApply = async (id: any) => {
     const res = await vacancyApply(store.user.id, id)
     currentApply(id)
     isLoading.value = null
-    await addDoc(collectionRef, {
+    const jobList = await addDoc(collectionRef, {
+      applier_id: res.id,
+      status_id: 'FaLdBSPRYE1qRkTZXug0',
+      vacancy_id: id,
+      date: Date.now(),
+    })
+    const newDoc = doc(collectionRef, jobList.id)
+    await setDoc(newDoc, {
+      id: jobList.id,
       applier_id: res.id,
       status_id: 'FaLdBSPRYE1qRkTZXug0',
       vacancy_id: id,

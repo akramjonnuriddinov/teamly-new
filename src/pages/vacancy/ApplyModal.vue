@@ -59,7 +59,7 @@ import BaseButton from '@/components/BaseButton.vue'
 import { ESize } from '@/types'
 import { uploadBytes } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { useAuthStore } from '@/store/auth'
 
@@ -81,6 +81,11 @@ const add = async () => {
       date: Date.now(),
     }
     const res = await addDoc(ref, data)
+    const newDoc = doc(ref, res.id)
+    await setDoc(newDoc, {
+      id: res.id,
+      ...data,
+    })
     await addDoc(collectionRef, {
       applier_id: res.id,
       status_id: 'FaLdBSPRYE1qRkTZXug0',

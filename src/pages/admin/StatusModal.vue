@@ -1,15 +1,15 @@
 <template>
   <BaseModal title="Status" @close="$emit('close')">
-    <div class="flex flex-col justify-between h-full">
+    <div class="flex h-full flex-col justify-between">
       <div class="px-10">
-        <form class="w-full h-full overflow-y-auto">
-          <div class="flex flex-col w-full">
-            <div class="flex items-center justify-between w-full mb-2">
+        <form class="h-full w-full overflow-y-auto">
+          <div class="flex w-full flex-col">
+            <div class="mb-2 flex w-full items-center justify-between">
               <label class="text-gray-700" for="category">Status</label>
-              <div class="flex relative items-center w-[80%]">
+              <div class="relative flex w-[80%] items-center">
                 <select
                   v-model="comment.status_id"
-                  class="w-full p-2 border border-gray-200 rounded-md outline-blue-300"
+                  class="w-full rounded-md border border-gray-200 p-2 outline-blue-300"
                   id="category"
                 >
                   <option value="" disabled selected>Status</option>
@@ -19,12 +19,12 @@
                 </select>
               </div>
             </div>
-            <div v-if="isTaskShow" class="flex items-center justify-between w-full mb-2">
+            <div v-if="isTaskShow" class="mb-2 flex w-full items-center justify-between">
               <label class="text-gray-700" for="tasks">Tasks</label>
-              <div class="flex relative items-center w-[80%]">
+              <div class="relative flex w-[80%] items-center">
                 <select
                   v-model="comment.task_id"
-                  class="w-full p-2 border border-gray-200 rounded-md outline-blue-300"
+                  class="w-full rounded-md border border-gray-200 p-2 outline-blue-300"
                   id="tasks"
                 >
                   <option value="" disabled selected>Task</option>
@@ -34,7 +34,7 @@
                 </select>
               </div>
             </div>
-            <div class="flex items-center justify-between w-full mt-2 mb-2">
+            <div class="mb-2 mt-2 flex w-full items-center justify-between">
               <label class="text-gray-700" for="text">Comment</label>
               <editor
                 @input="handleShortDescriptionFromChild"
@@ -45,7 +45,7 @@
           </div>
         </form>
       </div>
-      <div class="flex justify-end px-10 pt-5 mt-auto">
+      <div class="mt-auto flex justify-end px-10 pt-5">
         <base-button :is-loading="isLoading" @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
       </div>
     </div>
@@ -57,7 +57,7 @@ import { ref, watch, onMounted } from 'vue'
 import Editor from '@/components/Editor.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { ESize } from '@/types'
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import BaseModal from '@/components/BaseModal.vue'
 import { fetchData } from '@/composables/fetchData'
@@ -101,7 +101,12 @@ watch(
 const add = async () => {
   try {
     isLoading.value = true
-    await addDoc(collectionRef, { ...comment.value, date: Date.now() })
+    const res = await addDoc(collectionRef, { ...comment.value, date: Date.now() })
+    const newDoc = doc(collectionRef, res.id)
+    await setDoc(newDoc, {
+      id: res.id,
+      ...comment.value,
+    })
     // update status of applier
     const docRef = doc(collection(db, 'appliers'), props.currentUser.applier_id)
     await updateDoc(docRef, {

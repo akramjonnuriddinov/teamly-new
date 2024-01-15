@@ -1,23 +1,23 @@
 <template>
   <section
     @click="close"
-    class="h-full bg-[#00000080] flex justify-center items-start p-10 fixed top-0 left-0 w-[100vw] z-50"
+    class="fixed left-0 top-0 z-50 flex h-full w-[100vw] items-start justify-center bg-[#00000080] p-10"
   >
     <div
       @click.stop
-      class="container flex flex-col rounded-xl overflow-y-hidden h-full bg-white relative mx-auto max-w-[620px] w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container relative mx-auto flex h-full w-full max-w-[620px] flex-col overflow-y-hidden rounded-xl bg-white max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
-      <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
-        <h1 class="text-4xl text-center">{{ modal_title }}</h1>
-        <button @click="close" class="transition-all duration-300 text-tg-heading-font-color hover:opacity-80">
+      <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
+        <h1 class="text-center text-4xl">{{ modal_title }}</h1>
+        <button @click="close" class="text-tg-heading-font-color transition-all duration-300 hover:opacity-80">
           <close-icon class="h-[18px]" />
         </button>
       </div>
-      <div class="flex flex-col h-full pb-5 overflow-y-auto">
+      <div class="flex h-full flex-col overflow-y-auto pb-5">
         <div class="px-10">
           <slot></slot>
         </div>
-        <div class="flex justify-end px-10 pt-5 mt-auto">
+        <div class="mt-auto flex justify-end px-10 pt-5">
           <base-button
             v-if="isUpdate"
             :is-loading="isLoading"
@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { inject, computed, ref } from 'vue'
-import { addDoc, collection, updateDoc, doc } from 'firebase/firestore'
+import { addDoc, collection, updateDoc, doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { ESize, EThemes, Vacancy } from '@/types'
 import BaseButton from '@/components/BaseButton.vue'
@@ -66,6 +66,13 @@ const add = async () => {
       date: Date.now(),
     }
     const res = await addDoc(collectionRef, newValue)
+
+    const newDoc = doc(collectionRef, res.id)
+    await setDoc(newDoc, {
+      ...newValue,
+      id: res.id,
+    })
+
     const optionVal: Vacancy = {
       ...newValue,
       id: res.id,
