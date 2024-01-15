@@ -94,6 +94,9 @@ const isLoading = ref(true)
 const commentLoading = ref(true)
 const isApplierStatusesReady = ref(false)
 
+function filterByVacancyId(arr1: [], arr2: []) {
+  return arr1.flatMap((item1: any) => arr2.filter((item2: any) => item1.vacancy_id === item2.id))
+}
 onMounted(async () => {
   isLoading.value = true
   await vacanciesStore.fetchVacancy()
@@ -104,10 +107,6 @@ onMounted(async () => {
   vacancies.value = filterByVacancyId(appliers.value, vacanciesStore.vacancies)
   isLoading.value = false
 })
-
-function filterByVacancyId(arr1: [], arr2: []) {
-  return arr1.flatMap((item1: any) => arr2.filter((item2: any) => item1.vacancy_id === item2.id))
-}
 
 const loadApplierStatuses = async () => {
   commentLoading.value = true
