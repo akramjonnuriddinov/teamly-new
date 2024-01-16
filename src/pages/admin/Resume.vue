@@ -43,13 +43,15 @@
                 </button>
               </div>
             </div>
-            <status-detail
-              v-if="isApplierStatusesReady"
-              :applier_id="applier.id"
-              :status_id="applier.status_id"
-              :expanded="detailExpanded === index"
-              :statuses="statuses"
-            />
+            <keep-alive>
+              <status-detail
+                v-if="detailExpanded === index"
+                :applier_id="applier.id"
+                :status_id="applier.status_id"
+                :expanded="detailExpanded === index"
+                :statuses="statuses"
+              />
+            </keep-alive>
           </li>
         </template>
         <div v-if="false" class="flex justify-center">
@@ -75,12 +77,10 @@ import AppLoader from '@/components/AppLoader.vue'
 import { useRoute } from 'vue-router'
 import { collection, query, getDocs, orderBy } from 'firebase/firestore'
 import ButtonLoader from '@/components/ButtonLoader.vue'
-import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
 
 const route = useRoute()
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
-const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const users = ref<any>([])
 const isLoading = ref(true)
@@ -93,6 +93,7 @@ const selectedUser = ref<any>(null)
 // let lastVisible: any = null
 // const options = ref<any>([])
 const isLoadMore = ref(true)
+const applier_id = ref(null)
 
 onMounted(async () => {
   console.log(new Date().getSeconds(), 'first')
@@ -105,7 +106,6 @@ onMounted(async () => {
   }
 })
 
-const isApplierStatusesReady = ref(false)
 const loadMoreLoading = ref(false)
 const allData = ref<any>([])
 const loadMore = async () => {
@@ -116,15 +116,21 @@ const loadMore = async () => {
 
   const userIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().user_id))]
   const usersQuery = query(collection(db, 'users'), where('id', 'in', userIds))
-  const usersSnapshot = await getDocs(usersQuery)
+  const usersPromise = getDocs(usersQuery)
 
   const vacancyIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().vacancy_id))]
   const vacanciesQuery = query(collection(db, 'vacancies'), where('id', 'in', vacancyIds))
-  const vacanciesSnapshot = await getDocs(vacanciesQuery)
+  const vacanciesPromise = getDocs(vacanciesQuery)
 
   const statusIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().status_id))]
   const statusesQuery = query(collection(db, 'statuses'), where('id', 'in', statusIds))
-  const statusesSnapshot = await getDocs(statusesQuery)
+  const statusesPromise = getDocs(statusesQuery)
+
+  const [usersSnapshot, vacanciesSnapshot, statusesSnapshot] = await Promise.all([
+    usersPromise,
+    vacanciesPromise,
+    statusesPromise,
+  ])
 
   appliers.value = appliersSnapshot.docs.map((doc) => ({
     id: doc.id,
@@ -159,17 +165,6 @@ const detectScroll = async (event: any) => {
   }
 }
 
-const loadApplierStatuses = async (applier: any) => {
-  try {
-    if (!applierStatuses.value.length) {
-      applierStatuses.value = await fetchDataWithWhere('applier_statuses', 'applier_id', '==', applier.id)
-    }
-    isApplierStatusesReady.value = true
-  } catch (error) {
-    console.error('Error loading applier statuses:', error)
-    isApplierStatusesReady.value = false
-  }
-}
 const openStatusModal = (applier_id: string, vacancy_id: string) => {
   isStatusModal.value = true
   currentUser.value = {
@@ -178,8 +173,8 @@ const openStatusModal = (applier_id: string, vacancy_id: string) => {
   }
 }
 const toggleAccordion = (value: any, applier: any) => {
-  loadApplierStatuses(applier)
   detailExpanded.value = detailExpanded.value === value ? null : value
+  applier_id.value = applier.id
 }
 const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'appliers', id))
