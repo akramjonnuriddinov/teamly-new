@@ -72,15 +72,16 @@ const loadData = async () => {
   const vacanciesQuery = query(collection(db, 'vacancies'), where('id', '==', route.params.id))
   const vacanciesSnapshot = await getDocs(vacanciesQuery)
 
-  const appliersQuery = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
-  const appliersSnapshot = await getDocs(appliersQuery)
+  if (store.user) {
+    const appliersQuery = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
+    const appliersSnapshot = await getDocs(appliersQuery)
+    appliers.value = appliersSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+  }
 
   vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }))
-
-  appliers.value = appliersSnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }))
