@@ -2,7 +2,7 @@
   <the-transition>
     <div v-if="expanded" class="overflow-hidden px-5">
       <ul v-if="listLoading" @click.stop class="relative border-s border-gray-200">
-        <li v-for="i in 3" :key="i" class="mb-10 ms-4 pt-4">
+        <li class="mb-10 ms-4 pt-4">
           <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white">
             <Skeleton width="12px" height="12px" :theme="ESkeletonTheme.LIGHT" />
           </div>
