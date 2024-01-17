@@ -31,11 +31,11 @@ import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
 import { ESize } from '@/types'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 
 const collectionRef = collection(db, 'applier_statuses')
-const curButton = computed(() => !props.vacancy.status_id && !storeVacancies.applicationSent)
+const curButton = computed(() => !props.vacancy?.status_id && !storeVacancies.applicationSent)
 const props = defineProps(['vacancy'])
 const emit = defineEmits(['open'])
 const storeVacancies = useVacanciesStore()
@@ -64,7 +64,15 @@ const handleApply = async (id: any) => {
     const res = await vacancyApply(store.user.id, id)
     isLoading.value = false
     storeVacancies.updateApplicationSent(true)
-    await addDoc(collectionRef, {
+    const job = await addDoc(collectionRef, {
+      applier_id: res.id,
+      status_id: 'FaLdBSPRYE1qRkTZXug0',
+      vacancy_id: id,
+      date: Date.now(),
+    })
+    const newDoc = doc(collectionRef, job.id)
+    await setDoc(newDoc, {
+      id: job.id,
       applier_id: res.id,
       status_id: 'FaLdBSPRYE1qRkTZXug0',
       vacancy_id: id,

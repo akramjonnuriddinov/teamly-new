@@ -1,27 +1,27 @@
 <template>
   <admin-base-modal :input="props.input" url="vacancies" :old-value="vacancy" modal_title="Vacancy">
-    <form class="w-full h-auto overflow-y-auto">
-      <div class="flex flex-col w-full">
-        <div class="flex justify-between w-full">
+    <form class="h-auto w-full overflow-y-auto">
+      <div class="flex w-full flex-col">
+        <div class="flex w-full justify-between">
           <label class="text-gray-700" for="username">Location</label>
           <input
             v-model="vacancy.location"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
             type="text"
           />
         </div>
-        <div class="flex items-center justify-between w-full">
+        <div class="flex w-full items-center justify-between">
           <label class="text-gray-700" for="username">Title</label>
           <input
             v-model="vacancy.title"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
             type="text"
           />
         </div>
-        <div class="flex items-center justify-between w-full">
+        <div class="flex w-full items-center justify-between">
           <label class="text-gray-700" for="category">Category</label>
           <select
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
             v-model="vacancy.category"
             id="category"
           >
@@ -31,10 +31,10 @@
             </option>
           </select>
         </div>
-        <div class="flex items-center justify-between w-full mb-2">
+        <div class="mb-2 flex w-full items-center justify-between">
           <label class="text-gray-700" for="time">Time</label>
           <select
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
             v-model="vacancy.time"
             id="time"
           >
@@ -44,18 +44,18 @@
             </option>
           </select>
         </div>
-        <div class="flex items-center justify-between w-full">
+        <div class="flex w-full items-center justify-between">
           <label class="text-gray-700" for="username">Text</label>
           <textarea
             v-model="vacancy.text"
-            class="w-[80%] h-[180px] resize-none p-2 border border-gray-200 rounded-md outline-blue-300"
+            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
             name=""
             id="text"
             cols="30"
             rows="10"
           ></textarea>
         </div>
-        <div class="flex items-center justify-between w-full mt-2">
+        <div class="mt-2 flex w-full items-center justify-between">
           <label class="text-gray-700" for="text">Description</label>
           <editor @input="handleDescriptionFromChild" :edit-editor="vacancy.description" class="w-[80%]" />
         </div>

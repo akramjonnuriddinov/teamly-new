@@ -59,13 +59,13 @@
                 <span class="text-sm">Show statuses</span>
               </button>
             </div>
-            <user-status-detail
-              v-if="isApplierStatusesReady"
-              :commentLoading="commentLoading"
-              :vacancy_id="vacancy.id"
-              :applierStatuses="applierStatuses"
-              :expanded="detailExpanded === index"
-            />
+            <keep-alive>
+              <user-status-detail
+                v-if="detailExpanded === index"
+                :expanded="detailExpanded === index"
+                :applier_id="vacancy.applier_id"
+              />
+            </keep-alive>
           </div>
         </div>
       </div>
@@ -76,50 +76,47 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import { fetchData } from '@/composables/fetchData'
 import InlineSvg from '@/components/InlineSvg.vue'
 import UserStatusDetail from '@/pages/profile/UserStatusDetail.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
-import { useAllVacanciesStore } from '@/store/allVacancies'
-import { useAppliersStore } from '@/store/appliers'
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
+import { db } from '@/firebase'
 
 const store = useAuthStore()
-const vacanciesStore = useAllVacanciesStore()
-const appliersStore = useAppliersStore()
+const appliers = ref<any>([])
 const vacancies = ref()
 const detailExpanded = ref(null)
-const appliers = ref<any>([])
-const applierStatuses = ref<any>([])
 const isLoading = ref(true)
-const commentLoading = ref(true)
-const isApplierStatusesReady = ref(false)
 
-function filterByVacancyId(arr1: [], arr2: []) {
-  return arr1.flatMap((item1: any) => arr2.filter((item2: any) => item1.vacancy_id === item2.id))
-}
 onMounted(async () => {
   isLoading.value = true
-  await vacanciesStore.fetchVacancy()
-  await appliersStore.fetchAppliers()
-  appliers.value = appliersStore.appliers
-  appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
-  vacancies.value = vacanciesStore.vacancies
-  vacancies.value = filterByVacancyId(appliers.value, vacanciesStore.vacancies)
+  await loadData()
   isLoading.value = false
 })
 
-const loadApplierStatuses = async () => {
-  commentLoading.value = true
-  applierStatuses.value = await fetchData('applier_statuses')
-  applierStatuses.value = applierStatuses.value.filter((applierStatus: any) =>
-    appliers.value.some((applier: any) => applier.id === applierStatus.applier_id),
+const loadData = async () => {
+  const appliersQuery = query(
+    collection(db, 'appliers'),
+    orderBy('date', 'desc'),
+    where('user_id', '==', store.user.id),
   )
-  isApplierStatusesReady.value = true
-  commentLoading.value = false
+  const appliersSnapshot = await getDocs(appliersQuery)
+  const vacancyIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().vacancy_id))]
+  const vacanciesQuery = query(collection(db, 'vacancies'), where('id', 'in', vacancyIds))
+  const vacanciesSnapshot = await getDocs(vacanciesQuery)
+  appliers.value = appliersSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
+
+  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+    applier_id: appliers.value.filter((applier: any) => doc.id === applier.vacancy_id)[0].id,
+  }))
 }
 
 const toggleAccordion = (value: any) => {
-  loadApplierStatuses()
   detailExpanded.value = detailExpanded.value === value ? null : value
 }
 </script>

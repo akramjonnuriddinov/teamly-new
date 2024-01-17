@@ -77,25 +77,59 @@ import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
 import { useRouter } from 'vue-router'
 import { vacancyApply } from '@/composables/vacancyApply'
-import { useAllVacanciesStore } from '@/store/allVacancies'
-import { useAppliersStore } from '@/store/appliers'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, doc, getDocs, orderBy, query, setDoc, where } from 'firebase/firestore'
 import { db } from '@/firebase'
 
+const emit = defineEmits(['open'])
 const props = defineProps(['vacancyId'])
 const collectionRef = collection(db, 'applier_statuses')
-
-const emit = defineEmits(['open'])
-const vacancies = ref()
+const router = useRouter()
 const store = useAuthStore()
-const vacanciesStore = useAllVacanciesStore()
-const appliersStore = useAppliersStore()
+const vacancies = ref()
 const user = ref({ ...store.user })
 const isLoading = ref(null)
 const listLoading = ref(true)
+const appliers = ref<any>([])
 
-const router = useRouter()
+onMounted(async () => {
+  listLoading.value = true
+  await loadData()
+  await fetchDataAndApply()
+  listLoading.value = false
+})
+
+watch(
+  () => store.user,
+  async (newValue) => {
+    user.value = { ...newValue }
+    if (newValue && newValue.id) {
+      // await fetchDataAndApply()
+    }
+  },
+  {
+    immediate: true,
+  },
+)
+
+const loadData = async () => {
+  const vacanciesQuery = query(collection(db, 'vacancies'), orderBy('date', 'desc'))
+  const vacanciesSnapshot = await getDocs(vacanciesQuery)
+
+  const appliersQuery = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
+  const appliersSnapshot = await getDocs(appliersQuery)
+
+  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
+
+  appliers.value = appliersSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
+}
+
 const handleApply = async (id: any) => {
   if (!store.user) {
     router.push('/sign-in')
@@ -107,7 +141,16 @@ const handleApply = async (id: any) => {
     const res = await vacancyApply(store.user.id, id)
     currentApply(id)
     isLoading.value = null
-    await addDoc(collectionRef, {
+    const jobList = await addDoc(collectionRef, {
+      applier_id: res.id,
+      status_id: 'FaLdBSPRYE1qRkTZXug0',
+      vacancy_id: id,
+      date: Date.now(),
+    })
+
+    const newDoc = doc(collectionRef, jobList.id)
+    await setDoc(newDoc, {
+      id: jobList.id,
       applier_id: res.id,
       status_id: 'FaLdBSPRYE1qRkTZXug0',
       vacancy_id: id,
@@ -117,6 +160,7 @@ const handleApply = async (id: any) => {
     emit('open', id)
   }
 }
+
 const currentApply = (id: string) => {
   const appliedVacancy = vacancies.value.find((vacancy: any) => vacancy.id === id)
   if (appliedVacancy) {
@@ -132,14 +176,9 @@ const fetchDataAndApply = async () => {
     currentApply(props.vacancyId)
   } else {
     try {
-      await vacanciesStore.fetchVacancy()
-      vacancies.value = vacanciesStore.vacancies
-
-      if (!appliersStore.appliers) await appliersStore.fetchAppliers()
-
       vacancies.value = vacancies.value.map((item: any) => ({
         ...item,
-        applied: appliersStore.appliers?.find((item2: any) => item2.vacancy_id === item.id),
+        applied: appliers.value.find((item2: any) => item2.vacancy_id === item.id),
       }))
     } catch (error) {
       console.error(error)
@@ -148,22 +187,6 @@ const fetchDataAndApply = async () => {
     }
   }
 }
-
-onMounted(async () => {
-  fetchDataAndApply()
-})
-watch(
-  () => store.user,
-  (newValue) => {
-    user.value = { ...newValue }
-    if (newValue && newValue.id) {
-      fetchDataAndApply()
-    }
-  },
-  {
-    immediate: true,
-  },
-)
 
 const getColor = (isApplied: string) => {
   return isApplied ? '#198754' : ''
