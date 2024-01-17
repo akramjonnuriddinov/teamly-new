@@ -59,13 +59,14 @@
                 <span class="text-sm">Show statuses</span>
               </button>
             </div>
-            <user-status-detail
-              v-if="isApplierStatusesReady"
-              :commentLoading="commentLoading"
-              :vacancy_id="vacancy.id"
-              :applierStatuses="applierStatuses"
-              :expanded="detailExpanded === index"
-            />
+            <keep-alive>
+              <user-status-detail
+                v-if="detailExpanded === index"
+                :applierStatuses="applierStatuses"
+                :expanded="detailExpanded === index"
+                :applier_id="vacancy.applier_id"
+              />
+            </keep-alive>
           </div>
         </div>
       </div>
@@ -76,7 +77,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import { fetchData } from '@/composables/fetchData'
 import InlineSvg from '@/components/InlineSvg.vue'
 import UserStatusDetail from '@/pages/profile/UserStatusDetail.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
@@ -91,8 +91,6 @@ const detailExpanded = ref(null)
 const appliers = ref<any>([])
 const applierStatuses = ref<any>([])
 const isLoading = ref(true)
-const commentLoading = ref(true)
-const isApplierStatusesReady = ref(false)
 
 onMounted(async () => {
   isLoading.value = true
@@ -102,6 +100,10 @@ onMounted(async () => {
   appliers.value = appliers.value.filter((item: any) => item.user_id === store.user.id)
   vacancies.value = vacanciesStore.vacancies
   vacancies.value = filterByVacancyId(appliers.value, vacanciesStore.vacancies)
+  vacancies.value = vacancies.value.map((item: any) => ({
+    ...item,
+    applier_id: appliers.value.filter((applier: any) => item.id === applier.vacancy_id)[0].id,
+  }))
   isLoading.value = false
 })
 
@@ -109,18 +111,7 @@ const filterByVacancyId = (arr1: [], arr2: []) => {
   return arr1.flatMap((item1: any) => arr2.filter((item2: any) => item1.vacancy_id === item2.id))
 }
 
-const loadApplierStatuses = async () => {
-  commentLoading.value = true
-  applierStatuses.value = await fetchData('applier_statuses')
-  applierStatuses.value = applierStatuses.value.filter((applierStatus: any) =>
-    appliers.value.some((applier: any) => applier.id === applierStatus.applier_id),
-  )
-  isApplierStatusesReady.value = true
-  commentLoading.value = false
-}
-
 const toggleAccordion = (value: any) => {
-  loadApplierStatuses()
   detailExpanded.value = detailExpanded.value === value ? null : value
 }
 </script>
