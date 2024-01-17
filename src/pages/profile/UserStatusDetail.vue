@@ -98,7 +98,6 @@ const loadData = async () => {
   const statusesPromise = getDocs(statusesQuery)
   const tasksQuery = query(collection(db, 'tasks'))
   const tasksPromise = getDocs(tasksQuery)
-
   const [statusesSnapshot, tasksSnapshot] = await Promise.all([statusesPromise, tasksPromise])
 
   statuses.value = statusesSnapshot.docs.map((doc) => ({
@@ -118,7 +117,7 @@ const loadData = async () => {
     id: item.id,
     ...item,
     status: statuses.value.filter((status: any) => status.id === item.status_id)[0],
-    task: tasks.value.filter((task: any) => task.id === item?.task_id)[0],
+    task: tasks.value.filter((task: any) => task.id === item.task_id)[0],
   }))
 }
 </script>
