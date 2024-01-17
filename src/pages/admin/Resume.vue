@@ -84,21 +84,20 @@ const vacancies = ref<any>([])
 const statuses = ref<any>([])
 const users = ref<any>([])
 const isLoading = ref(true)
-
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
 const currentUser = ref<any>(null)
 const isUserModal = ref(false)
 const selectedUser = ref<any>(null)
-// let lastVisible: any = null
-// const options = ref<any>([])
 const isLoadMore = ref(true)
 const applier_id = ref(null)
+const loadMoreLoading = ref(false)
+const allData = ref<any>([])
+// let lastVisible: any = null
+// const options = ref<any>([])
 
 onMounted(async () => {
-  console.log(new Date().getSeconds(), 'first')
   await loadMore()
-  console.log(new Date().getSeconds(), 'second')
   isLoading.value = false
 
   if (route.query.id) {
@@ -106,8 +105,6 @@ onMounted(async () => {
   }
 })
 
-const loadMoreLoading = ref(false)
-const allData = ref<any>([])
 const loadMore = async () => {
   loadMoreLoading.value = true
 
@@ -122,8 +119,7 @@ const loadMore = async () => {
   const vacanciesQuery = query(collection(db, 'vacancies'), where('id', 'in', vacancyIds))
   const vacanciesPromise = getDocs(vacanciesQuery)
 
-  const statusIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().status_id))]
-  const statusesQuery = query(collection(db, 'statuses'), where('id', 'in', statusIds))
+  const statusesQuery = query(collection(db, 'statuses'))
   const statusesPromise = getDocs(statusesQuery)
 
   const [usersSnapshot, vacanciesSnapshot, statusesSnapshot] = await Promise.all([
@@ -172,14 +168,17 @@ const openStatusModal = (applier_id: string, vacancy_id: string) => {
     vacancy_id,
   }
 }
+
 const toggleAccordion = (value: any, applier: any) => {
   detailExpanded.value = detailExpanded.value === value ? null : value
   applier_id.value = applier.id
 }
+
 const removeUser = async (id: string) => {
   await deleteDoc(doc(db, 'appliers', id))
-  appliers.value = appliers.value.filter((item: any) => item.id !== id)
+  allData.value = allData.value.filter((item: any) => item.id !== id)
 }
+
 const openUserModal = (user: object) => {
   isUserModal.value = true
   selectedUser.value = user

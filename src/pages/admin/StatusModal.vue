@@ -106,8 +106,9 @@ const add = async () => {
     await setDoc(newDoc, {
       id: res.id,
       ...comment.value,
+      date: Date.now(),
     })
-    // update status of applier
+
     const docRef = doc(collection(db, 'appliers'), props.currentUser.applier_id)
     await updateDoc(docRef, {
       status_id: comment.value.status_id,

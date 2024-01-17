@@ -1,7 +1,20 @@
 <template>
   <the-transition>
     <div v-if="expanded" class="overflow-hidden px-5">
-      <ul @click.stop class="relative border-s border-gray-200">
+      <ul v-if="listLoading" @click.stop class="relative border-s border-gray-200">
+        <li v-for="i in 3" :key="i" class="mb-10 ms-4 pt-4">
+          <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white">
+            <Skeleton width="12px" height="12px" :theme="ESkeletonTheme.LIGHT" />
+          </div>
+          <time class="mb-1 flex text-sm font-normal leading-none text-gray-400">
+            <Skeleton width="176px" height="18px" :theme="ESkeletonTheme.LIGHT" />
+          </time>
+          <h3 class="text-lg font-semibold text-gray-900">
+            <Skeleton class="block" width="100%" height="28px" :theme="ESkeletonTheme.LIGHT" />
+          </h3>
+        </li>
+      </ul>
+      <ul v-else @click.stop class="relative border-s border-gray-200">
         <li v-for="applierStatus in applierStatuses" class="mb-10 ms-4 pt-4">
           <div
             :style="`background-color: ${applierStatus.status?.color}`"
@@ -43,38 +56,35 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { fetchData } from '@/composables/fetchData'
 import TheTransition from '@/components/TheTransition.vue'
 import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
+import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 
 const props = defineProps(['expanded', 'applier_id', 'status_id', 'statuses'])
 const applierStatuses = ref<any>([])
 const tasks = ref<any>([])
+const listLoading = ref(true)
 
 const loadApplierStatuses = async () => {
   const applierStatusesQuery = query(collection(db, 'applier_statuses'), where('applier_id', '==', props.applier_id))
   const applierStatusesSnapshot = await getDocs(applierStatusesQuery)
 
-  applierStatusesSnapshot.docs.map((doc) => console.log(doc.data()))
+  applierStatuses.value = applierStatusesSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
 }
 
-console.log(props.applier_id, 'id1')
-
 onMounted(async () => {
-  await loadApplierStatuses()
-  // tasks.value = await fetchData('tasks')
-  console.log(props.applier_id, 'app_id')
   try {
-    let allStatuses = await fetchData('applier_statuses')
+    await loadApplierStatuses()
 
-    allStatuses = allStatuses.map((item: any) => ({
+    applierStatuses.value = applierStatuses.value.map((item: any) => ({
       ...item,
       status: props.statuses.find((el: any) => el.id === item.status_id),
     }))
-
-    applierStatuses.value = allStatuses.filter((item: any) => item.applier_id === props.applier_id)
 
     applierStatuses.value = applierStatuses.value.map((item: any) => ({
       ...item,
@@ -82,6 +92,8 @@ onMounted(async () => {
     }))
   } catch (error) {
     console.error('Error:', error)
+  } finally {
+    listLoading.value = false
   }
 })
 </script>
