@@ -35,7 +35,7 @@ import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 
 const collectionRef = collection(db, 'applier_statuses')
-const curButton = computed(() => !props.vacancy.status_id && !storeVacancies.applicationSent)
+const curButton = computed(() => !props.vacancy?.status_id && !storeVacancies.applicationSent)
 const props = defineProps(['vacancy'])
 const emit = defineEmits(['open'])
 const storeVacancies = useVacanciesStore()

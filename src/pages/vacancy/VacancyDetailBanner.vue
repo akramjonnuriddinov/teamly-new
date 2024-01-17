@@ -45,9 +45,9 @@
           :is-loading="isLoading"
           :disabled="!curButton"
           @click="curButton ? handleApply(vacancy.id) : ''"
-          :color="curButton ? '#7e54f8 ' : status ? status.color : storeVacancies.statusDefault.color"
+          :color="curButton ? '#7e54f8 ' : status ? status?.color : storeVacancies.statusDefault.color"
         >
-          {{ curButton ? 'Apply' : status ? status.title : storeVacancies.statusDefault.title }}
+          {{ curButton ? 'Apply' : status ? status?.title : storeVacancies.statusDefault?.title }}
         </base-button>
       </div>
     </div>
@@ -75,6 +75,7 @@ const store = useAuthStore()
 const isLoading = ref(false)
 const listLoading = ref(true)
 const router = useRouter()
+
 const status = computed(() => storeVacancies.status)
 
 onMounted(async () => {
@@ -96,6 +97,7 @@ const handleApply = async (id: any) => {
     const res = await vacancyApply(store.user.id, id)
     isLoading.value = false
     storeVacancies.updateApplicationSent(true)
+
     const jobList = await addDoc(collectionRef, {
       applier_id: res.id,
       status_id: 'FaLdBSPRYE1qRkTZXug0',
