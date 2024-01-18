@@ -33,7 +33,13 @@
                 <div
                   class="user mb-2 flex cursor-pointer items-center whitespace-nowrap px-[25px] hover:text-tg-primary-color"
                 >
-                  <img class="mr-2 flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
+                  <img v-if="user?.photoURL" class="mr-2 flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
+                  <div
+                    v-else
+                    class="mr-2 flex h-10 w-10 items-center justify-center rounded-full bg-tg-primary-color text-xl font-bold text-tg-white"
+                  >
+                    {{ user?.name[0] }}
+                  </div>
                   <div class="mr-4 max-w-full overflow-hidden truncate whitespace-nowrap py-4 font-semibold">
                     {{ user?.name }}
                   </div>
@@ -122,7 +128,13 @@
             onselectstart="return false;"
           >
             <div class="user flex cursor-pointer items-center whitespace-nowrap hover:text-tg-primary-color">
-              <img class="flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
+              <img v-if="user?.photoURL" class="flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
+              <div
+                v-else
+                class="mr-2 flex h-10 w-10 items-center justify-center rounded-full bg-tg-primary-color text-xl font-bold text-tg-white"
+              >
+                {{ user?.name[0] }}
+              </div>
               <inline-svg
                 class="h-6 w-6 font-bold opacity-60"
                 :class="{ 'rotate-180': isDropDown }"
@@ -238,9 +250,6 @@ onUpdated(() => {
 const logoutHandle = async () => {
   await store.logout()
   router.push('/')
-  setTimeout(() => {
-    window.location.reload()
-  }, 500)
 }
 const toggleModal = () => {
   isHidden.value = !isHidden.value
