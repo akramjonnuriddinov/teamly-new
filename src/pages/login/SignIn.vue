@@ -52,7 +52,13 @@
               <p v-if="isError && !errorMessage" class="text-red-500">Please write your correct email & password</p>
               <p v-else-if="isError" class="text-red-500">{{ errorMessage }}</p>
             </div>
-            <base-button @click="signIn" type="submit" :is-loading="isLoading" class="h-[52px] w-full bg-[#7e54f8]">
+            <base-button
+              @click="signIn"
+              type="submit"
+              :is-loading="isLoading"
+              :disabled="disabled"
+              class="h-[52px] w-full bg-[#7e54f8]"
+            >
               Sign in
             </base-button>
           </form>
@@ -63,12 +69,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { signWithGoogle } from '@/composables/auth'
 import BaseButton from '@/components/BaseButton.vue'
 import InlineSvg from '@/components/InlineSvg.vue'
+import { isDisabled } from '@/composables/isDisabled'
 
 const store = useAuthStore()
 const isCreated = ref(true)
@@ -80,13 +87,29 @@ const user = ref({
   password: '',
 })
 
+const disabled = computed(() => {
+  return isDisabled(user.value)
+})
+import { db } from '@/firebase'
+import { getDoc, doc, updateDoc } from 'firebase/firestore'
 const signIn = async () => {
   try {
     isLoading.value = true
     if (user.value.email && user.value.password) {
       const auth = getAuth()
-      const userCredential = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
-      const response = await store.signIn(userCredential.user)
+      const userCredential: any = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
+      console.log('userCredential', userCredential)
+      if (userCredential.user.emailVerified) {
+        const docRef = doc(db, 'users', 'props.id')
+        const userSnapshot = await getDoc(docRef)
+        let userData = userSnapshot.data()
+        userData = { ...userData, verified: true }
+
+        await updateDoc(docRef, userData)
+      } else {
+        console.log('hey false', userCredential.user.emailVerified)
+      }
+      const response = (await store.signIn(userCredential.user)) as any
       if (response) {
         errorMessage.value = response
         errorHandler()

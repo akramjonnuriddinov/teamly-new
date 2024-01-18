@@ -74,7 +74,13 @@
                 />
                 <p v-if="isError" class="text-red-500">Somthing get wrong, please try again</p>
               </div>
-              <base-button @click="signUp()" type="submit" :is-loading="isLoading" class="h-[52px] w-full bg-[#7e54f8]">
+              <base-button
+                @click="signUp()"
+                type="submit"
+                :is-loading="isLoading"
+                :disabled="disabled"
+                class="h-[52px] w-full bg-[#7e54f8]"
+              >
                 Sign up
               </base-button>
             </form>
@@ -86,13 +92,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { setDoc, doc } from 'firebase/firestore'
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import {
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendSignInLinkToEmail,
+  sendEmailVerification,
+} from 'firebase/auth'
 import { signWithGoogle, sendMailMessage } from '@/composables/auth'
 import BaseButton from '@/components/BaseButton.vue'
 import { db } from '@/firebase'
 import InlineSvg from '@/components/InlineSvg.vue'
+import { isDisabled } from '@/composables/isDisabled'
 
 const isVerification = ref(false)
 const isError = ref(false)
@@ -103,13 +117,30 @@ const newUser = ref({
   password: '',
 })
 
+const disabled = computed(() => {
+  return isDisabled(newUser.value)
+})
+
+const actionCodeSettings = {
+  url: 'http://localhost:4000/about', // URL where the user will be redirected after clicking the link
+  handleCodeInApp: true, // Whether to open the link in a mobile app or continue in a mobile browser
+}
+
 const signUp = async (): Promise<void> => {
   try {
     isLoading.value = true
     const auth = getAuth()
+
     if (newUser.value.email && newUser.value.name && newUser.value.password) {
       const userCredential = await createUserWithEmailAndPassword(auth, newUser.value.email, newUser.value.password)
+      const send = sendSignInLinkToEmail(auth, newUser.value.email, actionCodeSettings)
+      console.log(send, 'send')
       const user = userCredential.user
+      console.log(user, 'user')
+      sendEmailVerification(user, actionCodeSettings).then((item) => {
+        console.log('item', item)
+      })
+
       await updateProfile(user, {
         displayName: newUser.value.name,
       })
@@ -124,8 +155,8 @@ const signUp = async (): Promise<void> => {
           const colRef = doc(db, 'users', user.uid)
           setDoc(colRef, newUser.value)
           await sendMailMessage(newUser.value.email, newUser.value.id)
-          isVerification.value = true
-          isLoading.value = false
+          isVerification.value = true // bu kod tepparoqda true bo'lishi kerak
+          isLoading.value = false // bu kod tepparoqda false bolishi kerak
         }
       })
     }

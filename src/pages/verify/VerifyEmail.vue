@@ -1,11 +1,11 @@
 <template>
   <section class="bg-[#F9F9FA]">
-    <div class="flex flex-col items-center justify-center min-h-screen px-6 py-8 mx-auto lg:py-0">
+    <div class="mx-auto flex min-h-screen flex-col items-center justify-center px-6 py-8 lg:py-0">
       <div v-if="isLoading">
         <Skeleton width="300px" height="148px" :theme="ESkeletonTheme.DARK" />
       </div>
-      <div v-else class="p-8 text-white bg-green-500 rounded-lg shadow-lg">
-        <div class="flex items-center justify-center mb-4">
+      <div v-else class="rounded-lg bg-tg-green p-8 text-white shadow-lg">
+        <div class="mb-4 flex items-center justify-center">
           <inline-svg fill="none" src="check.svg" />
           <h1 class="text-3xl font-bold">Success!</h1>
         </div>
