@@ -90,25 +90,13 @@ const user = ref({
 const disabled = computed(() => {
   return isDisabled(user.value)
 })
-import { db } from '@/firebase'
-import { getDoc, doc, updateDoc } from 'firebase/firestore'
+
 const signIn = async () => {
   try {
     isLoading.value = true
     if (user.value.email && user.value.password) {
       const auth = getAuth()
       const userCredential: any = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
-      console.log('userCredential', userCredential)
-      if (userCredential.user.emailVerified) {
-        const docRef = doc(db, 'users', userCredential.user.uid)
-        const userSnapshot = await getDoc(docRef)
-        let userData = userSnapshot.data()
-        userData = { ...userData, verified: true }
-
-        await updateDoc(docRef, userData)
-      } else {
-        console.log('hey false', userCredential.user.emailVerified)
-      }
       const response = (await store.signIn(userCredential.user)) as any
       if (response) {
         errorMessage.value = response

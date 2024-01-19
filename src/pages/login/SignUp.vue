@@ -99,7 +99,6 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   updateProfile,
-  sendSignInLinkToEmail,
   sendEmailVerification,
 } from 'firebase/auth'
 import { signWithGoogle, sendMailMessage } from '@/composables/auth'
@@ -132,16 +131,15 @@ const signUp = async (): Promise<void> => {
         newUser.value.email,
         newUser.value.password,
       )
-      const id = userCredential.user.uid
+
       const actionCodeSettings = {
-        url: `${window.location.origin}/verify?id=${id}`,
+        url: `${window.location.origin}/verify?id=${userCredential.user.uid}`,
         handleCodeInApp: true,
       }
 
-      sendSignInLinkToEmail(auth, newUser.value.email, actionCodeSettings)
       const user = userCredential.user
 
-      sendEmailVerification(user, actionCodeSettings)
+      await sendEmailVerification(user, actionCodeSettings)
 
       await updateProfile(user, {
         displayName: newUser.value.name,
@@ -157,8 +155,8 @@ const signUp = async (): Promise<void> => {
           const colRef = doc(db, 'users', user.uid)
           setDoc(colRef, newUser.value)
           await sendMailMessage(newUser.value.email, newUser.value.id)
-          isVerification.value = true // bu kod tepparoqda true bo'lishi kerak
-          isLoading.value = false // bu kod tepparoqda false bolishi kerak
+          isVerification.value = true
+          isLoading.value = false
         }
       })
     }

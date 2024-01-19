@@ -32,7 +32,6 @@ const props = defineProps({
     required: true,
   },
 })
-
 const userInfo = ref(null)
 const isLoading = ref(true)
 
