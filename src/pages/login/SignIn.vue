@@ -52,7 +52,21 @@
               <p v-if="isError && !errorMessage" class="text-red-500">Please write your correct email & password</p>
               <p v-else-if="isError" class="text-red-500">{{ errorMessage }}</p>
             </div>
-            <base-button @click="signIn" type="submit" :is-loading="isLoading" class="h-[52px] w-full bg-[#7e54f8]">
+            <div
+              v-if="!isVerification"
+              class="border-l-4 border-yellow-500 bg-yellow-200 p-4 text-yellow-700"
+              role="alert"
+            >
+              <p class="font-bold">Your email has not been verified.</p>
+              <a class="text-[#3498db] underline" href="https://mail.google.com/" target="_blank">Check your email</a>
+            </div>
+            <base-button
+              @click="signIn"
+              type="submit"
+              :is-loading="isLoading"
+              :disabled="disabled"
+              class="h-[52px] w-full bg-[#7e54f8]"
+            >
               Sign in
             </base-button>
           </form>
@@ -63,13 +77,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { signWithGoogle } from '@/composables/auth'
 import BaseButton from '@/components/BaseButton.vue'
 import InlineSvg from '@/components/InlineSvg.vue'
+import { isDisabled } from '@/composables/isDisabled'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useAuthStore()
 const isCreated = ref(true)
 const isLoading = ref(false)
@@ -79,14 +96,22 @@ const user = ref({
   email: '',
   password: '',
 })
+const isVerification = ref(true)
+
+const disabled = computed(() => {
+  return isDisabled(user.value)
+})
 
 const signIn = async () => {
   try {
     isLoading.value = true
     if (user.value.email && user.value.password) {
       const auth = getAuth()
-      const userCredential = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
-      const response = await store.signIn(userCredential.user)
+      const userCredential: any = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
+      isVerification.value = userCredential.user.emailVerified
+      console.log(userCredential.user)
+      console.log(isVerification.value)
+      const response = (await store.signIn(userCredential.user)) as any
       if (response) {
         errorMessage.value = response
         errorHandler()
@@ -96,6 +121,7 @@ const signIn = async () => {
     errorHandler()
   } finally {
     isLoading.value = false
+    if (isVerification.value) router.push('/')
   }
 }
 

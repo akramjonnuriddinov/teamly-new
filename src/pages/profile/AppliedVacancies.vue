@@ -56,7 +56,9 @@
                   class="mr-2 h-4 transition-transform duration-300"
                   src="fontawesome/arrow-down.svg"
                 />
-                <span class="text-sm">Show statuses</span>
+                <span class="w-[100px] whitespace-nowrap text-sm"
+                  >{{ detailExpanded === index ? 'Hide' : 'Show' }} statuses</span
+                >
               </button>
             </div>
             <keep-alive>

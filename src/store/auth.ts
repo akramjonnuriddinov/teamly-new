@@ -22,25 +22,24 @@ export const useAuthStore = defineStore('auth', {
       const docRef = doc(db, 'users', payload.uid)
       const userSnapshot = await getDoc(docRef)
       const userInfo = userSnapshot.data()
-      // console.log(userInfo?.verified)
-      if (userInfo) {
+      if (userInfo && userInfo?.verified) {
         localStorage.setItem('token', payload.accessToken)
         this.token = payload.accessToken
-        this.user = { email: payload.email, id: payload.uid, name: payload.displayName, photoURL: payload.photoURL }
+        this.user = { email: payload.email, id: payload.uid, name: payload.displayName, photoURL: payload.photoURL, verified: payload.emailVerified }
         router.go(-1)
       } else if (userInfo) {
-        return `Your account isn't verified please check your email (don't forget check spam)`
+        console.info(`Your account isn't verified please check your email (don't forget check spam)`)
       }
     },
     async fetchProfile() {
       const auth = getAuth()
       onAuthStateChanged(auth, async (user) => {
-        if (user) {
+        if (user && user.emailVerified) {
           const docRef = doc(db, 'users', user.uid)
           const userSnapshot = await getDoc(docRef)
           const userInfo = userSnapshot.data()
           if (userInfo) {
-            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin, photoURL: user.photoURL }
+            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin, photoURL: user.photoURL, verified: userInfo.verified }
           } else {
             this.user = { email: user.email, id: user.uid, name: user.displayName, }
           }
