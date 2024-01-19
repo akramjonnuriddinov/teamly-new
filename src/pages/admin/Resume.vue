@@ -101,7 +101,7 @@ onMounted(async () => {
   isLoading.value = false
 
   if (route.query.id) {
-    appliers.value = await appliers.value.filter((item: any) => item.vacancy.id === route.query.id)
+    allData.value = allData.value.filter((item: any) => item.vacancy.id === route.query.id)
   }
 })
 
