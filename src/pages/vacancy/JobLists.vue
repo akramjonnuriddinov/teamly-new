@@ -26,10 +26,11 @@
       </ul>
       <ul v-else class="flex flex-wrap justify-start">
         <li
-          class="service-item w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
+          class="service-item relative w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
           v-for="vacancy in vacancies"
           :key="vacancy.id"
         >
+          <div class=""></div>
           <div class="flex h-full flex-col rounded-[32px] bg-white px-[35px] py-[50px] shadow-job-inner">
             <span class="mb-5 text-[#5B5A78]">{{ vacancy.location }}</span>
             <router-link
@@ -95,7 +96,7 @@ const appliers = ref<any>([])
 onMounted(async () => {
   listLoading.value = true
   await loadData()
-  await fetchDataAndApply()
+  if (appliers.value) await fetchDataAndApply()
   listLoading.value = false
 })
 
@@ -103,12 +104,9 @@ watch(
   () => store.user,
   async (newValue) => {
     user.value = { ...newValue }
-    if (newValue && newValue.id) {
+    if (newValue && newValue.id && appliers.value) {
       await fetchDataAndApply()
     }
-  },
-  {
-    immediate: true,
   },
 )
 
@@ -177,14 +175,13 @@ const fetchDataAndApply = async () => {
     currentApply(props.vacancyId)
   } else {
     try {
-      vacancies.value = vacancies.value.map((item: any) => ({
+      vacancies.value = vacancies.value?.map((item: any) => ({
         ...item,
         applied: appliers.value.find((item2: any) => item2.vacancy_id === item.id),
       }))
     } catch (error) {
       console.error(error)
     } finally {
-      listLoading.value = false
     }
   }
 }

@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div v-else>
+      <div v-else-if="!isEmpty">
         <div v-for="(vacancy, index) in vacancies" :key="vacancy.id" class="">
           <div
             class="mb-6 flex flex-col rounded-[32px] bg-white px-[35px] py-[50px] shadow-job-inner max-[990px]:rounded-[15px] max-[990px]:p-6"
@@ -71,6 +71,11 @@
           </div>
         </div>
       </div>
+      <empty-block
+        v-else
+        title="No applied vacancies found"
+        text="Your search “Stripe” did not match any vendors. Please try again or create add a new vendor."
+      />
     </div>
   </div>
 </template>
@@ -83,12 +88,14 @@ import UserStatusDetail from '@/pages/profile/UserStatusDetail.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
+import EmptyBlock from '@/components/EmptyBlock.vue'
 
 const store = useAuthStore()
 const appliers = ref<any>([])
 const vacancies = ref()
 const detailExpanded = ref(null)
 const isLoading = ref(true)
+const isEmpty = ref(false)
 
 onMounted(async () => {
   isLoading.value = true
@@ -103,19 +110,25 @@ const loadData = async () => {
     where('user_id', '==', store.user.id),
   )
   const appliersSnapshot = await getDocs(appliersQuery)
-  const vacancyIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().vacancy_id))]
-  const vacanciesQuery = query(collection(db, 'vacancies'), where('id', 'in', vacancyIds))
-  const vacanciesSnapshot = await getDocs(vacanciesQuery)
   appliers.value = appliersSnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }))
 
-  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-    applier_id: appliers.value.filter((applier: any) => doc.id === applier.vacancy_id)[0].id,
-  }))
+  if (appliers.value.length) {
+    const vacancyIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().vacancy_id))]
+    const vacanciesQuery = query(collection(db, 'vacancies'), where('id', 'in', vacancyIds))
+    const vacanciesSnapshot = await getDocs(vacanciesQuery)
+
+    vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+      applier_id: appliers.value.filter((applier: any) => doc.id === applier.vacancy_id)[0].id,
+    }))
+  } else {
+    isEmpty.value = true
+    isLoading.value = false
+  }
 }
 
 const toggleAccordion = (value: any) => {
