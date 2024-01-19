@@ -104,7 +104,7 @@ watch(
   async (newValue) => {
     user.value = { ...newValue }
     if (newValue && newValue.id) {
-      // await fetchDataAndApply()
+      await fetchDataAndApply()
     }
   },
   {
