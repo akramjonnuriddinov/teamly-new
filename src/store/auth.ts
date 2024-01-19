@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('auth', {
         this.user = { email: payload.email, id: payload.uid, name: payload.displayName, photoURL: payload.photoURL }
         router.go(-1)
       } else if (userInfo) {
-        console.log(`Your account isn't verified please check your email (don't forget check spam)`)
+        console.info(`Your account isn't verified please check your email (don't forget check spam)`)
       }
     },
     async fetchProfile() {

@@ -22,7 +22,9 @@ import { useAuthStore } from '@/store/auth'
 import { getDoc, doc, updateDoc } from 'firebase/firestore'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { db } from '@/firebase'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useAuthStore()
 const props = defineProps({
   id: {
@@ -43,6 +45,8 @@ onMounted(async () => {
 
     await updateDoc(docRef, userData)
     userInfo.value = userData
+    await store.fetchProfile()
+    router.push('/')
   } catch (error) {
     console.error('Error fetching user data:', error)
   } finally {

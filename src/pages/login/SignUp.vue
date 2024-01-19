@@ -121,25 +121,27 @@ const disabled = computed(() => {
   return isDisabled(newUser.value)
 })
 
-const actionCodeSettings = {
-  url: 'http://localhost:4000/about', // URL where the user will be redirected after clicking the link
-  handleCodeInApp: true, // Whether to open the link in a mobile app or continue in a mobile browser
-}
-
 const signUp = async (): Promise<void> => {
   try {
     isLoading.value = true
     const auth = getAuth()
 
     if (newUser.value.email && newUser.value.name && newUser.value.password) {
-      const userCredential = await createUserWithEmailAndPassword(auth, newUser.value.email, newUser.value.password)
-      const send = sendSignInLinkToEmail(auth, newUser.value.email, actionCodeSettings)
-      console.log(send, 'send')
+      const userCredential: any = await createUserWithEmailAndPassword(
+        auth,
+        newUser.value.email,
+        newUser.value.password,
+      )
+      const id = userCredential.user.uid
+      const actionCodeSettings = {
+        url: `${window.location.origin}/verify?id=${id}`,
+        handleCodeInApp: true,
+      }
+
+      sendSignInLinkToEmail(auth, newUser.value.email, actionCodeSettings)
       const user = userCredential.user
-      console.log(user, 'user')
-      sendEmailVerification(user, actionCodeSettings).then((item) => {
-        console.log('item', item)
-      })
+
+      sendEmailVerification(user, actionCodeSettings)
 
       await updateProfile(user, {
         displayName: newUser.value.name,

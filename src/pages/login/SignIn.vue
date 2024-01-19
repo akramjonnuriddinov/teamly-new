@@ -100,7 +100,7 @@ const signIn = async () => {
       const userCredential: any = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
       console.log('userCredential', userCredential)
       if (userCredential.user.emailVerified) {
-        const docRef = doc(db, 'users', 'props.id')
+        const docRef = doc(db, 'users', userCredential.user.uid)
         const userSnapshot = await getDoc(docRef)
         let userData = userSnapshot.data()
         userData = { ...userData, verified: true }
