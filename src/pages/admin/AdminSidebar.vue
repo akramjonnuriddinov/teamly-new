@@ -36,7 +36,7 @@ defineProps(['active'])
 
 const links = [
   {
-    name: 'Appliers',
+    name: 'appliers',
     icon: ApplyIcon,
     page: 'resume'
   },
