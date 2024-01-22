@@ -4,20 +4,13 @@
       <router-link to="/vacancy" class="flex mb-5">
         <img width="130" height="36" src="@/assets/images/logos/logo.png" alt="logo" />
       </router-link>
-      <router-link
-        :to="{ name: 'resume' }"
-        class="flex items-center w-full p-2 mb-2 font-medium text-gray-900 rounded-lg item hover:bg-gray-100 group"
-      >
-        <apply-icon />
-        <span class="ml-3">Appliers</span>
-      </router-link>
       <ul class="space-y-2 font-medium">
         <li v-for="link in links" :key="link.name">
           <router-link
-            :to="{ name: 'admin' }"
+            :to="{ name: link.page || 'admin' }"
             @click="$emit('change', link.name)"
             type="button"
-            :class="{ 'bg-gray-100': link.name === active && isActive }"
+            :class="{ 'bg-gray-100': link.name === active }"
             class="flex items-center w-full p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
           >
             <component :is="link.icon" />
@@ -30,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import AboutIcon from '@/pages/admin/icons/AboutIcon.vue'
 import BlogIcon from '@/pages/admin/icons/BlogIcon.vue'
 import ServiceIcon from '@/pages/admin/icons/ServiceIcon.vue'
@@ -39,17 +31,15 @@ import VacancyIcon from '@/pages/admin/icons/VacancyIcon.vue'
 import ApplyIcon from '@/pages/admin/icons/ApplyIcon.vue'
 import StatusIcon from '@/pages/admin/icons/StatusIcon.vue'
 import TaskIcon from '@/pages/admin/icons/TaskIcon.vue'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
 const emit = defineEmits(['change'])
-const props = defineProps(['active'])
+defineProps(['active'])
 
-const isActive = computed(() => {
-  return props.active && route.path !== '/admin/resume'
-})
-
-const links = ref([
+const links = [
+  {
+    name: 'Appliers',
+    icon: ApplyIcon,
+    page: 'resume'
+  },
   {
     name: 'vacancies',
     icon: VacancyIcon,
@@ -78,7 +68,7 @@ const links = ref([
     name: 'tasks',
     icon: TaskIcon,
   },
-])
+]
 </script>
 
 <style scoped>

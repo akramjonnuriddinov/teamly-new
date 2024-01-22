@@ -39,8 +39,10 @@ export const useAuthStore = defineStore('auth', {
           const userSnapshot = await getDoc(docRef)
           const userInfo = userSnapshot.data()
           if (userInfo) {
-            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin, photoURL: user.photoURL, verified: userInfo.verified }
-          } else {
+            this.user = {
+              ...userInfo,
+              photoURL: user.photoURL
+            }} else {
             this.user = { email: user.email, id: user.uid, name: user.displayName, }
           }
           try {

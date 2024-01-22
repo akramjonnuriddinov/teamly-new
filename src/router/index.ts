@@ -99,9 +99,10 @@ router.beforeEach(async (to, _, next) => {
   try {
     await new Promise<void>((resolve) => {
       const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-        if ((to.name === 'admin' || to.name === 'resume') && (authUser?.email !== 'nn.akramjon@gmail.com' && authUser?.email !== 'rustamidastan0414@gmail.com' && authUser?.email !== 'rajabov.diyorbek.it@gmail.com' && authUser?.email !== 'akramjonmohirdev@gmail.com')) {
+        const emails = ['nn.akramjon@gmail.com', 'rustamidastan0414@gmail.com', 'rajabov.diyorbek.it@gmail.com', 'akramjonmohirdev@gmail.com']
+        if ((to.name === 'admin' || to.name === 'resume') && !emails.includes(authUser?.email)) {
           console.info('User has logged out')
-          next({ name: 'login' })
+          next('/sign-in')
           unsubscribe()
         } else {
           resolve()
@@ -111,13 +112,13 @@ router.beforeEach(async (to, _, next) => {
     })
   } catch (error) {
     console.error('Error checking authentication state:', error)
-    next({ name: 'login' })
+    next('/sign-in')
   }
 
   // Diyorbek
   if (to.matched.some((record) => record.meta.authRequired) && !store.token) {
     return {
-      name: 'login'
+      name: 'sign in'
     }
   }
 

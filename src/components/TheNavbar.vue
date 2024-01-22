@@ -153,6 +153,13 @@
                 class="mb-1 flex cursor-pointer hover:text-tg-primary-color"
                 >My profile</router-link
               >
+              <router-link
+                v-if="user.isAdmin"
+                @click="isDropDown = false"
+                to="/admin"
+                class="mb-1 flex cursor-pointer hover:text-tg-primary-color"
+                >Admin</router-link
+              >
               <button type="button" @click="logoutHandle" class="cursor-pointer hover:text-tg-primary-color">
                 Logout
               </button>
