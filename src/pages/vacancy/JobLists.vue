@@ -50,7 +50,11 @@
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="mb-12 text-[#5B5A78]">{{ vacancy.text }}</p>
-            <base-button
+            <ApplyButton
+              :applied="!!vacancy.applied"
+              :vacancy="vacancy.id"
+            />
+            <!-- <base-button
               :color="getColor(vacancy.applied)"
               :disabled="!!vacancy.applied"
               :size="ESize.BIG"
@@ -62,7 +66,7 @@
                 <inline-svg class="max-h-[40px] min-h-[40px] min-w-[40px] max-w-[40px]" fill="none" src="check.svg" />
               </template>
               <template v-else> Apply </template>
-            </base-button>
+            </base-button> -->
           </div>
         </li>
       </ul>
@@ -73,7 +77,7 @@
 <script setup lang="ts">
 import InlineSvg from '@/components/InlineSvg.vue'
 import { onMounted, ref, watch } from 'vue'
-import BaseButton from '@/components/BaseButton.vue'
+import ApplyButton from '@/components/ApplyButton.vue'
 import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
 import { useRouter } from 'vue-router'
