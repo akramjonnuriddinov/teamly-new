@@ -162,7 +162,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import ButtonLoader from '@/components/ButtonLoader.vue'
 import { getAuth, updateProfile } from 'firebase/auth'
@@ -185,23 +185,6 @@ const updatedUser = ref({
   ...user.value,
 })
 
-watch(
-  () => store.user,
-  (newValue) => {
-    user.value = { ...newValue, date: Date.now() }
-    isLoading.value = false
-  },
-  {
-    immediate: true,
-  },
-)
-
-onMounted(async () => {
-  store.fetchProfile()
-  if (!store.user) {
-    isLoading.value = true
-  }
-})
 
 const selectedFile = ref<any>(null)
 const isLoadingResume = ref(false)

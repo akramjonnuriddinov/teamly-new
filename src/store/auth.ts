@@ -22,7 +22,7 @@ export const useAuthStore = defineStore('auth', {
       const docRef = doc(db, 'users', payload.uid)
       const userSnapshot = await getDoc(docRef)
       const userInfo = userSnapshot.data()
-      if (userInfo && userInfo?.verified) {
+      if (userInfo?.verified) {
         localStorage.setItem('token', payload.accessToken)
         this.token = payload.accessToken
         this.user = { email: payload.email, id: payload.uid, name: payload.displayName, photoURL: payload.photoURL, verified: payload.emailVerified }
@@ -33,29 +33,27 @@ export const useAuthStore = defineStore('auth', {
     },
     async fetchProfile() {
       const auth = getAuth()
-      onAuthStateChanged(auth, async (user) => {
-        if (user && user.emailVerified) {
+      const user:any = await new Promise((resolve) => {
+      const unsubscribe =  onAuthStateChanged(auth, (user) => {
+          resolve(user)
+          unsubscribe()
+        })
+      })
+      if (user?.emailVerified) {
           const docRef = doc(db, 'users', user.uid)
           const userSnapshot = await getDoc(docRef)
           const userInfo = userSnapshot.data()
-          if (userInfo) {
-            this.user = { email: user.email, id: user.uid, name: user.displayName, telegram: userInfo.telegram, phone: userInfo.phone, github: userInfo.github, linkedin: userInfo.linkedin, photoURL: user.photoURL, verified: userInfo.verified }
-          } else {
-            this.user = { email: user.email, id: user.uid, name: user.displayName, }
+          this.user = {
+            ...userInfo,
+            photoURL: user.photoURL
           }
           try {
-            const userDirectory = `users/${user.uid}`
-            const userRef = ref(storage, userDirectory)
-            const url = await getDownloadURL(userRef)
-            this.resume = url
+            const userRef = ref(storage, `users/${user.uid}`)
+            this.resume = await getDownloadURL(userRef)
           } catch (error) {
             console.error('Error:', error)
           }
-        } else {
-          this.user = null
-          this.resume = ''
         }
-      })
     },
     removeResume() {
       this.resume = ''

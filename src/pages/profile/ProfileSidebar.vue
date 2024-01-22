@@ -17,7 +17,7 @@
           }"
           class="relative mb-3 w-full rounded-md text-base font-semibold max-[990px]:mb-0 max-[990px]:w-auto max-[990px]:rounded-none max-[990px]:border-0"
           :key="nav.name"
-          @click="selectNavItem(nav.name, nav.disabled)"
+          @click="selectNavItem(nav)"
         >
           <span
             :class="{
@@ -41,10 +41,12 @@ const selectedNavItem = ref('Profile details')
 const navigations = ref([
   {
     name: 'Profile details',
+    component: 'ProfileDetail',
     disabled: false,
   },
   {
     name: 'Applied vacancies',
+    component: 'AppliedVacancies',
     disabled: false,
   },
   {
@@ -57,10 +59,10 @@ const navigations = ref([
   },
 ])
 
-const selectNavItem = (itemName: string, disabled: boolean) => {
-  if (!disabled) {
-    selectedNavItem.value = itemName
-    emit('selectItem', itemName)
+const selectNavItem = (nav: any) => {
+  if (!nav.disabled) {
+    selectedNavItem.value = nav.name
+    emit('selectItem', nav.component)
   }
 }
 </script>

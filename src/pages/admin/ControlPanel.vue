@@ -11,7 +11,8 @@
           v-for="(item, index) in dataEntries"
           :key="index"
         >
-          <router-link
+          <component
+            :is="hasInnerPage ? 'router-link' : 'span'"
             :to="{
               name: 'resume',
               query: {
@@ -20,7 +21,7 @@
             }"
           >
             {{ item.title }}
-          </router-link>
+          </component>
           <div class="flex gap-4">
             <button @click="editOption(item)" class="text-blue-500 hover:text-blue-700">Edit</button>
             <button
@@ -54,7 +55,8 @@ import AppLoader from '@/components/AppLoader.vue'
 import { fetchData } from '@/composables/fetchData'
 
 const props = defineProps<{
-  title: string
+  title: string,
+  hasInnerPage: Boolean
 }>()
 const dataEntries = ref<any>([])
 const currentModal = ref(null)

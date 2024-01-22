@@ -1,23 +1,20 @@
 <template>
   <div class="flex">
-    <admin-sidebar @change="changeSidebarSelected" :active="sidebarSelected" />
-    <router-view v-if="route.path == '/admin/resume'" />
-    <control-panel v-else :title="sidebarSelected" />
+    <admin-sidebar  :active="active" @change="changeActive" />
+    <router-view v-if="isAppliers" :key="active"/>
+    <control-panel v-else :title="active" :hasInnerPage="hasInnerPage" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import AdminSidebar from '@/pages/admin/AdminSidebar.vue'
 import ControlPanel from '@/pages/admin/ControlPanel.vue'
-import { useRoute } from 'vue-router'
-
+import { useRoute } from 'vue-router';
 const route = useRoute()
+const isAppliers = computed(() => route.name === 'resume')
+const active = ref('vacancies')
+const hasInnerPage = computed(() => active.value === 'vacancies')
 
-const sidebarSelected = ref('vacancies')
-
-const changeSidebarSelected = (name: string) => {
-  if (name === 'appliers') return
-  sidebarSelected.value = name
-}
+const changeActive = (name: string) => active.value = name
 </script>

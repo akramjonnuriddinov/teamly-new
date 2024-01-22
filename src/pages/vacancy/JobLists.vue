@@ -52,7 +52,7 @@
             <p class="mb-12 text-[#5B5A78]">{{ vacancy.text }}</p>
             <base-button
               :color="getColor(vacancy.applied)"
-              :disabled="vacancy.applied"
+              :disabled="!!vacancy.applied"
               :size="ESize.BIG"
               :is-loading="isLoading == vacancy.id"
               @click="handleApply(vacancy.id)"
@@ -100,15 +100,6 @@ onMounted(async () => {
   listLoading.value = false
 })
 
-watch(
-  () => store.user,
-  async (newValue) => {
-    user.value = { ...newValue }
-    if (newValue && newValue.id && appliers.value) {
-      await fetchDataAndApply()
-    }
-  },
-)
 
 const loadData = async () => {
   const vacanciesQuery = query(collection(db, 'vacancies'), orderBy('date', 'desc'))
