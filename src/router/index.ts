@@ -129,7 +129,7 @@ router.beforeEach(async (to, _, next) => {
   }
   if (store.token && !store.user) {
     try {
-      store.fetchProfile()
+      await store.fetchProfile()
     } catch (error) {
       console.error('Error fetching user profile:', error)
     }
