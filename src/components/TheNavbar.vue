@@ -114,7 +114,7 @@
         ></div>
 
         <div class="flex items-center">
-          <div class="mr-5 max-[990px]:hidden">
+          <div class="mr-5 hidden max-[990px]:hidden">
             <the-language />
           </div>
           <router-link v-if="!store.user" to="/sign-in" class="max-[990px]:hidden">
