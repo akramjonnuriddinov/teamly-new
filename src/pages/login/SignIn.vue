@@ -109,8 +109,6 @@ const signIn = async () => {
       const auth = getAuth()
       const userCredential: any = await signInWithEmailAndPassword(auth, user.value.email, user.value.password)
       isVerification.value = userCredential.user.emailVerified
-      console.log(userCredential.user)
-      console.log(isVerification.value)
       const response = (await store.signIn(userCredential.user)) as any
       if (response) {
         errorMessage.value = response
