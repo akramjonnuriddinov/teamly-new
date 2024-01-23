@@ -238,6 +238,10 @@ const links = [
     name: 'Vacancy',
     url: '/vacancy',
   },
+  {
+    name: 'Contact',
+    url: '/contact',
+  },
 ]
 const isHidden = ref(true)
 

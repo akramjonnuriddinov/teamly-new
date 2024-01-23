@@ -35,6 +35,11 @@ export const router = createRouter({
       component: () => import('@/pages/vacancy/VacancyView.vue')
     },
     {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('@/pages/contact/ContactView.vue')
+    },
+    {
       path: '/vacancy/:id',
       name: 'vacancyDetail',
       component: () => import('@/pages/vacancy/VacancyDetail.vue')
