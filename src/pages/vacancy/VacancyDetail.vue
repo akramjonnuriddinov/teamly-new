@@ -1,32 +1,6 @@
 <template>
   <div>
-    <template v-if="vacancy && Object.keys(vacancy).length > 0 && !isLoading">
-      <vacancy-detail-banner :vacancy="vacancy">
-        <ApplyButton
-          :applied="vacancy.status_id"
-          :vacancy="vacancy.id"
-          :color="status?.color"
-          @applied="vacancy.status_id = 'aplied'"
-        >
-          <template v-if="vacancy.status_id">
-              {{ status?.title }}
-          </template>
-        </ApplyButton>
-      </vacancy-detail-banner>
-      <job-description :vacancy="vacancy">
-        <ApplyButton
-          :applied="vacancy.status_id"
-          :vacancy="vacancy.id"
-          :color="status?.color"
-          @applied="vacancy.status_id = 'aplied'"
-        >
-          <template v-if="vacancy.status_id">
-              {{ status?.title }}
-          </template>
-        </ApplyButton>
-      </job-description>
-    </template>
-    <template v-else>
+    <template v-if="isLoading">
       <section class="vacancy-detail mt-[86px] bg-[#F9F9FA]">
         <div
           class="container relative mx-auto max-w-7xl px-5 max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
@@ -62,6 +36,32 @@
         </div>
       </section>
     </template>
+    <template v-else>
+      <vacancy-detail-banner :vacancy="vacancy">
+        <ApplyButton
+          :applied="vacancy.status_id"
+          :vacancy="vacancy.id"
+          :color="status?.color"
+          @applied="vacancy.status_id = 'aplied'"
+        >
+          <template v-if="vacancy.status_id">
+              {{ status?.title }}
+          </template>
+        </ApplyButton>
+      </vacancy-detail-banner>
+      <job-description :vacancy="vacancy">
+        <ApplyButton
+          :applied="vacancy.status_id"
+          :vacancy="vacancy.id"
+          :color="status?.color"
+          @applied="vacancy.status_id = 'aplied'"
+        >
+          <template v-if="vacancy.status_id">
+              {{ status?.title }}
+          </template>
+        </ApplyButton>
+      </job-description>
+    </template>
   </div>
 </template>
 
@@ -82,10 +82,9 @@ const status = ref<any>(null)
 const vacancy = ref<any>(null)
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
-const isLoading = ref(false)
+const isLoading = ref(true)
 
 onMounted(async () => {
-  isLoading.value = true
   await loadData()
   if (vacancy.value.status_id) {
     await fetchStatus(vacancy.value.status_id)

@@ -7,7 +7,7 @@
   :is-loading="isLoading"
   @click="apply"
   >
-    <template v-if="!hasStatus && isApplied">
+    <template v-if="showIcon">
       <inline-svg class="max-h-[40px] min-h-[40px] min-w-[40px] max-w-[40px]" fill="none" src="check.svg" />
     </template>
     <template v-else>
@@ -30,7 +30,6 @@ import { vacancyApply } from '@/composables/vacancyApply'
 import { addDoc, doc, setDoc, collection } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { useRouter } from 'vue-router';
-import { emit } from 'process';
 
 
 
@@ -39,9 +38,11 @@ const emit = defineEmits(['applied'])
 const store = useAuthStore()
 const router = useRouter()
 const isApplied = ref(props.applied)
-const hasStatus = props.isCard ? !props.applied : props.applied
+const hasStatus = props.applied
 const isLoading = ref(false)
 const isShow = ref(false)
+
+const showIcon = computed(() => props.isCard ? isApplied.value : !hasStatus && isApplied.value)
 
 const color = computed(() => {
   if (props.color) {
