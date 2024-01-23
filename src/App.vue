@@ -2,7 +2,7 @@
   <div class="flex-col" id="app">
     <the-navbar v-if="!isAdmin" />
     <div class="flex-1">
-      <router-view class="main-content" />
+      <router-view />
     </div>
     <div v-if="!isAdmin && !isLoading()">
       <contact-us v-if="!isPorfile" />
