@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="pb-[80px]">
     <div
       class="container relative mx-auto max-w-7xl px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
