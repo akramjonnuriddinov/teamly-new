@@ -53,6 +53,7 @@
             <ApplyButton
               :applied="!!vacancy.applied"
               :vacancy="vacancy.id"
+              :isCard="true"
             />
           </div>
         </li>

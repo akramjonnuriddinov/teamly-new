@@ -1,8 +1,30 @@
 <template>
   <div>
-    <template v-if="vacancy && Object.keys(vacancy).length > 0">
-      <vacancy-detail-banner @open="isOpen" :vacancy="vacancy" />
-      <job-description @open="isOpen" :vacancy="vacancy" />
+    <template v-if="vacancy && Object.keys(vacancy).length > 0 && !isLoading">
+      <vacancy-detail-banner :vacancy="vacancy">
+        <ApplyButton
+          :applied="vacancy.status_id"
+          :vacancy="vacancy.id"
+          :color="status?.color"
+          @applied="vacancy.status_id = 'aplied'"
+        >
+          <template v-if="vacancy.status_id">
+              {{ status?.title }}
+          </template>
+        </ApplyButton>
+      </vacancy-detail-banner>
+      <job-description :vacancy="vacancy">
+        <ApplyButton
+          :applied="vacancy.status_id"
+          :vacancy="vacancy.id"
+          :color="status?.color"
+          @applied="vacancy.status_id = 'aplied'"
+        >
+          <template v-if="vacancy.status_id">
+              {{ status?.title }}
+          </template>
+        </ApplyButton>
+      </job-description>
     </template>
     <template v-else>
       <section class="vacancy-detail mt-[86px] bg-[#F9F9FA]">
@@ -41,13 +63,12 @@
       </section>
     </template>
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" :vacancy-id="vacancyId" />
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import ApplyModal from '@/pages/vacancy/ApplyModal.vue'
+import ApplyButton from '@/components/ApplyButton.vue'
 import VacancyDetailBanner from '@/pages/vacancy/VacancyDetailBanner.vue'
 import JobDescription from '@/pages/vacancy/JobDescription.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
@@ -57,15 +78,18 @@ import { db } from '@/firebase'
 
 const route = useRoute()
 const store = useAuthStore()
-const isShow = ref(false)
+const status = ref<any>(null)
 const vacancy = ref<any>(null)
-const vacancyId = ref<string | undefined>('')
 const user = computed(() => store.user)
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
+const isLoading = ref(false)
 
 onMounted(async () => {
   await loadData()
+  if (vacancy.value.status_id) {
+    fetchStatus(vacancy.value.status_id)
+  }
 })
 
 const loadData = async () => {
@@ -106,10 +130,14 @@ const fetchVacancy = async () => {
   }
 }
 
-const isOpen = (id: any) => {
-  vacancyId.value = id
-  isShow.value = true
+const fetchStatus = async (id: string) => {
+  const statusQuery = query(collection(db, 'statuses'), where('id', '==', id))
+  isLoading.value = true
+  const statusSnapShot = await getDocs(statusQuery)
+  isLoading.value = false
+  status.value = statusSnapShot.docs[0].data()
 }
+
 
 watch(
   () => store.user,
