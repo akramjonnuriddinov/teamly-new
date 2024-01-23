@@ -21,14 +21,14 @@
               <input
                 class="block w-full cursor-pointer rounded-md border border-gray-200 p-3 text-sm shadow-sm file:hidden"
                 @change="handleFileChange"
-                :class="{ hidden: !selectedFile }"
+                :class="{ hidden: !isActive }"
                 accept=".docx,.pdf"
                 type="file"
                 name="file-input"
                 id="file-input"
               />
               <label
-                :class="{ hidden: selectedFile }"
+                :class="{ hidden: isActive }"
                 for="file-input"
                 class="block w-full cursor-pointer rounded-md border border-gray-200 p-3 text-sm shadow-sm"
                 >Select file (.docx,.pdf)</label
@@ -64,7 +64,6 @@ import { useAuthStore } from '@/store/auth'
 const emit = defineEmits(['close', 'add'])
 const store = useAuthStore()
 const isLoading = ref(false)
-const selectedFile = ref<any>(null)
 const isActive = ref(false)
 
 const handleFileChange = async (event: any) => {

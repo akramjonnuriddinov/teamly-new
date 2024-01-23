@@ -39,7 +39,7 @@ const emit = defineEmits(['applied'])
 const store = useAuthStore()
 const router = useRouter()
 const isApplied = ref(props.applied)
-const hasStatus = props.applied
+const hasStatus = props.isCard ? !props.applied : props.applied
 const isLoading = ref(false)
 const isShow = ref(false)
 
