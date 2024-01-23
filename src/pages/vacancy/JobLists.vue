@@ -72,7 +72,7 @@
 
 <script setup lang="ts">
 import InlineSvg from '@/components/InlineSvg.vue'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useAuthStore } from '@/store/auth'
 import { ESize } from '@/types'
@@ -88,7 +88,6 @@ const collectionRef = collection(db, 'applier_statuses')
 const router = useRouter()
 const store = useAuthStore()
 const vacancies = ref()
-const user = ref({ ...store.user })
 const isLoading = ref(null)
 const listLoading = ref(true)
 const appliers = ref<any>([])
@@ -99,7 +98,6 @@ onMounted(async () => {
   if (appliers.value) await fetchDataAndApply()
   listLoading.value = false
 })
-
 
 const loadData = async () => {
   const vacanciesQuery = query(collection(db, 'vacancies'), orderBy('date', 'desc'))
