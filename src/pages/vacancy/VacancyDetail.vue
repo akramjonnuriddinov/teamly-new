@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import ApplyButton from '@/components/ApplyButton.vue'
 import VacancyDetailBanner from '@/pages/vacancy/VacancyDetailBanner.vue'
@@ -80,73 +80,51 @@ const route = useRoute()
 const store = useAuthStore()
 const status = ref<any>(null)
 const vacancy = ref<any>(null)
-const user = computed(() => store.user)
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
 const isLoading = ref(false)
 
 onMounted(async () => {
+  isLoading.value = true
   await loadData()
   if (vacancy.value.status_id) {
-    fetchStatus(vacancy.value.status_id)
+    await fetchStatus(vacancy.value.status_id)
   }
+  isLoading.value = false
 })
 
 const loadData = async () => {
   const vacanciesQuery = query(collection(db, 'vacancies'), where('id', '==', route.params.id))
   const vacanciesSnapshot = await getDocs(vacanciesQuery)
+  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
 
   if (store.user) {
+    // Check status only for authorized users
     const appliersQuery = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
     const appliersSnapshot = await getDocs(appliersQuery)
     appliers.value = appliersSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }))
-  }
-
-  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }))
-}
-
-const fetchVacancy = async () => {
-  try {
-    if (user.value?.id) {
-      const vacancyIds = await appliers.value.map((item: any) => item.vacancy_id)
-
-      vacancy.value = {
-        ...vacancies.value[0],
-        status_id: vacancyIds.includes(route.params.id)
-          ? appliers.value[vacancyIds.findIndex((item: any) => item === route.params.id)].status_id
-          : null,
-      }
-    } else {
-      vacancy.value = vacancies.value[0]
+    const vacancyIds = appliers.value.map((item: any) => item.vacancy_id)
+    vacancy.value = {
+      ...vacancies.value[0],
+      status_id: vacancyIds.includes(route.params.id)
+        ? appliers.value[vacancyIds.findIndex((item: any) => item === route.params.id)].status_id
+        : null,
     }
-  } catch (error) {
-    console.error('Error fetching appliers:', error)
+  } else {
+    vacancy.value = vacancies.value[0]
   }
 }
 
 const fetchStatus = async (id: string) => {
   const statusQuery = query(collection(db, 'statuses'), where('id', '==', id))
-  isLoading.value = true
   const statusSnapShot = await getDocs(statusQuery)
-  isLoading.value = false
   status.value = statusSnapShot.docs[0].data()
 }
 
-
-watch(
-  () => store.user,
-  async () => {
-    await loadData()
-    await fetchVacancy()
-  },
-  {
-    immediate: true,
-  },
-)
 </script>
