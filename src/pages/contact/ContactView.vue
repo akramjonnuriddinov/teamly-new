@@ -14,10 +14,10 @@
         </p>
       </div>
       <div class="flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]">
-        <form class="w-full max-w-[600px] pt-10" method="post">
+        <div class="w-full max-w-[600px] pt-10">
           <div class="flex items-center justify-center py-12 max-[580px]:pb-0">
             <div class="w-full bg-white">
-              <form action="https://formbold.com/s/FORM_ID" method="POST">
+              <form @submit.prevent="sendMessage" method="POST">
                 <div class="mb-7">
                   <label for="name" class="mb-3 block text-base font-medium"> Full Name </label>
                   <input
@@ -66,12 +66,15 @@
                   ></textarea>
                 </div>
                 <div>
-                  <base-button :size="ESize.MEDIUM">Send Message</base-button>
+                  <base-button :disabled="disabled" class="w-[239px]" type="submit" :size="ESize.MEDIUM">
+                    <button-loader v-if="isLoading" />
+                    <span v-else>Send Message</span>
+                  </base-button>
                 </div>
               </form>
             </div>
           </div>
-        </form>
+        </div>
         <div class="address flex w-full items-center justify-center max-[990px]:h-[600px]">
           <div
             class="address__inner relative z-30 flex w-full max-w-[304px] flex-col items-center rounded-2xl bg-tg-white p-10 text-xl"
@@ -92,15 +95,35 @@
 
 <script setup lang="ts">
 import BaseButton from '@/components/BaseButton.vue'
+import { db } from '@/firebase'
 import { ESize } from '@/types'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { collection, addDoc } from 'firebase/firestore'
+import ButtonLoader from '@/components/ButtonLoader.vue'
+import { isDisabled } from '@/composables/isDisabled'
 
-const message = ref({
+const message = ref<any>({
   fullname: '',
   email: '',
   phone: '',
   text: '',
 })
+const isLoading = ref(false)
+
+const disabled = computed(() => isDisabled(message.value))
+
+const sendMessage = async () => {
+  const collectionRef = collection(db, 'messages')
+  isLoading.value = true
+  await addDoc(collectionRef, { ...message.value, date: Date.now() })
+  message.value = {
+    fullname: '',
+    email: '',
+    phone: '',
+    text: '',
+  }
+  isLoading.value = false
+}
 </script>
 
 <style scoped>

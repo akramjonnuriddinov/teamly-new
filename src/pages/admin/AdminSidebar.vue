@@ -5,7 +5,7 @@
         <img width="130" height="36" src="@/assets/images/logos/logo.png" alt="logo" />
       </router-link>
       <ul class="space-y-2 font-medium">
-        <li v-for="link in links" :key="link.name">
+        <li v-for="link in links" :key="link.name" class="relative">
           <router-link
             :to="{ name: link.page || 'admin' }"
             @click="$emit('change', link.name)"
@@ -41,7 +41,6 @@ const route = useRoute()
 const isActive = computed(
   () => (link: string) => link === props.active && !['resume', 'message'].includes(route.name as any),
 )
-
 const links = [
   {
     name: 'vacancies',
@@ -56,6 +55,7 @@ const links = [
     name: 'message',
     icon: CommentIcon,
     page: 'message',
+    isBadge: true,
   },
   {
     name: 'portfolio',
