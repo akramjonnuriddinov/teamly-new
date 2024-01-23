@@ -108,7 +108,7 @@ onMounted(async () => {
 const loadMore = async () => {
   loadMoreLoading.value = true
 
-  const appliersQuery = query(collection(db, 'appliers'), orderBy('date'))
+  const appliersQuery = query(collection(db, 'appliers'), orderBy('date', 'desc'))
   const appliersSnapshot = await getDocs(appliersQuery)
 
   const userIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().user_id))]

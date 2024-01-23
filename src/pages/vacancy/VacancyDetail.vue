@@ -1,10 +1,6 @@
 <template>
   <div>
-    <template v-if="vacancy && Object.keys(vacancy).length > 0">
-      <vacancy-detail-banner @open="isOpen" :vacancy="vacancy" />
-      <job-description @open="isOpen" :vacancy="vacancy" />
-    </template>
-    <template v-else>
+    <template v-if="isLoading">
       <section class="vacancy-detail mt-[86px] bg-[#F9F9FA]">
         <div
           class="container relative mx-auto max-w-7xl px-5 max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
@@ -40,14 +36,39 @@
         </div>
       </section>
     </template>
+    <template v-else>
+      <vacancy-detail-banner :vacancy="vacancy">
+        <ApplyButton
+          :applied="vacancy.status_id"
+          :vacancy="vacancy.id"
+          :color="status?.color"
+          @applied="vacancy.status_id = 'aplied'"
+        >
+          <template v-if="vacancy.status_id">
+              {{ status?.title }}
+          </template>
+        </ApplyButton>
+      </vacancy-detail-banner>
+      <job-description :vacancy="vacancy">
+        <ApplyButton
+          :applied="vacancy.status_id"
+          :vacancy="vacancy.id"
+          :color="status?.color"
+          @applied="vacancy.status_id = 'aplied'"
+        >
+          <template v-if="vacancy.status_id">
+              {{ status?.title }}
+          </template>
+        </ApplyButton>
+      </job-description>
+    </template>
   </div>
-  <apply-modal v-if="isShow" @close="isShow = false" :vacancy-id="vacancyId" />
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import ApplyModal from '@/pages/vacancy/ApplyModal.vue'
+import ApplyButton from '@/components/ApplyButton.vue'
 import VacancyDetailBanner from '@/pages/vacancy/VacancyDetailBanner.vue'
 import JobDescription from '@/pages/vacancy/JobDescription.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
@@ -57,68 +78,52 @@ import { db } from '@/firebase'
 
 const route = useRoute()
 const store = useAuthStore()
-const isShow = ref(false)
+const status = ref<any>(null)
 const vacancy = ref<any>(null)
-const vacancyId = ref<string | undefined>('')
-const user = computed(() => store.user)
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
+const isLoading = ref(true)
 
 onMounted(async () => {
   await loadData()
+  if (vacancy.value.status_id) {
+    await fetchStatus(vacancy.value.status_id)
+  }
+  isLoading.value = false
 })
 
 const loadData = async () => {
   const vacanciesQuery = query(collection(db, 'vacancies'), where('id', '==', route.params.id))
   const vacanciesSnapshot = await getDocs(vacanciesQuery)
+  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
 
   if (store.user) {
+    // Check status only for authorized users
     const appliersQuery = query(collection(db, 'appliers'), where('user_id', '==', store.user.id))
     const appliersSnapshot = await getDocs(appliersQuery)
     appliers.value = appliersSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }))
-  }
-
-  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }))
-}
-
-const fetchVacancy = async () => {
-  try {
-    if (user.value?.id) {
-      const vacancyIds = await appliers.value.map((item: any) => item.vacancy_id)
-
-      vacancy.value = {
-        ...vacancies.value[0],
-        status_id: vacancyIds.includes(route.params.id)
-          ? appliers.value[vacancyIds.findIndex((item: any) => item === route.params.id)].status_id
-          : null,
-      }
-    } else {
-      vacancy.value = vacancies.value[0]
+    const vacancyIds = appliers.value.map((item: any) => item.vacancy_id)
+    vacancy.value = {
+      ...vacancies.value[0],
+      status_id: vacancyIds.includes(route.params.id)
+        ? appliers.value[vacancyIds.findIndex((item: any) => item === route.params.id)].status_id
+        : null,
     }
-  } catch (error) {
-    console.error('Error fetching appliers:', error)
+  } else {
+    vacancy.value = vacancies.value[0]
   }
 }
 
-const isOpen = (id: any) => {
-  vacancyId.value = id
-  isShow.value = true
+const fetchStatus = async (id: string) => {
+  const statusQuery = query(collection(db, 'statuses'), where('id', '==', id))
+  const statusSnapShot = await getDocs(statusQuery)
+  status.value = statusSnapShot.docs[0].data()
 }
 
-watch(
-  () => store.user,
-  async () => {
-    await loadData()
-    await fetchVacancy()
-  },
-  {
-    immediate: true,
-  },
-)
 </script>
