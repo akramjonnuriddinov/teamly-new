@@ -24,6 +24,7 @@ const store = useAuthStore()
 const selectedComponent = shallowRef(ProfileDetail)
 
 const updateSelectedComponent = (component: string) => {
+  /* @vite-ignore */
   selectedComponent.value = defineAsyncComponent(() => import(`./${component}.vue`))
 }
 </script>
