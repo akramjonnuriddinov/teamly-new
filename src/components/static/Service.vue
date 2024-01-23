@@ -1,14 +1,14 @@
 <template>
-  <section class="bg-[#fff] pt-[80px] pb-[90px] relative z-10 text-tg-black">
-    <div class="container relative w-full px-5 mx-auto max-w-7xl">
-      <div class="absolute hidden -z-50 transition-all duration-1000 right-[4%] top-[9%]">
+  <section class="relative z-10 bg-[#fff] pb-[90px] pt-[80px] text-tg-black">
+    <div class="container relative mx-auto w-full max-w-7xl px-5">
+      <div class="absolute right-[4%] top-[9%] -z-50 hidden transition-all duration-1000">
         <img src="@/assets/images/service/services_shape.png" alt="" />
       </div>
       <div class="pb-[70px]">
-        <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
+        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
           >We Can Do For You</span
         >
-        <h2 class="text-center text-tg-dark-blue-color font-bold leading-[1.2] text-5xl max-sm:text-4xl">
+        <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           Experts in every aspect <br class="max-[500px]:hidden" />
           lifecycle
         </h2>
@@ -16,24 +16,24 @@
       <div v-if="isLoading" class="flex items-center justify-center">
         <ul class="flex flex-wrap justify-between">
           <li
-            class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
+            class="service-item w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
             v-for="service in 3"
             :key="service"
           >
-            <div class="service-item-inner flex flex-col h-full bg-[#F6F9FB1] px-[35px] py-[50px] rounded-[20px]">
+            <div class="service-item-inner flex h-full flex-col rounded-[20px] bg-[#F6F9FB1] px-[35px] py-[50px]">
               <div
-                class="mb-[22px] text-2xl font-bold transition-colors duration-300 whitespace-nowrap hover:text-tg-primary-color"
+                class="mb-[22px] whitespace-nowrap text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
               >
                 <Skeleton width="330px" height="32px" :theme="ESkeletonTheme.LIGHT" />
               </div>
-              <div class="mb-6 w-[75px] h-[75px] object-cover">
+              <div class="mb-6 h-[75px] w-[75px] object-cover">
                 <Skeleton width="70px" height="75px" :theme="ESkeletonTheme.LIGHT" class="rounded-md" />
               </div>
               <p class="service-item-text mb-4 leading-[1.8] text-tg-paragraph-color">
                 <Skeleton width="330px" height="90px" :theme="ESkeletonTheme.LIGHT" />
               </p>
               <div
-                class="flex items-center gap-2 mt-auto font-medium transition-colors duration-300 hover:text-tg-primary-color"
+                class="mt-auto flex items-center gap-2 font-medium transition-colors duration-300 hover:text-tg-primary-color"
               >
                 <span><Skeleton width="330px" height="24px" :theme="ESkeletonTheme.LIGHT" /></span>
               </div>
@@ -43,27 +43,27 @@
       </div>
       <ul v-else class="flex flex-wrap justify-between">
         <li
-          class="w-1/3 px-2.5 py-2.5 service-item max-[1050px]:w-1/2 max-[710px]:w-full"
+          class="service-item w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
           v-for="(service, index) in services"
           :key="index"
           @mouseover="hoverItem(index)"
         >
           <div
             :class="{ 'shadow-service-inner': isHover[index] }"
-            class="service-item-inner flex flex-col h-full bg-[#F6F9FB1] px-[35px] py-[50px] rounded-[20px]"
+            class="service-item-inner flex h-full flex-col rounded-[20px] bg-[#F6F9FB1] px-[35px] py-[50px]"
           >
             <router-link
-              class="mb-[22px] text-2xl font-bold transition-colors duration-300 whitespace-nowrap hover:text-tg-primary-color"
+              class="mb-[22px] whitespace-nowrap text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
               to="/"
               >{{ service.title }}</router-link
             >
-            <img class="mb-6 service-item-img w-[75px] h-[75px] object-cover" :src="service.image" alt="img" />
+            <img class="service-item-img mb-6 h-[75px] w-[75px] object-cover" :src="service.image" alt="img" />
             <p class="service-item-text mb-4 leading-[1.8] text-tg-paragraph-color">
               {{ service.text }}
             </p>
             <router-link
-              class="flex items-center gap-2 mt-auto font-medium transition-colors duration-300 hover:text-tg-primary-color"
-              to="/"
+              class="mt-auto flex items-center gap-2 font-medium transition-colors duration-300 hover:text-tg-primary-color"
+              :to="{ name: 'service' }"
             >
               <span>Find out more</span>
               <arrow-right />
