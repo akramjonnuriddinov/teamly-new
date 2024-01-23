@@ -5,25 +5,24 @@
     >
       <profile-sidebar @selectItem="updateSelectedComponent" />
       <div
-        class="relative left-0 top-10 z-40 mt-[85px] min-h-screen w-64 flex-grow py-4 ps-[111px] transition-transform max-[990px]:mt-0 max-[990px]:w-full max-[990px]:pl-0 max-[990px]:ps-4 max-[990px]:pt-0 sm:translate-x-0"
+        class="main-content relative left-0 top-10 z-40 mt-[85px] min-h-screen w-64 flex-grow py-4 ps-[111px] transition-transform max-[990px]:mt-0 max-[990px]:w-full max-[990px]:pl-0 max-[990px]:ps-4 max-[990px]:pt-0 sm:translate-x-0"
       >
-        <component v-if="store.user" :is="selectedComponent"></component>
+        <component :is="selectedComponent"></component>
       </div>
     </div>
   </section>
 </template>
-
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import ProfileSidebar from '@/pages/profile/ProfileSidebar.vue'
 import ProfileDetail from '@/pages/profile/ProfileDetail.vue'
-import { defineAsyncComponent } from 'vue'
-import { useAuthStore } from '@/store/auth'
-
-const store = useAuthStore()
+import AppliedVacancies from '@/pages/profile/AppliedVacancies.vue'
 const selectedComponent = shallowRef(ProfileDetail)
-
-const updateSelectedComponent = (component: any) => {
-  selectedComponent.value = defineAsyncComponent(() => import(`./${component}.vue`))
+const updateSelectedComponent = (itemName: string) => {
+  if (itemName === 'Profile details') {
+    selectedComponent.value = ProfileDetail
+  } else if (itemName === 'Applied vacancies') {
+    selectedComponent.value = AppliedVacancies
+  }
 }
 </script>
