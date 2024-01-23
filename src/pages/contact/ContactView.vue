@@ -21,6 +21,7 @@
                 <div class="mb-7">
                   <label for="name" class="mb-3 block text-base font-medium"> Full Name </label>
                   <input
+                    v-model="message.fullname"
                     autocomplete="off"
                     type="text"
                     name="name"
@@ -32,6 +33,7 @@
                 <div class="mb-7">
                   <label for="email" class="mb-3 block text-base font-medium"> Email Address </label>
                   <input
+                    v-model="message.email"
                     autocomplete="off"
                     type="email"
                     name="email"
@@ -43,6 +45,7 @@
                 <div class="mb-7">
                   <label for="phone_number" class="mb-3 block text-base font-medium"> Phone Number </label>
                   <input
+                    v-model="message.phone"
                     autocomplete="off"
                     type="text"
                     name="phone_number"
@@ -54,6 +57,7 @@
                 <div class="mb-7">
                   <label for="message" class="mb-3 block text-base font-medium"> Message </label>
                   <textarea
+                    v-model="message.text"
                     rows="4"
                     name="message"
                     id="message"
@@ -89,6 +93,14 @@
 <script setup lang="ts">
 import BaseButton from '@/components/BaseButton.vue'
 import { ESize } from '@/types'
+import { ref } from 'vue'
+
+const message = ref({
+  fullname: '',
+  email: '',
+  phone: '',
+  text: '',
+})
 </script>
 
 <style scoped>

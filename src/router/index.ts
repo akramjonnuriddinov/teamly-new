@@ -54,6 +54,11 @@ export const router = createRouter({
           name: 'resume',
           component: () => import('@/pages/admin/Resume.vue')
         },
+        {
+          path: '/admin/message',
+          name: 'message',
+          component: () => import('@/pages/admin/MessageView.vue')
+        },
       ]
     },
     {

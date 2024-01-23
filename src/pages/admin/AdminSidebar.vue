@@ -10,7 +10,7 @@
             :to="{ name: link.page || 'admin' }"
             @click="$emit('change', link.name)"
             type="button"
-            :class="{ 'bg-gray-100': isActive(link.name), item: route.name === 'resume' }"
+            :class="{ 'bg-gray-100': isActive(link.name), item: route.name === ('resume' && 'message') }"
             class="group flex w-full items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
           >
             <component :is="link.icon" />
@@ -31,12 +31,16 @@ import VacancyIcon from '@/pages/admin/icons/VacancyIcon.vue'
 import ApplyIcon from '@/pages/admin/icons/ApplyIcon.vue'
 import StatusIcon from '@/pages/admin/icons/StatusIcon.vue'
 import TaskIcon from '@/pages/admin/icons/TaskIcon.vue'
+import CommentIcon from '@/pages/admin/icons/CommentIcon.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+
 const emit = defineEmits(['change'])
 const props = defineProps(['active'])
 const route = useRoute()
-const isActive = computed(() => (link: string) => link === props.active && route.name !== 'resume')
+const isActive = computed(
+  () => (link: string) => link === props.active && !['resume', 'message'].includes(route.name as any),
+)
 
 const links = [
   {
@@ -47,6 +51,11 @@ const links = [
     name: 'appliers',
     icon: ApplyIcon,
     page: 'resume',
+  },
+  {
+    name: 'message',
+    icon: CommentIcon,
+    page: 'message',
   },
   {
     name: 'portfolio',
