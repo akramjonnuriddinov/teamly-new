@@ -1,7 +1,7 @@
 <template>
-  <aside class="relative top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
-      <router-link to="/vacancy" class="flex mb-5">
+  <aside class="relative left-0 top-0 z-40 w-64 -translate-x-full transition-transform sm:translate-x-0">
+    <div class="h-full overflow-y-auto bg-gray-50 px-3 py-4">
+      <router-link to="/vacancy" class="mb-5 flex">
         <img width="130" height="36" src="@/assets/images/logos/logo.png" alt="logo" />
       </router-link>
       <ul class="space-y-2 font-medium">
@@ -10,8 +10,8 @@
             :to="{ name: link.page || 'admin' }"
             @click="$emit('change', link.name)"
             type="button"
-            :class="{ 'bg-gray-100': isActive(link.name) }"
-            class="flex items-center w-full p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+            :class="{ 'bg-gray-100': isActive(link.name), item: route.name === 'resume' }"
+            class="group flex w-full items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
           >
             <component :is="link.icon" />
             <span class="ml-3 capitalize">{{ link.name }}</span>
@@ -36,17 +36,17 @@ import { useRoute } from 'vue-router'
 const emit = defineEmits(['change'])
 const props = defineProps(['active'])
 const route = useRoute()
-const isActive = computed(() => (link:string) => link === props.active && route.name !== 'resume')
+const isActive = computed(() => (link: string) => link === props.active && route.name !== 'resume')
 
 const links = [
   {
-    name: 'appliers',
-    icon: ApplyIcon,
-    page: 'resume'
-  },
-  {
     name: 'vacancies',
     icon: VacancyIcon,
+  },
+  {
+    name: 'appliers',
+    icon: ApplyIcon,
+    page: 'resume',
   },
   {
     name: 'portfolio',
