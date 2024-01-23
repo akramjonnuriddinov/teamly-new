@@ -83,7 +83,6 @@ onMounted(async () => {
   listLoading.value = false
 })
 
-
 const loadData = async () => {
   const vacanciesQuery = query(collection(db, 'vacancies'), orderBy('date', 'desc'))
   const vacanciesSnapshot = await getDocs(vacanciesQuery)
