@@ -37,9 +37,9 @@
           </div>
           <div class="mx-auto flex w-full justify-center max-[800px]:w-full">
             <base-button
-              @click="add"
+              @click="$emit('add')"
               class="w-full"
-              :disabled="!selectedFile"
+              :disabled="!isActive"
               :is-loading="isLoading"
               :size="ESize.SMALL"
             >
@@ -59,59 +59,26 @@ import BaseButton from '@/components/BaseButton.vue'
 import { ESize } from '@/types'
 import { uploadBytes } from 'firebase/storage'
 import { storageRef, storage } from '@/firebase'
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
-import { db } from '@/firebase'
 import { useAuthStore } from '@/store/auth'
 
-const emit = defineEmits(['close'])
-const props = defineProps(['vacancyId'])
+const emit = defineEmits(['close', 'add'])
 const store = useAuthStore()
 const isLoading = ref(false)
 const selectedFile = ref<any>(null)
-const collectionRef = collection(db, 'applier_statuses')
+const isActive = ref(false)
 
-const add = async () => {
+const handleFileChange = async (event: any) => {
+  const userDirectory = `users/${store.user.id}`
+  const fileRef = storageRef(storage, userDirectory)
   try {
     isLoading.value = true
-    const ref = collection(db, 'appliers')
-    const data = {
-      user_id: store.user.id,
-      status_id: 'FaLdBSPRYE1qRkTZXug0',
-      vacancy_id: props.vacancyId,
-      date: Date.now(),
-    }
-    const res = await addDoc(ref, data)
-    const newDoc = doc(ref, res.id)
-    await setDoc(newDoc, {
-      id: res.id,
-      ...data,
-    })
-    await addDoc(collectionRef, {
-      applier_id: res.id,
-      status_id: 'FaLdBSPRYE1qRkTZXug0',
-      vacancy_id: props.vacancyId,
-      date: Date.now(),
-    })
-    if (selectedFile.value) {
-      const userDirectory = `users/${store.user.id}`
-      const fileRef = storageRef(storage, userDirectory)
-      try {
-        await uploadBytes(fileRef, selectedFile.value)
-        store.fetchProfile()
-      } catch (error) {
-        console.error('Error uploading file: ', error)
-      }
-    }
+    await uploadBytes(fileRef, event.target.files[0])
+    isActive.value = true
+    store.fetchProfile()
   } catch (error) {
-    console.error('Error adding resume...')
+    console.error('Error uploading file: ', error)
   } finally {
     isLoading.value = false
-
-    emit('close')
   }
-}
-
-const handleFileChange = (event: any) => {
-  selectedFile.value = event.target.files[0]
 }
 </script>

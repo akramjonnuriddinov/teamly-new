@@ -14,14 +14,14 @@
     Apply
   </template>
   </BaseButton>
-  <ApplyModal v-if="isShow" :vacancyId="vacancy" @close="isShow = false"/>
+  <ApplyModal v-if="isShow" @close="isShow = false" @add="applyByModal"/>
 </template>
 
 <script setup lang="ts">
 import BaseButton from './BaseButton.vue';
 import InlineSvg from './InlineSvg.vue';
 import ApplyModal from '@/pages/vacancy/ApplyModal.vue';
-import { computed, ref } from 'vue';
+import { computed, ref, onUpdated } from 'vue';
 import { ESize } from '@/types'
 import { useAuthStore } from '@/store/auth';
 import { vacancyApply } from '@/composables/vacancyApply'
@@ -71,8 +71,13 @@ const apply = async () => {
       date: Date.now(),
     })
 }
+
+const applyByModal = () => {
+  isShow.value = false
+  apply()
+}
+
+onUpdated(() => {
+  isShow.value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
+})
 </script>
-
-<style>
-
-</style>

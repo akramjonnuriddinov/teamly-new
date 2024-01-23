@@ -54,19 +54,6 @@
               :applied="!!vacancy.applied"
               :vacancy="vacancy.id"
             />
-            <!-- <base-button
-              :color="getColor(vacancy.applied)"
-              :disabled="!!vacancy.applied"
-              :size="ESize.BIG"
-              :is-loading="isLoading == vacancy.id"
-              @click="handleApply(vacancy.id)"
-              class="mt-auto"
-            >
-              <template v-if="vacancy.applied">
-                <inline-svg class="max-h-[40px] min-h-[40px] min-w-[40px] max-w-[40px]" fill="none" src="check.svg" />
-              </template>
-              <template v-else> Apply </template>
-            </base-button> -->
           </div>
         </li>
       </ul>
@@ -75,25 +62,16 @@
 </template>
 
 <script setup lang="ts">
-import InlineSvg from '@/components/InlineSvg.vue'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import ApplyButton from '@/components/ApplyButton.vue'
 import { useAuthStore } from '@/store/auth'
-import { ESize } from '@/types'
-import { useRouter } from 'vue-router'
-import { vacancyApply } from '@/composables/vacancyApply'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
-import { addDoc, collection, doc, getDocs, orderBy, query, setDoc, where } from 'firebase/firestore'
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
 
 const emit = defineEmits(['open'])
-const props = defineProps(['vacancyId'])
-const collectionRef = collection(db, 'applier_statuses')
-const router = useRouter()
 const store = useAuthStore()
 const vacancies = ref()
-const user = ref({ ...store.user })
-const isLoading = ref(null)
 const listLoading = ref(true)
 const appliers = ref<any>([])
 
@@ -124,64 +102,14 @@ const loadData = async () => {
   }))
 }
 
-const handleApply = async (id: any) => {
-  if (!store.user) {
-    router.push('/sign-in')
-    return
-  }
-
-  if (store.resume) {
-    isLoading.value = id
-    const res = await vacancyApply(store.user.id, id)
-    currentApply(id)
-    isLoading.value = null
-    const jobList = await addDoc(collectionRef, {
-      applier_id: res.id,
-      status_id: 'FaLdBSPRYE1qRkTZXug0',
-      vacancy_id: id,
-      date: Date.now(),
-    })
-
-    const newDoc = doc(collectionRef, jobList.id)
-    await setDoc(newDoc, {
-      id: jobList.id,
-      applier_id: res.id,
-      status_id: 'FaLdBSPRYE1qRkTZXug0',
-      vacancy_id: id,
-      date: Date.now(),
-    })
-  } else {
-    emit('open', id)
-  }
-}
-
-const currentApply = (id: string) => {
-  const appliedVacancy = vacancies.value.find((vacancy: any) => vacancy.id === id)
-  if (appliedVacancy) {
-    appliedVacancy.applied = true
-    vacancies.value = vacancies.value.map((vacancy: any) =>
-      vacancy.id === appliedVacancy.id ? appliedVacancy : vacancy,
-    )
-  }
-}
-
 const fetchDataAndApply = async () => {
-  if (props.vacancyId) {
-    currentApply(props.vacancyId)
-  } else {
-    try {
-      vacancies.value = vacancies.value?.map((item: any) => ({
-        ...item,
-        applied: appliers.value.find((item2: any) => item2.vacancy_id === item.id),
-      }))
-    } catch (error) {
-      console.error(error)
-    } finally {
-    }
+  try {
+    vacancies.value = vacancies.value?.map((item: any) => ({
+      ...item,
+      applied: appliers.value.find((item2: any) => item2.vacancy_id === item.id),
+    }))
+  } catch (error) {
+    console.error(error)
   }
-}
-
-const getColor = (isApplied: string) => {
-  return isApplied ? '#198754' : ''
 }
 </script>
