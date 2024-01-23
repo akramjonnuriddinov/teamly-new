@@ -5,7 +5,7 @@
       <router-view />
     </div>
     <div v-if="!isAdmin && !isLoading()">
-      <contact-us v-if="!isPorfile" />
+      <contact-us v-if="!isPorfile && !isContact" />
       <!-- <the-brand v-if="!isPorfile" /> -->
       <the-footer class="main-footer" />
       <scroll-top />
@@ -39,6 +39,10 @@ const isAdmin = computed(() => {
 
 const isPorfile = computed(() => {
   return route.path.includes('profile') || route.path.includes('login')
+})
+
+const isContact = computed(() => {
+  return route.path.includes('contact')
 })
 </script>
 

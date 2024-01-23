@@ -1,24 +1,24 @@
 <template>
   <BaseModal class="" title="Profile" @close="$emit('close')" width="max-w-[470px]" height="h-auto">
-    <span class="flex justify-center w-full my-6 text-2xl leading-none tracking-tighter">{{ user.name }}</span>
-    <ul class="flex flex-col w-full">
-      <li class="flex items-center mb-3">
+    <span class="my-6 flex w-full justify-center text-2xl leading-none tracking-tighter">{{ user.name }}</span>
+    <ul class="flex w-full flex-col">
+      <li class="mb-3 flex items-center">
         <inline-svg class="mr-2" src="fontawesome/user-profile/email.svg" />
         <a :href="`mailto:${user.email}`"> {{ user.email }} </a>
       </li>
-      <li class="flex items-center mb-3">
+      <li class="mb-3 flex items-center">
         <inline-svg class="mr-2" src="fontawesome/user-profile/github.svg" />
         <a :href="user.github" target="_blank"> {{ 'github' }} </a>
       </li>
-      <li class="flex items-center mb-3">
+      <li class="mb-3 flex items-center">
         <inline-svg class="mr-2" src="fontawesome/user-profile/linkedin.svg" />
         <a :href="user.linkedin" target="_blank"> {{ 'Linkedin' }} </a>
       </li>
-      <li class="flex items-center mb-3">
+      <li class="mb-3 flex items-center">
         <inline-svg class="mr-2" src="fontawesome/user-profile/phone.svg" />
         <a :href="`tel:${user.phone}`"> {{ user.phone || 'Phone number' }} </a>
       </li>
-      <li class="flex items-center mb-3">
+      <li class="mb-3 flex items-center">
         <inline-svg class="mr-2" src="fontawesome/user-profile/telegram.svg" />
         <a :href="`https://t.me/${user.telegram}`" target="_blank">
           {{ user.telegram || 'Telegram' }}
@@ -29,7 +29,7 @@
       @click.stop="downloadResume(user.id)"
       :size="ESize.SMALL"
       :theme="EThemes.GREEN"
-      class="flex items-center w-full mt-5"
+      class="mt-5 flex w-full items-center"
     >
       <inline-svg class="mr-2" src="fontawesome/user-profile/file-pdf.svg" />
       <span>Show resume</span>
