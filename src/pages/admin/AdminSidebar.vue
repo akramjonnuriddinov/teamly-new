@@ -10,7 +10,7 @@
             :to="{ name: link.page || 'admin' }"
             @click="$emit('change', link.name)"
             type="button"
-            :class="{ 'bg-gray-100': isActive(link.name), item: route.name === ('resume' && 'message') }"
+            :class="{ 'bg-gray-100': isActive(link.name), item: hasChildRoute }"
             class="group flex w-full items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
           >
             <component :is="link.icon" />
@@ -38,9 +38,6 @@ import { useRoute } from 'vue-router'
 const emit = defineEmits(['change'])
 const props = defineProps(['active'])
 const route = useRoute()
-const isActive = computed(
-  () => (link: string) => link === props.active && !['resume', 'message'].includes(route.name as any),
-)
 const links = [
   {
     name: 'vacancies',
@@ -82,6 +79,9 @@ const links = [
     icon: TaskIcon,
   },
 ]
+
+const hasChildRoute = computed(() => ['resume', 'message'].includes(route.name as any))
+const isActive = computed(() => (link: string) => link === props.active && hasChildRoute)
 </script>
 
 <style scoped>
