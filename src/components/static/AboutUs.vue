@@ -27,7 +27,7 @@
                 </p>
               </li>
             </ul>
-            <base-button :theme="EThemes.RED"> Find Out More </base-button>
+            <base-button :theme="EThemes.RED"> <router-link to="/about">Find Out More</router-link> </base-button>
           </div>
           <div>
             <img class="absolute -bottom-10 right-10 -z-10" src="@/assets/images/about/about_shape01.png" alt="" />

@@ -1,13 +1,13 @@
 <template>
-  <section class="bg-no-repeat bg-cover bg-[#F9F9FA] mt-[86px]">
+  <section class="mt-[86px] bg-[#F9F9FA] bg-cover bg-no-repeat">
     <div
-      class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container relative mx-auto max-w-7xl px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
       <div
         class="flex justify-between max-[990px]:flex-wrap max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
       >
         <div
-          class="relative pt-[100px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-[990px]:pt-[50px]"
+          class="relative w-full max-w-2xl pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-[990px]:pt-[50px]"
         >
           <h1
             class="mb-4 text-[50px] font-semibold leading-[1.6] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
@@ -17,17 +17,17 @@
           <p class="mb-10 text-lg text-[#757589] max-[990px]:text-center">
             {{ props.text }}
           </p>
-          <base-button> Get Started </base-button>
+          <base-button> <router-link to="/contact"> Get Started </router-link> </base-button>
         </div>
         <img
-          class="max-w-[470px] w-full pt-[100px] max-[990px]:pb-0 max-[990px]:pt-16 pb-8"
+          class="w-full max-w-[470px] pb-8 pt-[100px] max-[990px]:pb-0 max-[990px]:pt-16"
           data-aos=""
           data-aos-duration="3000"
           :src="props.img_url"
           alt="img"
         />
       </div>
-      <div class="absolute banner-shaper"></div>
+      <div class="banner-shaper absolute"></div>
     </div>
   </section>
 </template>
