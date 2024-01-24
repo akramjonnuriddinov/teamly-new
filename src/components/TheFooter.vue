@@ -2,7 +2,7 @@
   <footer class="footer py-[90px]">
     <div class="container mx-auto w-full max-w-7xl px-5">
       <div class="teamly-container">
-        <div class="flex flex-col text-center max-[767px]:pt-[100px] lg:!flex-row lg:!text-start">
+        <div class="flex flex-col text-center lg:!flex-row lg:!text-start">
           <router-link class="mr-32" to="/">
             <the-logo color="white" />
           </router-link>
@@ -115,5 +115,29 @@ import TheLogo from '@/components/TheLogo.vue'
   clip-path: polygon(100% 100%, 100% 0, 50% 18%, 0 0, 0 100%);
   background-color: #080c35;
   color: white;
+}
+
+@media (max-width: 1300px) {
+  .footer {
+    clip-path: polygon(100% 100%, 100% 0, 50% 10%, 0 0, 0 100%);
+  }
+}
+
+@media (max-width: 990px) {
+  .footer {
+    clip-path: polygon(100% 100%, 100% 0, 50% 8%, 0 0, 0 100%);
+  }
+}
+
+@media (max-width: 767px) {
+  .footer {
+    clip-path: polygon(100% 100%, 100% 0, 50% 5%, 0 0, 0 100%);
+  }
+}
+
+@media (max-width: 500px) {
+  .footer {
+    clip-path: polygon(100% 100%, 100% 0, 50% 3%, 0 0, 0 100%);
+  }
 }
 </style>
