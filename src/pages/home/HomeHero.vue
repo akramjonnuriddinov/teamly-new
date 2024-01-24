@@ -1,16 +1,16 @@
 <template>
-  <section class="banner-area relative overflow-hidden z-[1] min-[1400px]:min-h-screen min-[1400px]:h-auto">
+  <section class="banner-area relative z-[1] overflow-hidden min-[1400px]:h-auto min-[1400px]:min-h-screen">
     <div
-      class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container relative mx-auto max-w-7xl px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
       <div
-        class="flex pt-[75px] justify-between max-[990px]:flex-wrap max-[990px]:flex-col-reverse max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
+        class="flex justify-between pt-[75px] max-[990px]:flex-col-reverse max-[990px]:flex-wrap max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
       >
         <div
-          class="relative pt-[100px] w-full max-w-2xl max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px] min-[1400px]:pt-[200px]"
+          class="relative w-full max-w-2xl pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px] min-[1400px]:pt-[200px]"
         >
           <img
-            class="absolute transition-all duration-1000 ease-out top-10 -left-10 max-sm:top-0"
+            class="absolute -left-10 top-10 transition-all duration-1000 ease-out max-sm:top-0"
             :class="{
               'translate-x-[50px]': customTranslateY,
               'translate-x-[0]': !customTranslateY,
@@ -26,10 +26,10 @@
           <p class="mb-10 text-lg text-tg-heading-font-color max-[990px]:text-center">
             We help you transform your ideas into reality. Contact us today and let us shape your digital dreams.
           </p>
-          <base-button> Get Started </base-button>
+          <base-button> <router-link to="/contact"> Get Started </router-link> </base-button>
         </div>
         <img
-          class="max-w-[470px] w-full pt-[30px] pb-[130px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:min-w-[632px] min-[1400px]:min-h-[559px] min-[1400px]:mt-12"
+          class="w-full max-w-[470px] pb-[130px] pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:mt-12 min-[1400px]:min-h-[559px] min-[1400px]:min-w-[632px]"
           data-aos=""
           data-aos-duration="3000"
           src="@/assets/images/banner_img.png"
@@ -37,7 +37,7 @@
         />
       </div>
       <img
-        class="absolute transition-all duration-1000 ease-out -left-5 -bottom-0"
+        class="absolute -bottom-0 -left-5 transition-all duration-1000 ease-out"
         :class="{
           'translate-y-[80px]': customTranslateY,
           'translate-x-[0]': !customTranslateY,
@@ -45,7 +45,7 @@
         src="@/assets/images/banner_shape03.png"
         alt=""
       />
-      <div class="absolute banner-shaper"></div>
+      <div class="banner-shaper absolute"></div>
     </div>
   </section>
 </template>
