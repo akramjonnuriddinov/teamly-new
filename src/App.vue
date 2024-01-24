@@ -4,7 +4,7 @@
     <div class="flex-1">
       <router-view />
     </div>
-    <div v-if="!isAdmin && !isLoading()">
+    <div v-if="!isAdmin && !isLoading()" :class="{ 'bg-[#F9F9FA]': isProfileBg }">
       <contact-us v-if="!isPorfile && !isContact" />
       <!-- <the-brand v-if="!isPorfile" /> -->
       <the-footer class="main-footer" />
@@ -44,6 +44,8 @@ const isPorfile = computed(() => {
 const isContact = computed(() => {
   return route.path.includes('contact')
 })
-</script>
 
-<style></style>
+const isProfileBg = computed(() => {
+  return route.path === '/profile' ? true : false
+})
+</script>

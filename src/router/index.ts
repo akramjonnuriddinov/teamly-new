@@ -66,8 +66,8 @@ export const router = createRouter({
       component: import('@/pages/NotFound.vue')
     },
     {
-      path: '/sign-in',
-      name: 'sign in',
+      path: '/signin',
+      name: 'signin',
       component: () => import('@/pages/login/SignIn.vue'),
       meta: {
         authRequired: false,
@@ -75,8 +75,8 @@ export const router = createRouter({
       }
     },
     {
-      path: '/sign-up',
-      name: 'sign up',
+      path: '/signup',
+      name: 'signup',
       component: () => import('@/pages/login/SignUp.vue'),
       meta: {
         authRequired: false,
@@ -112,7 +112,7 @@ router.beforeEach(async (to, _, next) => {
         const emails = ['nn.akramjon@gmail.com', 'rustamidastan0414@gmail.com', 'rajabov.diyorbek.it@gmail.com', 'akramjonmohirdev@gmail.com']
         if ((to.name === 'admin' || to.name === 'resume') && !emails.includes(authUser?.email)) {
           console.info('User has logged out')
-          next('/sign-in')
+          next('/signin')
           unsubscribe()
         } else {
           resolve()
@@ -122,13 +122,13 @@ router.beforeEach(async (to, _, next) => {
     })
   } catch (error) {
     console.error('Error checking authentication state:', error)
-    next('/sign-in')
+    next('/signin')
   }
 
   // Diyorbek
   if (to.matched.some((record) => record.meta.authRequired) && !store.token) {
     return {
-      name: 'sign in'
+      name: 'signin'
     }
   }
 

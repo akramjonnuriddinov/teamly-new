@@ -78,7 +78,7 @@
             <li v-else class="min-[990px]:hidden">
               <router-link
                 @click="isHidden = true"
-                to="/sign-in"
+                to="/signin"
                 class="flex max-w-full overflow-hidden truncate whitespace-nowrap px-[25px] py-4 font-semibold"
               >
                 <inline-svg fill="currentColor" class="mr-3" src="fontawesome/user-profile/user.svg" />
@@ -121,7 +121,7 @@
           <div class="mr-5 max-[990px]:hidden">
             <the-language />
           </div>
-          <router-link v-if="!store.user" to="/sign-in" class="max-[990px]:hidden">
+          <router-link v-if="!store.user" to="/signin" class="max-[990px]:hidden">
             <inline-svg src="fontawesome/user-profile/user.svg" />
           </router-link>
           <div

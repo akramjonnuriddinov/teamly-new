@@ -7,7 +7,7 @@
             <h1 class="block text-2xl font-bold text-gray-800">Sign in</h1>
             <p class="mt-2 text-sm text-gray-600">
               Don't have an account yet?
-              <router-link to="/sign-up" class="cursor-pointer font-medium text-[#7e54f8] decoration-2 hover:underline">
+              <router-link to="/signup" class="cursor-pointer font-medium text-[#7e54f8] decoration-2 hover:underline">
                 Sign up here
               </router-link>
             </p>
