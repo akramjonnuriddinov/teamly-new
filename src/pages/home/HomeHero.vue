@@ -29,9 +29,10 @@
           <base-button> <router-link to="/contact"> Get Started </router-link> </base-button>
         </div>
         <Vue3Lottie
-          class="banner-image w-full max-w-[670px] pb-[130px] pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:mr-[-200px] min-[1400px]:mt-12 min-[1400px]:min-h-[559px] min-[1400px]:min-w-[832px]"
+          class="banner-image hidden w-full max-w-[670px] pb-[130px] pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:mr-[-200px] min-[1400px]:mt-12 min-[1400px]:min-h-[559px] min-[1400px]:min-w-[832px]"
           :animationData="AnimationJson"
         />
+        <AppAnimation class="preloader__animation" :options="defaultOptions" @animCreated="handleAnimation" />
         <!-- <img
           class="w-full max-w-[470px] pb-[130px] pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:mt-12 min-[1400px]:min-h-[559px] min-[1400px]:min-w-[632px]"
           data-aos=""
@@ -59,8 +60,21 @@ import { onMounted, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { Vue3Lottie } from 'vue3-lottie'
 import AnimationJson from '@/assets/images/animation/success-failed.json'
+import AppAnimation from '@/components/AppAnimation.vue'
 
 const customTranslateY = ref(false)
+const anim = ref<any>(null)
+// const animation = ref<any>(null)
+const showCount = ref<any>()
+const errorBlock = ref<any>()
+const isAuth = ref<any>()
+
+const defaultOptions = {
+  loop: false,
+  autoplay: true,
+  renderer: 'svg',
+  animationData: AnimationJson,
+}
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
@@ -70,7 +84,43 @@ onMounted(() => {
       customTranslateY.value = false
     }
   })
+
+  setTimeout(() => {
+    playLoading()
+  }, 5000)
+  setTimeout(() => {
+    playSuccess()
+  }, 6000)
 })
+
+const handleAnimation = (createdAnim: any) => {
+  anim.value = createdAnim
+}
+
+// const logoAnimation = (createdAnimation: any) => {
+//   animation.value = createdAnimation
+// }
+
+const playLoading = () => {
+  anim.value.playSegments([0, 235], true)
+  anim.value.loop = true
+}
+
+const changePreloaded = (val: any) => {
+  val.value = false
+}
+
+const playSuccess = () => {
+  showCount.value = true
+  errorBlock.value = false
+  anim.value.playSegments([235, 400], true)
+  if (isAuth.value) {
+    setTimeout(() => {
+      changePreloaded(true)
+    }, 2500)
+  }
+  anim.value.loop = false
+}
 </script>
 
 <style scoped>
