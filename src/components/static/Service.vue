@@ -54,7 +54,7 @@
           >
             <router-link
               class="mb-[22px] whitespace-nowrap text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
-              to="/"
+              to="/service"
               >{{ service.title }}</router-link
             >
             <img class="service-item-img mb-6 h-[75px] w-[75px] object-cover" :src="service.image" alt="img" />
@@ -63,7 +63,7 @@
             </p>
             <router-link
               class="mt-auto flex items-center gap-2 font-medium transition-colors duration-300 hover:text-tg-primary-color"
-              :to="{ name: 'service' }"
+              to="/service"
             >
               <span>Find out more</span>
               <arrow-right />

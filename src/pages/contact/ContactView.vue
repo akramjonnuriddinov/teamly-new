@@ -14,7 +14,7 @@
         </p>
       </div>
       <div class="flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]">
-        <div class="w-full max-w-[600px] pt-10">
+        <div class="w-full max-w-[600px] pt-10 max-[990px]:max-w-full">
           <div class="flex items-center justify-center py-12 max-[580px]:pb-0">
             <div class="w-full bg-white">
               <form @submit.prevent="sendMessage" method="POST">
@@ -135,7 +135,7 @@ const sendMessage = async () => {
 
 <style scoped>
 .address {
-  background-image: url('https://uigaint.com/demo/html/anfra/contact-2/assets/images/bg/contact-1-bg.png');
+  background-image: url('@/assets/images/contact-view/contact-1-bg.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;

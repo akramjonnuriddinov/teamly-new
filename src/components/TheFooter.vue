@@ -20,18 +20,18 @@
             </p>
 
             <div class="flex items-center justify-center md:justify-start">
-              <a href="#" class="mr-3 transition-all hover:-translate-y-[2px]">
+              <a href="https://t.me/teamly_uz" class="mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
+                <img src="@/assets/images/svg/telegram.svg" alt="you tube icon" />
+              </a>
+              <span class="mr-3 cursor-not-allowed transition-all">
                 <img src="@/assets/images/svg/twitter.svg" alt="twitter icon" />
-              </a>
-              <a href="#" class="mr-3 transition-all hover:-translate-y-[2px]">
+              </span>
+              <span class="mr-3 cursor-not-allowed transition-all">
                 <img src="@/assets/images/svg/facebook.svg" alt="facebook icon" />
-              </a>
-              <a href="#" class="mr-3 transition-all hover:-translate-y-[2px]">
+              </span>
+              <span class="mr-3 cursor-not-allowed transition-all">
                 <img src="@/assets/images/svg/instagram.svg" alt="instagram icon" />
-              </a>
-              <a href="#" class="mr-3 transition-all hover:-translate-y-[2px]">
-                <img src="@/assets/images/svg/youtube.svg" alt="you tube icon" />
-              </a>
+              </span>
             </div>
           </div>
 
@@ -47,37 +47,41 @@
             <h4 class="mb-3 text-base font-medium text-gray-50">Learn More</h4>
             <ul class="list-unstyled mb-0">
               <li>
-                <router-link to="/" class="text-sm text-gray-300 hover:text-[#6c63ff]">About us</router-link>
+                <router-link to="/about" class="text-sm text-gray-300 hover:text-[#6c63ff]">About us</router-link>
               </li>
               <li>
-                <router-link to="/" class="text-sm text-gray-300 hover:text-[#6c63ff]">Our Story</router-link>
+                <router-link to="/portfolio" class="text-sm text-gray-300 hover:text-[#6c63ff]">Portfolio</router-link>
               </li>
               <li>
-                <router-link to="/" class="text-sm text-gray-300 hover:text-[#6c63ff]">Projects</router-link>
+                <router-link to="/service" class="text-sm text-gray-300 hover:text-[#6c63ff]">Service</router-link>
               </li>
               <li>
-                <router-link to="/" class="text-sm text-gray-300 hover:text-[#6c63ff]">Terms of Use</router-link>
+                <router-link to="/vacancy" class="text-sm text-gray-300 hover:text-[#6c63ff]">Vacancy</router-link>
               </li>
               <li>
-                <router-link to="/" class="text-sm text-gray-300 hover:text-[#6c63ff]">Privacy Policy</router-link>
+                <router-link to="/contact" class="text-sm text-gray-300 hover:text-[#6c63ff]">Contact</router-link>
               </li>
             </ul>
           </div>
 
-          <div class="mb-6 basis-full text-base text-gray-50 md:!basis-full xl:!basis-3/12">
+          <div class="relative mb-6 basis-full text-base text-gray-50 md:!basis-full xl:!basis-3/12">
+            <div class="absolute z-50 hidden h-full w-full items-center justify-center rounded-md backdrop-blur-md">
+              Coming soon
+            </div>
             <h4 class="mb-3 font-medium text-gray-50">Our Newsletter</h4>
             <p class="mb-5 text-gray-300">Subscribe to our newsletter to get our news &amp; deals delivered to you.</p>
-
             <div>
               <div id="mc_embed_signup2">
                 <form method="post">
                   <div>
-                    <div class="relative flex">
+                    <div class="relative flex" title="coming soon">
                       <input
                         type="email"
                         name="EMAIL"
                         placeholder=""
-                        class="placeholder:opacity- focus:border-logo-text-color peer w-full cursor-text rounded-lg border border-[#4b5569] bg-transparent p-3 pr-24 text-tg-white outline-none"
+                        autocomplete="off"
+                        disabled
+                        class="placeholder:opacity- focus:border-logo-text-color peer w-full cursor-text rounded-lg border border-[#4b5569] bg-transparent p-3 pr-24 text-tg-white outline-none disabled:cursor-not-allowed"
                       />
                       <label
                         class="absolute left-3 top-[20%] translate-y-[-50%] cursor-text pl-[1px] text-xs transition-all peer-placeholder-shown:top-[50%] peer-placeholder-shown:text-sm peer-focus:top-[20%] peer-focus:text-xs"
@@ -87,7 +91,8 @@
                         value="Join"
                         type="submit"
                         name="subscribe"
-                        class="absolute right-0 h-full w-20 cursor-pointer rounded-r-lg bg-tg-primary-color text-sm font-bold"
+                        disabled
+                        class="absolute right-0 h-full w-20 cursor-pointer rounded-r-lg bg-tg-primary-color text-sm font-bold disabled:cursor-not-allowed"
                       />
                     </div>
                   </div>
