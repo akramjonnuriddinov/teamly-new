@@ -1,7 +1,7 @@
 <template>
   <section class="works py-[105px]">
     <div class="container relative mx-auto w-full max-w-7xl px-5 text-tg-white">
-      <div class="absolute z-50 hidden h-full w-full items-center justify-center rounded-md backdrop-blur-md">
+      <div class="absolute z-10 hidden h-full w-full items-center justify-center rounded-md backdrop-blur-md">
         Coming soon
       </div>
       <div class="items-cebter flex justify-between">

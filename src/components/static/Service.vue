@@ -5,13 +5,13 @@
         <img src="@/assets/images/service/services_shape.png" alt="" />
       </div>
       <div class="pb-[70px]">
-        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
+        <!-- <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
           >We Can Do For You</span
         >
         <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           Experts in every aspect <br class="max-[500px]:hidden" />
           lifecycle
-        </h2>
+        </h2> -->
       </div>
       <div v-if="isLoading" class="flex items-center justify-center">
         <ul class="flex flex-wrap justify-between">
@@ -50,7 +50,7 @@
         >
           <div
             :class="{ 'shadow-service-inner': isHover[index] }"
-            class="service-item-inner flex h-full flex-col rounded-[20px] bg-[#F6F9FB1] px-[35px] py-[50px]"
+            class="service-item-inner hover-class flex h-full flex-col rounded-[20px] bg-[#F6F9FB1] px-[35px] py-[50px]"
           >
             <router-link
               class="mb-[22px] whitespace-nowrap text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
@@ -108,7 +108,7 @@ const hoverItem = (index: number) => {
 }
 
 .hover-class {
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07);
 }
 
 .service-item:hover div {

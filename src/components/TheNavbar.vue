@@ -223,10 +223,6 @@ const socials = [
 ]
 const links = [
   {
-    name: 'Home',
-    url: '/',
-  },
-  {
     name: 'About',
     url: '/about',
   },

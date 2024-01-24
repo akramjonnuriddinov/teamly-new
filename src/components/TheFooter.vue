@@ -65,7 +65,7 @@
           </div>
 
           <div class="relative mb-6 basis-full text-base text-gray-50 md:!basis-full xl:!basis-3/12">
-            <div class="absolute z-50 hidden h-full w-full items-center justify-center rounded-md backdrop-blur-md">
+            <div class="absolute z-10 hidden h-full w-full items-center justify-center rounded-md backdrop-blur-md">
               Coming soon
             </div>
             <h4 class="mb-3 font-medium text-gray-50">Our Newsletter</h4>
