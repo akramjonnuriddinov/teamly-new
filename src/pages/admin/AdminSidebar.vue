@@ -10,7 +10,7 @@
             :to="{ name: link.page || 'admin' }"
             @click="$emit('change', link.name)"
             type="button"
-            :class="{ 'bg-gray-100': isActive(link.name), item: route.name === ('resume' && 'message') }"
+            :class="{ 'bg-gray-100': isActive(link.name), item: route.name === 'resume' || route.name === 'message' }"
             class="group flex w-full items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
           >
             <component :is="link.icon" />
