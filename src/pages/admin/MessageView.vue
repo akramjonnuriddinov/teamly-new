@@ -10,7 +10,7 @@
           <li class="relative mb-5 flex flex-col">
             <div class="flex h-full items-center justify-between rounded-md bg-gray-50 p-5">
               <span @click.stop class="mr-2 w-1/5">{{ message.fullname }}</span>
-              <a @click.stop class="mr-2 w-1/6" :href="`mailto://${message.email}`">{{
+              <a @click.stop class="mr-2 w-1/6" :title="message.email" :href="`mailto://${message.email}`">{{
                 message.email || 'email undefined'
               }}</a>
               <a @click.stop class="mr-2 w-1/6" :href="`tel://${message.phone}`">{{ message.phone }}</a>
@@ -61,7 +61,7 @@ onMounted(async () => {
 })
 
 const loadData = async () => {
-  const messageQuery = query(collection(db, 'messages'), orderBy('date'))
+  const messageQuery = query(collection(db, 'messages'), orderBy('date', 'desc'))
   const messageSnapshot = await getDocs(messageQuery)
 
   messages.value = messageSnapshot.docs.map((doc) => ({

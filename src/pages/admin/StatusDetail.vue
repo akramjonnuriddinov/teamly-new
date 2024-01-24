@@ -75,6 +75,14 @@ const loadApplierStatuses = async () => {
     id: doc.id,
     ...doc.data(),
   }))
+
+  const tasksQuery = query(collection(db, 'tasks'))
+  const tasksSnapshot = await getDocs(tasksQuery)
+
+  tasks.value = tasksSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
 }
 
 onMounted(async () => {
