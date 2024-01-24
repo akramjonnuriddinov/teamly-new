@@ -17,13 +17,19 @@
 import { shallowRef } from 'vue'
 import ProfileSidebar from '@/pages/profile/ProfileSidebar.vue'
 import ProfileDetail from '@/pages/profile/ProfileDetail.vue'
-import { defineAsyncComponent } from 'vue'
+import AppliedVacancies from './AppliedVacancies.vue'
 import { useAuthStore } from '@/store/auth'
 
 const store = useAuthStore()
 const selectedComponent = shallowRef(ProfileDetail)
-
 const updateSelectedComponent = (component: any) => {
-  selectedComponent.value = defineAsyncComponent(() => import(`./${component}.vue`))
+  switch (component) {
+    case 'ProfileDetail':
+      selectedComponent.value = ProfileDetail
+      break
+    case 'AppliedVacancies':
+      selectedComponent.value = AppliedVacancies
+      break
+  }
 }
 </script>

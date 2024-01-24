@@ -112,10 +112,8 @@ import TheLogo from '@/components/TheLogo.vue'
 
 <style>
 .footer {
-  background-image: url('@/assets/images/footer/footer_bg.png');
-  background-position: top center;
-  background-size: cover;
-  background-color: white;
+  clip-path: polygon(100% 100%, 100% 0, 50% 18%, 0 0, 0 100%);
+  background-color: #080c35;
   color: white;
 }
 </style>
