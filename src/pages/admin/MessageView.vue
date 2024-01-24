@@ -10,9 +10,13 @@
           <li class="relative mb-5 flex flex-col">
             <div class="flex h-full items-center justify-between rounded-md bg-gray-50 p-5">
               <span @click.stop class="mr-2 w-1/5">{{ message.fullname }}</span>
-              <a @click.stop class="mr-2 w-1/6" :title="message.email" :href="`mailto://${message.email}`">{{
-                message.email || 'email undefined'
-              }}</a>
+              <a
+                @click.stop
+                class="mr-2 mr-2 w-[200px] overflow-hidden truncate whitespace-nowrap"
+                :title="message.email"
+                :href="`mailto://${message.email}`"
+                >{{ message.email }}</a
+              >
               <a @click.stop class="mr-2 w-1/6" :href="`tel://${message.phone}`">{{ message.phone }}</a>
               <span @click.stop class="mr-2 w-1/5 overflow-hidden truncate whitespace-nowrap">{{
                 formatTimestampToLocaleString(message.date, {
