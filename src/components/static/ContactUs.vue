@@ -7,11 +7,11 @@
         <div
           class="relative w-full max-w-2xl max-[990px]:flex max-[990px]:max-w-full max-[990px]:flex-col max-[990px]:items-center"
         >
-          <span class="mb-3 text-lg font-bold text-tg-white">Latest news updates </span>
+          <span class="mb-3 text-lg font-bold text-tg-white">Unlock Success</span>
           <h2 class="mb-7 text-5xl font-bold leading-[1.2] text-tg-white max-[990px]:text-center max-sm:text-4xl">
             Need a Successful
             <br class="max-[990px]:hidden" />
-            Our Project
+            Our Project?
           </h2>
           <router-link :to="{ name: 'contact' }">
             <base-button :size="ESize.MEDIUM" :theme="EThemes.WHITE"> Contact Us </base-button>

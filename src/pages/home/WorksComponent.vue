@@ -1,17 +1,20 @@
 <template>
-  <section class="py-[105px] works">
-    <div class="container w-full px-5 mx-auto max-w-7xl text-tg-white">
-      <div class="flex justify-between items-cebter">
+  <section class="works py-[105px]">
+    <div class="container relative mx-auto w-full max-w-7xl px-5 text-tg-white">
+      <div class="absolute z-50 hidden h-full w-full items-center justify-center rounded-md backdrop-blur-md">
+        Coming soon
+      </div>
+      <div class="items-cebter flex justify-between">
         <div v-for="work in works" class="flex flex-wrap items-center justify-between">
           <inline-svg
             :src="work.image"
-            class="bg-transparent w-[55px] h-[55px] mr-4"
+            class="mr-4 h-[55px] w-[55px] bg-transparent"
             fill="transparent"
             stroke="trasnparent"
           />
           <div class="flex flex-col">
-            <span class="text-4xl whitespace-nowrap leading-[0.8] font-bold">{{ work.count }}</span>
-            <p class="text-xl whitespace-nowrap leading-[1.8]">{{ work.title }}</p>
+            <span class="whitespace-nowrap text-4xl font-bold leading-[0.8]">{{ work.count }}</span>
+            <p class="whitespace-nowrap text-xl leading-[1.8]">{{ work.title }}</p>
           </div>
         </div>
       </div>
@@ -27,25 +30,25 @@ const works = ref([
   {
     id: '',
     title: 'Satisfied Clients',
-    count: '2500',
+    count: '5',
     image: 'about-view/work01.svg',
   },
   {
     id: '',
     title: 'Active Project',
-    count: '176K',
+    count: '3',
     image: 'about-view/work02.svg',
   },
   {
     id: '',
     title: 'Winning Award',
-    count: '28+',
+    count: '0',
     image: 'about-view/work03.svg',
   },
   {
     id: '',
     title: 'Expert Teams',
-    count: '150+',
+    count: '10',
     image: 'about-view/work04.svg',
   },
 ])

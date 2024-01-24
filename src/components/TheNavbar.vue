@@ -85,7 +85,11 @@
                 <span>Login</span>
               </router-link>
             </li>
-            <li class="navbar__item relative mr-10 max-[990px]:bg-white" v-for="(link, index) in links" :key="index">
+            <li
+              class="navbar__item relative mr-10 max-[1120px]:mr-5 max-[990px]:bg-white"
+              v-for="(link, index) in links"
+              :key="index"
+            >
               <router-link
                 class="nav-link py-0 font-semibold text-tg-heading-font-color transition-colors duration-200 hover:text-tg-primary-color"
                 @click="isHidden = true"
