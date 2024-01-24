@@ -28,16 +28,20 @@
           </p>
           <base-button> <router-link to="/contact"> Get Started </router-link> </base-button>
         </div>
-        <img
+        <Vue3Lottie
+          class="banner-image w-full max-w-[670px] pb-[130px] pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:mr-[-200px] min-[1400px]:mt-12 min-[1400px]:min-h-[559px] min-[1400px]:min-w-[832px]"
+          :animationData="AnimationJson"
+        />
+        <!-- <img
           class="w-full max-w-[470px] pb-[130px] pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:mt-12 min-[1400px]:min-h-[559px] min-[1400px]:min-w-[632px]"
           data-aos=""
           data-aos-duration="3000"
           src="@/assets/images/banner_img.png"
           alt=""
-        />
+        /> -->
       </div>
       <img
-        class="absolute -bottom-0 -left-5 transition-all duration-1000 ease-out"
+        class="absolute -bottom-40 -left-5 transition-all duration-1000 ease-out"
         :class="{
           'translate-y-[80px]': customTranslateY,
           'translate-x-[0]': !customTranslateY,
@@ -53,6 +57,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
+import { Vue3Lottie } from 'vue3-lottie'
+import AnimationJson from '@/assets/images/animation/success-failed.json'
 
 const customTranslateY = ref(false)
 
@@ -68,8 +74,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.banner-image {
+  margin-right: -200px;
+}
 .banner-area::after {
-  content: '';
+  /* content: ''; */
   position: absolute;
   right: -389px;
   bottom: -430px;

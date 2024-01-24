@@ -13,12 +13,13 @@ import 'quill/dist/quill.bubble.css'
 import SwiperClass, { } from 'swiper'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css'
+import Vue3Lottie from 'vue3-lottie'
 
 const pinia = createPinia()
 const app = createApp(App)
 
 SwiperClass.use([])
-
+app.use(Vue3Lottie)
 AOS.init()
 app.component('inline-svg', InlineSvg)
 app.use(pinia)
