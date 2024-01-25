@@ -1,20 +1,14 @@
 <template>
   <BaseButton :size="ESize.BIG" :disabled="!!isApplied" :color="color" :class="{ 'mt-auto': isCard }" @click="apply">
-    <div v-if="isApplied" class="h-full w-full">
-      <app-animation :options="defaultOptions" :width="50" @animCreated="handleAnimation" />
-    </div>
-    <slot v-else> Apply </slot>
+    <template v-if="showIcon">
+      <div class="check-icon h-full w-full">
+        <app-animation :options="defaultOptions" :width="40" @animCreated="handleAnimation" :speed="2" />
+      </div>
+    </template>
+    <template v-else>
+      <slot> Apply </slot>
+    </template>
   </BaseButton>
-  <!-- <button
-    :disabled="!!isApplied"
-    @click="apply"
-    class="relative mt-auto flex h-[60px] items-center justify-center whitespace-nowrap rounded-[10px] border-2 border-tg-primary-color px-[25px] text-center font-bold tracking-[0.5px] text-tg-primary-color transition-all duration-300 hover:opacity-70 disabled:bg-slate-50"
-  >
-    <div v-if="isApplied" class="absolute flex w-[50px] items-center">
-      <app-animation :options="defaultOptions" @animCreated="handleAnimation" />
-    </div>
-    <span v-else>Apply </span>
-  </button> -->
   <ApplyModal v-if="isShow" @close="isShow = false" @add="applyByModal" />
 </template>
 
@@ -36,7 +30,7 @@ const emit = defineEmits(['applied'])
 const store = useAuthStore()
 const router = useRouter()
 const isApplied = ref(props.applied)
-// const hasStatus = props.applied
+const hasStatus = props.applied
 const isLoading = ref(false)
 const isShow = ref(false)
 const defaultOptions = {
@@ -47,7 +41,7 @@ const defaultOptions = {
 }
 const anim = ref<any>()
 
-// const showIcon = computed(() => (props.isCard ? isApplied.value : !hasStatus && isApplied.value))
+const showIcon = computed(() => (props.isCard ? isApplied.value : !hasStatus && isApplied.value))
 
 const color = computed(() => {
   if (props.color) {
@@ -138,3 +132,9 @@ onUpdated(() => {
   isShow.value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
 })
 </script>
+
+<style>
+.check-icon svg path {
+  stroke-width: 5 !important;
+}
+</style>
