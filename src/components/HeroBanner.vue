@@ -22,7 +22,7 @@
       </div>
     </div>
   </section>
-  <!-- <section class="mt-[86px] bg-[#F9F9FA] bg-cover bg-no-repeat">
+  <!--  <section class="mt-[86px] bg-[#F9F9FA] bg-cover bg-no-repeat">
     <div
       class="container relative mx-auto max-w-7xl px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
