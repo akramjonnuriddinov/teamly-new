@@ -2,7 +2,7 @@
   <BaseButton :size="ESize.BIG" :disabled="!!isApplied" :color="color" :class="{ 'mt-auto': isCard }" @click="apply">
     <template v-if="showIcon">
       <div class="check-icon h-full w-full">
-        <app-animation :options="defaultOptions" :width="40" @animCreated="handleAnimation" :speed="2" />
+        <app-animation :options="defaultOptions" :width="40" @animCreated="handleAnimation" />
       </div>
     </template>
     <template v-else>
@@ -129,6 +129,7 @@ const applyByModal = () => {
 }
 
 onUpdated(() => {
+  savedPosition()
   isShow.value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
 })
 </script>
