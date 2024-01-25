@@ -2,7 +2,7 @@
   <BaseButton :size="ESize.BIG" :disabled="!!isApplied" :color="color" :class="{ 'mt-auto': isCard }" @click="apply">
     <template v-if="showIcon">
       <div class="check-icon h-full w-full">
-        <app-animation :options="defaultOptions" :width="40" @animCreated="handleAnimation" />
+        <app-animation :options="defaultOptions" :width="40" :speed="2" @animCreated="handleAnimation" />
       </div>
     </template>
     <template v-else>

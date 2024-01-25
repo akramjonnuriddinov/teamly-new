@@ -28,18 +28,9 @@
           </p>
           <base-button> <router-link to="/contact"> Get Started </router-link> </base-button>
         </div>
-        <Vue3Lottie
-          class="banner-image hidden w-full max-w-[670px] pb-[130px] pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:mr-[-200px] min-[1400px]:mt-12 min-[1400px]:min-h-[559px] min-[1400px]:min-w-[832px]"
-          :animationData="AnimationJson"
-        />
-        <AppAnimation class="preloader__animation" :options="defaultOptions" @animCreated="handleAnimation" />
-        <!-- <img
-          class="w-full max-w-[470px] pb-[130px] pt-[30px] max-[990px]:pb-0 max-[990px]:pt-16 min-[1400px]:mt-12 min-[1400px]:min-h-[559px] min-[1400px]:min-w-[632px]"
-          data-aos=""
-          data-aos-duration="3000"
-          src="@/assets/images/banner_img.png"
-          alt=""
-        /> -->
+        <div class="preloader__animation absolute -right-[200px] top-[280px]">
+          <AppAnimation :options="defaultOptions" :width="600" @animCreated="handleAnimation" />
+        </div>
       </div>
       <img
         class="absolute -bottom-40 -left-5 transition-all duration-1000 ease-out"
@@ -58,18 +49,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
-import { Vue3Lottie } from 'vue3-lottie'
-import AnimationJson from '@/assets/images/animation/success-failed.json'
+import AnimationJson from '@/assets/images/animation/home-hero-animation-6-4.json'
 import AppAnimation from '@/components/AppAnimation.vue'
 
 const customTranslateY = ref(false)
 const anim = ref<any>(null)
-// const showCount = ref<any>()
-// const errorBlock = ref<any>()
-// const isAuth = ref<any>()
 
 const defaultOptions = {
-  loop: true,
+  loop: false,
   autoplay: true,
   renderer: 'svg',
   animationData: AnimationJson,
@@ -83,43 +70,12 @@ onMounted(() => {
       customTranslateY.value = false
     }
   })
-
-  // setTimeout(() => {
-  //   // playLoading()
-  // }, 5000)
-  setTimeout(() => {
-    // playSuccess()
-  }, 500)
+  // anim.value.playSegments([85, 181], true) // animation-3
 })
 
 const handleAnimation = (createdAnim: any) => {
   anim.value = createdAnim
 }
-
-// const logoAnimation = (createdAnimation: any) => {
-//   animation.value = createdAnimation
-// }
-
-// const playLoading = () => {
-//   anim.value.playSegments([0, 235], true)
-//   anim.value.loop = true
-// }
-
-// const changePreloaded = (val: any) => {
-//   val.value = false
-// }
-
-// const playSuccess = () => {
-//   // showCount.value = true
-//   // errorBlock.value = false
-//   anim.value.playSegments([235, 400], true)
-//   if (isAuth.value && false) {
-//     setTimeout(() => {
-//       changePreloaded(true)
-//     }, 2500)
-//   }
-//   anim.value.loop = false
-// }
 </script>
 
 <style scoped>

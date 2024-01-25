@@ -34,8 +34,10 @@
         >
           <h1
             class="mb-4 text-[50px] font-semibold leading-[1.6] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
-          ></h1>
-          <p class="mb-10 text-lg text-[#757589] max-[990px]:text-center"></p>
+          >
+            {{ props.title }}
+          </h1>
+          <p class="mb-10 text-lg text-[#757589] max-[990px]:text-center">{{ props.text }}</p>
           <base-button> <router-link to="/contact"> Get Started </router-link> </base-button>
         </div>
       </div>
