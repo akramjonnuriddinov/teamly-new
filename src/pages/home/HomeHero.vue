@@ -64,13 +64,12 @@ import AppAnimation from '@/components/AppAnimation.vue'
 
 const customTranslateY = ref(false)
 const anim = ref<any>(null)
-// const animation = ref<any>(null)
-const showCount = ref<any>()
-const errorBlock = ref<any>()
-const isAuth = ref<any>()
+// const showCount = ref<any>()
+// const errorBlock = ref<any>()
+// const isAuth = ref<any>()
 
 const defaultOptions = {
-  loop: false,
+  loop: true,
   autoplay: true,
   renderer: 'svg',
   animationData: AnimationJson,
@@ -85,12 +84,12 @@ onMounted(() => {
     }
   })
 
+  // setTimeout(() => {
+  //   // playLoading()
+  // }, 5000)
   setTimeout(() => {
-    playLoading()
-  }, 5000)
-  setTimeout(() => {
-    playSuccess()
-  }, 6000)
+    // playSuccess()
+  }, 500)
 })
 
 const handleAnimation = (createdAnim: any) => {
@@ -101,26 +100,26 @@ const handleAnimation = (createdAnim: any) => {
 //   animation.value = createdAnimation
 // }
 
-const playLoading = () => {
-  anim.value.playSegments([0, 235], true)
-  anim.value.loop = true
-}
+// const playLoading = () => {
+//   anim.value.playSegments([0, 235], true)
+//   anim.value.loop = true
+// }
 
-const changePreloaded = (val: any) => {
-  val.value = false
-}
+// const changePreloaded = (val: any) => {
+//   val.value = false
+// }
 
-const playSuccess = () => {
-  showCount.value = true
-  errorBlock.value = false
-  anim.value.playSegments([235, 400], true)
-  if (isAuth.value) {
-    setTimeout(() => {
-      changePreloaded(true)
-    }, 2500)
-  }
-  anim.value.loop = false
-}
+// const playSuccess = () => {
+//   // showCount.value = true
+//   // errorBlock.value = false
+//   anim.value.playSegments([235, 400], true)
+//   if (isAuth.value && false) {
+//     setTimeout(() => {
+//       changePreloaded(true)
+//     }, 2500)
+//   }
+//   anim.value.loop = false
+// }
 </script>
 
 <style scoped>
