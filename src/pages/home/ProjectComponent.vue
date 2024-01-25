@@ -23,7 +23,7 @@
           class="project-wrapper relative w-full max-w-[290px] overflow-hidden rounded-[30px] border-red-400 max-[970px]:max-w-[40%] max-[760px]:max-w-[100%]"
         >
           <div
-            class="absolute z-50 flex h-full w-full items-center justify-center rounded-md text-white backdrop-blur-md"
+            class="absolute z-10 flex h-full w-full items-center justify-center rounded-md text-white backdrop-blur-md"
           >
             Coming soon
           </div>

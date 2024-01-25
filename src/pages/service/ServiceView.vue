@@ -11,16 +11,16 @@ import Service from '@/components/static/Service.vue'
 import { getImageUrl } from '@/composables/getImgUrl'
 
 const hero_content = {
-  title: 'Dreams Transformed: Our Digital Shaping Services',
+  title: 'Our Services',
   text: "We're committed to transforming your innovative ideas into reality, nurturing your digital dreams and bringing them to life.",
   img_url: getImageUrl('service-view/breadcrumb_img.png'),
 }
 </script>
 
 <style scoped>
-.service {
+/* .service {
   background-image: url(https://itcroctheme.com/wp/demos/themes/xotric-final/wp-content/uploads/2023/10/hero_bg.svg);
   background-position: top -220px center;
   background-repeat: no-repeat;
-}
+} */
 </style>
