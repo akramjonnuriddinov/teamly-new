@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
-import AnimationJson from '@/assets/images/animation/home-hero-animation-6-4.json'
+import AnimationJson from '@/assets/images/animation/home-hero-animation-8.json'
 import AppAnimation from '@/components/AppAnimation.vue'
 
 const customTranslateY = ref(false)
