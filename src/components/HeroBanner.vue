@@ -22,7 +22,7 @@
       </div>
     </div>
   </section>
-  <!-- <section class="mt-[86px] bg-[#F9F9FA] bg-cover bg-no-repeat">
+  <!--  <section class="mt-[86px] bg-[#F9F9FA] bg-cover bg-no-repeat">
     <div
       class="container relative mx-auto max-w-7xl px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
@@ -34,8 +34,10 @@
         >
           <h1
             class="mb-4 text-[50px] font-semibold leading-[1.6] text-tg-heading-font-color max-[990px]:text-center max-sm:text-4xl"
-          ></h1>
-          <p class="mb-10 text-lg text-[#757589] max-[990px]:text-center"></p>
+          >
+            {{ props.title }}
+          </h1>
+          <p class="mb-10 text-lg text-[#757589] max-[990px]:text-center">{{ props.text }}</p>
           <base-button> <router-link to="/contact"> Get Started </router-link> </base-button>
         </div>
       </div>

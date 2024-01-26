@@ -18,9 +18,9 @@ const hero_content = {
 </script>
 
 <style scoped>
-/* .service {
-  background-image: url(https://itcroctheme.com/wp/demos/themes/xotric-final/wp-content/uploads/2023/10/hero_bg.svg);
+.service {
+  /* background-image: url(https://itcroctheme.com/wp/demos/themes/xotric-final/wp-content/uploads/2023/10/hero_bg.svg);
   background-position: top -220px center;
-  background-repeat: no-repeat;
-} */
+  background-repeat: no-repeat; */
+}
 </style>

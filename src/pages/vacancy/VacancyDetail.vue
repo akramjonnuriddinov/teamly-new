@@ -39,25 +39,25 @@
     <template v-else>
       <vacancy-detail-banner :vacancy="vacancy">
         <ApplyButton
-          :applied="vacancy.status_id"
+          :applied="!!vacancy.status_id"
           :vacancy="vacancy.id"
           :color="status?.color"
           @applied="vacancy.status_id = 'aplied'"
         >
           <template v-if="vacancy.status_id">
-              {{ status?.title }}
+            {{ status?.title }}
           </template>
         </ApplyButton>
       </vacancy-detail-banner>
       <job-description :vacancy="vacancy">
         <ApplyButton
-          :applied="vacancy.status_id"
+          :applied="!!vacancy.status_id"
           :vacancy="vacancy.id"
           :color="status?.color"
           @applied="vacancy.status_id = 'aplied'"
         >
           <template v-if="vacancy.status_id">
-              {{ status?.title }}
+            {{ status?.title }}
           </template>
         </ApplyButton>
       </job-description>
@@ -125,5 +125,4 @@ const fetchStatus = async (id: string) => {
   const statusSnapShot = await getDocs(statusQuery)
   status.value = statusSnapShot.docs[0].data()
 }
-
 </script>

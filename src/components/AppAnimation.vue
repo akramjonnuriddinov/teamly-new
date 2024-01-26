@@ -14,6 +14,10 @@ export default {
     },
     height: Number,
     width: Number,
+    speed: {
+      type: Number,
+      default: 1,
+    },
   },
   data() {
     return {
@@ -33,7 +37,9 @@ export default {
       autoplay: this.options.autoplay !== false,
       animationData: this.options.animationData,
       rendererSettings: this.options.rendererSettings,
+      path: this.options.path,
     })
+    this.anim.setSpeed(this.speed)
     this.$emit('animCreated', this.anim)
   },
 }
