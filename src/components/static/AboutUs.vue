@@ -3,7 +3,10 @@
     <div class="container mx-auto w-full max-w-7xl px-5" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <div class="flex max-[1024px]:flex-col max-[1024px]:items-center">
         <div class="relative z-10">
-          <img class="z-50" src="@/assets/images/about/about-img.png" alt="" />
+          <!-- <img class="z-50" src="@/assets/images/about/about-img.png" alt="" /> -->
+          <div class="">
+            <app-animation :options="defaultOptions" :width="500" />
+          </div>
         </div>
         <div
           class="relative ml-12 w-full max-w-[600px] px-4 max-[1024px]:max-w-[720px] max-[1024px]:pt-10 max-[576px]:px-0"
@@ -43,6 +46,14 @@
 import { ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { EThemes } from '@/types'
+import AppAnimation from '@/components/AppAnimation.vue'
+import GrowAnimation from '@/assets/images/animation/plan.json'
+const defaultOptions = {
+  loop: false,
+  autoplay: true,
+  renderer: 'svg',
+  animationData: GrowAnimation,
+}
 
 const aboutContents = ref(['Web Development', '1C Development', 'App Development'])
 </script>

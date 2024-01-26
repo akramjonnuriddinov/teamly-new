@@ -2,6 +2,7 @@
   <div class="service">
     <hero-banner :title="hero_content.title" :text="hero_content.text" :img_url="hero_content.img_url" />
     <Service />
+    <work-process />
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 import HeroBanner from '@/components/HeroBanner.vue'
 import Service from '@/components/static/Service.vue'
 import { getImageUrl } from '@/composables/getImgUrl'
+import WorkProcess from '@/pages/about/WorkProcess.vue'
 
 const hero_content = {
   title: 'Our Services',

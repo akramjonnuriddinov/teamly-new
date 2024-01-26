@@ -1,17 +1,17 @@
 <template>
-  <section class="relative z-10 bg-[#fff] pb-[90px] pt-[80px] text-tg-black">
+  <section :class="{ 'pt-[80px]': !isHome }" class="relative z-10 bg-[#fff] pb-[90px] text-tg-black">
     <div class="container relative mx-auto w-full max-w-7xl px-5">
       <div class="absolute right-[4%] top-[9%] -z-50 hidden transition-all duration-1000">
         <img src="@/assets/images/service/services_shape.png" alt="" />
       </div>
-      <div class="pb-[70px]">
-        <!-- <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
+      <div v-if="isHome" class="pb-[70px]">
+        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
           >We Can Do For You</span
         >
         <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           Experts in every aspect <br class="max-[500px]:hidden" />
           lifecycle
-        </h2> -->
+        </h2>
       </div>
       <div v-if="isLoading" class="flex items-center justify-center">
         <ul class="flex flex-wrap justify-between">
@@ -76,13 +76,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import ArrowRight from '@/components/icons/ArrowRight.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { fetchData } from '@/composables/fetchData'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const services = ref<any[]>([])
 const isLoading = ref(true)
+
+const isHome = computed(() => route.path === '/')
 
 onMounted(async () => {
   isLoading.value = true
