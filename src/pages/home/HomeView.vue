@@ -3,7 +3,7 @@
     <home-hero />
     <Service />
     <about-us />
-    <!-- <works-component /> -->
+    <works-component />
     <project-component />
     <!-- <testimonial-component /> -->
     <team-component />
@@ -25,7 +25,7 @@ import BlogComponent from '@/pages/blog/BlogComponent.vue'
 import AppLoader from '@/components/AppLoader.vue'
 import LoaderWrapper from '@/components/LoaderWrapper.vue'
 import { isLoading } from '@/composables/loader'
-// import WorksComponent from '@/pages/home/WorksComponent.vue'
+import WorksComponent from '@/pages/home/WorksComponent.vue'
 </script>
 
 <style scoped>

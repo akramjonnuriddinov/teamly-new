@@ -35,7 +35,7 @@
 import BaseButton from '@/components/BaseButton.vue'
 import { EThemes, ESize } from '@/types'
 import AppAnimation from '@/components/AppAnimation.vue'
-import ThinkAnimation from '@/assets/images/animation/think2.json'
+import ThinkAnimation from '@/assets/images/animation/think6.json'
 import { ref, onMounted } from 'vue'
 
 const anim = ref()
