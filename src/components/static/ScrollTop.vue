@@ -1,26 +1,39 @@
 <template>
-  <div>
-    <a
-      class="fixed z-50 rounded-md transition-all duration-700 ease-out bottom-0 right-12 text-white bg-tg-primary-color w-[50px] h-[50px] flex items-center justify-center hover:bg-tg-secondary-color"
-      :class="{
-        'translate-y-[100%]': translateYCustom,
-        'translate-y-[-28px]': !translateYCustom,
-      }"
+  <div
+    :class="{
+      'translate-y-[100%]': translateYCustom,
+      'translate-y-[-28px]': !translateYCustom,
+    }"
+    class="fixed bottom-0 right-12 z-50 flex flex-col items-center transition-all duration-700 ease-out"
+  >
+    <a href="tel:+998337737737" class="">
+      <app-animation :options="defaultOptions" :width="90" :speed="1" />
+    </a>
+    <!-- <a
+      class="flex h-[50px] w-[50px] items-center justify-center rounded-md bg-tg-primary-color text-white hover:bg-tg-secondary-color"
       href="#"
     >
       <arrow-top />
-    </a>
+    </a> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
-import ArrowTop from "@/components/icons/ArrowTop.vue"
+import { onMounted, ref } from 'vue'
+// import ArrowTop from '@/components/icons/ArrowTop.vue'
+import AppAnimation from '@/components/AppAnimation.vue'
+import PhoneAnimation from '@/assets/images/animation/phone2.json'
 
 const translateYCustom = ref(true)
+const defaultOptions = {
+  loop: false,
+  autoplay: true,
+  renderer: 'svg',
+  animationData: PhoneAnimation,
+}
 
 onMounted(() => {
-  window.addEventListener("scroll", () => {
+  window.addEventListener('scroll', () => {
     if (window.scrollY >= 300) {
       translateYCustom.value = false
     } else {

@@ -1,6 +1,7 @@
 <template>
   <div class="header-hero-wrapper">
-    <home-hero />
+    <home-hero v-if="false" />
+    <home-hero2 v-else />
     <Service />
     <about-us />
     <works-component />
@@ -16,6 +17,7 @@
 
 <script setup lang="ts">
 import HomeHero from '@/pages/home/HomeHero.vue'
+import HomeHero2 from '@/pages/home/HomeHero2.vue'
 import Service from '@/components/static/Service.vue'
 import AboutUs from '@/components/static/AboutUs.vue'
 import ProjectComponent from '@/pages/home/ProjectComponent.vue'
@@ -40,7 +42,7 @@ import WorksComponent from '@/pages/home/WorksComponent.vue'
   max-width: 1077px;
   width: 100%;
   height: 1077px;
-  background-image: linear-gradient(209.85deg, rgba(0, 178, 255, 0.1) 18.23%, rgba(255, 0, 15, 0) 96.18%);
+  /* background-image: linear-gradient(209.85deg, rgba(0, 178, 255, 0.1) 18.23%, rgba(255, 0, 15, 0) 96.18%); */
   filter: blur(150px);
   z-index: -1;
   background-size: cover;

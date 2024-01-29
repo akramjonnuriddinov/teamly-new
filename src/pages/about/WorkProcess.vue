@@ -54,13 +54,13 @@ const projects = ref([
     id: '3',
     title: 'Step Three',
     img_url: 'about-view/work_icon03.svg',
-    text: 'Build Website',
+    text: 'Build Application',
   },
   {
     id: '4',
     title: 'Step Four',
     img_url: 'about-view/work_icon04.svg',
-    text: 'Website Test',
+    text: 'Application Testing',
   },
 ])
 </script>

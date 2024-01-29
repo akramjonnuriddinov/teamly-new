@@ -24,7 +24,7 @@
           alt=""
         />
         <div v-else class="absolute right-10 top-1/2 -translate-y-1/2">
-          <app-animation :options="defaultOptions" :width="500" @animCreated="handleAnimation" />
+          <app-animation :options="defaultOptions" :width="500" @animCreated="handleAnimation" :speed="1" />
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
 import BaseButton from '@/components/BaseButton.vue'
 import { EThemes, ESize } from '@/types'
 import AppAnimation from '@/components/AppAnimation.vue'
-import ThinkAnimation from '@/assets/images/animation/think6.json'
+import ThinkAnimation from '@/assets/images/animation/contact1.json'
 import { ref, onMounted } from 'vue'
 
 const anim = ref()
@@ -47,7 +47,7 @@ const defaultOptions = {
 }
 
 onMounted(() => {
-  anim.value.playSegments([20, 90], false)
+  // anim.value.playSegments([20, 90], false)
 })
 
 const handleAnimation = (createdAnim: any) => {
