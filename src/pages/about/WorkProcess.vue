@@ -1,26 +1,28 @@
 <template>
-  <section class="bg-[#EFF7FF] relative pt-[40px] pb-[105px]">
-    <div class="container w-full px-5 mx-auto max-w-7xl">
+  <section class="relative bg-[#EFF7FFf] pb-[105px] pt-[40px]">
+    <div class="container mx-auto w-full max-w-7xl px-5">
       <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="pb-[70px]">
-        <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
+        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
           >Working Process
         </span>
-        <h2 class="text-center text-tg-dark-blue-color font-bold leading-[1.2] text-5xl max-sm:text-4xl">
-          Creating World Class <br class="max-[500px]:hidden" />
-          Experiences
+        <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
+          Optimized Success
+          <!-- <br class="max-[500px]:hidden" /> -->
         </h2>
       </div>
       <ul class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
         <li
           v-for="project in projects"
-          class="relative project-wrapper w-1/5 flex flex-col items-center overflow-hidden max-[1000px]:w-[40%] max-[760px]:max-w-[100%] max-[530px]:w-full"
+          class="project-wrapper relative flex w-1/5 flex-col items-center overflow-hidden max-[1000px]:w-[40%] max-[760px]:max-w-[100%] max-[530px]:w-full"
         >
-          <div class="w-[150px] bg-tg-white rounded-full h-[150px] flex items-center justify-center mb-5">
+          <div
+            class="mb-5 flex h-[150px] w-[150px] items-center justify-center rounded-full bg-tg-primary-color/80 shadow-job-inner"
+          >
             <img :src="getImageUrl(project.img_url)" alt="" />
           </div>
           <div class="flex flex-col items-center font-bold">
             <span class="mb-1 text-tg-primary-color">{{ project.title }}</span>
-            <h3 class="text-[22px] text-center text-tg-heading-font-color">
+            <h3 class="text-center text-[22px] text-tg-heading-font-color">
               {{ project.text }}
             </h3>
           </div>
@@ -52,13 +54,13 @@ const projects = ref([
     id: '3',
     title: 'Step Three',
     img_url: 'about-view/work_icon03.svg',
-    text: 'Website Test',
+    text: 'Build Website',
   },
   {
     id: '4',
     title: 'Step Four',
     img_url: 'about-view/work_icon04.svg',
-    text: 'Build Website',
+    text: 'Website Test',
   },
 ])
 </script>

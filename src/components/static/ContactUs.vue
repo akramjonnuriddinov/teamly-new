@@ -2,7 +2,7 @@
   <section class="bg-white pb-[200px] pt-[100px]">
     <div class="container relative mx-auto max-w-7xl px-5">
       <div
-        class="flex items-center justify-between rounded-[30px] bg-tg-primary-color px-[100px] py-[55px] pt-[75px] max-[990px]:px-[20px]"
+        class="flex items-center justify-between rounded-[30px] bg-tg-primary-color px-[100px] py-[85px] max-[990px]:px-[20px]"
       >
         <div
           class="relative w-full max-w-2xl max-[990px]:flex max-[990px]:max-w-full max-[990px]:flex-col max-[990px]:items-center"
@@ -18,10 +18,14 @@
           </router-link>
         </div>
         <img
+          v-if="false"
           class="absolute -top-20 right-0 max-[990px]:hidden"
           src="@/assets/images/home-contact/newsletter_img.png"
           alt=""
         />
+        <div v-else class="absolute right-10 top-1/2 -translate-y-1/2">
+          <app-animation :options="defaultOptions" :width="500" @animCreated="handleAnimation" />
+        </div>
       </div>
     </div>
   </section>
@@ -30,4 +34,23 @@
 <script setup lang="ts">
 import BaseButton from '@/components/BaseButton.vue'
 import { EThemes, ESize } from '@/types'
+import AppAnimation from '@/components/AppAnimation.vue'
+import ThinkAnimation from '@/assets/images/animation/think6.json'
+import { ref, onMounted } from 'vue'
+
+const anim = ref()
+const defaultOptions = {
+  loop: false,
+  autoplay: true,
+  renderer: 'svg',
+  animationData: ThinkAnimation,
+}
+
+onMounted(() => {
+  anim.value.playSegments([20, 90], false)
+})
+
+const handleAnimation = (createdAnim: any) => {
+  anim.value = createdAnim
+}
 </script>
