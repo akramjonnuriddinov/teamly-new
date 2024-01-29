@@ -39,6 +39,7 @@
               <label class="text-gray-700" for="text">Comment</label>
               <editor
                 @input="handleShortDescriptionFromChild"
+                :content="comment.shortDescription"
                 :edit-editor="comment.shortDescription"
                 class="w-[80%]"
               />
@@ -47,14 +48,14 @@
         </form>
       </div>
       <div class="mt-auto flex justify-end px-10 pt-5">
-        <base-button :is-loading="isLoading" @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
+        <base-button :is-loading="isLoading" :disabled="disabled" @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
       </div>
     </div>
   </BaseModal>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import Editor from '@/components/Editor.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { ESize } from '@/types'
@@ -62,6 +63,7 @@ import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import BaseModal from '@/components/BaseModal.vue'
 import { fetchData } from '@/composables/fetchData'
+import { isDisabled } from '@/composables/isDisabled'
 
 const collectionRef = collection(db, 'applier_statuses')
 const props = defineProps(['currentUser', 'statuses'])
@@ -77,6 +79,12 @@ const comment = ref<any>({
 })
 const tasks = ref<any>([])
 const isTaskShow = ref(false)
+
+const disabled = computed(() => isDisabled({
+  status: comment.value.status_id,
+  description: comment.value.shortDescription,
+  task: isTaskShow.value ? comment.value.task_id : true
+}))
 
 onMounted(async () => {
   tasks.value = await fetchData('tasks')
@@ -106,6 +114,7 @@ const add = async () => {
 }
 
 const changeTaskShow = (value:any) => {
+  comment.value.shortDescription = props.statuses.find((status:any) => status.id === value.target.value).definition
   isTaskShow.value = value.target.value === '8nJTTRTAQephYvWWQNWx'
 }
 
