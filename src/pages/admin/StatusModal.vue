@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import Editor from '@/components/Editor.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { ESize } from '@/types'
