@@ -10,7 +10,7 @@
           class="relative w-full max-w-2xl pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px] min-[1400px]:pt-[200px]"
         >
           <img
-            class="absolute transition-all duration-1000 ease-out -left-10 top-10 max-sm:top-0"
+            class="absolute -left-10 top-10 transition-all duration-1000 ease-out max-sm:top-0"
             :class="{
               'translate-x-[50px]': customTranslateY,
               'translate-x-[0]': !customTranslateY,
@@ -33,7 +33,7 @@
         </div>
       </div>
       <img
-        class="absolute transition-all duration-1000 ease-out -bottom-40 -left-5"
+        class="absolute -bottom-40 -left-5 transition-all duration-1000 ease-out"
         :class="{
           'translate-y-[80px]': customTranslateY,
           'translate-x-[0]': !customTranslateY,
@@ -41,7 +41,7 @@
         src="@/assets/images/banner_shape03.png"
         alt=""
       />
-      <div class="absolute banner-shaper"></div>
+      <div class="banner-shaper absolute"></div>
     </div>
   </section>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <hero-banner :title="hero_content.title" :text="hero_content.text" :img_url="hero_content.img_url" />
+    <about-component />
     <about-us />
   </div>
   <team-component />
@@ -8,6 +9,7 @@
 
 <script setup lang="ts">
 import HeroBanner from '@/components/HeroBanner.vue'
+import AboutComponent from '@/pages/about/AboutComponent.vue'
 import AboutUs from '@/components/static/AboutUs.vue'
 import { getImageUrl } from '@/composables/getImgUrl'
 import TeamComponent from '@/pages/home/TeamComponent.vue'
