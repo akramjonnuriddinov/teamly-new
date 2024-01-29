@@ -11,6 +11,7 @@
                   v-model="comment.status_id"
                   class="w-full rounded-md border border-gray-200 p-2 outline-blue-300"
                   id="category"
+                  @change="changeTaskShow"
                 >
                   <option value="" disabled selected>Status</option>
                   <option class="flex items-center" :value="status.id" :key="status.id" v-for="status in statuses">
@@ -67,9 +68,6 @@ const props = defineProps(['currentUser', 'statuses'])
 const isLoading = ref(false)
 const emit = defineEmits(['close'])
 
-const statuses = ref()
-statuses.value = props.statuses
-
 const comment = ref<any>({
   status_id: '',
   shortDescription: '',
@@ -81,22 +79,8 @@ const tasks = ref<any>([])
 const isTaskShow = ref(false)
 
 onMounted(async () => {
-  if (!tasks.value.length) {
-    tasks.value = await fetchData('tasks')
-  }
+  tasks.value = await fetchData('tasks')
 })
-
-watch(
-  comment,
-  (newVal: any) => {
-    if (newVal.status_id === '8nJTTRTAQephYvWWQNWx') {
-      isTaskShow.value = true
-    } else isTaskShow.value = false
-  },
-  {
-    deep: true,
-  },
-)
 
 const add = async () => {
   try {
@@ -116,9 +100,13 @@ const add = async () => {
   } catch (error) {
     console.error('status adding error...', error)
   } finally {
-    emit('close')
+    emit('close', comment.value.status_id)
     isLoading.value = false
   }
+}
+
+const changeTaskShow = (value:any) => {
+  isTaskShow.value = value.target.value === '8nJTTRTAQephYvWWQNWx'
 }
 
 const handleShortDescriptionFromChild = (shortDescription: string) => {
