@@ -53,6 +53,9 @@
                   <div>
                     {{ userApplierStatus.task.definition }}
                   </div>
+                  <div class="my-4">
+                    <SubmittedTask link="something" />
+                  </div>
                 </div>
                 <span v-else>
                   {{ userApplierStatus.status?.definition }}
@@ -73,6 +76,7 @@ import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
+import SubmittedTask from './SubmittedTask.vue'
 
 const props = defineProps(['expanded', 'applier_id'])
 const statuses = ref<any>([])
