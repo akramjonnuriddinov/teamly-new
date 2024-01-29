@@ -38,9 +38,16 @@
             <div class="mb-2 mt-2 flex w-full items-center justify-between">
               <label class="text-gray-700" for="text">Comment</label>
               <editor
-                @input="handleShortDescriptionFromChild"
-                :content="comment.shortDescription"
+                @input="handleShortDescriptionFromChild($event, 'shortDescription')"
                 :edit-editor="comment.shortDescription"
+                class="w-[80%]"
+              />
+            </div>
+            <div class="mb-2 mt-2 flex w-full items-center justify-between">
+              <label class="text-gray-700" for="text">Feedback</label>
+              <editor
+                @input="handleShortDescriptionFromChild($event, 'feedback')"
+                :content="comment.feedback"
                 class="w-[80%]"
               />
             </div>
@@ -72,18 +79,19 @@ const emit = defineEmits(['close'])
 
 const comment = ref<any>({
   status_id: '',
-  shortDescription: '',
+  shortDescription: ' ',
   applier_id: props.currentUser.applier_id,
   vacancy_id: props.currentUser.vacancy_id,
   task_id: '',
+  feedback: ' '
 })
 const tasks = ref<any>([])
 const isTaskShow = ref(false)
 
 const disabled = computed(() => isDisabled({
   status: comment.value.status_id,
-  description: comment.value.shortDescription,
-  task: isTaskShow.value ? comment.value.task_id : true
+  task: isTaskShow.value ? comment.value.task_id : true,
+  feedback: comment.value.feedback
 }))
 
 onMounted(async () => {
@@ -114,11 +122,11 @@ const add = async () => {
 }
 
 const changeTaskShow = (value:any) => {
-  comment.value.shortDescription = props.statuses.find((status:any) => status.id === value.target.value).definition
+  comment.value.feedback = props.statuses.find((status:any) => status.id === value.target.value).definition
   isTaskShow.value = value.target.value === '8nJTTRTAQephYvWWQNWx'
 }
 
-const handleShortDescriptionFromChild = (shortDescription: string) => {
-  comment.value.shortDescription = shortDescription
+const handleShortDescriptionFromChild = (shortDescription: string, slug: string) => {
+  comment.value[slug] = shortDescription
 }
 </script>
