@@ -81,7 +81,7 @@ const links = [
 ]
 
 const hasChildRoute = computed(() => ['resume', 'message'].includes(route.name as any))
-const isActive = computed(() => (link: string) => link === props.active && hasChildRoute)
+const isActive = computed(() => (link: string) => link === props.active && !hasChildRoute.value)
 </script>
 
 <style scoped>

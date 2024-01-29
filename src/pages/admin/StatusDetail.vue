@@ -45,9 +45,7 @@
             >
           </div>
 
-          <div class="px-5 text-slate-500">
-            {{ applierStatus.status?.definition }}
-          </div>
+          <div class="px-5 text-slate-500" v-html="applierStatus.shortDescription || applierStatus.status?.definition" />
         </li>
       </ul>
     </div>
@@ -58,7 +56,7 @@
 import { ref, onMounted } from 'vue'
 import TheTransition from '@/components/TheTransition.vue'
 import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 
@@ -68,36 +66,27 @@ const tasks = ref<any>([])
 const listLoading = ref(true)
 
 const loadApplierStatuses = async () => {
-  const applierStatusesQuery = query(collection(db, 'applier_statuses'), where('applier_id', '==', props.applier_id))
+  const applierStatusesQuery = query(collection(db, 'applier_statuses'), where('applier_id', '==', props.applier_id), orderBy('date', 'desc'))
   const applierStatusesSnapshot = await getDocs(applierStatusesQuery)
 
-  applierStatuses.value = applierStatusesSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }))
 
   const tasksQuery = query(collection(db, 'tasks'))
   const tasksSnapshot = await getDocs(tasksQuery)
+  tasks.value = tasksSnapshot.docs.map(doc => doc.data())
 
-  tasks.value = tasksSnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }))
+  applierStatuses.value = applierStatusesSnapshot.docs.map(doc => {
+    const item = doc.data()
+      return {
+      ...item,
+      status: props.statuses.find((el: any) => el.id === item.status_id),
+      task: tasks.value.filter((task: any) => task.id === item.task_id)[0]
+    }
+  })
 }
 
 onMounted(async () => {
   try {
     await loadApplierStatuses()
-
-    applierStatuses.value = applierStatuses.value.map((item: any) => ({
-      ...item,
-      status: props.statuses.find((el: any) => el.id === item.status_id),
-    }))
-
-    applierStatuses.value = applierStatuses.value.map((item: any) => ({
-      ...item,
-      task: tasks.value.filter((task: any) => task.id === item.task_id)[0],
-    }))
   } catch (error) {
     console.error('Error:', error)
   } finally {

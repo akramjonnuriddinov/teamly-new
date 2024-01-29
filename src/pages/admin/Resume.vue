@@ -61,7 +61,7 @@
       <div v-else>Nothing found...</div>
     </div>
   </div>
-  <status-modal v-if="isStatusModal" @close="isStatusModal = false" :currentUser="currentUser" :statuses="statuses" />
+  <status-modal v-if="isStatusModal" @close="closeStatusModal" :currentUser="currentUser" :statuses="statuses" />
   <user-modal v-if="isUserModal" :user="selectedUser" @close="isUserModal = false" />
 </template>
 
@@ -175,12 +175,19 @@ const toggleAccordion = (value: any, applier: any) => {
 }
 
 const removeUser = async (id: string) => {
-  await deleteDoc(doc(db, 'appliers', id))
   allData.value = allData.value.filter((item: any) => item.id !== id)
+  await deleteDoc(doc(db, 'appliers', id))
 }
 
 const openUserModal = (user: object) => {
   isUserModal.value = true
   selectedUser.value = user
+}
+
+const closeStatusModal = (value:string) => {
+  isStatusModal.value = false
+  if (value) {
+    allData.value[allData.value.findIndex((item:any) => item.id === currentUser.value.applier_id)].status = statuses.value.find((status: any) => status.id === value)
+  }
 }
 </script>
