@@ -56,7 +56,7 @@
               class="mb-[22px] whitespace-nowrap text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
               :to="{
                 name: 'contact',
-                params: {
+                query: {
                   service: service.title,
                   options: serviceOptions,
                 },

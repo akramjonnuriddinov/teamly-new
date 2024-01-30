@@ -63,9 +63,9 @@
                     name="service"
                     id="service"
                     placeholder="Phone Number"
-                    class="w-full rounded-md border border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
+                    class="w-full rounded-md border cursor-pointer border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
                   >
-                    <option v-for="option in serviceOptions" class="flex items-center" :value="option">
+                    <option v-for="(option, index) in serviceOptions" :key="index" class="flex items-center cursor-pointer" :value="option">
                       {{ option }}
                     </option>
                   </select>
@@ -140,7 +140,7 @@ const message = ref<any>({
   email: '',
   phone: '',
   text: '',
-  service: route.params.service,
+  service: route.query.service,
 })
 const isLoading = ref(false)
 const defaultOptions = {
@@ -150,7 +150,7 @@ const defaultOptions = {
   animationData: SentMail,
 }
 const anim = ref()
-const serviceOptions = route.params.options
+const serviceOptions = route.query.options
 
 const disabled = computed(() => isDisabled(message.value))
 
@@ -204,6 +204,7 @@ const sendMessage = async () => {
     email: '',
     phone: '',
     text: '',
+    service: ''
   }
 }
 </script>
