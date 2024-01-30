@@ -6,21 +6,21 @@
     }"
     class="fixed bottom-0 right-12 z-50 flex flex-col items-center transition-all duration-700 ease-out"
   >
-    <a href="tel:+998337737737" class="">
+    <a href="tel:+998337737737" class="hidden">
       <app-animation :options="defaultOptions" :width="90" :speed="1" />
     </a>
-    <!-- <a
+    <a
       class="flex h-[50px] w-[50px] items-center justify-center rounded-md bg-tg-primary-color text-white hover:bg-tg-secondary-color"
       href="#"
     >
       <arrow-top />
-    </a> -->
+    </a>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-// import ArrowTop from '@/components/icons/ArrowTop.vue'
+import ArrowTop from '@/components/icons/ArrowTop.vue'
 import AppAnimation from '@/components/AppAnimation.vue'
 import PhoneAnimation from '@/assets/images/animation/phone2.json'
 

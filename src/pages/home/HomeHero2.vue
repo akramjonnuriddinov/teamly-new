@@ -1,58 +1,61 @@
 <template>
-  <section class="banner-area relative z-[1] overflow-hidden min-[1400px]:h-auto min-[1400px]:min-h-screen">
-    <div
-      class="container relative mx-auto max-w-7xl px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
-    >
-      <div
-        class="flex justify-between pt-[75px] max-[990px]:flex-col-reverse max-[990px]:flex-wrap max-[990px]:items-center max-[990px]:justify-center max-[990px]:pb-[110px] max-[990px]:pt-[50px]"
-      >
-        <div
-          class="relative mx-auto w-full max-w-[64rem] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[40px] min-[1400px]:pt-[200px]"
-        >
-          <h1
-            class="mb-4 text-center text-6xl font-bold leading-[1.2] text-tg-dark-blue-color max-[990px]:text-center max-sm:text-4xl min-[1400px]:text-[70px]"
-          >
-            Shaping Digital <br />
-            Dreams
-          </h1>
-          <span class="flex justify-center text-center text-[3rem] font-bold text-tg-primary-color-two"
-            >Identity Verification & PII Storage</span
-          >
-          <p class="mb-10 text-center text-lg text-tg-heading-font-color max-[990px]:text-center">
-            We help you transform your ideas into reality. Contact us today and let us shape your digital dreams.
-          </p>
-          <div class="flex w-full items-center justify-center gap-5">
-            <base-button>
-              <router-link to="/contact"> Get Started </router-link>
-            </base-button>
-            <base-button class="border-2" :theme="EThemes.WHITE">
-              <router-link to="/contact"> Contact </router-link>
-            </base-button>
+  <div class="pt-[100px]">
+    <section class="bg-[#FCF8F1] bg-opacity-30 py-10 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+          <div class="relative">
+            <p class="mb-3 font-font1 text-lg font-bold text-tg-primary-color">Weaving Dreams into Digital Realities</p>
+            <h1 class="mt-4 text-7xl font-bold text-tg-dark-blue-color">Shaping Digital Dreams</h1>
+            <p class="mt-4 font-font1 text-base text-black sm:text-xl lg:mt-8">
+              We help you transform your ideas into reality. Contact us today and let us shape your digital dreams.
+            </p>
+            <div class="mt-5 flex items-center justify-between">
+              <a href="tel:+998337737737" class="inline-flex items-center py-4">
+                <app-animation :options="phoneOptions" :width="90" />
+                <span class="text-xl font-semibold">+998 (33) 773-77-37</span>
+              </a>
+              <a href="https://t.me/m_mirahmad" class="" target="_blank">
+                <app-animation :options="telegramOptions1" :width="190" />
+              </a>
+            </div>
+          </div>
+          <div>
+            <div class="w-full">
+              <AppAnimation :options="defaultOptions" :width="600" />
+            </div>
           </div>
         </div>
-        <div v-if="false" class="preloader__animation absolute -right-[200px] top-[280px]">
-          <AppAnimation :options="defaultOptions" :width="600" @animCreated="handleAnimation" />
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import BaseButton from '@/components/BaseButton.vue'
-import AnimationJson from '@/assets/images/animation/home-hero-animation-8.json'
+import AnimationJson from '@/assets/images/animation/hero1.json'
 import AppAnimation from '@/components/AppAnimation.vue'
-import { EThemes } from '@/types'
+import PhoneAnimation from '@/assets/images/animation/phone2.json'
+import TelegramAnimation1 from '@/assets/images/animation/telegram1.json'
 
 const customTranslateY = ref(false)
-const anim = ref<any>(null)
 
 const defaultOptions = {
   loop: false,
   autoplay: true,
   renderer: 'svg',
   animationData: AnimationJson,
+}
+const phoneOptions = {
+  loop: false,
+  autoplay: true,
+  renderer: 'svg',
+  animationData: PhoneAnimation,
+}
+const telegramOptions1 = {
+  loop: false,
+  autoplay: true,
+  renderer: 'svg',
+  animationData: TelegramAnimation1,
 }
 
 onMounted(() => {
@@ -63,10 +66,6 @@ onMounted(() => {
       customTranslateY.value = false
     }
   })
-  // anim.value.playSegments([85, 181], true) // animation-3
+  // anim.value.playSegments([40, 92], true) // animation-3
 })
-
-const handleAnimation = (createdAnim: any) => {
-  anim.value = createdAnim
-}
 </script>
