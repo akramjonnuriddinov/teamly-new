@@ -66,6 +66,7 @@
                 v-if="detailExpanded === index"
                 :expanded="detailExpanded === index"
                 :applier_id="vacancy.applier_id"
+                :vacancy="vacancy.id"
               />
             </keep-alive>
           </div>

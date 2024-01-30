@@ -59,6 +59,11 @@ export const router = createRouter({
           name: 'message',
           component: () => import('@/pages/admin/MessageView.vue')
         },
+        {
+          path: '/admin/submitted-tasks',
+          name: 'SubmittedTasks',
+          component: () => import('@/pages/admin/SubmittedTasks.vue')
+        }
       ]
     },
     {
