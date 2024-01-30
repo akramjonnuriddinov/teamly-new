@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import AnimationJson from '@/assets/images/animation/hero1.json'
+import AnimationJson from '@/assets/images/animation/hero3.json'
 import AppAnimation from '@/components/AppAnimation.vue'
 import PhoneAnimation from '@/assets/images/animation/phone2.json'
 import TelegramAnimation1 from '@/assets/images/animation/telegram1.json'

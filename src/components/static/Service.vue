@@ -54,7 +54,13 @@
           >
             <router-link
               class="mb-[22px] whitespace-nowrap text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
-              to="/service"
+              :to="{
+                name: 'contact',
+                params: {
+                  service: service.title,
+                  options: serviceOptions,
+                },
+              }"
               >{{ service.title }}</router-link
             >
             <img class="service-item-img mb-6 h-[75px] w-[75px] object-cover" :src="service.image" alt="img" />
@@ -87,6 +93,7 @@ const services = ref<any[]>([])
 const isLoading = ref(true)
 
 const isHome = computed(() => route.path === '/')
+const serviceOptions = computed(() => services.value.map((item: any) => item.title))
 
 onMounted(async () => {
   isLoading.value = true
