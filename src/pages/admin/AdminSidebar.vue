@@ -78,9 +78,14 @@ const links = [
     name: 'tasks',
     icon: TaskIcon,
   },
+  {
+    name: 'Submitted Tasks',
+    page: 'SubmittedTasks',
+    icon: TaskIcon,
+  }
 ]
 
-const hasChildRoute = computed(() => ['resume', 'message'].includes(route.name as any))
+const hasChildRoute = computed(() => ['resume', 'message', 'SubmittedTasks'].includes(route.name as any))
 const isActive = computed(() => (link: string) => link === props.active && !hasChildRoute.value)
 </script>
 
