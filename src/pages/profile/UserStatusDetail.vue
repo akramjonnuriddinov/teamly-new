@@ -53,8 +53,8 @@
                   <div>
                     {{ userApplierStatus.task.definition }}
                   </div>
-                  <div class="my-4">
-                    <SubmittedTask link="something" />
+                  <div class="mt-4">
+                    <SubmittedTask :input="{...userApplierStatus.submittedTask, vacancy: userApplierStatus.vacancy_id}" />
                   </div>
                 </div>
                 <span v-else>
@@ -77,8 +77,10 @@ import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLo
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
 import SubmittedTask from './SubmittedTask.vue'
+import { useAuthStore } from '@/store/auth'
 
-const props = defineProps(['expanded', 'applier_id'])
+const store = useAuthStore()
+const props = defineProps(['expanded', 'applier_id', 'vacancy'])
 const statuses = ref<any>([])
 const isLoading = ref(false)
 const tasks = ref<any>([])
@@ -102,7 +104,13 @@ const loadData = async () => {
   const statusesPromise = getDocs(statusesQuery)
   const tasksQuery = query(collection(db, 'tasks'))
   const tasksPromise = getDocs(tasksQuery)
-  const [statusesSnapshot, tasksSnapshot] = await Promise.all([statusesPromise, tasksPromise])
+  const submittedTasksPromise = getDocs(query(
+    collection(db, 'submitted_tasks'),
+    where('vacancy', '==', props.vacancy),
+    where('user', '==', store.user.id)
+  ))
+  const [statusesSnapshot, tasksSnapshot, submittedTasksSpanshot] = await Promise.all([statusesPromise, tasksPromise, submittedTasksPromise])
+  const submittedTasks = submittedTasksSpanshot.docs.map(item => item.data())
 
   statuses.value = statusesSnapshot.docs.map((doc) => ({
     id: doc.id,
@@ -122,6 +130,7 @@ const loadData = async () => {
     ...item,
     status: statuses.value.filter((status: any) => status.id === item.status_id)[0],
     task: tasks.value.filter((task: any) => task.id === item.task_id)[0],
+    submittedTask: item.status_id === '8nJTTRTAQephYvWWQNWx' && submittedTasks.length ? submittedTasks[0] : null
   }))
 }
 </script>
