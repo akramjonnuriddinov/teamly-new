@@ -13,7 +13,7 @@ import ControlPanel from '@/pages/admin/ControlPanel.vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const active = ref('vacancies')
-const isPage = computed(() => ['resume', 'message', 'SubmittedTasks'].includes(route.name))
+const isPage = computed(() => ['resume', 'message', 'SubmittedTasks'].includes(route.name as any))
 const hasInnerPage = computed(() => active.value === 'vacancies')
 
 const changeActive = (name: string) => (active.value = name)
