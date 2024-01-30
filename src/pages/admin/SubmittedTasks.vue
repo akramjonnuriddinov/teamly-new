@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { collection, query, getDocs, where } from 'firebase/firestore'
 import { db } from '@/firebase'
