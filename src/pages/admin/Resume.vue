@@ -189,6 +189,7 @@ const toggleAccordion = (value: any, applier: any) => {
 
 const removeUser = async (id: string) => {
   allData.value = allData.value.filter((item: any) => item.id !== id)
+  filteredAppliers.value = filteredAppliers.value.filter((item: any) => item.id !== id)
   await deleteDoc(doc(db, 'appliers', id))
 }
 

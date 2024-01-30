@@ -21,7 +21,7 @@
         <template v-for="task in filteredTasks" :key="task.id">
           <li class="relative mb-5 flex flex-col">
             <div class="flex h-full items-center gap-10 justify-between rounded-md bg-gray-50 p-5 font-medium">
-              <span class="cursor-pointer" @click="openUserModal(task.user)">{{ task.user.name }}</span>
+              <span class="cursor-pointer w-60" @click="openUserModal(task.user)">{{ task.user.name }}</span>
               <span>{{ task.vacancy.title }}</span>
               <a :href="task.source" target="_blank" class="ml-auto text-tg-primary-color">Source</a>
               <a :href="task.live" target="_blank" class="text-tg-primary-color">Live</a>
@@ -86,6 +86,7 @@ const loadData = async () => {
 
 const removeMessage = async (id: string) => {
   tasks.value = tasks.value.filter((item: any) => item.id !== id)
+  filteredTasks.value = filteredTasks.value.filter((item: any) => item.id !== id)
   await deleteDoc(doc(db, 'submitted_tasks', id))
 }
 
