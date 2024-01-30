@@ -1,16 +1,28 @@
 <template>
   <div class="flex h-screen w-full flex-col overflow-y-scroll p-8" @scroll="detectScroll">
     <div>
-      <h2 class="mb-10 text-3xl capitalize">Appliers</h2>
+      <div class="flex items-center justify-between">
+        <h2 class="mb-10 text-3xl capitalize">Appliers</h2>
+        <select
+          class="rounded-md border border-gray-200 p-2 outline-blue-300"
+          id="category"
+          @change="setFilter"
+        >
+          <option value="all" selected>All</option>
+          <option v-for="option in statuses" class="flex items-center" :value="option.id" :key="option.id">
+            {{ option.title }}
+          </option>
+        </select>
+      </div>
       <div v-if="isLoading" class="flex justify-center py-20">
         <app-loader />
       </div>
-      <ul v-else-if="appliers.length">
-        <template v-for="(applier, index) in allData" :key="index">
+      <ul v-else-if="filteredAppliers.length">
+        <template v-for="applier in filteredAppliers" :key="applier.id">
           <li v-if="applier.user" class="relative mb-5 flex flex-col">
             <div class="flex h-full items-center justify-between rounded-md border bg-gray-50 p-5">
               <button
-                @click="toggleAccordion(index, applier)"
+                @click="toggleAccordion(applier.id, applier)"
                 class="transition-color mr-4 text-tg-paragraph-color duration-300 hover:text-tg-heading-font-color"
               >
                 <inline-svg title="Show history" class="h-5 w-5" src="history.svg" />
@@ -45,10 +57,10 @@
             </div>
             <keep-alive>
               <status-detail
-                v-if="detailExpanded === index"
+                v-if="detailExpanded === applier.id"
                 :applier_id="applier.id"
                 :status_id="applier.status_id"
-                :expanded="detailExpanded === index"
+                :expanded="detailExpanded === applier.id"
                 :statuses="statuses"
               />
             </keep-alive>
@@ -66,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { doc, deleteDoc, where } from 'firebase/firestore'
 import { db } from '@/firebase'
 import StatusDetail from '@/pages/admin/StatusDetail.vue'
@@ -93,8 +105,8 @@ const isLoadMore = ref(true)
 const applier_id = ref(null)
 const loadMoreLoading = ref(false)
 const allData = ref<any>([])
-// let lastVisible: any = null
-// const options = ref<any>([])
+const filteredAppliers = ref<any>([])
+
 
 onMounted(async () => {
   await loadMore()
@@ -151,6 +163,7 @@ const loadMore = async () => {
     status: statuses.value.find((status: any) => status.id === applier.status_id),
     vacancy: vacancies.value.find((vacancy: any) => vacancy.id === applier.vacancy_id),
   }))
+  filteredAppliers.value = allData.value
 }
 
 const detectScroll = async (event: any) => {
@@ -189,5 +202,9 @@ const closeStatusModal = (value:string) => {
   if (value) {
     allData.value[allData.value.findIndex((item:any) => item.id === currentUser.value.applier_id)].status = statuses.value.find((status: any) => status.id === value)
   }
+}
+
+const setFilter = (value:any) => {
+  filteredAppliers.value = value.target.value === 'all' ? allData.value : allData.value.filter((item:any) => item.status.id === value.target.value)
 }
 </script>

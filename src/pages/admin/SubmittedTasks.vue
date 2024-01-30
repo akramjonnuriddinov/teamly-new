@@ -1,12 +1,24 @@
 <template>
   <div class="flex h-screen w-full flex-col overflow-y-scroll p-8">
     <div>
-      <h2 class="mb-10 text-3xl capitalize">Submitted Task</h2>
+      <div class="flex items-center justify-between">
+        <h2 class="mb-10 text-3xl capitalize">Submitted Task</h2>
+        <select
+          class="rounded-md border border-gray-200 p-2 outline-blue-300"
+          id="category"
+          @change="setFilter"
+        >
+          <option value="all" selected>All</option>
+          <option v-for="option in vacancies" class="flex items-center" :value="option.id" :key="option.id">
+            {{ option.title }}
+          </option>
+        </select>
+      </div>
       <div v-if="isLoading" class="flex justify-center py-20">
         <app-loader />
       </div>
-      <ul v-else-if="tasks.length">
-        <template v-for="task in tasks" :key="task.id">
+      <ul v-else-if="filteredTasks.length">
+        <template v-for="task in filteredTasks" :key="task.id">
           <li class="relative mb-5 flex flex-col">
             <div class="flex h-full items-center gap-10 justify-between rounded-md bg-gray-50 p-5 font-medium">
               <span class="cursor-pointer" @click="openUserModal(task.user)">{{ task.user.name }}</span>
@@ -29,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { doc, deleteDoc } from 'firebase/firestore'
 import { collection, query, getDocs, where } from 'firebase/firestore'
 import { db } from '@/firebase'
@@ -38,9 +50,12 @@ import UserModal from '@/pages/admin/UserModal.vue'
 
 
 const tasks = ref<any>([])
+const vacancies = ref<any>([])
 const isLoading = ref(true)
 const isUserModalOpen = ref(false)
 const selectedUser = ref(false)
+
+const filteredTasks = ref<any>([])
 
 onMounted(async () => {
   await loadData()
@@ -60,12 +75,13 @@ const loadData = async () => {
   const vacanciesQuery = getDocs(query(collection(db, 'vacancies'), where('id', 'in', vacancyIds)))
   const [usersSnapshot, vacanciesSnapshot] = await Promise.all([usersQuery, vacanciesQuery])
   const users = usersSnapshot.docs.map(item => item.data())
-  const vacancies = vacanciesSnapshot.docs.map(item => item.data())
+  vacancies.value = vacanciesSnapshot.docs.map(item => item.data())
   tasks.value = tasks.value.map((task:any) => ({
     ...task,
     user: users.find(item => item.id === task.user),
-    vacancy: vacancies.find(item => item.id === task.vacancy)
+    vacancy: vacancies.value.find((item:any) => item.id === task.vacancy)
   }))
+  filteredTasks.value = tasks.value
 }
 
 const removeMessage = async (id: string) => {
@@ -76,5 +92,9 @@ const removeMessage = async (id: string) => {
 const openUserModal = (user:any) => {
   selectedUser.value = user
   isUserModalOpen.value = true
+}
+
+const setFilter = (value:any) => {
+  filteredTasks.value = value.target.value === 'all' ? tasks.value : tasks.value.filter((item:any) => item.vacancy.id === value.target.value)
 }
 </script>
