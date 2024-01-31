@@ -8,7 +8,7 @@
         Edit
       </button>
    </div>
-   <base-button v-else :size="ESize.SMALL" @click="isModalOpen = true">Add your work</base-button>
+   <button v-else class="font-semibold text-tg-primary-color" @click="isModalOpen = true"> + Add your work</button>
    <SubmittedTasksModal v-if="isModalOpen" :input="{...data, vacancy: input.vacancy, user}" @close="closeModal"/>
   </div>
 </template>
@@ -16,7 +16,6 @@
 <script setup>
 import { ref, onUpdated } from "vue";
 import { ESize } from '@/types'
-import BaseButton from '@/components/BaseButton.vue'
 import SubmittedTasksModal from "./SubmittedTasksModal.vue";
 import InlineSvg from "@/components/InlineSvg.vue";
 import { getDocs, query, collection, where } from "firebase/firestore";
