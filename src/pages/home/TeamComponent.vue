@@ -15,7 +15,36 @@
           </div>
         </div>
       </div>
-      <div class="-mx-4 flex flex-wrap justify-center">
+      <ul v-if="isLoading" class="flex flex-wrap justify-center gap-4 gap-y-20">
+        <li
+          class="bg-trasnparent team-content relative rounded-[30px] max-[700px]:w-full max-[700px]:max-w-full"
+          v-for="team in 4"
+          :key="team"
+        >
+          <div class="w-full overflow-hidden rounded-[30px]">
+            <Skeleton
+              class="team-content-img h-[331px] w-full min-w-[318px] max-w-full scale-100 object-cover duration-700 ease-in-out max-[700px]:max-w-full"
+              width="100%"
+              height="331px"
+              :theme="ESkeletonTheme.LIGHT"
+            />
+          </div>
+          <div
+            class="absolute bottom-0 left-1/2 flex w-full max-w-[90%] -translate-x-1/2 translate-y-1/2 flex-col items-center justify-center rounded-[20px] bg-tg-white p-[30px] max-[700px]:max-w-[80%] max-[600px]:px-5 max-[400px]:max-w-[90%] max-[400px]:p-4"
+          >
+            <h3
+              class="max-w-[258px] overflow-hidden text-ellipsis text-center text-2xl font-bold leading-[1.2] text-tg-heading-font-color transition-all duration-300 hover:text-tg-primary-color max-[700px]:max-w-full max-[480px]:text-xl"
+            >
+              <Skeleton width="251px" height="31px" :theme="ESkeletonTheme.LIGHT" />
+            </h3>
+            <span
+              class="leadin-1 mt-4 max-w-[258px] overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg text-tg-paragraph-color"
+              ><Skeleton width="168px" height="28px" :theme="ESkeletonTheme.LIGHT"
+            /></span>
+          </div>
+        </li>
+      </ul>
+      <div v-else class="-mx-4 flex flex-wrap justify-center">
         <template v-for="item in teams">
           <div class="w-full px-4 md:w-1/2 xl:w-1/4">
             <div class="team-content mx-auto mb-10 w-full max-w-[370px] rounded-[30px]">
