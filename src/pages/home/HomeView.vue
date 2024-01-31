@@ -1,7 +1,6 @@
 <template>
   <div class="header-hero-wrapper">
-    <home-hero v-if="false" />
-    <home-hero2 v-else />
+    <home-hero />
     <Service />
     <about-us />
     <works-component />
@@ -16,8 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import HomeHero from '@/pages/home/HomeHero.vue'
-import HomeHero2 from '@/pages/home/HomeHero2.vue'
+import HomeHero from '@/pages/home/HomeHero2.vue'
 import Service from '@/components/static/Service.vue'
 import AboutUs from '@/components/static/AboutUs.vue'
 import ProjectComponent from '@/pages/home/ProjectComponent.vue'

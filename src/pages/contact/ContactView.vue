@@ -63,9 +63,14 @@
                     name="service"
                     id="service"
                     placeholder="Phone Number"
-                    class="w-full rounded-md border cursor-pointer border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
+                    class="w-full cursor-pointer rounded-md border border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
                   >
-                    <option v-for="(option, index) in serviceOptions" :key="index" class="flex items-center cursor-pointer" :value="option">
+                    <option
+                      v-for="(option, index) in serviceOptions"
+                      :key="index"
+                      class="flex cursor-pointer items-center"
+                      :value="option"
+                    >
                       {{ option }}
                     </option>
                   </select>
@@ -84,7 +89,7 @@
                 <div>
                   <base-button :disabled="disabled" class="base-button w-[239px]" type="submit" :size="ESize.MEDIUM">
                     <app-animation
-                      v-if="isLoading"
+                      v-if="true"
                       :width="50"
                       :speed="2"
                       :options="defaultOptions"
@@ -204,7 +209,7 @@ const sendMessage = async () => {
     email: '',
     phone: '',
     text: '',
-    service: ''
+    service: '',
   }
 }
 </script>

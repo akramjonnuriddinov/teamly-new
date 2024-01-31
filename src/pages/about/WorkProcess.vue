@@ -7,7 +7,6 @@
         </span>
         <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           Optimized Success
-          <!-- <br class="max-[500px]:hidden" /> -->
         </h2>
       </div>
       <ul class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">

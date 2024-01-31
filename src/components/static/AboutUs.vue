@@ -1,9 +1,8 @@
 <template>
   <section class="bg-tg-white py-[140px]">
-    <div class="container mx-auto w-full max-w-7xl px-5" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <div class="container w-full px-5 mx-auto max-w-7xl" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <div class="flex max-[1024px]:flex-col max-[1024px]:items-center">
         <div class="relative z-10">
-          <!-- <img class="z-50" src="@/assets/images/about/about-img.png" alt="" /> -->
           <div class="">
             <app-animation :options="defaultOptions" :width="500" />
           </div>
@@ -23,7 +22,7 @@
               Optimization. Achieve More Together!
             </p>
             <ul class="mb-14">
-              <li v-for="aboutContent in aboutContents" class="mb-1 flex items-center">
+              <li v-for="aboutContent in aboutContents" class="flex items-center mb-1">
                 <img class="mr-3" src="@/assets/images/about/check.svg" alt="" />
                 <p class="leading-[1.8] text-tg-paragraph-color">
                   {{ aboutContent }}

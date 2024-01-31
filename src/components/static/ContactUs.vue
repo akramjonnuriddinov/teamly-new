@@ -17,13 +17,7 @@
             <base-button :size="ESize.MEDIUM" :theme="EThemes.WHITE"> Contact Us </base-button>
           </router-link>
         </div>
-        <img
-          v-if="false"
-          class="absolute -top-20 right-0 max-[990px]:hidden"
-          src="@/assets/images/home-contact/newsletter_img.png"
-          alt=""
-        />
-        <div v-else class="absolute right-10 top-1/2 -translate-y-1/2">
+        <div class="absolute right-10 top-1/2 -translate-y-1/2">
           <app-animation :options="defaultOptions" :width="500" @animCreated="handleAnimation" :speed="1" />
         </div>
       </div>
