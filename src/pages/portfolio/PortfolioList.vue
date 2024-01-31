@@ -5,7 +5,7 @@
         <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color">Our Project </span>
         <h2 class="text-center text-5xl font-bold leading-[1.2] max-sm:text-4xl">
           Our Amazing <br class="max-[500px]:hidden" />
-          23 Creative Works.
+          Creative Works.
         </h2>
       </div>
       <ul v-if="isLoading" class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">

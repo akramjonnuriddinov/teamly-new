@@ -1,21 +1,21 @@
 <template>
-  <section class="relative pt-16 pb-32 testimonial">
-    <div class="absolute right-0 -z-10 translate-y-1/4 -translate-x-1/4">
+  <section class="testimonial relative pb-32 pt-16">
+    <div class="absolute right-0 -z-10 -translate-x-1/4 translate-y-1/4">
       <img src="@/assets/images/testimonials/testimonial_shape.png" alt="" />
     </div>
-    <div class="container w-full px-5 mx-auto max-w-7xl">
+    <div class="container mx-auto w-full max-w-7xl px-5">
       <div class="pb-[70px]">
-        <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
+        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
           >Client Testimonial
         </span>
-        <h2 class="text-center font-bold leading-[1.2] text-5xl max-sm:text-4xl">
+        <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           What People are
           <br class="max-[500px]:hidden" />
           Saying!
         </h2>
       </div>
     </div>
-    <div class="container w-full px-5 mx-auto max-w-7xl">
+    <div class="container mx-auto w-full max-w-7xl px-5">
       <swiper
         class="swiper"
         :modules="Pagination"
@@ -29,28 +29,28 @@
       >
         <swiper-slide v-for="swiperContent in swiperContents" :key="swiperContent.id" class="slide">
           <div
-            class="flex items-center justify-center mx-[100px] max-[1200px]:mx-[150px] max-[920px]:mx-[200px] max-[600px]:mx-[250px]"
+            class="mx-[100px] flex items-center justify-center max-[1200px]:mx-[150px] max-[920px]:mx-[200px] max-[600px]:mx-[250px]"
           >
-            <div style="" class="bg-[#FAFCFF] rounded-[30px] max-w-[570px] min-w-[570px] w-full px-11 py-12">
+            <div style="" class="w-full min-w-[570px] max-w-[570px] rounded-[30px] bg-[#FAFCFF] px-11 py-12">
               <div class="flex justify-center">
                 <div class="relative inline-block">
                   <img :src="getImageUrl(swiperContent.img_url)" alt="testimonial_img" />
                   <div
-                    class="w-[30px] h-[30px] flex absolute -right-[5px] -bottom-[3px] items-center justify-center bg-tg-primary-color rounded-full"
+                    class="absolute -bottom-[3px] -right-[5px] flex h-[30px] w-[30px] items-center justify-center rounded-full bg-tg-primary-color"
                   >
                     <img src="@/assets/images/testimonials/testimonial_icon.svg" alt="" />
                   </div>
                 </div>
               </div>
               <p
-                class="mb-6 text-center h-[112px] line-clamp-4 overflow-hidden text-lg italic font-medium leading-[1.66] text-tg-heading-font-color max-[600px]:text-[15px]"
+                class="mb-6 line-clamp-4 h-[112px] overflow-hidden text-center text-lg font-medium italic leading-[1.66] text-tg-heading-font-color max-[600px]:text-[15px]"
               >
                 {{ swiperContent.text }}
               </p>
-              <h3 class="mb-1 text-2xl font-bold text-center capitalize text-tg-heading-font-color max-[600px]:text-xl">
+              <h3 class="mb-1 text-center text-2xl font-bold capitalize text-tg-heading-font-color max-[600px]:text-xl">
                 {{ swiperContent.name }}
               </h3>
-              <span class="text-[#8C8C8C] font-medium text-[15px] text-center block">{{ swiperContent.position }}</span>
+              <span class="block text-center text-[15px] font-medium text-[#8C8C8C]">{{ swiperContent.position }}</span>
             </div>
           </div>
         </swiper-slide>
