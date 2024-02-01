@@ -130,7 +130,14 @@
             onselectstart="return false;"
           >
             <div class="user flex cursor-pointer items-center whitespace-nowrap hover:text-tg-primary-color">
-              <img v-if="user?.photoURL" class="flex h-10 w-10 rounded-full" :src="user?.photoURL" alt="" />
+              <img
+                v-if="user?.photoURL"
+                width="40"
+                height="40"
+                class="flex max-h-[40px] min-h-[40px] min-w-[40px] max-w-[40px] rounded-full"
+                :src="user?.photoURL"
+                alt=""
+              />
               <div
                 v-else
                 class="mr-2 flex h-10 w-10 items-center justify-center rounded-full bg-tg-primary-color text-xl font-bold text-tg-white"
