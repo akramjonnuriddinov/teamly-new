@@ -1,6 +1,6 @@
 <template>
   <section :class="{ 'pt-[80px]': !isHome }" class="relative z-10 bg-[#fff] pb-[90px] text-tg-black">
-    <div class="container relative mx-auto w-full max-w-7xl px-5">
+    <div class="container relative mx-auto w-full px-5">
       <div class="absolute right-[4%] top-[9%] -z-50 hidden transition-all duration-1000">
         <img src="@/assets/images/service/services_shape.png" alt="" />
       </div>

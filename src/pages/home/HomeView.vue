@@ -1,7 +1,7 @@
 <template>
   <div>
     <home-hero />
-    <Service />
+    <service-component />
     <about-us />
     <works-component />
     <project-component />
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import HomeHero from '@/pages/home/HomeHero.vue'
-import Service from '@/components/static/Service.vue'
+import ServiceComponent from '@/components/static/ServiceComponent.vue'
 import AboutUs from '@/components/static/AboutUs.vue'
 import ProjectComponent from '@/pages/home/ProjectComponent.vue'
 import TestimonialComponent from '@/pages/home/TestimonialComponent.vue'
