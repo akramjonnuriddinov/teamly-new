@@ -145,7 +145,7 @@ const message = ref<any>({
   email: '',
   phone: '',
   text: '',
-  service: route.query.service,
+  service: route.query.service || '',
 })
 const isLoading = ref(false)
 const defaultOptions = {
@@ -157,7 +157,7 @@ const defaultOptions = {
 const anim = ref()
 const serviceOptions = route.query.options
 
-const disabled = computed(() => isDisabled(message.value))
+const disabled = computed(() => isDisabled({ ...message.value, service: true }))
 
 onMounted(() => {
   savedPosition()

@@ -1,6 +1,28 @@
 <template>
-  <header :class="header" class="home-header header fixed top-0 z-50 w-full py-5">
-    <div class="container mx-auto px-5">
+  <div class="bg-tg-dark-blue-color text-white">
+    <div class="container mx-auto items-center px-5">
+      <div class="flex items-center justify-end gap-2">
+        <a href="tel:+998337737737" class="inline-flex items-center">
+          <app-animation :options="phoneOptions" :width="40" />
+          <span class="whitespace-nowrap text-base font-semibold max-sm:text-sm">+998 (33) 773-77-37</span>
+        </a>
+        <a href="https://t.me/teamly_uz" class="ml-auto mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
+          <img src="@/assets/images/svg/telegram.svg" alt="you tube icon" />
+        </a>
+        <span class="mr-3 cursor-not-allowed transition-all">
+          <img src="@/assets/images/svg/twitter.svg" alt="twitter icon" />
+        </span>
+        <span class="mr-3 cursor-not-allowed transition-all">
+          <img src="@/assets/images/svg/facebook.svg" alt="facebook icon" />
+        </span>
+        <span class="mr-3 cursor-not-allowed transition-all">
+          <img src="@/assets/images/svg/instagram.svg" alt="instagram icon" />
+        </span>
+      </div>
+    </div>
+  </div>
+  <header :class="header" class="home-header header fixed top-0 z-50 w-full">
+    <div class="container mx-auto p-5">
       <div class="flex items-center justify-between">
         <router-link class="mr-20 flex" to="/">
           <the-logo />
@@ -198,12 +220,20 @@ import TheLogo from '@/components/TheLogo.vue'
 import InlineSvg from '@/components/InlineSvg.vue'
 import TheTransition from '@/components/TheTransition.vue'
 import { useRouter } from 'vue-router'
+import AppAnimation from '@/components/AppAnimation.vue'
+import PhoneAnimation from '@/assets/images/animation/phone2.json'
 
 const router = useRouter()
 const store = useAuthStore()
 const user = computed(() => store.user)
 const isDropDown = ref(false)
-const header = ref('')
+const header = ref('pt-10')
+const phoneOptions = {
+  loop: false,
+  autoplay: true,
+  renderer: 'svg',
+  animationData: PhoneAnimation,
+}
 const socials = [
   {
     name: 'facebook',
@@ -255,8 +285,8 @@ onMounted(() => {
     isDropDown.value = false
   })
   window.addEventListener('scroll', () => {
-    const list = window.scrollY >= 300 ? 'bg-tg-white header-shadow fixed' : 'transparent absolute'
-    header.value = list + ' transition-all top-0 duration-300'
+    const list = window.scrollY >= 300 ? 'bg-tg-white pt-0 header-shadow fixed' : 'transparent pt-10 absolute'
+    header.value = list + ' transition-all duration-300 '
   })
 })
 onUpdated(() => {
