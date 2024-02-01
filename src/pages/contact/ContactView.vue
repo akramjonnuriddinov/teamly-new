@@ -50,7 +50,8 @@
                     type="text"
                     name="phone_number"
                     id="phone_number"
-                    placeholder="Phone Number"
+                    placeholder="+998 (--) --- -- --"
+                    @input="message.phone = updateNumber(message.phone)"
                     class="w-full rounded-md border border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
                   />
                 </div>
@@ -137,6 +138,7 @@ import { isDisabled } from '@/composables/isDisabled'
 import AppAnimation from '@/components/AppAnimation.vue'
 import SentMail from '@/assets/images/animation/sent-mail.json'
 import { useRoute } from 'vue-router'
+import { updateNumber } from '../../composables/usePone'
 
 const route = useRoute()
 
