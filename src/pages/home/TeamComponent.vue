@@ -56,11 +56,11 @@
                   alt="team member"
                 />
                 <div class="absolute bottom-0 left-0 w-full text-center">
-                  <div class="dark:bg-dark-2 relative mx-5 overflow-hidden rounded-lg bg-white px-3 py-5">
-                    <a :href="item.linkedin" class="text-dark text-base font-semibold dark:text-white" target="_blank">
+                  <div class="relative mx-5 overflow-hidden rounded-lg bg-white px-3 py-5">
+                    <a :href="item.linkedin" class="text-dark text-base font-semibold" target="_blank">
                       {{ item.title }}
                     </a>
-                    <p class="text-body-color dark:text-dark-6 text-xs">{{ item.position }}</p>
+                    <p class="text-body-color text-xs">{{ item.position }}</p>
                     <div>
                       <span class="absolute bottom-0 left-0">
                         <svg width="61" height="30" viewBox="0 0 61 30" fill="none" xmlns="http://www.w3.org/2000/svg">

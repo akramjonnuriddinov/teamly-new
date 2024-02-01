@@ -2,7 +2,7 @@
   <section>
     <div class="mt-6 flex h-96 items-center rounded-lg border text-center">
       <div class="mx-auto flex w-full max-w-sm flex-col px-4">
-        <div class="mx-auto rounded-full bg-blue-100 p-3 text-blue-500 dark:bg-gray-800">
+        <div class="mx-auto rounded-full bg-blue-100 p-3 text-blue-500">
           <svg
             class="h-6 w-6 text-blue-500"
             fill="currentColor"
@@ -14,8 +14,8 @@
             />
           </svg>
         </div>
-        <h1 class="mt-3 text-lg text-gray-800 dark:text-white">{{ title }}</h1>
-        <p class="mt-2 text-gray-500 dark:text-gray-400">
+        <h1 class="mt-3 text-lg text-gray-800">{{ title }}</h1>
+        <p class="mt-2 text-gray-500">
           {{ text }}
         </p>
       </div>

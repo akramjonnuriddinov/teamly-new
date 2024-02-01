@@ -1,17 +1,17 @@
 <template>
-  <section class="dark:bg-dark pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
+  <section class="pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
     <div class="container mx-auto">
-      <div v-if="isLoading" class="mb-12 flex flex-wrap justify-center gap-2 space-x-1">
+      <div v-if="isLoading" class="flex flex-wrap justify-center gap-2 mb-12 space-x-1">
         <div class="mb-1">
           <button
             v-for="category in 3"
             :key="category"
-            class="mr-2 inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8"
+            class="inline-block px-5 py-2 mr-2 text-base font-semibold text-center transition rounded-lg md:py-3 lg:px-8"
           >
             <Skeleton width="100px" height="48px" :theme="ESkeletonTheme.DARK" />
           </button>
         </div>
-        <div class="-mx-4 flex flex-wrap">
+        <div class="flex flex-wrap -mx-4">
           <div
             data-aos="fade-up"
             data-aos-anchor-placement="top-bottom"
@@ -26,10 +26,10 @@
               <div
                 class="shadow-portfolio relative z-10 mx-7 -mt-20 flex flex-col items-center rounded-lg bg-white px-3 py-[34px] text-center"
               >
-                <span class="text-primary mb-2 block text-sm font-medium"
+                <span class="block mb-2 text-sm font-medium text-primary"
                   ><Skeleton width="100px" height="28px" :theme="ESkeletonTheme.DARK"
                 /></span>
-                <h3 class="text-dark mb-5 text-xl font-bold">
+                <h3 class="mb-5 text-xl font-bold text-dark">
                   <Skeleton width="100px" height="28px" :theme="ESkeletonTheme.DARK" />
                 </h3>
                 <div class="inline-block rounded-md px-7 py-[10px]" target="_blank">
@@ -41,10 +41,10 @@
         </div>
       </div>
       <div v-else>
-        <div v-if="route.name === 'home'" class="-mx-4 flex flex-wrap">
+        <div v-if="route.name === 'home'" class="flex flex-wrap -mx-4">
           <div class="w-full px-4">
             <div class="mx-auto mb-[60px] max-w-[510px] text-center">
-              <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
+              <span class="flex justify-center mb-3 text-lg font-bold text-center text-tg-primary-color"
                 >Our Project
               </span>
               <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
@@ -54,9 +54,9 @@
             </div>
           </div>
         </div>
-        <div class="-mx-4 flex w-full flex-wrap justify-center">
+        <div class="flex flex-wrap justify-center w-full -mx-4">
           <div class="w-full px-4">
-            <ul class="mb-12 flex flex-wrap justify-center gap-2 space-x-1">
+            <ul class="flex flex-wrap justify-center gap-2 mb-12 space-x-1">
               <li class="mb-1">
                 <button
                   v-for="category in ['All', ...uniqueCategories]"
@@ -64,10 +64,9 @@
                   @click="selectCategory(category)"
                   :class="{
                     'bg-tg-primary-color text-white': selectedCategory === category,
-                    'text-body-color dark:text-dark-6 hover:bg-tg-primary-color hover:text-white':
-                      selectedCategory !== category,
+                    'text-body-color  hover:bg-tg-primary-color hover:text-white': selectedCategory !== category,
                   }"
-                  class="mr-2 inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8"
+                  class="inline-block px-5 py-2 mr-2 text-base font-semibold text-center transition rounded-lg md:py-3 lg:px-8"
                 >
                   {{ category }}
                 </button>
@@ -75,7 +74,7 @@
             </ul>
           </div>
         </div>
-        <div class="-mx-4 flex flex-wrap">
+        <div class="flex flex-wrap -mx-4">
           <div
             data-aos="fade-up"
             data-aos-anchor-placement="top-bottom"
@@ -88,13 +87,13 @@
                 <img :src="item.image" alt="portfolio" class="h-[325px] w-full object-cover" />
               </div>
               <div
-                class="dark:bg-dark-2 shadow-portfolio dark:shadow-box-dark relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center"
+                class="shadow-portfolio  relative z-10 mx-7 -mt-20 rounded-lg bg-white px-3 py-[34px] text-center"
               >
-                <span class="text-primary mb-2 block text-sm font-medium">{{ item.category }}</span>
-                <h3 class="text-dark mb-5 text-xl font-bold dark:text-white">{{ item.title }}</h3>
+                <span class="block mb-2 text-sm font-medium text-primary">{{ item.category }}</span>
+                <h3 class="mb-5 text-xl font-bold text-dark ">{{ item.title }}</h3>
                 <a
                   :href="item.link"
-                  class="text-body-color dark:text-dark-6 border-stroke dark:border-dark-3 inline-block rounded-md border px-7 py-[10px] text-sm font-medium transition hover:border-tg-primary-color hover:bg-tg-primary-color hover:text-white"
+                  class="text-body-color  border-stroke  inline-block rounded-md border px-7 py-[10px] text-sm font-medium transition hover:border-tg-primary-color hover:bg-tg-primary-color hover:text-white"
                   target="_blank"
                 >
                   View detail
