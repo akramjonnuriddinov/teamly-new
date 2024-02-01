@@ -1,14 +1,14 @@
 <template>
   <div class="service">
     <hero-banner :title="hero_content.title" :text="hero_content.text" :img_url="hero_content.img_url" />
-    <Service />
+    <service-component />
     <work-process />
   </div>
 </template>
 
 <script setup lang="ts">
 import HeroBanner from '@/components/HeroBanner.vue'
-import Service from '@/components/static/Service.vue'
+import ServiceComponent from '@/components/static/ServiceComponent.vue'
 import { getImageUrl } from '@/composables/getImgUrl'
 import WorkProcess from '@/pages/about/WorkProcess.vue'
 

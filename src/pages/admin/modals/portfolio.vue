@@ -1,33 +1,36 @@
 <template>
   <admin-base-modal :input="props.input" url="portfolio" :old-value="portfolio" modal_title="Portfolio">
-    <form class="w-full h-auto overflow-y-auto">
-      <div class="flex flex-col w-full">
-        <div class="flex items-center justify-between w-full">
+    <form class="h-auto w-full overflow-y-auto">
+      <div class="flex w-full flex-col">
+        <div class="flex w-full items-center justify-between">
           <label class="text-gray-700" for="username">Title</label>
           <input
             v-model="portfolio.title"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
             type="text"
           />
         </div>
-        <div class="flex items-center justify-between w-full">
+        <div class="flex w-full items-center justify-between">
           <label class="text-gray-700" for="category">Category</label>
-          <select
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+          <input
             v-model="portfolio.category"
-            id="category"
-          >
-            <option value="" disabled selected>Select Category</option>
-            <option selected v-for="(category, index) in categories" :key="index" :value="category">
-              {{ category }}
-            </option>
-          </select>
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
+            type="text"
+          />
         </div>
-        <div class="flex items-center justify-between w-full my-2">
+        <div class="flex w-full items-center justify-between">
+          <label class="text-gray-700" for="link">Link</label>
+          <input
+            v-model="portfolio.link"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
+            type="text"
+          />
+        </div>
+        <div class="my-2 flex w-full items-center justify-between">
           <label class="text-gray-700" for="username">Text</label>
           <textarea
             v-model="portfolio.text"
-            class="w-[80%] h-[180px] resize-none p-2 border border-gray-200 rounded-md outline-blue-300"
+            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
             name=""
             id="text"
             cols="30"
@@ -35,12 +38,12 @@
           ></textarea>
         </div>
 
-        <div class="flex overflow-hidden self-end relative items-center justify-center w-[80%]">
+        <div class="relative flex w-[80%] items-center justify-center self-end overflow-hidden">
           <label
             for="dropzone-file"
-            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+            class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50"
           >
-            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <div class="flex flex-col items-center justify-center pb-6 pt-5">
               <inline-svg class="text-3xl text-gray-500" src="svg/fontawesome/upload.svg" />
 
               <p class="mb-2 text-sm text-gray-500">
@@ -49,7 +52,7 @@
               <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
               <img
                 v-if="portfolio.image"
-                class="absolute top-0 object-cover w-full h-full rounded-lg"
+                class="absolute top-0 h-full w-full rounded-lg object-cover"
                 :src="portfolio.image"
                 alt=""
               />
@@ -59,7 +62,7 @@
           <button
             v-if="portfolio.image"
             @click="deleteImage"
-            class="absolute flex items-center justify-center text-2xl text-white transition-all bg-gray-900 rounded-[3px] w-7 h-7 top-5 right-5 hover:text-red-500"
+            class="absolute right-5 top-5 flex h-7 w-7 items-center justify-center rounded-[3px] bg-gray-900 text-2xl text-white transition-all hover:text-red-500"
             type="button"
           >
             <inline-svg src="fontawesome/xmark.svg" />
@@ -72,17 +75,16 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Category } from '@/types'
 import InlineSvg from '@/components/InlineSvg.vue'
 import AdminBaseModal from '@/pages/admin/modals/AdminBaseModal.vue'
 
 const props = defineProps(['input'])
-const categories = ref<Category>(['Backend', 'Mobile', 'Design', 'Frontend'])
 const initialPortfolio = {
   title: '',
   category: '',
   text: '',
   image: null,
+  link: '',
 }
 const portfolio = ref({
   ...initialPortfolio,

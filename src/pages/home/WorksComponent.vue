@@ -1,54 +1,57 @@
 <template>
-  <section class="works py-[105px]">
-    <div class="container relative mx-auto w-full max-w-7xl px-5 text-tg-white">
-      <div class="absolute z-10 hidden h-full w-full items-center justify-center rounded-md backdrop-blur-md">
-        Coming soon
-      </div>
-      <div class="items-cebter flex justify-between">
-        <div v-for="work in works" class="flex flex-wrap items-center justify-between">
-          <inline-svg
-            :src="work.image"
-            class="mr-4 h-[55px] w-[55px] bg-transparent"
-            fill="transparent"
-            stroke="trasnparent"
-          />
-          <div class="flex flex-col">
-            <span class="whitespace-nowrap text-4xl font-bold leading-[0.8]">{{ work.count }}</span>
-            <p class="whitespace-nowrap text-xl leading-[1.8]">{{ work.title }}</p>
+  <div v-if="true" class="bg-gray-50 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:max-w-none">
+        <div class="space-y-4 text-center">
+          <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
+            >Innovation in Numbers
+          </span>
+          <h2 class="text-center text-5xl font-bold leading-[1.2] tracking-tight text-tg-dark-blue-color">
+            Our Stats Tell the Story
+          </h2>
+          <p class="text-lg leading-8 text-tg-body-font-color">
+            We can help you grow your audience and your business, no matter the size.
+          </p>
+        </div>
+        <div
+          class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4"
+        >
+          <div v-for="work in works" class="flex flex-col bg-white p-8">
+            <h4 class="text-sm font-semibold leading-6 text-tg-dark-blue-color">{{ work.title }}</h4>
+            <p class="order-first text-3xl font-semibold tracking-tight text-tg-primary-color">{{ work.count }}</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import InlineSvg from '@/components/InlineSvg.vue'
 
 const works = ref([
   {
     id: '',
     title: 'Satisfied Clients',
-    count: '5',
+    count: '50+',
     image: 'about-view/work01.svg',
   },
   {
     id: '',
-    title: 'Active Project',
-    count: '3',
+    title: 'Active Projects',
+    count: '100+',
     image: 'about-view/work02.svg',
   },
   {
     id: '',
-    title: 'Winning Award',
+    title: 'Winning Awards',
     count: '0',
     image: 'about-view/work03.svg',
   },
   {
     id: '',
     title: 'Expert Teams',
-    count: '10',
+    count: '22',
     image: 'about-view/work04.svg',
   },
 ])

@@ -1,5 +1,5 @@
 <template>
-  <BaseModal class="" title="Profile" @close="$emit('close')" width="max-w-[470px]" height="h-auto">
+  <BaseModal title="Profile" @close="$emit('close')" width="max-w-[470px]" height="h-auto">
     <span class="my-6 flex w-full justify-center text-2xl leading-none tracking-tighter">{{ user.name }}</span>
     <ul class="flex w-full flex-col">
       <li class="mb-3 flex items-center">

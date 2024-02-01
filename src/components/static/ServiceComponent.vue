@@ -1,6 +1,6 @@
 <template>
   <section :class="{ 'pt-[80px]': !isHome }" class="relative z-10 bg-[#fff] pb-[90px] text-tg-black">
-    <div class="container relative mx-auto w-full max-w-7xl px-5">
+    <div class="container relative mx-auto w-full px-5">
       <div class="absolute right-[4%] top-[9%] -z-50 hidden transition-all duration-1000">
         <img src="@/assets/images/service/services_shape.png" alt="" />
       </div>
@@ -54,7 +54,13 @@
           >
             <router-link
               class="mb-[22px] whitespace-nowrap text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"
-              to="/service"
+              :to="{
+                name: 'contact',
+                query: {
+                  service: service.title,
+                  options: serviceOptions,
+                },
+              }"
               >{{ service.title }}</router-link
             >
             <img class="service-item-img mb-6 h-[75px] w-[75px] object-cover" :src="service.image" alt="img" />
@@ -87,6 +93,7 @@ const services = ref<any[]>([])
 const isLoading = ref(true)
 
 const isHome = computed(() => route.path === '/')
+const serviceOptions = computed(() => services.value.map((item: any) => item.title))
 
 onMounted(async () => {
   isLoading.value = true

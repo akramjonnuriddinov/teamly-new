@@ -4,7 +4,7 @@
       <h1 class="text-[20px] font-medium">Applied vacancies</h1>
       <p class="mb-3 block text-sm text-gray-400">All of your applied vacancies</p>
       <div v-if="isLoading">
-        <div v-for="vacancy in 4" :key="vacancy" class="">
+        <div v-for="vacancy in 4" :key="vacancy">
           <div
             class="mb-6 flex flex-col rounded-[32px] bg-white px-[35px] py-[50px] shadow-job-inner max-[990px]:rounded-[15px] max-[990px]:p-6"
           >
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div v-else-if="!isEmpty">
-        <div v-for="(vacancy, index) in vacancies" :key="vacancy.id" class="">
+        <div v-for="(vacancy, index) in vacancies" :key="vacancy.id">
           <div
             class="mb-6 flex flex-col rounded-[32px] bg-white px-[35px] py-[50px] shadow-job-inner max-[990px]:rounded-[15px] max-[990px]:p-6"
           >

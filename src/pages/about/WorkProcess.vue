@@ -1,13 +1,12 @@
 <template>
   <section class="relative bg-[#EFF7FFf] pb-[105px] pt-[40px]">
-    <div class="container mx-auto w-full max-w-7xl px-5">
+    <div class="container mx-auto w-full px-5">
       <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="pb-[70px]">
         <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
           >Working Process
         </span>
         <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           Optimized Success
-          <!-- <br class="max-[500px]:hidden" /> -->
         </h2>
       </div>
       <ul class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
@@ -54,13 +53,13 @@ const projects = ref([
     id: '3',
     title: 'Step Three',
     img_url: 'about-view/work_icon03.svg',
-    text: 'Build Website',
+    text: 'Build Application',
   },
   {
     id: '4',
     title: 'Step Four',
     img_url: 'about-view/work_icon04.svg',
-    text: 'Website Test',
+    text: 'Application Testing',
   },
 ])
 </script>

@@ -54,6 +54,27 @@
                     class="w-full rounded-md border border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
                   />
                 </div>
+                <div v-if="message.service" class="mb-7">
+                  <label for="service" class="mb-3 block text-base font-medium"> Service </label>
+                  <select
+                    v-model="message.service"
+                    autocomplete="off"
+                    type="text"
+                    name="service"
+                    id="service"
+                    placeholder="Phone Number"
+                    class="w-full cursor-pointer rounded-md border border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
+                  >
+                    <option
+                      v-for="(option, index) in serviceOptions"
+                      :key="index"
+                      class="flex cursor-pointer items-center"
+                      :value="option"
+                    >
+                      {{ option }}
+                    </option>
+                  </select>
+                </div>
                 <div class="mb-7">
                   <label for="message" class="mb-3 block text-base font-medium"> Message </label>
                   <textarea
@@ -68,7 +89,7 @@
                 <div>
                   <base-button :disabled="disabled" class="base-button w-[239px]" type="submit" :size="ESize.MEDIUM">
                     <app-animation
-                      v-if="isLoading"
+                      v-if="true"
                       :width="50"
                       :speed="2"
                       :options="defaultOptions"
@@ -115,12 +136,16 @@ import { collection, addDoc } from 'firebase/firestore'
 import { isDisabled } from '@/composables/isDisabled'
 import AppAnimation from '@/components/AppAnimation.vue'
 import SentMail from '@/assets/images/animation/sent-mail.json'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const message = ref<any>({
   fullname: '',
   email: '',
   phone: '',
   text: '',
+  service: route.query.service || '',
 })
 const isLoading = ref(false)
 const defaultOptions = {
@@ -130,8 +155,9 @@ const defaultOptions = {
   animationData: SentMail,
 }
 const anim = ref()
+const serviceOptions = route.query.options
 
-const disabled = computed(() => isDisabled(message.value))
+const disabled = computed(() => isDisabled({ ...message.value, service: true }))
 
 onMounted(() => {
   savedPosition()
@@ -166,7 +192,6 @@ onUpdated(() => {
   if (isLoading.value === false) {
     setTimeout(() => {
       isLoading.value = false
-      console.log('hey')
     }, 3000)
   }
 })
@@ -184,6 +209,7 @@ const sendMessage = async () => {
     email: '',
     phone: '',
     text: '',
+    service: '',
   }
 }
 </script>

@@ -54,6 +54,10 @@ export default {
         'job-inner': '0px 4px 32px 0px rgba(0, 0, 0, 0.05)',
         'service-inner': '0px 0px 50px rgba(0, 0, 0, 0.1)',
       },
+      fontFamily: {
+        font1: ['DM Sans', 'Bricolage Grotesque', 'sans-serif'],
+        font2: ['Bricolage Grotesque', 'DM Sans', 'sans-serif'],
+      },
     },
   },
   // plugins: [require("@tailwindcss/line-clamp")],
