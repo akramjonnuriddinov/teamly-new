@@ -1,6 +1,6 @@
 <template>
   <footer class="footer py-[90px]">
-    <div class="container mx-auto w-full max-w-7xl px-5">
+    <div class="container mx-auto w-full px-5">
       <div class="teamly-container">
         <div class="flex flex-col text-center lg:!flex-row lg:!text-start">
           <router-link class="mr-32" to="/">

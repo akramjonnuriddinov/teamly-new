@@ -3,7 +3,7 @@
     <div class="absolute right-0 -z-10 -translate-x-1/4 translate-y-1/4">
       <img src="@/assets/images/testimonials/testimonial_shape.png" alt="" />
     </div>
-    <div class="container mx-auto w-full max-w-7xl px-5">
+    <div class="container mx-auto w-full px-5">
       <div class="pb-[70px]">
         <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
           >Client Testimonial
@@ -15,7 +15,7 @@
         </h2>
       </div>
     </div>
-    <div class="container mx-auto w-full max-w-7xl px-5">
+    <div class="container mx-auto w-full px-5">
       <swiper
         class="swiper"
         :modules="Pagination"

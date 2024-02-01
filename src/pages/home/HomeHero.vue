@@ -23,7 +23,7 @@
               </a>
             </div>
           </div>
-          <div class="ml-auto">
+          <div class="overflow-hidden">
             <AppAnimation :options="defaultOptions" :width="600" />
           </div>
         </div>
