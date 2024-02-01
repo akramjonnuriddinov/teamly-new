@@ -90,7 +90,7 @@
                 <div>
                   <base-button :disabled="disabled" class="base-button w-[239px]" type="submit" :size="ESize.MEDIUM">
                     <app-animation
-                      v-if="true"
+                      v-if="isLoading"
                       :width="50"
                       :speed="2"
                       :options="defaultOptions"
@@ -141,7 +141,6 @@ import { useRoute } from 'vue-router'
 import { updateNumber } from '../../composables/usePone'
 
 const route = useRoute()
-
 const message = ref<any>({
   fullname: '',
   email: '',
@@ -149,13 +148,13 @@ const message = ref<any>({
   text: '',
   service: route.query.service || '',
 })
-const isLoading = ref(false)
 const defaultOptions = {
   loop: true,
   autoplay: true,
   renderer: 'svg',
   animationData: SentMail,
 }
+const isLoading = ref(false)
 const anim = ref()
 const serviceOptions = route.query.options
 
