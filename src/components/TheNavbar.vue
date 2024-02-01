@@ -1,8 +1,6 @@
 <template>
   <header :class="header" class="home-header header fixed top-0 z-50 w-full py-5">
-    <div
-      class="container mx-auto max-w-7xl px-5 max-xl:max-w-[1100px] max-[1050px]:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
-    >
+    <div class="container mx-auto px-5">
       <div class="flex items-center justify-between">
         <router-link class="mr-20 flex" to="/">
           <the-logo />
