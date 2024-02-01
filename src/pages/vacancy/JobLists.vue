@@ -30,7 +30,7 @@
           v-for="vacancy in vacancies"
           :key="vacancy.id"
         >
-          <div class=""></div>
+          <div></div>
           <div class="flex h-full flex-col rounded-[32px] bg-white px-[35px] py-[50px] shadow-job-inner">
             <span class="mb-5 text-[#5B5A78]">{{ vacancy.location }}</span>
             <router-link
@@ -50,11 +50,7 @@
               <span>{{ vacancy.time }}</span>
             </div>
             <p class="mb-12 text-[#5B5A78]">{{ vacancy.text }}</p>
-            <ApplyButton
-              :applied="!!vacancy.applied"
-              :vacancy="vacancy.id"
-              :isCard="true"
-            />
+            <ApplyButton :applied="!!vacancy.applied" :vacancy="vacancy.id" :isCard="true" />
           </div>
         </li>
       </ul>
