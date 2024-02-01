@@ -27,8 +27,7 @@
                   minute: 'numeric',
                 })
               }}</span>
-              <span v-if="messages.service" @click.stop class="mr-2 w-1/5">{{ message.service }}</span>
-              <span v-else @click.stop class="mr-2 w-1/5">Service is null</span>
+              <span @click.stop class="mr-2 w-1/5">{{ message.service }}</span>
               <div class="ml-auto flex space-x-5">
                 <button @click.stop="openText(message)" class="mr-2 font-medium text-tg-green hover:opacity-80">
                   {{ 'Show message' }}
