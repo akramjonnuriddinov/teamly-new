@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <header :class="header" class="home-header header fixed top-0 z-50 w-full">
+  <header :class="header" class="home-header header fixed z-50 w-full">
     <div class="container mx-auto p-5">
       <div class="flex items-center justify-between">
         <router-link class="mr-20 flex" to="/">
@@ -227,7 +227,7 @@ const router = useRouter()
 const store = useAuthStore()
 const user = computed(() => store.user)
 const isDropDown = ref(false)
-const header = ref('pt-10')
+const header = ref('top-10')
 const phoneOptions = {
   loop: false,
   autoplay: true,
@@ -285,7 +285,7 @@ onMounted(() => {
     isDropDown.value = false
   })
   window.addEventListener('scroll', () => {
-    const list = window.scrollY >= 300 ? 'bg-tg-white pt-0 header-shadow fixed' : 'transparent pt-10 absolute'
+    const list = window.scrollY >= 300 ? 'bg-tg-white top-0 header-shadow fixed' : 'transparent top-10 absolute'
     header.value = list + ' transition-all duration-300 '
   })
 })
