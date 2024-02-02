@@ -6,7 +6,7 @@
           <app-animation :options="phoneOptions" :width="40" />
           <span class="whitespace-nowrap text-base font-semibold max-sm:text-sm">+998 (33) 773-77-37</span>
         </a>
-        <a href="https://t.me/teamly_uz" class="ml-auto mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
+        <a href="https://t.me/m_mirahmad" class="ml-auto mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
           <img src="@/assets/images/svg/telegram.svg" alt="you tube icon" />
         </a>
         <span class="mr-3 cursor-not-allowed transition-all">
