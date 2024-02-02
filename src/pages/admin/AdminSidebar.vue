@@ -32,6 +32,7 @@ import ApplyIcon from '@/pages/admin/icons/ApplyIcon.vue'
 import StatusIcon from '@/pages/admin/icons/StatusIcon.vue'
 import TaskIcon from '@/pages/admin/icons/TaskIcon.vue'
 import CommentIcon from '@/pages/admin/icons/CommentIcon.vue'
+import SubmittedIcon from '@/pages/admin/icons/SubmittedIcon.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -81,8 +82,8 @@ const links = [
   {
     name: 'Submitted Tasks',
     page: 'SubmittedTasks',
-    icon: TaskIcon,
-  }
+    icon: SubmittedIcon,
+  },
 ]
 
 const hasChildRoute = computed(() => ['resume', 'message', 'SubmittedTasks'].includes(route.name as any))

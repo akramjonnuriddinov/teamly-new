@@ -50,7 +50,8 @@
                     type="text"
                     name="phone_number"
                     id="phone_number"
-                    placeholder="Phone Number"
+                    placeholder="+998 (--) --- -- --"
+                    @input="message.phone = updateNumber(message.phone)"
                     class="w-full rounded-md border border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
                   />
                 </div>
@@ -87,9 +88,15 @@
                   ></textarea>
                 </div>
                 <div>
-                  <base-button :disabled="disabled" class="base-button w-[239px]" type="submit" :size="ESize.MEDIUM">
+                  <base-button
+                    :disabled="disabled"
+                    class="base-button w-[239px]"
+                    :class="{ 'bg-green-700': isLoading }"
+                    type="submit"
+                    :size="ESize.MEDIUM"
+                  >
                     <app-animation
-                      v-if="true"
+                      v-if="isLoading"
                       :width="50"
                       :speed="2"
                       :options="defaultOptions"
@@ -131,15 +138,17 @@
 import BaseButton from '@/components/BaseButton.vue'
 import { db } from '@/firebase'
 import { ESize } from '@/types'
-import { ref, computed, onMounted, nextTick, onUpdated } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { collection, addDoc } from 'firebase/firestore'
 import { isDisabled } from '@/composables/isDisabled'
 import AppAnimation from '@/components/AppAnimation.vue'
-import SentMail from '@/assets/images/animation/sent-mail.json'
+import SentMail from '@/assets/images/animation/success-failed-custom.json'
 import { useRoute } from 'vue-router'
+import { updateNumber } from '../../composables/usePone'
+import { useRouter } from 'vue-router'
 
 const route = useRoute()
-
+const router = useRouter()
 const message = ref<any>({
   fullname: '',
   email: '',
@@ -147,21 +156,17 @@ const message = ref<any>({
   text: '',
   service: route.query.service || '',
 })
-const isLoading = ref(false)
 const defaultOptions = {
   loop: true,
   autoplay: true,
   renderer: 'svg',
   animationData: SentMail,
 }
+const isLoading = ref(false)
 const anim = ref()
 const serviceOptions = route.query.options
 
 const disabled = computed(() => isDisabled({ ...message.value, service: true }))
-
-onMounted(() => {
-  savedPosition()
-})
 
 const handleAnimation = (createdAnim: any) => {
   anim.value = createdAnim
@@ -169,32 +174,17 @@ const handleAnimation = (createdAnim: any) => {
 
 const playLoading = () => {
   if (anim.value) {
-    anim.value.playSegments([39, 101], true)
+    anim.value.playSegments([10, 234], true)
     anim.value.loop = true
   }
 }
 
 const playSuccess = () => {
   if (anim.value) {
-    anim.value.playSegments([102, 188], true)
+    anim.value.playSegments([235, 400], true)
     anim.value.loop = false
   }
 }
-
-const savedPosition = () => {
-  if (anim.value) {
-    anim.value.playSegments([0, 2], true)
-    anim.value.loop = false
-  }
-}
-
-onUpdated(() => {
-  if (isLoading.value === false) {
-    setTimeout(() => {
-      isLoading.value = false
-    }, 3000)
-  }
-})
 
 const sendMessage = async () => {
   const collectionRef = collection(db, 'messages')
@@ -204,13 +194,17 @@ const sendMessage = async () => {
   })
   await addDoc(collectionRef, { ...message.value, date: Date.now() })
   playSuccess()
-  message.value = {
-    fullname: '',
-    email: '',
-    phone: '',
-    text: '',
-    service: '',
-  }
+  setTimeout(() => {
+    message.value = {
+      fullname: '',
+      email: '',
+      phone: '',
+      text: '',
+      service: '',
+    }
+    router.push({ name: 'contact' })
+    isLoading.value = false
+  }, 3000)
 }
 </script>
 
