@@ -2,7 +2,7 @@
   <button
     :disabled="disabled || isLoading"
     :class="`${theme[props.theme]} ${size[props.size]}`"
-    class="rounded-[10px] font-bold flex relative justify-center items-center text-center whitespace-nowrap tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-gray-500"
+    class="relative flex items-center justify-center whitespace-nowrap rounded-[10px] text-center font-bold tracking-[0.5px] transition-all duration-300 disabled:cursor-auto disabled:bg-[#D1D5DB]"
     :style="`background: ${color}`"
   >
     <button-loader v-if="isLoading" />
