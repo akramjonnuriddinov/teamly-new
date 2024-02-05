@@ -4,9 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        'tg-footer': '#080c35',
         'tg-dark-blue-color': '#38386E',
-        'tg-primary-color': '#7E54F8',
-        // 'tg-primary-color': '#38386E',
+        // 'tg-primary-color': '#7E54F8',
+        'tg-primary-color': '#38386E',
         'tg-primary-color-two': '#5956E9',
         'tg-primary-color-three': '#FFC42B',
         'tg-secondary-color': '#F85454',
@@ -44,12 +45,6 @@ export default {
         pinterest: '#E60023',
         instagram: '#833AB4',
         skype: '#00aff0',
-      },
-      backgroundColor: {
-        // 'tg-primary-color': '#38386E',
-        'tg-primary-color': '#7E54F8',
-        'tg-indigo': '#7E54F8',
-        'tg-footer': '#080c35',
       },
       backgroundImage: {
         'hero-banner': "url('@/assets/images/service-view/service_banner_bg.jpg')",

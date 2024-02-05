@@ -89,13 +89,13 @@
               >
                 <span class="text-primary mb-2 block text-sm font-medium">{{ item.category }}</span>
                 <h3 class="text-dark mb-5 text-xl font-bold">{{ item.title }}</h3>
-                <a
-                  :href="item.link"
+                <button
+                  @click="$emit('openModal')"
+                  type="button"
                   class="text-body-color border-stroke inline-block rounded-md border px-7 py-[10px] text-sm font-medium transition hover:border-tg-primary-color hover:bg-tg-primary-color hover:text-white"
-                  target="_blank"
                 >
                   View detail
-                </a>
+                </button>
               </div>
             </div>
           </div>

@@ -1,21 +1,21 @@
 <template>
   <section
-    class="bg-[#00000080] min-h-screen flex justify-center items-center p-10 fixed top-0 left-0 w-[100vw] z-50"
+    class="fixed left-0 top-0 z-[10000] flex min-h-screen w-[100vw] items-center justify-center bg-[#00000080] p-10"
     :class="height"
     @click="$emit('close')"
   >
     <div
       @click.stop
-      class="container rounded-xl flex flex-col overflow-y-hidden bg-white h-full relative mx-auto w-full max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container relative mx-auto flex h-full w-full flex-col overflow-y-hidden rounded-xl bg-white max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
       :class="width"
     >
-      <div class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-5 mb-5 bg-white">
-        <h1 class="text-4xl text-center">{{ title }}</h1>
-        <button class="transition-all duration-300 text-tg-heading-font-color hover:opacity-80">
+      <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
+        <h1 class="text-center text-4xl">{{ title }}</h1>
+        <button class="text-tg-heading-font-color transition-all duration-300 hover:opacity-80">
           <close-icon class="h-[18px]" @click="$emit('close')" />
         </button>
       </div>
-      <div class="h-full px-10 pb-5 overflow-y-auto">
+      <div class="h-full overflow-y-auto px-10 pb-5">
         <slot />
       </div>
     </div>
