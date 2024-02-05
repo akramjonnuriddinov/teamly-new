@@ -1,6 +1,6 @@
 <template>
   <div v-if="true" class="bg-gray-50 py-24 sm:py-32">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:max-w-none">
         <div class="space-y-4 text-center">
           <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"

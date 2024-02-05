@@ -1,6 +1,6 @@
 <template>
   <section class="relative z-10 mb-[100px] pb-[45px] pt-[50px]">
-    <div class="container relative mx-auto w-full max-w-7xl px-5">
+    <div class="container relative mx-auto w-full px-5">
       <div class="description mb-12" v-html="vacancy.description"></div>
       <slot />
     </div>

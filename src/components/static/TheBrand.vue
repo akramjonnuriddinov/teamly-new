@@ -1,6 +1,6 @@
 <template>
-  <section class="relative pt-16 pb-32 testimonial">
-    <div class="container w-full px-5 mx-auto max-w-7xl">
+  <section class="testimonial relative pb-32 pt-16">
+    <div class="container mx-auto w-full px-5">
       <swiper
         v-if="brands"
         class="swiper"
@@ -17,7 +17,7 @@
         <swiper-slide v-for="(brand, index) in brands" :key="index" class="slide">
           <img
             :src="getImageUrl(brand)"
-            class="block transition-all cursor-pointer brand-item-img opacity-60 hover:opacity-100 grayscale hover:grayscale-0"
+            class="brand-item-img block cursor-pointer opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0"
             alt="testimonial_img"
           />
         </swiper-slide>

@@ -2,9 +2,7 @@
   <div>
     <template v-if="isLoading">
       <section class="vacancy-detail mt-[86px] bg-[#F9F9FA]">
-        <div
-          class="container relative mx-auto max-w-7xl px-5 max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
-        >
+        <div class="container relative mx-auto px-5 max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl">
           <div
             class="relative flex w-full items-center justify-between pb-[60px] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]"
           >
@@ -28,7 +26,7 @@
         </div>
       </section>
       <section class="relative z-10 mb-[100px] pb-[45px] pt-[50px]">
-        <div class="container relative mx-auto w-full max-w-7xl px-5">
+        <div class="container relative mx-auto w-full px-5">
           <div class="description"><Skeleton width="100%" height="100vh" :theme="ESkeletonTheme.LIGHT" /></div>
           <div class="mt-12">
             <Skeleton width="314px" height="60px" :theme="ESkeletonTheme.LIGHT" />

@@ -5,7 +5,7 @@
       <img class="absolute right-36 top-[20%]" src="@/assets/images/blog/blog_shape02.png" alt="" />
       <img class="absolute right-10 top-[40%]" src="@/assets/images/blog/blog_shape03.png" alt="" />
     </div>
-    <div class="container relative z-10 mx-auto w-full max-w-7xl px-5">
+    <div class="container relative z-10 mx-auto w-full px-5">
       <div class="pb-[70px]">
         <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
           >Latest news updates
