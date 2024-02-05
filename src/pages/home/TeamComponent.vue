@@ -4,9 +4,7 @@
       <div class="-mx-4 flex flex-wrap">
         <div class="w-full px-4">
           <div class="mx-auto mb-[60px] max-w-[510px] text-center">
-            <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
-              >Our Amazing Team
-            </span>
+            <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Our Amazing Team </span>
             <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
               Our Talented Team
               <br class="max-[500px]:hidden" />

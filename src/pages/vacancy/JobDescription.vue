@@ -20,11 +20,11 @@ defineProps(['vacancy'])
 }
 
 .description li::before {
+  @apply bg-tg-primary-color;
   content: '';
   width: 8px;
   height: 8px;
   border-radius: 100%;
-  background-color: #7e54f8;
   margin-right: 4px;
 }
 

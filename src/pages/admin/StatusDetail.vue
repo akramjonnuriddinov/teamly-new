@@ -45,7 +45,10 @@
             >
           </div>
 
-          <div class="px-5 text-slate-500" v-html="applierStatus.shortDescription || applierStatus.status?.definition" />
+          <div
+            class="px-5 text-slate-500"
+            v-html="applierStatus.shortDescription || applierStatus.status?.definition"
+          />
         </li>
       </ul>
     </div>
@@ -66,20 +69,23 @@ const tasks = ref<any>([])
 const listLoading = ref(true)
 
 const loadApplierStatuses = async () => {
-  const applierStatusesQuery = query(collection(db, 'applier_statuses'), where('applier_id', '==', props.applier_id), orderBy('date', 'desc'))
+  const applierStatusesQuery = query(
+    collection(db, 'applier_statuses'),
+    where('applier_id', '==', props.applier_id),
+    orderBy('date', 'desc'),
+  )
   const applierStatusesSnapshot = await getDocs(applierStatusesQuery)
-
 
   const tasksQuery = query(collection(db, 'tasks'))
   const tasksSnapshot = await getDocs(tasksQuery)
-  tasks.value = tasksSnapshot.docs.map(doc => doc.data())
+  tasks.value = tasksSnapshot.docs.map((doc) => doc.data())
 
-  applierStatuses.value = applierStatusesSnapshot.docs.map(doc => {
+  applierStatuses.value = applierStatusesSnapshot.docs.map((doc) => {
     const item = doc.data()
-      return {
+    return {
       ...item,
       status: props.statuses.find((el: any) => el.id === item.status_id),
-      task: tasks.value.filter((task: any) => task.id === item.task_id)[0]
+      task: tasks.value.filter((task: any) => task.id === item.task_id)[0],
     }
   })
 }
@@ -104,11 +110,11 @@ onMounted(async () => {
 }
 
 .comment li::before {
+  @apply bg-tg-primary-color;
   content: '';
   width: 8px;
   height: 8px;
   border-radius: 100%;
-  background-color: #7e54f8;
   margin-right: 4px;
 }
 

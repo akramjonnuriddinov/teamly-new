@@ -6,6 +6,7 @@ export default {
       colors: {
         'tg-dark-blue-color': '#38386E',
         'tg-primary-color': '#7E54F8',
+        // 'tg-primary-color': '#38386E',
         'tg-primary-color-two': '#5956E9',
         'tg-primary-color-three': '#FFC42B',
         'tg-secondary-color': '#F85454',
@@ -15,7 +16,7 @@ export default {
         'tg-paragraph-color': '#757589',
         'tg-section-background': '#EFF7FF',
         'tg-blue': '#0d6efd',
-        'tg-indigo': '#8381FF',
+        'tg-indigo': '#7E54F8',
         'tg-bubbles': '#E9F9FF',
         'tg-purple': '#6f42c1',
         'tg-pink': '#E481FD',
@@ -45,7 +46,10 @@ export default {
         skype: '#00aff0',
       },
       backgroundColor: {
+        // 'tg-primary-color': '#38386E',
         'tg-primary-color': '#7E54F8',
+        'tg-indigo': '#7E54F8',
+        'tg-footer': '#080c35',
       },
       backgroundImage: {
         'hero-banner': "url('@/assets/images/service-view/service_banner_bg.jpg')",

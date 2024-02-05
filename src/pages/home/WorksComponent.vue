@@ -3,7 +3,7 @@
     <div class="mx-auto px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:max-w-none">
         <div class="space-y-4 text-center">
-          <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
+          <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo"
             >Innovation in Numbers
           </span>
           <h2 class="text-center text-5xl font-bold leading-[1.2] tracking-tight text-tg-dark-blue-color">
