@@ -8,6 +8,7 @@ const emits = defineEmits<{
   (e: 'openModal', value: boolean): void
   (e: 'close'): void
 }>()
+defineProps(['option'])
 
 const handleClickOutside = (event: MouseEvent): void => {
   if (
@@ -51,10 +52,7 @@ onUnmounted(() => {
           <div ref="modalContainer" class="rounded-[20px] bg-white py-[60px]">
             <section class="mb-32">
               <div class="flex w-full flex-wrap items-start gap-6">
-                <img
-                  src="../../assets/images/blog/blog01.jpg"
-                  class="h-auto w-full max-w-[500px] rounded-lg object-cover max-2xl:mb-10"
-                />
+                <img :src="option.image" class="h-auto w-full max-w-[500px] rounded-lg object-cover max-2xl:mb-10" />
                 <div class="w-full max-w-[600px] max-[1280px]:max-w-full">
                   <div class="mb-12 flex">
                     <div class="shrink-0">
@@ -187,10 +185,20 @@ onUnmounted(() => {
                 </button>
               </div>
               <div class="w-1/2 px-3">
-                <button
-                  class="hover:bg-blue-dark block w-full rounded-md border border-tg-dark-blue-color bg-tg-dark-blue-color p-3 text-center text-base font-medium text-white transition"
+                <a
+                  v-if="option.link"
+                  :href="option.link"
+                  target="_blank"
+                  class="hover:bg-blue-dark block w-full rounded-md bg-tg-dark-blue-color p-3 text-center text-base font-medium text-white transition"
                 >
                   Live Priview
+                </a>
+                <button
+                  v-else
+                  disabled
+                  class="block w-full cursor-not-allowed rounded-md p-3 text-center text-base font-medium text-white transition disabled:bg-[#D1D5DB]"
+                >
+                  Preview(Private)
                 </button>
               </div>
             </div>

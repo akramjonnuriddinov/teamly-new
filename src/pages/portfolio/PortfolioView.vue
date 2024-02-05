@@ -2,7 +2,7 @@
   <div>
     <hero-banner :title="hero_content.title" :text="hero_content.text" :img_url="hero_content.img_url" />
     <portfolio-component @openModal="openModal" />
-    <portfolio-detail v-if="modalOpen" @close="closeModal" />
+    <portfolio-detail v-if="modalOpen" @close="closeModal" :option="option" />
   </div>
 </template>
 
@@ -19,9 +19,11 @@ const hero_content = {
   img_url: getImageUrl('portfolio-view/breadcrumb_img03.png'),
 }
 const modalOpen = ref(false)
+const option = ref<any>()
 
-const openModal = () => {
+const openModal = (data: any) => {
   modalOpen.value = true
+  option.value = data
 }
 const closeModal = () => {
   modalOpen.value = false
