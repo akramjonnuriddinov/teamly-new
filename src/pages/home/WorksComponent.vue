@@ -14,7 +14,7 @@
           </p>
         </div>
         <div
-          class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4"
+          class="container mx-auto mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4"
         >
           <div v-for="work in works" class="flex flex-col bg-white p-8">
             <h4 class="text-sm font-semibold leading-6 text-tg-dark-blue-color">{{ work.title }}</h4>

@@ -1,14 +1,16 @@
 <template>
   <div>
     <hero-banner :title="hero_content.title" :text="hero_content.text" :img_url="hero_content.img_url" />
-    <project-component />
+    <portfolio-component />
+    <portfolio-detail />
   </div>
 </template>
 
 <script setup lang="ts">
 import HeroBanner from '@/components/HeroBanner.vue'
-import ProjectComponent from '@/pages/home/ProjectComponent.vue'
+import PortfolioComponent from '@/pages/portfolio/PortfolioComponent.vue'
 import { getImageUrl } from '@/composables/getImgUrl'
+import PortfolioDetail from '@/pages/portfolio/PortfolioDetail.vue'
 
 const hero_content = {
   title: 'Our Portfolio',
