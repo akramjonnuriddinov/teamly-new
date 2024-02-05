@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-col" id="app">
+  <div class="flex-col overflow-hidden" id="app">
     <the-navbar v-if="!isAdmin" />
     <div class="flex-1">
       <router-view />

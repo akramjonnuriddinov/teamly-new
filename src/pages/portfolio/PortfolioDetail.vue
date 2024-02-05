@@ -42,7 +42,7 @@ onUnmounted(() => {
       class="container relative mx-auto flex h-full w-full flex-col overflow-y-hidden rounded-xl bg-white max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
       <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
-        <h1 class="text-center text-4xl">{{ 'title' }}</h1>
+        <h1 class="text-center text-4xl">{{ option.title }}</h1>
         <button class="text-tg-heading-font-color transition-all duration-300 hover:opacity-80">
           <close-icon class="h-[18px]" @click="closeModal" />
         </button>
