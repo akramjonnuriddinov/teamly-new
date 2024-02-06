@@ -28,7 +28,7 @@
               </p>
             </li>
           </ul>
-          <base-button :theme="EThemes.RED" class="max-[1024px]:mx-auto">
+          <base-button :theme="EThemes.GREEN" class="max-[1024px]:mx-auto">
             <router-link to="/about">Find Out More</router-link>
           </base-button>
         </div>

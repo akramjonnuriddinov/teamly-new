@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer py-[90px]">
+  <footer class="footer py-[50px]">
     <div class="container mx-auto w-full px-5">
       <div class="teamly-container">
         <div class="flex flex-col text-center lg:!flex-row lg:!text-start">
@@ -92,7 +92,7 @@
                         type="submit"
                         name="subscribe"
                         disabled
-                        class="absolute right-0 h-full w-20 cursor-pointer rounded-r-lg bg-tg-indigo text-sm font-bold disabled:cursor-not-allowed"
+                        class="absolute right-0 h-full w-20 cursor-pointer rounded-r-lg bg-tg-primary-color text-sm font-bold disabled:cursor-not-allowed"
                       />
                     </div>
                   </div>
@@ -112,12 +112,15 @@ import TheLogo from '@/components/TheLogo.vue'
 
 <style>
 .footer {
-  @apply bg-tg-footer;
-  clip-path: polygon(100% 100%, 100% 0, 50% 18%, 0 0, 0 100%);
+  /* @apply bg-tg-footer; */
+  /* clip-path: polygon(100% 100%, 100% 0, 50% 18%, 0 0, 0 100%); */
+  background-image: url('../assets/images/footer/footer-bg-2.jpg');
   color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-@media (max-width: 1300px) {
+/* @media (max-width: 1300px) {
   .footer {
     clip-path: polygon(100% 100%, 100% 0, 50% 10%, 0 0, 0 100%);
   }
@@ -139,5 +142,5 @@ import TheLogo from '@/components/TheLogo.vue'
   .footer {
     clip-path: polygon(100% 100%, 100% 0, 50% 3%, 0 0, 0 100%);
   }
-}
+} */
 </style>

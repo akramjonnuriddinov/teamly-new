@@ -24,8 +24,10 @@ const option = ref<any>()
 const openModal = (data: any) => {
   modalOpen.value = true
   option.value = data
+  document.body.style.overflow = 'hidden'
 }
 const closeModal = () => {
   modalOpen.value = false
+  document.body.style.overflow = 'auto'
 }
 </script>

@@ -51,9 +51,39 @@ onUnmounted(() => {
         <div class="h-full overflow-y-auto px-10 pb-5">
           <div ref="modalContainer" class="rounded-[20px] bg-white py-[60px]">
             <section class="mb-32">
-              <div class="flex w-full flex-wrap items-start gap-6">
-                <img :src="option.image" class="h-auto w-full max-w-[500px] rounded-lg object-cover max-2xl:mb-10" />
-                <div class="w-full max-w-[600px] max-[1280px]:max-w-full">
+              <div class="flex w-full flex-col items-start gap-6">
+                <img :src="option.image" class="h-auto w-full rounded-lg border-2 object-cover max-2xl:mb-10" />
+                <div class="w-full">
+                  <!-- 1 -->
+                  <div class="mb-12 flex">
+                    <div class="shrink-0">
+                      <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          class="h-6 w-6 text-white"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="ml-4 grow">
+                      <p class="mb-2 font-bold">Definition</p>
+                      <p class="text-neutral-500 dark:text-neutral-300">
+                        {{ option.definition }}
+                      </p>
+                    </div>
+                  </div>
+                  <!-- /1 -->
+
+                  <!-- 2 -->
                   <div class="mb-12 flex">
                     <div class="shrink-0">
                       <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
@@ -76,40 +106,13 @@ onUnmounted(() => {
                     <div class="ml-4 grow">
                       <p class="mb-2 font-bold">Support 24/7</p>
                       <p class="text-neutral-500 dark:text-neutral-300">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil quisquam quibusdam modi sapiente
-                        magni molestias pariatur facilis reprehenderit facere aliquam ex.
+                        {{ option.support }}
                       </p>
                     </div>
                   </div>
+                  <!-- /2 -->
 
-                  <div class="mb-12 flex">
-                    <div class="shrink-0">
-                      <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="2"
-                          stroke="currentColor"
-                          class="h-6 w-6 text-white"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="ml-4 grow">
-                      <p class="mb-2 font-bold">Safe and solid</p>
-                      <p class="text-neutral-500 dark:text-neutral-300">
-                        Eum nostrum fugit numquam, voluptates veniam neque quibusdam ullam aspernatur odio soluta,
-                        quisquam dolore animi mollitia a omnis praesentium, expedita nobis!
-                      </p>
-                    </div>
-                  </div>
-
+                  <!-- 3 -->
                   <div class="mb-12 flex">
                     <div class="shrink-0">
                       <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
@@ -130,14 +133,15 @@ onUnmounted(() => {
                       </div>
                     </div>
                     <div class="ml-4 grow">
-                      <p class="mb-2 font-bold">Extremely fast</p>
+                      <p class="mb-2 font-bold">Used technologies</p>
                       <p class="text-neutral-500 dark:text-neutral-300">
-                        Enim cupiditate, minus nulla dolor cumque iure eveniet facere ullam beatae hic voluptatibus
-                        dolores exercitationem? Facilis debitis aspernatur amet nisi iure eveniet facere?
+                        {{ option.technologies }}
                       </p>
                     </div>
                   </div>
+                  <!-- /3 -->
 
+                  <!-- 4 -->
                   <div class="flex">
                     <div class="shrink-0">
                       <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
@@ -163,13 +167,13 @@ onUnmounted(() => {
                       </div>
                     </div>
                     <div class="ml-4 grow">
-                      <p class="mb-2 font-bold">Live analytics</p>
+                      <p class="mb-2 font-bold">Challenges and Solutions</p>
                       <p class="text-neutral-500 dark:text-neutral-300">
-                        Illum doloremque ea, blanditiis sed dolor laborum praesentium maxime sint, consectetur atque
-                        ipsum ab adipisci ullam aspernatur odio soluta, quisquam dolore
+                        {{ option.challenge }}
                       </p>
                     </div>
                   </div>
+                  <!-- /4 -->
                 </div>
               </div>
             </section>
@@ -186,7 +190,7 @@ onUnmounted(() => {
               </div>
               <div class="w-1/2 px-3">
                 <a
-                  v-if="option.link"
+                  v-if="option.link !== '0'"
                   :href="option.link"
                   target="_blank"
                   class="hover:bg-blue-dark block w-full rounded-md bg-tg-dark-blue-color p-3 text-center text-base font-medium text-white transition"
