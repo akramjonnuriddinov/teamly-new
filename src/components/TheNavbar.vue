@@ -99,7 +99,7 @@
               <router-link
                 @click="isHidden = true"
                 to="/signin"
-                class="flex max-w-full overflow-hidden truncate whitespace-nowrap px-[25px] py-4 font-semibold"
+                class="flex max-w-full overflow-hidden truncate whitespace-nowrap px-[25px] py-4 font-semibold hover:bg-tg-primary-color"
               >
                 <inline-svg fill="currentColor" class="mr-3" src="fontawesome/user-profile/user.svg" />
                 <span>Login</span>
@@ -313,21 +313,17 @@ const toggleModal = () => {
   animation: 1000ms ease-in-out 0s normal none 1 running fadeInDown;
 }
 
-.user:hover path {
-  fill: #7e54f8;
-}
-
 .router-link-active {
-  color: #7e54f8;
+  @apply text-tg-primary-color;
 }
 
 .nav-link::before {
+  @apply bg-tg-primary-color;
   content: '';
   position: absolute;
   width: 100%;
   height: 3px;
   border-radius: 3px;
-  background-color: #7e54f8;
   bottom: -6px;
   left: 0;
   transform-origin: right;

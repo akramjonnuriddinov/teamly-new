@@ -1,8 +1,6 @@
 <template>
   <section class="vacancy-detail mt-[86px] bg-[#F9F9FA]">
-    <div
-      class="container relative mx-auto max-w-7xl px-5 max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
-    >
+    <div class="container relative mx-auto px-5 max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl">
       <div
         class="relative flex w-full items-center justify-between pb-[60px] pt-[100px] max-[990px]:flex max-[990px]:flex-col max-[990px]:items-start max-[990px]:justify-center max-sm:pt-[100px]"
       >

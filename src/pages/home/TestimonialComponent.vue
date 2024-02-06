@@ -5,9 +5,7 @@
     </div>
     <div class="container mx-auto w-full px-5">
       <div class="pb-[70px]">
-        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
-          >Client Testimonial
-        </span>
+        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Client Testimonial </span>
         <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           What People are
           <br class="max-[500px]:hidden" />

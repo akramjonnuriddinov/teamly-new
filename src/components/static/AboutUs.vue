@@ -10,7 +10,7 @@
         <div
           class="relative ml-12 w-full max-w-[600px] px-4 max-[1024px]:max-w-[720px] max-[1024px]:pt-10 max-[1024px]:text-center max-[576px]:px-0"
         >
-          <span class="mb-3 text-lg font-bold text-tg-primary-color">About Our Company</span>
+          <span class="mb-3 text-lg font-bold text-tg-indigo">About Our Company</span>
           <h2 class="mb-9 text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
             Teamly that Help you go
             <br class="max-[1024px]:hidden" />
@@ -28,7 +28,7 @@
               </p>
             </li>
           </ul>
-          <base-button :theme="EThemes.RED" class="max-[1024px]:mx-auto">
+          <base-button :theme="EThemes.GREEN" class="max-[1024px]:mx-auto">
             <router-link to="/about">Find Out More</router-link>
           </base-button>
         </div>

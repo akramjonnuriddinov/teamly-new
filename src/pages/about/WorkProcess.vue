@@ -2,9 +2,7 @@
   <section class="relative bg-[#EFF7FFf] pb-[105px] pt-[40px]">
     <div class="container mx-auto w-full px-5">
       <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="pb-[70px]">
-        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
-          >Working Process
-        </span>
+        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Working Process </span>
         <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           Optimized Success
         </h2>

@@ -16,7 +16,8 @@
 }
 .loader-outter {
   position: absolute;
-  border: 4px solid #7e54f8;
+  border: 4px solid;
+  @apply border-tg-primary-color;
   border-left-color: transparent;
   border-bottom: 0;
   width: 100%;
@@ -27,7 +28,8 @@
 }
 .loader-inner {
   position: absolute;
-  border: 4px solid #7e54f8;
+  border: 4px solid;
+  @apply border-tg-primary-color;
   border-radius: 50%;
   width: 40px;
   height: 40px;

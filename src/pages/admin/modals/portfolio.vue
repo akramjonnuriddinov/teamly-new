@@ -27,9 +27,9 @@
           />
         </div>
         <div class="my-2 flex w-full items-center justify-between">
-          <label class="text-gray-700" for="username">Text</label>
+          <label class="text-gray-700" for="username">Definition</label>
           <textarea
-            v-model="portfolio.text"
+            v-model="portfolio.definition"
             class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
             name=""
             id="text"
@@ -37,7 +37,39 @@
             rows="10"
           ></textarea>
         </div>
-
+        <div class="my-2 flex w-full items-center justify-between">
+          <label class="text-gray-700" for="tech">Technologies</label>
+          <textarea
+            v-model="portfolio.technologies"
+            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
+            name="tech"
+            id="text"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div class="my-2 flex w-full items-center justify-between">
+          <label class="text-gray-700" for="chal">Challenges</label>
+          <textarea
+            v-model="portfolio.challenge"
+            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
+            name="chal"
+            id="text"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div class="my-2 flex w-full items-center justify-between">
+          <label class="text-gray-700" for="chal">Support</label>
+          <textarea
+            v-model="portfolio.support"
+            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
+            name="chal"
+            id="text"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
         <div class="relative flex w-[80%] items-center justify-center self-end overflow-hidden">
           <label
             for="dropzone-file"
@@ -82,9 +114,12 @@ const props = defineProps(['input'])
 const initialPortfolio = {
   title: '',
   category: '',
-  text: '',
-  image: null,
+  definition: '',
+  support: '',
+  technologies: '',
+  challenge: '',
   link: '',
+  image: null,
 }
 const portfolio = ref({
   ...initialPortfolio,

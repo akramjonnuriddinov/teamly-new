@@ -1,6 +1,6 @@
 <template>
   <section class="relative z-10 mb-[100px] pb-[45px] pt-[50px]">
-    <div class="container relative mx-auto w-full max-w-7xl px-5">
+    <div class="container relative mx-auto w-full px-5">
       <div class="description mb-12" v-html="vacancy.description"></div>
       <slot />
     </div>
@@ -20,11 +20,11 @@ defineProps(['vacancy'])
 }
 
 .description li::before {
+  @apply bg-tg-primary-color;
   content: '';
   width: 8px;
   height: 8px;
   border-radius: 100%;
-  background-color: #7e54f8;
   margin-right: 4px;
 }
 

@@ -86,8 +86,8 @@
   }
 
   ::selection {
+    @apply bg-tg-primary-color;
     color: white;
-    background: #7e54f8;
   }
 
   html {

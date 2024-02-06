@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer py-[90px]">
+  <footer class="footer py-[50px]">
     <div class="container mx-auto w-full px-5">
       <div class="teamly-container">
         <div class="flex flex-col text-center lg:!flex-row lg:!text-start">
@@ -14,7 +14,7 @@
           <div class="mb-6 basis-full md:!basis-4/12 md:pr-6 xl:!basis-3/12">
             <h3 class="mb-0 text-xl font-bold text-gray-50">Teamly</h3>
 
-            <p class="mb-4 text-base text-gray-300">
+            <p class="mb-4 text-base text-gray-100">
               © {{ new Date().getFullYear() }} Teamly.<br class="hidden lg:!block" />
               All rights reserved.
             </p>
@@ -35,7 +35,7 @@
             </div>
           </div>
 
-          <div class="mb-6 basis-full text-sm text-gray-300 md:!basis-4/12 md:pr-6 xl:!basis-3/12">
+          <div class="mb-6 basis-full text-sm text-gray-100 md:!basis-4/12 md:pr-6 xl:!basis-3/12">
             <h4 class="mb-3 text-base font-medium text-gray-50">Get in Touch</h4>
             <div class="mb-5 xl:!pr-28">12 Ulitsa Khudzhant, Fergana, Uzbekistan</div>
             <a to="#" class="hover:text-[#6c63ff]" title="info@email.com" href="mailto:#" />
@@ -45,21 +45,21 @@
 
           <div class="mb-6 basis-full md:!basis-4/12 md:pr-6 xl:!basis-3/12">
             <h4 class="mb-3 text-base font-medium text-gray-50">Learn More</h4>
-            <ul class="list-unstyled mb-0">
+            <ul class="list-unstyled mb-0 text-gray-100">
               <li>
-                <router-link to="/about" class="text-sm text-gray-300 hover:text-[#6c63ff]">About us</router-link>
+                <router-link to="/about" class="text-sm hover:text-[#6c63ff]">About us</router-link>
               </li>
               <li>
-                <router-link to="/portfolio" class="text-sm text-gray-300 hover:text-[#6c63ff]">Portfolio</router-link>
+                <router-link to="/portfolio" class="text-sm hover:text-[#6c63ff]">Portfolio</router-link>
               </li>
               <li>
-                <router-link to="/service" class="text-sm text-gray-300 hover:text-[#6c63ff]">Service</router-link>
+                <router-link to="/service" class="text-sm hover:text-[#6c63ff]">Service</router-link>
               </li>
               <li>
-                <router-link to="/vacancy" class="text-sm text-gray-300 hover:text-[#6c63ff]">Vacancy</router-link>
+                <router-link to="/vacancy" class="text-sm hover:text-[#6c63ff]">Vacancy</router-link>
               </li>
               <li>
-                <router-link to="/contact" class="text-sm text-gray-300 hover:text-[#6c63ff]">Contact</router-link>
+                <router-link to="/contact" class="text-sm hover:text-[#6c63ff]">Contact</router-link>
               </li>
             </ul>
           </div>
@@ -69,7 +69,7 @@
               Coming soon
             </div>
             <h4 class="mb-3 font-medium text-gray-50">Our Newsletter</h4>
-            <p class="mb-5 text-gray-300">Subscribe to our newsletter to get our news &amp; deals delivered to you.</p>
+            <p class="mb-5 text-gray-100">Subscribe to our newsletter to get our news &amp; deals delivered to you.</p>
             <div>
               <div id="mc_embed_signup2">
                 <form method="post">
@@ -112,12 +112,15 @@ import TheLogo from '@/components/TheLogo.vue'
 
 <style>
 .footer {
-  clip-path: polygon(100% 100%, 100% 0, 50% 18%, 0 0, 0 100%);
-  background-color: #080c35;
+  /* @apply bg-tg-footer; */
+  /* clip-path: polygon(100% 100%, 100% 0, 50% 18%, 0 0, 0 100%); */
+  background-image: url('../assets/images/footer/footer-bg-2.jpg');
   color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-@media (max-width: 1300px) {
+/* @media (max-width: 1300px) {
   .footer {
     clip-path: polygon(100% 100%, 100% 0, 50% 10%, 0 0, 0 100%);
   }
@@ -139,5 +142,5 @@ import TheLogo from '@/components/TheLogo.vue'
   .footer {
     clip-path: polygon(100% 100%, 100% 0, 50% 3%, 0 0, 0 100%);
   }
-}
+} */
 </style>

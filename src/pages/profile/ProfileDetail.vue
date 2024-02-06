@@ -117,7 +117,7 @@
         @click="updateProfileInformation"
         :is-loading="isLoadingProfile"
         :theme="EThemes.DEFAULT"
-        class="btn absolute right-0 mt-[35px] rounded-lg bg-[#7e54f8] text-sm text-white"
+        class="btn absolute right-0 mt-[35px] rounded-lg bg-tg-primary-color text-sm text-white"
       >
         Update profile information
       </base-button>
@@ -184,7 +184,6 @@ const currentUser = getAuth().currentUser
 const updatedUser = ref({
   ...user.value,
 })
-
 
 const selectedFile = ref<any>(null)
 const isLoadingResume = ref(false)

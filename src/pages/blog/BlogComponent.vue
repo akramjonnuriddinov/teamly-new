@@ -5,11 +5,9 @@
       <img class="absolute right-36 top-[20%]" src="@/assets/images/blog/blog_shape02.png" alt="" />
       <img class="absolute right-10 top-[40%]" src="@/assets/images/blog/blog_shape03.png" alt="" />
     </div>
-    <div class="container relative z-10 mx-auto w-full max-w-7xl px-5">
+    <div class="container relative z-10 mx-auto w-full px-5">
       <div class="pb-[70px]">
-        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-primary-color"
-          >Latest news updates
-        </span>
+        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Latest news updates </span>
         <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
           Check Our Company
           <br class="max-[500px]:hidden" />

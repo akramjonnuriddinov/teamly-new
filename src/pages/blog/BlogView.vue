@@ -1,22 +1,22 @@
 <template>
-  <section class="bg-no-repeat bg-cover bg-tg-white my-[86px]">
+  <section class="my-[86px] bg-tg-white bg-cover bg-no-repeat">
     <div
       v-if="isLoading"
-      class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container relative mx-auto px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
       <h1
-        class="text-tg-heading-font-color max-w-[1170px] w-full pt-[90px] mb-4 font-medium leading-[1.2] text-[50px] max-sm:text-4xl"
+        class="mb-4 w-full max-w-[1170px] pt-[90px] text-[50px] font-medium leading-[1.2] text-tg-heading-font-color max-sm:text-4xl"
       >
         <Skeleton width="100%" height="80px" :theme="ESkeletonTheme.LIGHT" />
       </h1>
-      <div class="flex flex-col rounded-[10px] blog-inner mb-7 transition-all duration-300">
+      <div class="blog-inner mb-7 flex flex-col rounded-[10px] transition-all duration-300">
         <div class="max-w-[770px]">
           <Skeleton width="100%" height="430px" :theme="ESkeletonTheme.LIGHT" />
         </div>
         <div
-          class="flex items-center py-10 w-full mt-auto font-medium text-tg-paragraph-color max-[1200px]:justify-start"
+          class="mt-auto flex w-full items-center py-10 font-medium text-tg-paragraph-color max-[1200px]:justify-start"
         >
-          <div class="flex items-center mr-8">
+          <div class="mr-8 flex items-center">
             <Skeleton width="170px" height="24px" :theme="ESkeletonTheme.LIGHT" />
           </div>
           <div class="flex items-center">
@@ -28,25 +28,25 @@
     </div>
     <div
       v-else
-      class="container relative px-5 mx-auto max-w-7xl max-xl:max-w-[990px] max-[800px]:max-w-2xl max-[990px]:max-w-3xl max-[680px]:max-w-xl"
+      class="container relative mx-auto px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
       <h1
-        class="text-tg-heading-font-color max-w-[1170px] w-full pt-[90px] mb-4 font-medium leading-[1.2] text-[50px] max-sm:text-4xl"
+        class="mb-4 w-full max-w-[1170px] pt-[90px] text-[50px] font-medium leading-[1.2] text-tg-heading-font-color max-sm:text-4xl"
       >
         {{ blog.title }}
       </h1>
-      <div class="flex flex-col rounded-[10px] blog-inner mb-7 transition-all duration-300">
+      <div class="blog-inner mb-7 flex flex-col rounded-[10px] transition-all duration-300">
         <img
           :src="blog.image"
-          class="w-[770px] h-[430px] object-cover rounded-[10px] max-[650px]:w-full max-[650px]:h-full"
+          class="h-[430px] w-[770px] rounded-[10px] object-cover max-[650px]:h-full max-[650px]:w-full"
           width="771"
           height="430"
           alt=""
         />
         <div
-          class="flex items-center py-10 w-full mt-auto font-medium text-tg-paragraph-color max-[1200px]:justify-start"
+          class="mt-auto flex w-full items-center py-10 font-medium text-tg-paragraph-color max-[1200px]:justify-start"
         >
-          <div class="flex items-center mr-8">
+          <div class="mr-8 flex items-center">
             <img class="mr-2" src="@/assets/images/blog/calendar.svg" alt="" />
             <span class="whitespace-nowrap">
               {{ formatTimestampToLocaleString(blog.date) }}

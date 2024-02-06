@@ -1,6 +1,6 @@
 <template>
   <section id="vacancies" class="relative z-10 mb-[100px] pb-[45px] pt-[115px]">
-    <div class="container relative mx-auto w-full max-w-7xl px-5">
+    <div class="container relative mx-auto w-full px-5">
       <ul v-if="listLoading" class="flex flex-wrap justify-start">
         <li
           class="service-item w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"

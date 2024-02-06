@@ -1,11 +1,11 @@
 <template>
   <section class="bg-white pb-[200px] pt-[100px]">
-    <div class="container relative mx-auto max-w-7xl px-5">
+    <div class="container relative mx-auto px-5">
       <div
         class="flex items-center justify-between rounded-[30px] bg-tg-primary-color px-[100px] py-[85px] max-[990px]:px-[20px]"
       >
         <div
-          class="relative w-full max-w-2xl max-[990px]:flex max-[990px]:max-w-full max-[990px]:flex-col max-[990px]:items-center"
+          class="relative w-full max-w-2xl max-xl:max-w-full max-[990px]:flex max-[990px]:max-w-full max-[990px]:flex-col max-[990px]:items-center"
         >
           <span class="mb-3 text-lg font-bold text-tg-white">Unlock Success</span>
           <h2 class="mb-7 text-5xl font-bold leading-[1.2] text-tg-white max-[990px]:text-center max-sm:text-4xl">
@@ -17,7 +17,7 @@
             <base-button :size="ESize.MEDIUM" :theme="EThemes.WHITE"> Contact Us </base-button>
           </router-link>
         </div>
-        <div class="absolute right-10 top-1/2 -translate-y-1/2">
+        <div class="absolute right-10 top-1/2 -translate-y-1/2 max-xl:hidden">
           <app-animation :options="defaultOptions" :width="500" @animCreated="handleAnimation" :speed="1" />
         </div>
       </div>
