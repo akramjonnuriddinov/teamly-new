@@ -114,7 +114,7 @@ router.beforeEach(async (to, _, next) => {
   try {
     await new Promise<void>((resolve) => {
       const unsubscribe = onAuthStateChanged(auth, (authUser: any) => {
-        const emails = ['nn.akramjon@gmail.com', 'rustamidastan0414@gmail.com', 'rajabov.diyorbek.it@gmail.com', 'akramjonmohirdev@gmail.com']
+        const emails = ['nn.akramjon@gmail.com', 'rustamidastan0414@gmail.com', 'humoyun1798@gmail.com', 'akramjonmohirdev@gmail.com', 'm.mirakhmad@gmail.com']
         if ((to.name === 'admin' || to.name === 'resume') && !emails.includes(authUser?.email)) {
           console.info('User has logged out')
           next('/signin')
