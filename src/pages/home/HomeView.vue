@@ -20,7 +20,7 @@ import AboutUs from '@/pages/about/AboutUs.vue'
 import PortfolioComponent from '@/pages/portfolio/PortfolioComponent.vue'
 import TestimonialComponent from '@/pages/home/TestimonialComponent.vue'
 import TeamComponent from '@/pages/home/TeamComponent.vue'
-import BlogComponent from '@/components/BlogComponent.vue'
+import BlogComponent from '@/pages/blog/BlogComponent.vue'
 import StatsComponent from '@/pages/home/StatsComponent.vue'
 import PortfolioDetail from '@/pages/portfolio/PortfolioDetail.vue'
 
