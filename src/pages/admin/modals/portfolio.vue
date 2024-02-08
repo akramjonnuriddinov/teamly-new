@@ -76,7 +76,7 @@
             class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50"
           >
             <div class="flex flex-col items-center justify-center pb-6 pt-5">
-              <inline-svg class="text-3xl text-gray-500" src="svg/fontawesome/upload.svg" />
+              <inline-svg class="text-3xl text-gray-500" src="svg /upload.svg" />
 
               <p class="mb-2 text-sm text-gray-500">
                 <span class="font-semibold">Click to upload</span> or drag and drop

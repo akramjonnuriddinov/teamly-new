@@ -1,37 +1,3 @@
-<script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
-import CloseIcon from '@/components/icons/CloseIcon.vue'
-
-const modalContainer = ref<HTMLElement | null>(null)
-const trigger = ref<HTMLButtonElement | null>(null)
-const emits = defineEmits<{
-  (e: 'openModal', value: boolean): void
-  (e: 'close'): void
-}>()
-defineProps(['option'])
-
-const handleClickOutside = (event: MouseEvent): void => {
-  if (
-    modalContainer.value &&
-    trigger.value &&
-    !modalContainer.value.contains(event.target as Node) &&
-    event.target !== trigger.value
-  ) {
-    emits('openModal', false)
-  }
-}
-
-const closeModal = () => emits('close')
-
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
-</script>
-
 <template>
   <section
     class="fixed left-0 top-0 z-[10000] flex h-full min-h-screen w-[100vw] items-center justify-center bg-[#00000080] p-10"
@@ -44,7 +10,7 @@ onUnmounted(() => {
       <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
         <h1 class="text-center text-4xl">{{ option.title }}</h1>
         <button class="text-tg-heading-font-color transition-all duration-300 hover:opacity-80">
-          <close-icon class="h-[18px]" @click="closeModal" />
+          <inline-svg src="fontawesome/close.svg" @click="closeModal" class="h-[18px]" />
         </button>
       </div>
       <div class="h-full overflow-y-auto pb-5">
@@ -212,3 +178,37 @@ onUnmounted(() => {
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
+import InlineSvg from '@/components/InlineSvg.vue'
+
+const modalContainer = ref<HTMLElement | null>(null)
+const trigger = ref<HTMLButtonElement | null>(null)
+const emits = defineEmits<{
+  (e: 'openModal', value: boolean): void
+  (e: 'close'): void
+}>()
+defineProps(['option'])
+
+const handleClickOutside = (event: MouseEvent): void => {
+  if (
+    modalContainer.value &&
+    trigger.value &&
+    !modalContainer.value.contains(event.target as Node) &&
+    event.target !== trigger.value
+  ) {
+    emits('openModal', false)
+  }
+}
+
+const closeModal = () => emits('close')
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
+</script>

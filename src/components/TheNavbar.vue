@@ -7,16 +7,23 @@
           <span class="whitespace-nowrap text-base font-semibold max-sm:text-sm">+998 (33) 773-77-37</span>
         </a>
         <a href="https://t.me/m_mirahmad" class="ml-auto mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
-          <img src="@/assets/images/svg/telegram.svg" alt="you tube icon" />
+          <img src="@/assets/images/fontawesome/telegram.svg" alt="you tube icon" />
+        </a>
+        <a
+          href="https://www.linkedin.com/company/teamly-uz/"
+          class="mr-3 transition-all hover:-translate-y-[2px]"
+          target="_blank"
+        >
+          <img src="@/assets/images/fontawesome/linkedin.svg" alt="instagram icon" />
         </a>
         <span class="mr-3 cursor-not-allowed transition-all">
-          <img src="@/assets/images/svg/twitter.svg" alt="twitter icon" />
+          <img src="@/assets/images/fontawesome/twitter.svg" alt="twitter icon" />
         </span>
         <span class="mr-3 cursor-not-allowed transition-all">
-          <img src="@/assets/images/svg/facebook.svg" alt="facebook icon" />
+          <img src="@/assets/images/fontawesome/facebook.svg" alt="facebook icon" />
         </span>
         <span class="mr-3 cursor-not-allowed transition-all">
-          <img src="@/assets/images/svg/instagram.svg" alt="instagram icon" />
+          <img src="@/assets/images/fontawesome/instagram.svg" alt="instagram icon" />
         </span>
       </div>
     </div>
@@ -39,7 +46,7 @@
               <the-logo />
             </router-link>
             <button class="flex h-7 w-9 items-center justify-center" @click="toggleModal">
-              <img class="h-5 w-4" src="@/assets/images/svg/close.svg" alt="close-icon" />
+              <img class="h-5 w-4" src="@/assets/images/fontawesome/close.svg" alt="close-icon" />
             </button>
           </div>
           <ul class="navbar__list top-[100px] flex justify-between">
