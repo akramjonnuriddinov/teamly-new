@@ -19,7 +19,7 @@
           type="button"
         >
           <span>Go to Vacancies</span>
-          <arrow-circle-icon />
+          <inline-svg src="svg/arrow-circle.svg" />
         </button>
       </div>
     </div>
@@ -27,7 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import ArrowCircleIcon from '@/components/icons/ArrowCircleIcons.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
+
 const scroll = () => {
   const element = document.getElementById('vacancies') as any
   element.scrollIntoView({ behavior: 'smooth' })

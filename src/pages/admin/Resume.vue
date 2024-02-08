@@ -3,11 +3,7 @@
     <div>
       <div class="flex items-center justify-between">
         <h2 class="mb-10 text-3xl capitalize">Appliers</h2>
-        <select
-          class="rounded-md border border-gray-200 p-2 outline-blue-300"
-          id="category"
-          @change="setFilter"
-        >
+        <select class="rounded-md border border-gray-200 p-2 outline-blue-300" id="category" @change="setFilter">
           <option value="all" selected>All</option>
           <option v-for="option in statuses" class="flex items-center" :value="option.id" :key="option.id">
             {{ option.title }}
@@ -25,7 +21,7 @@
                 @click="toggleAccordion(applier.id, applier)"
                 class="transition-color mr-4 text-tg-paragraph-color duration-300 hover:text-tg-heading-font-color"
               >
-                <inline-svg title="Show history" class="h-5 w-5" src="history.svg" />
+                <inline-svg title="Show history" class="h-5 w-5" src="svg/history.svg" />
               </button>
               <button
                 @click.stop="openUserModal(applier.user)"
@@ -106,7 +102,6 @@ const applier_id = ref(null)
 const loadMoreLoading = ref(false)
 const allData = ref<any>([])
 const filteredAppliers = ref<any>([])
-
 
 onMounted(async () => {
   await loadMore()
@@ -198,14 +193,18 @@ const openUserModal = (user: object) => {
   selectedUser.value = user
 }
 
-const closeStatusModal = (value:string) => {
+const closeStatusModal = (value: string) => {
   isStatusModal.value = false
   if (value) {
-    allData.value[allData.value.findIndex((item:any) => item.id === currentUser.value.applier_id)].status = statuses.value.find((status: any) => status.id === value)
+    allData.value[allData.value.findIndex((item: any) => item.id === currentUser.value.applier_id)].status =
+      statuses.value.find((status: any) => status.id === value)
   }
 }
 
-const setFilter = (value:any) => {
-  filteredAppliers.value = value.target.value === 'all' ? allData.value : allData.value.filter((item:any) => item.status.id === value.target.value)
+const setFilter = (value: any) => {
+  filteredAppliers.value =
+    value.target.value === 'all'
+      ? allData.value
+      : allData.value.filter((item: any) => item.status.id === value.target.value)
 }
 </script>

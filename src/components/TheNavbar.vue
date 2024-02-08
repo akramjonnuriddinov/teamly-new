@@ -9,6 +9,13 @@
         <a href="https://t.me/m_mirahmad" class="ml-auto mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
           <img src="@/assets/images/svg/telegram.svg" alt="you tube icon" />
         </a>
+        <a
+          href="https://www.linkedin.com/company/teamly-uz/"
+          class="mr-3 transition-all hover:-translate-y-[2px]"
+          target="_blank"
+        >
+          <img src="@/assets/images/svg/linkedin.svg" alt="instagram icon" />
+        </a>
         <span class="mr-3 cursor-not-allowed transition-all">
           <img src="@/assets/images/svg/twitter.svg" alt="twitter icon" />
         </span>
@@ -66,7 +73,7 @@
                   <inline-svg
                     class="ml-auto h-6 w-6 font-bold opacity-60"
                     :class="{ 'rotate-180': isDropDown }"
-                    src="fontawesome/profile-toggle.svg"
+                    src="svg/profile-toggle.svg"
                   />
                 </div>
                 <the-transition>
@@ -80,7 +87,7 @@
                       to="/profile"
                       class="flex cursor-pointer items-center gap-3 pb-2.5 hover:text-tg-primary-color"
                     >
-                      <inline-svg src="fontawesome/user-profile/user.svg" />
+                      <inline-svg src="svg/user-profile/user.svg" />
                       My profile
                     </router-link>
                     <button
@@ -88,7 +95,7 @@
                       type="button"
                       class="flex cursor-pointer items-center gap-3 py-2.5 hover:text-tg-primary-color"
                     >
-                      <inline-svg src="fontawesome/user-profile/log-out.svg" />
+                      <inline-svg src="svg/user-profile/log-out.svg" />
                       Logout
                     </button>
                   </div>
@@ -101,7 +108,7 @@
                 to="/signin"
                 class="flex max-w-full overflow-hidden truncate whitespace-nowrap px-[25px] py-4 font-semibold hover:bg-tg-primary-color"
               >
-                <inline-svg fill="currentColor" class="mr-3" src="fontawesome/user-profile/user.svg" />
+                <inline-svg fill="currentColor" class="mr-3" src="svg/user-profile/user.svg" />
                 <span>Login</span>
               </router-link>
             </li>
@@ -127,7 +134,7 @@
               :href="social.url"
               target="_blank"
             >
-              <span v-html="getSVG(social.name)" />
+              <inline-svg :src="social.name" />
             </a>
           </div>
         </nav>
@@ -142,7 +149,7 @@
             <the-language />
           </div>
           <router-link v-if="!store.user" to="/signin" class="max-[990px]:hidden">
-            <inline-svg src="fontawesome/user-profile/user.svg" />
+            <inline-svg src="svg/user-profile/user.svg" />
           </router-link>
           <div
             v-else
@@ -169,7 +176,7 @@
               <inline-svg
                 class="h-6 w-6 font-bold opacity-60"
                 :class="{ 'rotate-180': isDropDown }"
-                src="fontawesome/profile-toggle.svg"
+                src="svg/profile-toggle.svg"
               />
             </div>
             <div
@@ -201,7 +208,7 @@
               class="block h-[30px] w-[26px]"
               width="26"
               height="30"
-              src="@/assets/images/fontawesome/bars.svg"
+              src="@/assets/images/svg/bars.svg"
               alt="bars_icon"
             />
           </button>
@@ -214,8 +221,7 @@
 <script setup lang="ts">
 import { onMounted, ref, onUpdated, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import TheLanguage from '@/components/static/TheLanguage.vue'
-import { getSVG } from '@/composables/getSVG'
+import TheLanguage from '@/components/TheLanguage.vue'
 import TheLogo from '@/components/TheLogo.vue'
 import InlineSvg from '@/components/InlineSvg.vue'
 import TheTransition from '@/components/TheTransition.vue'
@@ -236,24 +242,24 @@ const phoneOptions = {
 }
 const socials = [
   {
-    name: 'facebook',
-    url: '',
-  },
-  {
-    name: 'twitter',
-    url: '',
-  },
-  {
-    name: 'instagram',
-    url: '',
-  },
-  {
-    name: 'linkedin',
+    name: 'svg/linkedin.svg',
     url: 'https://www.linkedin.com/company/teamly-uz/',
   },
   {
-    name: 'telegram',
+    name: 'svg/telegram.svg',
     url: 'https://t.me/teamly_uz',
+  },
+  {
+    name: 'svg/facebook.svg',
+    url: '',
+  },
+  {
+    name: 'svg/twitter.svg',
+    url: '',
+  },
+  {
+    name: 'svg/instagram.svg',
+    url: '',
   },
 ]
 const links = [

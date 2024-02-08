@@ -13,7 +13,7 @@
             :class="{ 'bg-gray-100': isActive(link.name), item: hasChildRoute }"
             class="group flex w-full items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100"
           >
-            <component :is="link.icon" />
+            <inline-svg :src="link.icon" />
             <span class="ml-3 capitalize">{{ link.name }}</span>
           </router-link>
         </li>
@@ -23,18 +23,9 @@
 </template>
 
 <script setup lang="ts">
-import AboutIcon from '@/pages/admin/icons/AboutIcon.vue'
-import BlogIcon from '@/pages/admin/icons/BlogIcon.vue'
-import ServiceIcon from '@/pages/admin/icons/ServiceIcon.vue'
-import PortfolioIcon from '@/pages/admin/icons/PortfolioIcon.vue'
-import VacancyIcon from '@/pages/admin/icons/VacancyIcon.vue'
-import ApplyIcon from '@/pages/admin/icons/ApplyIcon.vue'
-import StatusIcon from '@/pages/admin/icons/StatusIcon.vue'
-import TaskIcon from '@/pages/admin/icons/TaskIcon.vue'
-import CommentIcon from '@/pages/admin/icons/CommentIcon.vue'
-import SubmittedIcon from '@/pages/admin/icons/SubmittedIcon.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import InlineSvg from '@/components/InlineSvg.vue'
 
 const emit = defineEmits(['change'])
 const props = defineProps(['active'])
@@ -42,47 +33,46 @@ const route = useRoute()
 const links = [
   {
     name: 'vacancies',
-    icon: VacancyIcon,
+    icon: 'svg/admin/vacancy.svg',
   },
   {
     name: 'appliers',
-    icon: ApplyIcon,
+    icon: 'svg/admin/apply.svg',
     page: 'resume',
   },
   {
     name: 'message',
-    icon: CommentIcon,
+    icon: 'svg/admin/comment.svg',
     page: 'message',
-    isBadge: true,
   },
   {
     name: 'portfolio',
-    icon: PortfolioIcon,
+    icon: 'svg/admin/portfolio.svg',
   },
   {
     name: 'blog',
-    icon: BlogIcon,
+    icon: 'svg/admin/blog.svg',
   },
   {
     name: 'about',
-    icon: AboutIcon,
+    icon: 'svg/admin/about.svg',
   },
   {
     name: 'services',
-    icon: ServiceIcon,
+    icon: 'svg/admin/service.svg',
   },
   {
     name: 'statuses',
-    icon: StatusIcon,
+    icon: 'svg/admin/status.svg',
   },
   {
     name: 'tasks',
-    icon: TaskIcon,
+    icon: 'svg/admin/task.svg',
   },
   {
     name: 'Submitted Tasks',
     page: 'SubmittedTasks',
-    icon: SubmittedIcon,
+    icon: 'svg/admin/submitted.svg',
   },
 ]
 
@@ -92,6 +82,6 @@ const isActive = computed(() => (link: string) => link === props.active && !hasC
 
 <style scoped>
 .item.router-link-exact-active {
-  background-color: rgb(243 244 246);
+  background-color: #f3f4f6;
 }
 </style>

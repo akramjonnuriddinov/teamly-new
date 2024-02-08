@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="overflow-hidden">
-            <AppAnimation :options="defaultOptions" :width="600" />
+            <app-animation :options="defaultOptions" :width="600" />
           </div>
         </div>
       </div>

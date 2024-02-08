@@ -12,7 +12,7 @@
       <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
         <h1 class="text-center text-4xl">{{ title }}</h1>
         <button class="text-tg-heading-font-color transition-all duration-300 hover:opacity-80">
-          <close-icon class="h-[18px]" @click="$emit('close')" />
+          <inline-svg src="svg/close.svg" @click="$emit('close')" class="h-[18px]" />
         </button>
       </div>
       <div class="h-full overflow-y-auto px-10 pb-5">
@@ -21,8 +21,8 @@
     </div>
   </section>
 </template>
-<script setup>
-import CloseIcon from '@/components/icons/CloseIcon.vue'
+<script setup lang="ts">
+import InlineSvg from '@/components/InlineSvg.vue'
 
 defineProps({
   title: {

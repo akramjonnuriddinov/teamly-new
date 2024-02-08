@@ -97,7 +97,7 @@ export const router = createRouter({
       }
     },
     {
-      path: '/:id',
+      path: '/blog/:id',
       name: 'blog',
       component: () => import('@/pages/blog/BlogView.vue')
     },

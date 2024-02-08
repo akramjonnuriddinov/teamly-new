@@ -23,14 +23,18 @@
               <a href="https://t.me/teamly_uz" class="mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
                 <img src="@/assets/images/svg/telegram.svg" alt="you tube icon" />
               </a>
+              <a
+                href="https://www.linkedin.com/company/teamly-uz/"
+                class="mr-3 transition-all hover:-translate-y-[2px]"
+                target="_blank"
+              >
+                <img src="@/assets/images/svg/linkedin.svg" alt="instagram icon" />
+              </a>
               <span class="mr-3 cursor-not-allowed transition-all">
                 <img src="@/assets/images/svg/twitter.svg" alt="twitter icon" />
               </span>
               <span class="mr-3 cursor-not-allowed transition-all">
                 <img src="@/assets/images/svg/facebook.svg" alt="facebook icon" />
-              </span>
-              <span class="mr-3 cursor-not-allowed transition-all">
-                <img src="@/assets/images/svg/instagram.svg" alt="instagram icon" />
               </span>
             </div>
           </div>
@@ -112,35 +116,9 @@ import TheLogo from '@/components/TheLogo.vue'
 
 <style>
 .footer {
-  /* @apply bg-tg-footer; */
-  /* clip-path: polygon(100% 100%, 100% 0, 50% 18%, 0 0, 0 100%); */
   background-image: url('../assets/images/footer/footer-bg-2.jpg');
   color: white;
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-/* @media (max-width: 1300px) {
-  .footer {
-    clip-path: polygon(100% 100%, 100% 0, 50% 10%, 0 0, 0 100%);
-  }
-}
-
-@media (max-width: 990px) {
-  .footer {
-    clip-path: polygon(100% 100%, 100% 0, 50% 8%, 0 0, 0 100%);
-  }
-}
-
-@media (max-width: 767px) {
-  .footer {
-    clip-path: polygon(100% 100%, 100% 0, 50% 5%, 0 0, 0 100%);
-  }
-}
-
-@media (max-width: 500px) {
-  .footer {
-    clip-path: polygon(100% 100%, 100% 0, 50% 3%, 0 0, 0 100%);
-  }
-} */
 </style>

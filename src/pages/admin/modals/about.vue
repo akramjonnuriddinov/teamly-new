@@ -35,7 +35,7 @@
             class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50"
           >
             <div class="flex flex-col items-center justify-center pb-6 pt-5">
-              <inline-svg class="text-3xl text-gray-500" src="svg/fontawesome/upload.svg" />
+              <inline-svg class="text-3xl text-gray-500" src="svg /upload.svg" />
 
               <p class="mb-2 text-sm text-gray-500">
                 <span class="font-semibold">Click to upload</span> or drag and drop
@@ -56,7 +56,7 @@
             class="absolute right-5 top-5 flex h-7 w-7 items-center justify-center rounded-[3px] bg-gray-900 text-2xl text-white transition-all hover:text-red-500"
             type="button"
           >
-            <inline-svg src="fontawesome/xmark.svg" />
+            <inline-svg src="svg/close.svg" />
           </button>
         </div>
       </div>

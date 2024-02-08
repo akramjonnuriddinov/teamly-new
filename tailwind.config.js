@@ -46,9 +46,6 @@ export default {
         instagram: '#833AB4',
         skype: '#00aff0',
       },
-      backgroundImage: {
-        'hero-banner': "url('@/assets/images/service-view/service_banner_bg.jpg')",
-      },
       boxShadow: {
         'job-inner': '0px 4px 32px 0px rgba(0, 0, 0, 0.05)',
         'service-inner': '0px 0px 50px rgba(0, 0, 0, 0.1)',
