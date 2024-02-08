@@ -6,31 +6,31 @@
     </div>
     <div v-if="isLoading">
       <div class="flex justify-between">
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
           <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
         </div>
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
-          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
-        </div>
-      </div>
-      <div class="mt-5 flex justify-between">
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
-          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
-        </div>
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
           <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
         </div>
       </div>
       <div class="mt-5 flex justify-between">
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
           <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
         </div>
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
+          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
+          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
+        </div>
+      </div>
+      <div class="mt-5 flex justify-between">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
+          <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
+          <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
+        </div>
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label class="mb-2"><Skeleton width="30%" height="20px" :theme="ESkeletonTheme.DARK" /></label>
           <Skeleton width="100%" height="42px" :theme="ESkeletonTheme.DARK" />
         </div>
@@ -39,9 +39,9 @@
         <Skeleton width="250px" height="40px" :theme="ESkeletonTheme.DARK" />
       </div>
     </div>
-    <div v-else>
-      <div class="flex flex-wrap justify-between text-base">
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+    <div v-else class="flex flex-col gap-5 pb-10">
+      <div class="flex flex-wrap justify-between gap-5 text-base">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label for="name" class="mb-2 block font-medium">Your name</label>
           <input
             type="text"
@@ -54,7 +54,7 @@
             class="w-full rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label for="email" class="mb-2 block font-medium text-gray-900">Email address</label>
           <input
             type="email"
@@ -67,8 +67,8 @@
           />
         </div>
       </div>
-      <div class="mt-5 flex flex-wrap justify-between">
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+      <div class="flex flex-wrap justify-between gap-5 text-base">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label for="git" class="mb-2 block font-medium text-gray-900">Your GitHub</label>
           <input
             type="text"
@@ -80,7 +80,7 @@
             class="w-full rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label for="linkedin" class="mb-2 block font-medium text-gray-900">Your Linkedin</label>
           <input
             type="text"
@@ -93,8 +93,8 @@
           />
         </div>
       </div>
-      <div class="mt-5 flex flex-wrap justify-between">
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+      <div class="flex flex-wrap justify-between gap-5 text-base">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label for="telegram" class="mb-2 block font-medium text-gray-900">Your telegram</label>
           <input
             type="text"
@@ -106,7 +106,7 @@
             class="w-full rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
-        <div class="flex w-[400px] flex-col max-[990px]:w-full">
+        <div class="flex w-[400px] flex-col max-xl:w-full">
           <label for="phone" class="mb-2 block font-medium text-gray-900">Your phone</label>
           <input
             type="text"
@@ -119,7 +119,7 @@
           />
         </div>
       </div>
-      <div class="my-10 flex justify-end">
+      <div class="flex justify-end">
         <base-button
           @click="updateProfileInformation"
           :is-loading="isLoadingProfile"
