@@ -56,12 +56,3 @@ const works = ref([
   },
 ])
 </script>
-
-<style scoped>
-.works {
-  background-image: url('@/assets/images/about/counter_bg.jpg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-</style>
