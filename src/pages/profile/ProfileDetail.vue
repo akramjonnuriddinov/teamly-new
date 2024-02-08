@@ -125,14 +125,14 @@
           :is-loading="isLoadingProfile"
           :theme="EThemes.DEFAULT"
           :size="ESize.SMALL"
-          class="rounded-lg bg-tg-primary-color"
+          class="w-[180px] rounded-lg bg-tg-primary-color"
         >
           Update
         </base-button>
       </div>
     </div>
   </div>
-  <div class="mt-5 flex min-h-fit w-full max-w-[400px] flex-col max-[990px]:max-w-full">
+  <div class="mt-10 flex min-h-fit w-full max-w-[400px] flex-col max-[990px]:max-w-full">
     <div class="relative mb-6 w-full max-[800px]:w-full">
       <label for="file-input" class="mb-2 block font-medium text-gray-900">Upload your CV</label>
       <input
