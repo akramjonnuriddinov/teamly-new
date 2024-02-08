@@ -123,9 +123,8 @@
         <base-button
           @click="updateProfileInformation"
           :is-loading="isLoadingProfile"
-          :theme="EThemes.DEFAULT"
           :size="ESize.SMALL"
-          class="w-[180px] rounded-lg bg-tg-primary-color"
+          class="w-[180px]"
         >
           Update
         </base-button>
@@ -177,7 +176,7 @@ import ButtonLoader from '@/components/ButtonLoader.vue'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
 import { db } from '@/firebase'
-import { EThemes, ESize } from '@/types'
+import { ESize } from '@/types'
 import { uploadBytes, deleteObject, ref as fireRef } from 'firebase/storage'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { setDoc, doc } from 'firebase/firestore'
@@ -193,7 +192,6 @@ const currentUser = getAuth().currentUser
 const updatedUser = ref({
   ...user.value,
 })
-
 const selectedFile = ref<any>(null)
 const isLoadingResume = ref(false)
 const isLoadingProfile = ref(false)
@@ -247,11 +245,3 @@ const updateProfileInformation = async () => {
   }
 }
 </script>
-
-<style scoped>
-.btn {
-  width: 250px;
-  height: 40px;
-  padding: 8px 30px;
-}
-</style>
