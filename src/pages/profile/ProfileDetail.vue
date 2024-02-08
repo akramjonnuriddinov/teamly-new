@@ -156,10 +156,10 @@
         class="my-5 w-[220px] cursor-pointer rounded-lg border border-gray-300 bg-[#F5F7FB] px-8 py-4"
       >
         <div class="flex items-center justify-between">
-          <span class="truncate text-base font-medium text-[#07074D]"> your resume </span>
+          <span class="truncate text-base font-medium text-[#07074D]">Your resume</span>
           <inline-svg fill="none" src="svg/file.svg" />
           <button @click.stop="deleteResume" class="ml-5 text-[#07074D]">
-            <inline-svg src="svg/xmark.svg" />
+            <inline-svg src="svg/close.svg" />
           </button>
         </div>
       </div>
