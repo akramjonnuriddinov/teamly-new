@@ -17,7 +17,7 @@
           type="button"
         >
           <span>Get Started</span>
-          <arrow-circle-icon />
+          <inline-svg src="svg/arrow-circle.svg" />
         </button>
       </div>
     </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import ArrowCircleIcon from '@/components/icons/ArrowCircleIcons.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
 
 const props = defineProps<{
   title?: string

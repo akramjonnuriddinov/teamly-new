@@ -70,7 +70,7 @@
               to="/service"
             >
               <span>Find out more</span>
-              <arrow-right />
+              <inline-svg src="svg/arrow-right.svg" />
             </router-link>
           </div>
         </li>
@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import ArrowRight from '@/components/icons/ArrowRight.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { fetchData } from '@/composables/fetchData'
 import { useRoute } from 'vue-router'

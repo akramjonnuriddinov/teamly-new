@@ -13,14 +13,14 @@
       class="flex h-[50px] w-[50px] items-center justify-center rounded-md bg-tg-primary-color text-white hover:bg-tg-secondary-color"
       href="#"
     >
-      <arrow-top />
+      <inline-svg src="svg/arrow-top.svg" />
     </a>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import ArrowTop from '@/components/icons/ArrowTop.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
 import AppAnimation from '@/components/AppAnimation.vue'
 import PhoneAnimation from '@/assets/images/animation/phone2.json'
 
