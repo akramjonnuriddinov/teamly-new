@@ -30,6 +30,5 @@ import ArrowCircleIcon from '@/components/icons/ArrowCircleIcons.vue'
 const props = defineProps<{
   title?: string
   text?: string
-  img_url?: string
 }>()
 </script>

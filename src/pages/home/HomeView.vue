@@ -3,7 +3,7 @@
     <home-hero />
     <service-component />
     <about-us />
-    <works-component />
+    <stats-component />
     <portfolio-component @openModal="openModal" />
     <testimonial-component />
     <team-component />
@@ -21,7 +21,7 @@ import PortfolioComponent from '@/pages/portfolio/PortfolioComponent.vue'
 import TestimonialComponent from '@/pages/home/TestimonialComponent.vue'
 import TeamComponent from '@/pages/home/TeamComponent.vue'
 import BlogComponent from '@/pages/blog/BlogComponent.vue'
-import WorksComponent from '@/pages/home/WorksComponent.vue'
+import StatsComponent from '@/pages/home/StatsComponent.vue'
 import PortfolioDetail from '@/pages/portfolio/PortfolioDetail.vue'
 
 const modalOpen = ref(false)

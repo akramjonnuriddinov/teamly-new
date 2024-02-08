@@ -5,7 +5,7 @@
     >
       <profile-sidebar @selectItem="updateSelectedComponent" />
       <div
-        class="mt-[85px] min-h-screen w-64 flex-grow py-4 ps-[111px] max-[990px]:mt-0 max-[990px]:w-full max-[990px]:pl-0 max-[990px]:ps-4 max-[990px]:pt-10"
+        class="min-h-screen w-64 flex-grow ps-[110px] pt-10 max-[990px]:mt-0 max-[990px]:w-full max-[990px]:pl-0 max-[990px]:ps-4 max-[990px]:pt-10"
       >
         <component v-if="store.user" :is="selectedComponent"></component>
       </div>

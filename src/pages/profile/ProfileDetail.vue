@@ -1,5 +1,5 @@
 <template>
-  <div class="relative border-b border-gray-300 pb-[135px]">
+  <div class="relative border-b border-gray-300">
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Personal information</h1>
       <span class="text-sm text-gray-400">Your main profile information</span>
@@ -40,17 +40,18 @@
       </div>
     </div>
     <div v-else>
-      <div class="flex flex-wrap justify-between space-y-2">
+      <div class="flex flex-wrap justify-between">
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label for="name" class="mb-2 block text-sm font-medium text-gray-900">Your name</label>
+          <label for="name" class="mb-2 block text-sm font-medium">Your name</label>
           <input
             type="text"
             required
             name="name"
             @input="updateValue($event, 'name')"
             v-model="user.name"
+            autocomplete="off"
             placeholder="name"
-            class="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
+            class="w-full rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
@@ -60,12 +61,13 @@
             required
             disabled
             v-model="user.email"
+            autocomplete="off"
             placeholder="email@company.com"
-            class="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 opacity-70 sm:text-sm"
+            class="w-full cursor-not-allowed rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base text-tg-paragraph-color outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
       </div>
-      <div class="mt-5 flex flex-wrap justify-between space-y-2">
+      <div class="mt-5 flex flex-wrap justify-between">
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
           <label for="git" class="mb-2 block text-sm font-medium text-gray-900">Your GitHub</label>
           <input
@@ -73,8 +75,9 @@
             name="git"
             @input="updateValue($event, 'github')"
             v-model="user.github"
+            autocomplete="off"
             placeholder="link"
-            class="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
+            class="w-full rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
@@ -84,12 +87,13 @@
             name="linkedin"
             @input="updateValue($event, 'linkedin')"
             v-model="user.linkedin"
+            autocomplete="off"
             placeholder="link"
-            class="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 opacity-70 sm:text-sm"
+            class="w-full rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
       </div>
-      <div class="mt-5 flex flex-wrap justify-between space-y-2">
+      <div class="mt-5 flex flex-wrap justify-between">
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
           <label for="telegram" class="mb-2 block text-sm font-medium text-gray-900">Your telegram</label>
           <input
@@ -97,8 +101,9 @@
             name="telegram"
             @input="updateValue($event, 'telegram')"
             v-model="user.telegram"
+            autocomplete="off"
             placeholder="username"
-            class="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 sm:text-sm"
+            class="w-full rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
@@ -108,19 +113,23 @@
             name="phone"
             @input="updateValue($event, 'phone')"
             v-model="user.phone"
+            autocomplete="off"
             placeholder="number"
-            class="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 opacity-70 sm:text-sm"
+            class="w-full rounded-md border border-[#e0e0e0] bg-transparent px-4 py-3 text-base outline-none focus:border-tg-primary-color focus:shadow-md"
           />
         </div>
       </div>
-      <base-button
-        @click="updateProfileInformation"
-        :is-loading="isLoadingProfile"
-        :theme="EThemes.DEFAULT"
-        class="btn absolute right-0 mt-[35px] rounded-lg bg-tg-primary-color text-sm text-white"
-      >
-        Update profile information
-      </base-button>
+      <div class="my-10 flex justify-end">
+        <base-button
+          @click="updateProfileInformation"
+          :is-loading="isLoadingProfile"
+          :theme="EThemes.DEFAULT"
+          :size="ESize.SMALL"
+          class="rounded-lg bg-tg-primary-color"
+        >
+          Update
+        </base-button>
+      </div>
     </div>
   </div>
   <div class="mt-5 flex min-h-fit w-full max-w-[400px] flex-col max-[990px]:max-w-full">
@@ -168,7 +177,7 @@ import ButtonLoader from '@/components/ButtonLoader.vue'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { storageRef, storage } from '@/firebase'
 import { db } from '@/firebase'
-import { EThemes } from '@/types'
+import { EThemes, ESize } from '@/types'
 import { uploadBytes, deleteObject, ref as fireRef } from 'firebase/storage'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { setDoc, doc } from 'firebase/firestore'
@@ -241,7 +250,6 @@ const updateProfileInformation = async () => {
 
 <style scoped>
 .btn {
-  position: absolute;
   width: 250px;
   height: 40px;
   padding: 8px 30px;
