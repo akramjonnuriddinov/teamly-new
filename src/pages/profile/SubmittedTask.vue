@@ -16,14 +16,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onUpdated } from 'vue'
-import { ESize } from '@/types'
 import SubmittedTasksModal from './SubmittedTasksModal.vue'
 import InlineSvg from '@/components/InlineSvg.vue'
-import { getDocs, query, collection, where } from 'firebase/firestore'
-import { fetchDataWithWhere } from '@/composables/fetchDataWithWhere'
-import { db } from '@/firebase'
 import { useAuthStore } from '@/store/auth'
 
 const store = useAuthStore()
@@ -37,7 +33,7 @@ const data = ref({
 })
 const isModalOpen = ref(false)
 
-const closeModal = (value) => {
+const closeModal = (value: any) => {
   if (value) {
     data.value = value
   }

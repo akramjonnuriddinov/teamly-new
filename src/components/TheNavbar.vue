@@ -134,7 +134,7 @@
               :href="social.url"
               target="_blank"
             >
-              <span v-html="getSVG(social.name)" />
+              <inline-svg :src="social.name" />
             </a>
           </div>
         </nav>
@@ -222,7 +222,6 @@
 import { onMounted, ref, onUpdated, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
 import TheLanguage from '@/components/TheLanguage.vue'
-import { getSVG } from '@/composables/getSVG'
 import TheLogo from '@/components/TheLogo.vue'
 import InlineSvg from '@/components/InlineSvg.vue'
 import TheTransition from '@/components/TheTransition.vue'
@@ -243,24 +242,24 @@ const phoneOptions = {
 }
 const socials = [
   {
-    name: 'facebook',
-    url: '',
-  },
-  {
-    name: 'twitter',
-    url: '',
-  },
-  {
-    name: 'instagram',
-    url: '',
-  },
-  {
-    name: 'linkedin',
+    name: 'svg/linkedin.svg',
     url: 'https://www.linkedin.com/company/teamly-uz/',
   },
   {
-    name: 'telegram',
+    name: 'svg/telegram.svg',
     url: 'https://t.me/teamly_uz',
+  },
+  {
+    name: 'svg/facebook.svg',
+    url: '',
+  },
+  {
+    name: 'svg/twitter.svg',
+    url: '',
+  },
+  {
+    name: 'svg/instagram.svg',
+    url: '',
   },
 ]
 const links = [
