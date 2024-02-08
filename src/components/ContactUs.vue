@@ -48,3 +48,9 @@ const handleAnimation = (createdAnim: any) => {
   anim.value = createdAnim
 }
 </script>
+
+<style scoped>
+::selection {
+  @apply text-tg-primary-color-two;
+}
+</style>
