@@ -7,23 +7,23 @@
           <span class="whitespace-nowrap text-base font-semibold max-sm:text-sm">+998 (33) 773-77-37</span>
         </a>
         <a href="https://t.me/m_mirahmad" class="ml-auto mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
-          <img src="@/assets/images/fontawesome/telegram.svg" alt="you tube icon" />
+          <img src="@/assets/images/svg/telegram.svg" alt="you tube icon" />
         </a>
         <a
           href="https://www.linkedin.com/company/teamly-uz/"
           class="mr-3 transition-all hover:-translate-y-[2px]"
           target="_blank"
         >
-          <img src="@/assets/images/fontawesome/linkedin.svg" alt="instagram icon" />
+          <img src="@/assets/images/svg/linkedin.svg" alt="instagram icon" />
         </a>
         <span class="mr-3 cursor-not-allowed transition-all">
-          <img src="@/assets/images/fontawesome/twitter.svg" alt="twitter icon" />
+          <img src="@/assets/images/svg/twitter.svg" alt="twitter icon" />
         </span>
         <span class="mr-3 cursor-not-allowed transition-all">
-          <img src="@/assets/images/fontawesome/facebook.svg" alt="facebook icon" />
+          <img src="@/assets/images/svg/facebook.svg" alt="facebook icon" />
         </span>
         <span class="mr-3 cursor-not-allowed transition-all">
-          <img src="@/assets/images/fontawesome/instagram.svg" alt="instagram icon" />
+          <img src="@/assets/images/svg/instagram.svg" alt="instagram icon" />
         </span>
       </div>
     </div>
@@ -46,7 +46,7 @@
               <the-logo />
             </router-link>
             <button class="flex h-7 w-9 items-center justify-center" @click="toggleModal">
-              <img class="h-5 w-4" src="@/assets/images/fontawesome/close.svg" alt="close-icon" />
+              <img class="h-5 w-4" src="@/assets/images/svg/close.svg" alt="close-icon" />
             </button>
           </div>
           <ul class="navbar__list top-[100px] flex justify-between">
@@ -73,7 +73,7 @@
                   <inline-svg
                     class="ml-auto h-6 w-6 font-bold opacity-60"
                     :class="{ 'rotate-180': isDropDown }"
-                    src="fontawesome/profile-toggle.svg"
+                    src="svg/profile-toggle.svg"
                   />
                 </div>
                 <the-transition>
@@ -87,7 +87,7 @@
                       to="/profile"
                       class="flex cursor-pointer items-center gap-3 pb-2.5 hover:text-tg-primary-color"
                     >
-                      <inline-svg src="fontawesome/user-profile/user.svg" />
+                      <inline-svg src="svg/user-profile/user.svg" />
                       My profile
                     </router-link>
                     <button
@@ -95,7 +95,7 @@
                       type="button"
                       class="flex cursor-pointer items-center gap-3 py-2.5 hover:text-tg-primary-color"
                     >
-                      <inline-svg src="fontawesome/user-profile/log-out.svg" />
+                      <inline-svg src="svg/user-profile/log-out.svg" />
                       Logout
                     </button>
                   </div>
@@ -108,7 +108,7 @@
                 to="/signin"
                 class="flex max-w-full overflow-hidden truncate whitespace-nowrap px-[25px] py-4 font-semibold hover:bg-tg-primary-color"
               >
-                <inline-svg fill="currentColor" class="mr-3" src="fontawesome/user-profile/user.svg" />
+                <inline-svg fill="currentColor" class="mr-3" src="svg/user-profile/user.svg" />
                 <span>Login</span>
               </router-link>
             </li>
@@ -149,7 +149,7 @@
             <the-language />
           </div>
           <router-link v-if="!store.user" to="/signin" class="max-[990px]:hidden">
-            <inline-svg src="fontawesome/user-profile/user.svg" />
+            <inline-svg src="svg/user-profile/user.svg" />
           </router-link>
           <div
             v-else
@@ -176,7 +176,7 @@
               <inline-svg
                 class="h-6 w-6 font-bold opacity-60"
                 :class="{ 'rotate-180': isDropDown }"
-                src="fontawesome/profile-toggle.svg"
+                src="svg/profile-toggle.svg"
               />
             </div>
             <div
@@ -208,7 +208,7 @@
               class="block h-[30px] w-[26px]"
               width="26"
               height="30"
-              src="@/assets/images/fontawesome/bars.svg"
+              src="@/assets/images/svg/bars.svg"
               alt="bars_icon"
             />
           </button>

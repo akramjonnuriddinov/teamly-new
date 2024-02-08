@@ -54,7 +54,7 @@
                 <inline-svg
                   :class="{ 'rotate-180': detailExpanded === index }"
                   class="mr-2 h-4 transition-transform duration-300"
-                  src="fontawesome/arrow-down.svg"
+                  src="svg/arrow-down.svg"
                 />
                 <span class="w-[100px] whitespace-nowrap text-sm"
                   >{{ detailExpanded === index ? 'Hide' : 'Show' }} statuses</span

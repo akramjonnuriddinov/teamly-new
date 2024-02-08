@@ -51,7 +51,7 @@
             class="absolute right-5 top-5 flex h-7 w-7 items-center justify-center rounded-[3px] bg-gray-900 text-2xl text-white transition-all hover:text-red-500"
             type="button"
           >
-            <inline-svg src="fontawesome/xmark.svg" />
+            <inline-svg src="svg/xmark.svg" />
           </button>
         </div>
       </div>

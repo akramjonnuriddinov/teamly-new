@@ -10,7 +10,7 @@
       <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
         <h1 class="text-center text-4xl">{{ modal_title }}</h1>
         <button @click="close" class="text-tg-heading-font-color transition-all duration-300 hover:opacity-80">
-          <inline-svg class="h-[18px]" src="fontawesome/close.svg" />
+          <inline-svg class="h-[18px]" src="svg/close.svg" />
         </button>
       </div>
       <div class="flex h-full flex-col overflow-y-auto pb-5">

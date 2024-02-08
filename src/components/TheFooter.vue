@@ -21,20 +21,20 @@
 
             <div class="flex items-center justify-center md:justify-start">
               <a href="https://t.me/teamly_uz" class="mr-3 transition-all hover:-translate-y-[2px]" target="_blank">
-                <img src="@/assets/images/fontawesome/telegram.svg" alt="you tube icon" />
+                <img src="@/assets/images/svg/telegram.svg" alt="you tube icon" />
               </a>
               <a
                 href="https://www.linkedin.com/company/teamly-uz/"
                 class="mr-3 transition-all hover:-translate-y-[2px]"
                 target="_blank"
               >
-                <img src="@/assets/images/fontawesome/linkedin.svg" alt="instagram icon" />
+                <img src="@/assets/images/svg/linkedin.svg" alt="instagram icon" />
               </a>
               <span class="mr-3 cursor-not-allowed transition-all">
-                <img src="@/assets/images/fontawesome/twitter.svg" alt="twitter icon" />
+                <img src="@/assets/images/svg/twitter.svg" alt="twitter icon" />
               </span>
               <span class="mr-3 cursor-not-allowed transition-all">
-                <img src="@/assets/images/fontawesome/facebook.svg" alt="facebook icon" />
+                <img src="@/assets/images/svg/facebook.svg" alt="facebook icon" />
               </span>
             </div>
           </div>

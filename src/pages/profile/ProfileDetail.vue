@@ -157,9 +157,9 @@
       >
         <div class="flex items-center justify-between">
           <span class="truncate text-base font-medium text-[#07074D]"> your resume </span>
-          <inline-svg fill="none" src="fontawesome/file.svg" />
+          <inline-svg fill="none" src="svg/file.svg" />
           <button @click.stop="deleteResume" class="ml-5 text-[#07074D]">
-            <inline-svg src="fontawesome/xmark.svg" />
+            <inline-svg src="svg/xmark.svg" />
           </button>
         </div>
       </div>

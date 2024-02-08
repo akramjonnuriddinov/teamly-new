@@ -7,7 +7,7 @@
       <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
         <h1 class="text-center text-4xl">Upload your CV</h1>
         <button @click="$emit('close')" class="text-tg-heading-font-color transition-all duration-300 hover:opacity-80">
-          <inline-svg src="fontawesome/close.svg" class="h-[18px]" />
+          <inline-svg src="svg/close.svg" class="h-[18px]" />
         </button>
       </div>
       <div class="flex h-full w-full overflow-y-auto px-10 pb-10">
