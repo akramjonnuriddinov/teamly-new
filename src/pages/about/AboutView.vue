@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import HeroBanner from '@/components/HeroBanner.vue'
 import AboutComponent from '@/pages/about/AboutComponent.vue'
-import AboutUs from '@/components/static/AboutUs.vue'
+import AboutUs from '@/pages/about/AboutUs.vue'
 import TeamComponent from '@/pages/home/TeamComponent.vue'
 
 const hero_content = {

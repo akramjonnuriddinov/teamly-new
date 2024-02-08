@@ -221,7 +221,7 @@
 <script setup lang="ts">
 import { onMounted, ref, onUpdated, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
-import TheLanguage from '@/components/static/TheLanguage.vue'
+import TheLanguage from '@/components/TheLanguage.vue'
 import { getSVG } from '@/composables/getSVG'
 import TheLogo from '@/components/TheLogo.vue'
 import InlineSvg from '@/components/InlineSvg.vue'

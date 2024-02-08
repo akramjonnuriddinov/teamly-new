@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import HomeHero from '@/pages/home/HomeHero.vue'
-import ServiceComponent from '@/components/static/ServiceComponent.vue'
-import AboutUs from '@/components/static/AboutUs.vue'
+import ServiceComponent from '@/pages/service/ServiceComponent.vue'
+import AboutUs from '@/pages/about/AboutUs.vue'
 import PortfolioComponent from '@/pages/portfolio/PortfolioComponent.vue'
 import TestimonialComponent from '@/pages/home/TestimonialComponent.vue'
 import TeamComponent from '@/pages/home/TeamComponent.vue'

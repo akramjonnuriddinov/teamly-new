@@ -19,11 +19,11 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
-import ScrollTop from '@/components/static/ScrollTop.vue'
-import ContactUs from '@/components/static/ContactUs.vue'
+import ScrollTop from '@/components/ScrollTop.vue'
+import ContactUs from '@/components/ContactUs.vue'
 
 const route = useRoute()
-// const TheBrand = defineAsyncComponent(() => import('@/components/static/TheBrand.vue'))
+// const TheBrand = defineAsyncComponent(() => import('@/components/TheBrand.vue'))
 const isAdmin = computed(() => {
   return route.path.includes('admin')
 })

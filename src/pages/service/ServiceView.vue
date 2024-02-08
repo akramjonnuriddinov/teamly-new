@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import HeroBanner from '@/components/HeroBanner.vue'
-import ServiceComponent from '@/components/static/ServiceComponent.vue'
+import ServiceComponent from '@/pages/service/ServiceComponent.vue'
 import WorkProcess from '@/pages/about/WorkProcess.vue'
 
 const hero_content = {

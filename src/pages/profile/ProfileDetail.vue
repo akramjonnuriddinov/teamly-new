@@ -2,7 +2,7 @@
   <div class="relative border-b border-gray-300">
     <div class="mb-7">
       <h1 class="text-[20px] font-medium">Personal information</h1>
-      <span class="text-sm text-gray-400">Your main profile information</span>
+      <span class="text-gray-400">Your main profile information</span>
     </div>
     <div v-if="isLoading">
       <div class="flex justify-between">
@@ -40,9 +40,9 @@
       </div>
     </div>
     <div v-else>
-      <div class="flex flex-wrap justify-between">
+      <div class="flex flex-wrap justify-between text-base">
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label for="name" class="mb-2 block text-sm font-medium">Your name</label>
+          <label for="name" class="mb-2 block font-medium">Your name</label>
           <input
             type="text"
             required
@@ -55,7 +55,7 @@
           />
         </div>
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label for="email" class="mb-2 block text-sm font-medium text-gray-900">Email address</label>
+          <label for="email" class="mb-2 block font-medium text-gray-900">Email address</label>
           <input
             type="email"
             required
@@ -69,7 +69,7 @@
       </div>
       <div class="mt-5 flex flex-wrap justify-between">
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label for="git" class="mb-2 block text-sm font-medium text-gray-900">Your GitHub</label>
+          <label for="git" class="mb-2 block font-medium text-gray-900">Your GitHub</label>
           <input
             type="text"
             name="git"
@@ -81,7 +81,7 @@
           />
         </div>
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label for="linkedin" class="mb-2 block text-sm font-medium text-gray-900">Your Linkedin</label>
+          <label for="linkedin" class="mb-2 block font-medium text-gray-900">Your Linkedin</label>
           <input
             type="text"
             name="linkedin"
@@ -95,7 +95,7 @@
       </div>
       <div class="mt-5 flex flex-wrap justify-between">
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label for="telegram" class="mb-2 block text-sm font-medium text-gray-900">Your telegram</label>
+          <label for="telegram" class="mb-2 block font-medium text-gray-900">Your telegram</label>
           <input
             type="text"
             name="telegram"
@@ -107,7 +107,7 @@
           />
         </div>
         <div class="flex w-[400px] flex-col max-[990px]:w-full">
-          <label for="phone" class="mb-2 block text-sm font-medium text-gray-900">Your phone</label>
+          <label for="phone" class="mb-2 block font-medium text-gray-900">Your phone</label>
           <input
             type="text"
             name="phone"
@@ -134,9 +134,9 @@
   </div>
   <div class="mt-5 flex min-h-fit w-full max-w-[400px] flex-col max-[990px]:max-w-full">
     <div class="relative mb-6 w-full max-[800px]:w-full">
-      <label for="file-input" class="mb-2 block text-sm font-medium text-gray-900">Upload your CV</label>
+      <label for="file-input" class="mb-2 block font-medium text-gray-900">Upload your CV</label>
       <input
-        class="block w-full cursor-pointer rounded-md border border-gray-300 p-3 text-sm text-gray-900 shadow-sm file:hidden"
+        class="block w-full cursor-pointer rounded-md border border-[#e0e0e0] bg-transparent p-3 px-4 text-base text-gray-900 outline-none file:hidden"
         @change="handleFileChange"
         :class="{ hidden: !selectedFile }"
         accept=".docx,.pdf"
@@ -147,7 +147,7 @@
       <label
         :class="{ hidden: selectedFile }"
         for="file-input"
-        class="block w-full cursor-pointer rounded-md border border-gray-200 p-3 text-sm shadow-sm"
+        class="block w-full cursor-pointer rounded-md border border-gray-200 p-3 py-4"
         >Select file (.docx,.pdf)</label
       >
       <div
