@@ -6,7 +6,7 @@
       </div>
       <div v-else class="rounded-lg bg-tg-green p-8 text-white shadow-lg">
         <div class="mb-4 flex items-center justify-center">
-          <inline-svg fill="none" src="check.svg" />
+          <inline-svg fill="none" src="svg/check.svg" />
           <h1 class="text-3xl font-bold">Success!</h1>
         </div>
         <p class="text-lg">Your email has been verified.</p>

@@ -11,7 +11,7 @@
           </h1>
           <div class="mb-5 flex items-center gap-3 font-bold tracking-[-0.3px] text-tg-primary-color">
             <span>{{ vacancy.category }}</span>
-            <img width="8" height="8" src="@/assets/images/circle.svg" alt="circle" />
+            <img width="8" height="8" src="@/assets/images/svg/circle.svg" alt="circle" />
             <span>{{ vacancy.time }}</span>
           </div>
         </div>
