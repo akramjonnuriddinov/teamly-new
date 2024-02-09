@@ -26,7 +26,7 @@
             id="category"
           >
             <option value="" disabled selected>Select Category</option>
-            <option selected v-for="(category, index) in categories" :key="index" :value="category">
+            <option selected v-for="category in categories" :key="category" :value="category">
               {{ category }}
             </option>
           </select>
@@ -39,7 +39,7 @@
             id="time"
           >
             <option value="" disabled selected>Select Time</option>
-            <option selected v-for="(time, index) in times" :key="index" :value="time">
+            <option selected v-for="time in times" :key="time" :value="time">
               {{ time }}
             </option>
           </select>

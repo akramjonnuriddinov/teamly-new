@@ -66,12 +66,7 @@
                     placeholder="Phone Number"
                     class="w-full cursor-pointer rounded-md border border-[#e0e0e0] bg-white px-4 py-3 text-base text-[#757589] outline-none focus:border-tg-primary-color focus:shadow-md"
                   >
-                    <option
-                      v-for="(option, index) in serviceOptions"
-                      :key="index"
-                      class="flex cursor-pointer items-center"
-                      :value="option"
-                    >
+                    <option v-for="option in serviceOptions" class="flex cursor-pointer items-center" :value="option">
                       {{ option }}
                     </option>
                   </select>

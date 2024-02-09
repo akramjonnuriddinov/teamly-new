@@ -6,7 +6,7 @@
         <app-loader />
       </div>
       <ul v-else-if="messages.length">
-        <template v-for="message in messages" :key="message">
+        <template v-for="message in messages" :key="message.id">
           <li class="relative mb-5 flex flex-col">
             <div class="flex h-full items-center justify-between rounded-md bg-gray-50 p-5">
               <span @click.stop class="mr-2 w-1/5">{{ message.fullname }}</span>

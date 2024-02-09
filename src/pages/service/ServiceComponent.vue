@@ -43,7 +43,7 @@
         <li
           class="service-item w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
           v-for="(service, index) in services"
-          :key="index"
+          :key="service.id"
           @mouseover="hoverItem(index)"
         >
           <div

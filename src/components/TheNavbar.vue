@@ -114,8 +114,8 @@
             </li>
             <li
               class="navbar__item relative mr-10 max-[1120px]:mr-5 max-[990px]:bg-white"
-              v-for="(link, index) in links"
-              :key="index"
+              v-for="link in links"
+              :key="link.name"
             >
               <router-link
                 class="nav-link py-0 font-semibold text-tg-heading-font-color transition-colors duration-200 hover:text-tg-primary-color"
@@ -128,8 +128,8 @@
           </ul>
           <div class="mt-auto hidden flex-wrap justify-center gap-2.5 px-5 py-[30px] max-[990px]:flex">
             <a
-              v-for="(social, index) in socials"
-              :key="index"
+              v-for="social in socials"
+              :key="social.name"
               class="flex h-10 w-10 items-center justify-center rounded-[3px] border border-[#e3e3e3] text-base transition-all duration-300 hover:bg-tg-primary-color hover:text-white"
               :href="social.url"
               target="_blank"

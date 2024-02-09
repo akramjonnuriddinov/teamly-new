@@ -4,7 +4,7 @@
       <div>
         <ul @click.stop class="relative mt-4 border-s border-gray-200">
           <template v-if="isLoading">
-            <li v-for="status in 1" class="mb-10 ms-4 pt-0" :key="status">
+            <li v-for="status in 1" :key="status" class="mb-10 ms-4 pt-0">
               <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white">
                 <Skeleton width="12px" height="12px" :theme="ESkeletonTheme.LIGHT" />
               </div>
@@ -17,7 +17,7 @@
             </li>
           </template>
           <template v-else>
-            <li v-for="userApplierStatus in allData" class="mb-10 ms-4 pt-0">
+            <li v-for="userApplierStatus in allData" :key="userApplierStatus.id" class="mb-10 ms-4 pt-0">
               <div
                 :style="`background-color: ${userApplierStatus.status?.color}`"
                 class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white"
@@ -54,7 +54,9 @@
                     {{ userApplierStatus.task.definition }}
                   </div>
                   <div class="mt-4">
-                    <SubmittedTask :input="{...userApplierStatus.submittedTask, vacancy: userApplierStatus.vacancy_id}" />
+                    <SubmittedTask
+                      :input="{ ...userApplierStatus.submittedTask, vacancy: userApplierStatus.vacancy_id }"
+                    />
                   </div>
                 </div>
                 <span v-else>
@@ -104,13 +106,15 @@ const loadData = async () => {
   const statusesPromise = getDocs(statusesQuery)
   const tasksQuery = query(collection(db, 'tasks'))
   const tasksPromise = getDocs(tasksQuery)
-  const submittedTasksPromise = getDocs(query(
-    collection(db, 'submitted_tasks'),
-    where('vacancy', '==', props.vacancy),
-    where('user', '==', store.user.id)
-  ))
-  const [statusesSnapshot, tasksSnapshot, submittedTasksSpanshot] = await Promise.all([statusesPromise, tasksPromise, submittedTasksPromise])
-  const submittedTasks = submittedTasksSpanshot.docs.map(item => item.data())
+  const submittedTasksPromise = getDocs(
+    query(collection(db, 'submitted_tasks'), where('vacancy', '==', props.vacancy), where('user', '==', store.user.id)),
+  )
+  const [statusesSnapshot, tasksSnapshot, submittedTasksSpanshot] = await Promise.all([
+    statusesPromise,
+    tasksPromise,
+    submittedTasksPromise,
+  ])
+  const submittedTasks = submittedTasksSpanshot.docs.map((item) => item.data())
 
   statuses.value = statusesSnapshot.docs.map((doc) => ({
     id: doc.id,
@@ -130,7 +134,7 @@ const loadData = async () => {
     ...item,
     status: statuses.value.filter((status: any) => status.id === item.status_id)[0],
     task: tasks.value.filter((task: any) => task.id === item.task_id)[0],
-    submittedTask: item.status_id === '8nJTTRTAQephYvWWQNWx' && submittedTasks.length ? submittedTasks[0] : null
+    submittedTask: item.status_id === '8nJTTRTAQephYvWWQNWx' && submittedTasks.length ? submittedTasks[0] : null,
   }))
 }
 </script>

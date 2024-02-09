@@ -15,7 +15,7 @@
         </li>
       </ul>
       <ul v-else @click.stop class="relative border-s border-gray-200">
-        <li v-for="applierStatus in applierStatuses" class="mb-10 ms-4 pt-4">
+        <li v-for="applierStatus in applierStatuses" :key="applierStatus.id" class="mb-10 ms-4 pt-4">
           <div
             :style="`background-color: ${applierStatus.status?.color}`"
             class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white"

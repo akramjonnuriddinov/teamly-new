@@ -16,7 +16,7 @@
         <div
           class="container mx-auto mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4"
         >
-          <div v-for="work in works" class="flex flex-col bg-white p-8">
+          <div v-for="work in works" :key="work.id" class="flex flex-col bg-white p-8">
             <h4 class="text-sm font-semibold leading-6 text-tg-dark-blue-color">{{ work.title }}</h4>
             <p class="order-first text-3xl font-semibold tracking-tight text-tg-primary-color">{{ work.count }}</p>
           </div>
@@ -31,25 +31,25 @@ import { ref } from 'vue'
 
 const works = ref([
   {
-    id: '',
+    id: '1',
     title: 'Satisfied Clients',
     count: '50+',
     image: 'about-view/work01.svg',
   },
   {
-    id: '',
+    id: '2',
     title: 'Active Projects',
     count: '100+',
     image: 'about-view/work02.svg',
   },
   {
-    id: '',
+    id: '3',
     title: 'Winning Awards',
     count: '0',
     image: 'about-view/work03.svg',
   },
   {
-    id: '',
+    id: '4',
     title: 'Expert Teams',
     count: '22',
     image: 'about-view/work04.svg',

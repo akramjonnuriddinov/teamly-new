@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div class="flex h-screen w-full flex-col overflow-y-scroll p-8">
     <h2 class="mb-10 text-3xl capitalize">{{ title }}</h2>
     <div>
       <div v-if="isLoading" class="flex justify-center py-20">
@@ -7,9 +7,9 @@
       </div>
       <div v-else-if="dataEntries?.length">
         <div
-          class="flex items-center justify-between p-5 mb-5 rounded-md bg-gray-50"
-          v-for="(item, index) in dataEntries"
-          :key="index"
+          class="mb-5 flex items-center justify-between rounded-md bg-gray-50 p-5"
+          v-for="item in dataEntries"
+          :key="item.id"
         >
           <component
             :is="hasInnerPage ? 'router-link' : 'span'"
@@ -27,7 +27,7 @@
             <button
               @click="removeItem(item.id)"
               :disabled="removeDisabled"
-              class="text-red-500 hover:text-red-700 disabled:text-gray-600 disabled:cursor-not-allowed"
+              class="text-red-500 hover:text-red-700 disabled:cursor-not-allowed disabled:text-gray-600"
             >
               Remove
             </button>
@@ -55,7 +55,7 @@ import AppLoader from '@/components/AppLoader.vue'
 import { fetchData } from '@/composables/fetchData'
 
 const props = defineProps<{
-  title: string,
+  title: string
   hasInnerPage: Boolean
 }>()
 const dataEntries = ref<any>([])

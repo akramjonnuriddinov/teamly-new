@@ -21,7 +21,7 @@
             Optimization. Achieve More Together!
           </p>
           <ul class="mb-14">
-            <li v-for="aboutContent in aboutContents" class="mb-1 flex items-center">
+            <li v-for="aboutContent in aboutContents" :key="aboutContent" class="mb-1 flex items-center">
               <img class="mr-3" src="@/assets/images/about/check.svg" alt="" />
               <p class="leading-[1.8] text-tg-paragraph-color">
                 {{ aboutContent }}
