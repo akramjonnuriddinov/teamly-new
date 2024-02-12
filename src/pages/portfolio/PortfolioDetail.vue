@@ -15,7 +15,7 @@
       </div>
       <div class="h-full overflow-y-auto pb-5">
         <div class="h-full overflow-y-auto px-10 pb-5">
-          <div ref="modalContainer" class="rounded-[20px] bg-white py-[60px]">
+          <div ref="modalContainer" class="rounded-[20px] bg-white py-[10px]">
             <section class="mb-32">
               <div class="flex w-full flex-col items-start gap-6">
                 <img :src="option.image" class="h-auto w-full rounded-lg border-2 object-cover max-2xl:mb-10" />

@@ -131,10 +131,9 @@ const selectCategory = (category: string) => {
 }
 
 const filterItems = () => {
-  if (selectedCategory.value === 'All') {
-    filteredItems.value = portfolioItems.value
-  } else {
-    filteredItems.value = portfolioItems.value.filter((item: any) => item.category === selectedCategory.value)
-  }
+  filteredItems.value =
+    selectedCategory.value === 'All'
+      ? portfolioItems.value
+      : portfolioItems.value.filter((item: any) => item.category === selectedCategory.value)
 }
 </script>
