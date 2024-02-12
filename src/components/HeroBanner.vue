@@ -12,13 +12,13 @@
         <p class="mb-10 max-w-3xl text-center text-lg text-[#757589]">
           {{ props.text }}
         </p>
-        <button
+        <router-link
+          to="/contact"
           class="flex items-center gap-2 text-lg font-bold text-tg-primary-color transition-all duration-500 hover:text-tg-secondary-color"
-          type="button"
         >
           <span>Get Started</span>
           <inline-svg src="svg/arrow-circle.svg" />
-        </button>
+        </router-link>
       </div>
     </div>
   </section>
