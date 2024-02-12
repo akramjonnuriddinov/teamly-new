@@ -5,7 +5,7 @@
         <h2 class="mb-10 text-3xl capitalize">Appliers</h2>
         <select class="rounded-md border border-gray-200 p-2 outline-blue-300" id="category" @change="setFilter">
           <option value="all" selected>All</option>
-          <option v-for="option in statuses" class="flex items-center" :value="option.id" :key="option.id">
+          <option v-for="option in statuses" :key="option.id" class="flex items-center" :value="option.id">
             {{ option.title }}
           </option>
         </select>

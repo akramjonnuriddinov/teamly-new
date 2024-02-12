@@ -14,7 +14,7 @@
                   @change="changeTaskShow"
                 >
                   <option value="" disabled selected>Status</option>
-                  <option class="flex items-center" :value="status.id" :key="status.id" v-for="status in statuses">
+                  <option v-for="status in statuses" :key="status.id" :value="status.id" class="flex items-center">
                     {{ status.title }}
                   </option>
                 </select>
@@ -29,7 +29,7 @@
                   id="tasks"
                 >
                   <option value="" disabled selected>Task</option>
-                  <option v-for="task in tasks" class="flex items-center" :value="task.id" :key="task.id">
+                  <option v-for="task in tasks" class="flex items-center" :key="task.id" :value="task.id">
                     {{ task.title }}
                   </option>
                 </select>
@@ -48,7 +48,9 @@
         </form>
       </div>
       <div class="mt-auto flex justify-end px-10 pt-5">
-        <base-button :is-loading="isLoading" :disabled="disabled" @click="add" :size="ESize.SMALL" type="button"> Add </base-button>
+        <base-button :is-loading="isLoading" :disabled="disabled" @click="add" :size="ESize.SMALL" type="button">
+          Add
+        </base-button>
       </div>
     </div>
   </BaseModal>
@@ -80,11 +82,13 @@ const comment = ref<any>({
 const tasks = ref<any>([])
 const isTaskShow = ref(false)
 
-const disabled = computed(() => isDisabled({
-  status: comment.value.status_id,
-  description: comment.value.shortDescription,
-  task: isTaskShow.value ? comment.value.task_id : true
-}))
+const disabled = computed(() =>
+  isDisabled({
+    status: comment.value.status_id,
+    description: comment.value.shortDescription,
+    task: isTaskShow.value ? comment.value.task_id : true,
+  }),
+)
 
 onMounted(async () => {
   tasks.value = await fetchData('tasks')
@@ -113,8 +117,8 @@ const add = async () => {
   }
 }
 
-const changeTaskShow = (value:any) => {
-  comment.value.shortDescription = props.statuses.find((status:any) => status.id === value.target.value).definition
+const changeTaskShow = (value: any) => {
+  comment.value.shortDescription = props.statuses.find((status: any) => status.id === value.target.value).definition
   isTaskShow.value = value.target.value === '8nJTTRTAQephYvWWQNWx'
 }
 

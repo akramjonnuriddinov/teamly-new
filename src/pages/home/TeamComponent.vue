@@ -43,7 +43,7 @@
         </li>
       </ul>
       <div v-else class="-mx-4 flex flex-wrap justify-center">
-        <template v-for="item in teams">
+        <template v-for="item in teams" :key="item.id">
           <div class="w-full px-4 md:w-1/2 xl:w-1/4">
             <div class="team-content mx-auto mb-10 w-full max-w-[370px] rounded-[30px]">
               <div class="relative overflow-hidden rounded-[30px]">

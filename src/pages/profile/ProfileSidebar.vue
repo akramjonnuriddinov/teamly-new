@@ -9,6 +9,7 @@
       >
         <li
           v-for="nav in navigations"
+          :key="nav.name"
           onmousedown="return false;"
           onselectstart="return false;"
           :class="{
@@ -16,7 +17,6 @@
             'cursor-pointer hover:text-tg-primary-color ': !nav.disabled,
           }"
           class="relative mb-3 w-full rounded-md text-base font-semibold max-[990px]:mb-0 max-[990px]:w-auto max-[990px]:rounded-none max-[990px]:border-0"
-          :key="nav.name"
           @click="selectNavItem(nav)"
         >
           <span
@@ -33,11 +33,10 @@
   </aside>
 </template>
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
+
 const emit = defineEmits(['selectItem'])
-
 const selectedNavItem = ref('Profile details')
-
 const navigations = ref([
   {
     name: 'Profile details',

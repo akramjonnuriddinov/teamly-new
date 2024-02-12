@@ -10,6 +10,7 @@
       <ul class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
         <li
           v-for="project in projects"
+          :key="project.id"
           class="project-wrapper relative flex w-1/5 flex-col items-center overflow-hidden max-[1000px]:w-[40%] max-[760px]:max-w-[100%] max-[530px]:w-full"
         >
           <div

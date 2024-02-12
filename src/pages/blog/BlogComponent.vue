@@ -40,7 +40,7 @@
         </li>
       </ul>
       <ul v-else class="flex w-full flex-wrap justify-between max-[1200px]:flex-col">
-        <li v-for="blog in blogs" class="w-1/2 px-4 max-[1200px]:w-auto">
+        <li v-for="blog in blogs" :key="blog" class="w-1/2 px-4 max-[1200px]:w-auto">
           <div class="blog-inner mb-7 flex rounded-[10px] transition-all duration-300 max-[650px]:flex-col">
             <img
               :src="blog.image"
