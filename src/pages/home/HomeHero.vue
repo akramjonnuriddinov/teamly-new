@@ -20,8 +20,11 @@
               </a>
             </div>
           </div>
-          <div class="overflow-hidden">
+          <div class="overflow-hidden max-[560px]:hidden">
             <app-animation :options="defaultOptions" :width="600" />
+          </div>
+          <div class="hidden overflow-hidden max-[560px]:block">
+            <app-animation :options="defaultOptions" :width="400" />
           </div>
         </div>
       </div>
