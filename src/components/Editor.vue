@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="relative rounded-md quill-editor">
+    <div class="quill-editor relative rounded-md">
       <slot class="rounded-md" name="toolbar"></slot>
-      <div class="absolute w-full h-full min-h-[180px] overflow-y-auto max-h-[200px] border" ref="editor"></div>
+      <div class="absolute h-full max-h-[400px] min-h-[400px] w-full overflow-y-auto border" ref="editor"></div>
     </div>
   </div>
 </template>

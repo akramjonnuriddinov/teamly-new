@@ -1,8 +1,5 @@
 <template>
-  <section
-    @click="close"
-    class="fixed left-0 top-0 z-50 flex h-full w-[100vw] items-start justify-center bg-[#00000080] p-10"
-  >
+  <section class="fixed left-0 top-0 z-50 flex h-full w-[100vw] items-start justify-center bg-[#00000080] p-10">
     <div
       @click.stop
       class="container relative mx-auto flex h-full w-full max-w-[620px] flex-col overflow-y-hidden rounded-xl bg-white max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"

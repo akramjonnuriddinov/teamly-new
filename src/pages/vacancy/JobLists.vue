@@ -49,7 +49,7 @@
               <span class="block h-2 w-2 rounded-full bg-tg-primary-color"></span>
               <span>{{ vacancy.time }}</span>
             </div>
-            <p class="mb-12 text-[#5B5A78]">{{ vacancy.text }}</p>
+            <p class="mb-12 line-clamp-2 text-[#5B5A78]">{{ vacancy.text }}</p>
             <ApplyButton :applied="!!vacancy.applied" :vacancy="vacancy.id" :isCard="true" />
           </div>
         </li>
