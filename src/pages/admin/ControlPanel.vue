@@ -98,7 +98,7 @@ const createModal = () => {
 const close = () => (isShow.value = false)
 const addToList = (item: any) => dataEntries.value?.push(item)
 const updateList = (item: any) => {
-  const indexToUpdate = dataEntries.value.findIndex((item: any) => item.id === item.id)
+  const indexToUpdate = dataEntries.value.findIndex((dataEntry: any) => dataEntry.id === item.id)
   if (indexToUpdate !== -1) {
     dataEntries.value[indexToUpdate] = item
   }
