@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-tg-white py-[140px]">
+  <section class="bg-tg-white py-10">
     <div class="container mx-auto w-full px-5" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
       <div class="flex max-[1024px]:flex-col-reverse max-[1024px]:items-center">
         <div class="relative z-10">
@@ -8,7 +8,7 @@
           </div>
         </div>
         <div
-          class="relative ml-12 w-full max-w-[600px] px-4 max-[1024px]:max-w-[720px] max-[1024px]:pt-10 max-[1024px]:text-center max-[576px]:px-0"
+          class="relative ml-12 w-full max-w-[600px] px-4 max-[1024px]:ml-0 max-[1024px]:max-w-[720px] max-[1024px]:p-0 max-[1024px]:pt-10 max-[1024px]:text-center max-[576px]:px-0"
         >
           <span class="mb-3 text-lg font-bold text-tg-indigo">About Our Company</span>
           <h2 class="mb-9 text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">

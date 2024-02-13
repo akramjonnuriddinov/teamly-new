@@ -51,6 +51,9 @@
             <h4 class="mb-3 text-base font-medium text-gray-50">Learn More</h4>
             <ul class="list-unstyled mb-0 text-gray-100">
               <li>
+                <router-link to="/" class="text-sm hover:text-[#6c63ff]">Home</router-link>
+              </li>
+              <li>
                 <router-link to="/about" class="text-sm hover:text-[#6c63ff]">About us</router-link>
               </li>
               <li>

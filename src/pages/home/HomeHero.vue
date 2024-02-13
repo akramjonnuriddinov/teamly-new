@@ -8,7 +8,7 @@
             <h1 class="mb-4 text-7xl font-bold text-tg-dark-blue-color max-xl:text-5xl max-sm:text-4xl">
               Shaping Digital Dreams
             </h1>
-            <p class="mb-4 text-xl text-black max-xl:text-base">
+            <p class="text-xl text-black max-xl:text-base">
               We help you transform your ideas into reality. Contact us today and let us shape your digital dreams.
             </p>
             <div class="mt-10 flex items-center max-md:justify-center">

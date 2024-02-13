@@ -1,17 +1,17 @@
 <template>
-  <section class="testimonial relative pb-32 pt-16">
+  <section class="relative py-10">
     <div class="absolute right-0 -z-10 -translate-x-1/4 translate-y-1/4">
       <img src="@/assets/images/testimonials/testimonial_shape.png" alt="" />
     </div>
     <div class="container mx-auto w-full px-5">
-      <div class="pb-[70px]">
-        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Client Testimonial </span>
-        <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
+      <base-top-title class="pb-[70px]">
+        <template v-slot:subtitle>Client Testimonial</template>
+        <template v-slot:title>
           What People are
           <br class="max-[500px]:hidden" />
           Saying!
-        </h2>
-      </div>
+        </template>
+      </base-top-title>
     </div>
     <div class="container mx-auto w-full px-5">
       <swiper
@@ -64,6 +64,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { getImageUrl } from '@/composables/getImgUrl'
+import BaseTopTitle from '@/components/BaseTopTitle.vue'
+
 const swiperContents = [
   {
     id: '1',

@@ -1,18 +1,17 @@
 <template>
-  <section :class="{ 'pt-[80px]': !isHome }" class="relative z-10 bg-[#fff] pb-[90px] text-tg-black">
+  <section :class="{ 'pt-[80px]': !isHome }" class="relative z-10 bg-[#fff] py-10 text-tg-black">
     <div class="container relative mx-auto w-full px-5">
       <div class="absolute right-[4%] top-[9%] -z-50 hidden transition-all duration-1000">
         <img src="@/assets/images/service/services_shape.png" alt="" />
       </div>
-      <div v-if="isHome" class="pb-[70px]">
-        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">We Can Do For You</span>
-        <h2
-          class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-xl:text-5xl max-sm:text-4xl"
-        >
-          Experts in every aspect <br class="max-[500px]:hidden" />
+      <base-top-title v-if="isHome" class="pb-[70px]">
+        <template v-slot:subtitle>We Can Do For You</template>
+        <template v-slot:title>
+          Experts in every aspect
+          <br class="max-[500px]:hidden" />
           lifecycle
-        </h2>
-      </div>
+        </template>
+      </base-top-title>
       <div v-if="isLoading" class="flex items-center justify-center">
         <ul class="flex flex-wrap justify-between">
           <li
@@ -87,6 +86,7 @@ import InlineSvg from '@/components/InlineSvg.vue'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { fetchData } from '@/composables/fetchData'
 import { useRoute } from 'vue-router'
+import BaseTopTitle from '@/components/BaseTopTitle.vue'
 
 const route = useRoute()
 const services = ref<any[]>([])

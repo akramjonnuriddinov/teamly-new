@@ -1,14 +1,12 @@
 <template>
-  <div v-if="true" class="bg-gray-50 py-24 sm:py-32">
+  <section v-if="true" class="bg-gray-50 py-24">
     <div class="mx-auto px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:max-w-none">
         <div class="space-y-4 text-center">
-          <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo"
-            >Innovation in Numbers
-          </span>
-          <h2 class="text-center text-5xl font-bold leading-[1.2] tracking-tight text-tg-dark-blue-color">
-            Our Stats Tell the Story
-          </h2>
+          <base-top-title>
+            <template v-slot:subtitle>Innovation in Numbers</template>
+            <template v-slot:title>Our Stats Tell the Story</template>
+          </base-top-title>
           <p class="text-lg leading-8 text-tg-body-font-color">
             We can help you grow your audience and your business, no matter the size.
           </p>
@@ -23,11 +21,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import BaseTopTitle from '@/components/BaseTopTitle.vue'
 
 const works = ref([
   {
@@ -51,7 +50,7 @@ const works = ref([
   {
     id: '4',
     title: 'Expert Teams',
-    count: '22',
+    count: '20+',
     image: 'about-view/work04.svg',
   },
 ])

@@ -1,5 +1,5 @@
 <template>
-  <section id="vacancies" class="relative z-10 mb-[100px] pb-[45px] pt-[115px]">
+  <section id="vacancies" class="relative z-10 pb-[45px] pt-[115px]">
     <div class="container relative mx-auto w-full px-5">
       <ul v-if="listLoading" class="flex flex-wrap justify-start">
         <li
