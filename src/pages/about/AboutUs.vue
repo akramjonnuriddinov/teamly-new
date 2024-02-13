@@ -28,7 +28,7 @@
               </p>
             </li>
           </ul>
-          <base-button :theme="EThemes.GREEN" class="max-[1024px]:mx-auto">
+          <base-button class="max-[1024px]:mx-auto">
             <router-link to="/about">Find Out More</router-link>
           </base-button>
         </div>
@@ -40,7 +40,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
-import { EThemes } from '@/types'
 import AppAnimation from '@/components/AppAnimation.vue'
 import GrowAnimation from '@/assets/images/animation/plan.json'
 const defaultOptions = {

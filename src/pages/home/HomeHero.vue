@@ -4,16 +4,14 @@
       <div class="container mx-auto px-5">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div class="relative max-lg:text-center">
-            <p class="mb-4 text-xl font-bold text-tg-primary-color max-xl:text-base">
-              Weaving Dreams into Digital Realities
-            </p>
+            <p class="mb-4 text-xl font-bold text-tg-indigo max-xl:text-base">Weaving Dreams into Digital Realities</p>
             <h1 class="mb-4 text-7xl font-bold text-tg-dark-blue-color max-xl:text-5xl max-sm:text-4xl">
               Shaping Digital Dreams
             </h1>
             <p class="mb-4 text-xl text-black max-xl:text-base">
               We help you transform your ideas into reality. Contact us today and let us shape your digital dreams.
             </p>
-            <div class="mt-10 flex items-center">
+            <div class="mt-10 flex items-center max-md:justify-center">
               <base-button>
                 <router-link to="/contact">Contact Us</router-link>
               </base-button>

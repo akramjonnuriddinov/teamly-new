@@ -1,6 +1,6 @@
 <template>
   <section class="pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
-    <div class="container mx-auto">
+    <div class="container mx-auto px-5">
       <div v-if="isLoading" class="mb-12 flex flex-wrap justify-center gap-2 space-x-1">
         <div class="mb-1">
           <button

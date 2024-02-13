@@ -1,6 +1,6 @@
 <template>
   <section class="pb-10 pt-20 lg:pb-20 lg:pt-[120px]">
-    <div class="container mx-auto">
+    <div class="container mx-auto px-5">
       <div class="-mx-4 flex flex-wrap">
         <div class="w-full px-4">
           <div class="mx-auto mb-[60px] max-w-[510px] text-center">
