@@ -26,7 +26,7 @@
       </ul>
       <ul v-else class="flex flex-wrap justify-start">
         <li
-          class="service-item relative w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
+          class="service-item relative w-1/3 px-2.5 py-2.5 max-xl:w-1/2 max-[780px]:w-full"
           v-for="vacancy in vacancies"
           :key="vacancy.id"
         >

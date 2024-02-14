@@ -13,6 +13,8 @@
             <span>{{ vacancy.category }}</span>
             <img width="8" height="8" src="@/assets/images/svg/circle.svg" alt="circle" />
             <span>{{ vacancy.time }}</span>
+            <img width="8" height="8" src="@/assets/images/svg/circle.svg" alt="circle" />
+            <span>{{ formatTimestampToLocaleString(vacancy.date) }}</span>
           </div>
         </div>
         <slot />
@@ -22,6 +24,8 @@
 </template>
 
 <script setup lang="ts">
+import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
+
 defineProps(['vacancy'])
 </script>
 

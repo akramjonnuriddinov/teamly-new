@@ -95,6 +95,7 @@ const update = async () => {
     updateList(props.oldValue)
     await updateDoc(docRef, {
       ...props.oldValue,
+      date: Date.now(),
     })
   } catch (error) {
     console.error('Error updating data:', error)
