@@ -1,5 +1,5 @@
 <template>
-  <section id="vacancies" class="relative z-10 mb-[100px] pb-[45px] pt-[115px]">
+  <section id="vacancies" class="relative z-10 pb-[45px] pt-[115px]">
     <div class="container relative mx-auto w-full px-5">
       <ul v-if="listLoading" class="flex flex-wrap justify-start">
         <li
@@ -26,7 +26,7 @@
       </ul>
       <ul v-else class="flex flex-wrap justify-start">
         <li
-          class="service-item relative w-1/3 px-2.5 py-2.5 max-[1050px]:w-1/2 max-[710px]:w-full"
+          class="service-item relative w-1/3 px-2.5 py-2.5 max-xl:w-1/2 max-[780px]:w-full"
           v-for="vacancy in vacancies"
           :key="vacancy.id"
         >
@@ -49,7 +49,7 @@
               <span class="block h-2 w-2 rounded-full bg-tg-primary-color"></span>
               <span>{{ vacancy.time }}</span>
             </div>
-            <p class="mb-12 text-[#5B5A78]">{{ vacancy.text }}</p>
+            <p class="mb-12 line-clamp-2 text-[#5B5A78]">{{ vacancy.text }}</p>
             <ApplyButton :applied="!!vacancy.applied" :vacancy="vacancy.id" :isCard="true" />
           </div>
         </li>

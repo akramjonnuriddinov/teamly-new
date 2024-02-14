@@ -132,7 +132,7 @@
     </div>
   </div>
   <div class="mt-10 flex min-h-fit w-full max-w-[400px] flex-col max-[990px]:max-w-full">
-    <div class="relative mb-6 w-full max-[800px]:w-full">
+    <div class="relative w-full max-[800px]:w-full">
       <label for="file-input" class="mb-2 block font-medium text-gray-900">Upload your CV</label>
       <input
         class="block w-full cursor-pointer rounded-md border border-[#e0e0e0] bg-transparent p-3 px-4 text-base text-gray-900 outline-none file:hidden"
@@ -152,7 +152,7 @@
       <div
         v-if="store.resume && !isLoadingResume"
         @click="showResume"
-        class="my-5 w-[220px] cursor-pointer rounded-lg border border-gray-300 bg-[#F5F7FB] px-8 py-4"
+        class="mt-5 w-[220px] cursor-pointer rounded-lg border border-gray-300 bg-[#F5F7FB] px-8 py-4"
       >
         <div class="flex items-center justify-between">
           <span class="truncate text-base font-medium text-[#07074D]">Your resume</span>

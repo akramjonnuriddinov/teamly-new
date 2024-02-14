@@ -18,7 +18,7 @@
           <li class="relative mb-5 flex flex-col">
             <div class="flex h-full items-center justify-between gap-10 rounded-md bg-gray-50 p-5 font-medium">
               <span class="w-60 cursor-pointer" @click="openUserModal(task.user)">{{ task.user.name }}</span>
-              <span>{{ task.vacancy.title }}</span>
+              <span>{{ task.vacancy?.title }}</span>
               <a :href="task.source" target="_blank" class="ml-auto text-tg-primary-color">Source</a>
               <a :href="task.live" target="_blank" class="text-tg-primary-color">Live</a>
               <div class="flex space-x-5">
@@ -53,8 +53,13 @@ const selectedUser = ref(false)
 const filteredTasks = ref<any>([])
 
 onMounted(async () => {
-  await loadData()
-  isLoading.value = false
+  try {
+    await loadData()
+  } catch {
+    isLoading.value = false
+  } finally {
+    isLoading.value = false
+  }
 })
 
 const loadData = async () => {

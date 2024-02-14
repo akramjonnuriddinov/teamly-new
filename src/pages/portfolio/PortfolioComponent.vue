@@ -1,6 +1,6 @@
 <template>
-  <section class="pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
-    <div class="container mx-auto">
+  <section class="py-10">
+    <div class="container mx-auto px-5">
       <div v-if="isLoading" class="mb-12 flex flex-wrap justify-center gap-2 space-x-1">
         <div class="mb-1">
           <button
@@ -43,17 +43,18 @@
       <div v-else>
         <div v-if="route.name === 'home'" class="-mx-4 flex flex-wrap">
           <div class="w-full px-4">
-            <div class="mx-auto mb-[60px] max-w-[510px] text-center">
-              <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Our Project </span>
-              <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
-                Our Amazing <br class="max-[500px]:hidden" />
+            <base-top-title class="pb-[70px]">
+              <template v-slot:subtitle>Our Project</template>
+              <template v-slot:title>
+                Our Amazing
+                <br class="max-[500px]:hidden" />
                 Creative Works.
-              </h2>
-            </div>
+              </template>
+            </base-top-title>
           </div>
         </div>
         <div class="-mx-4 flex w-full flex-wrap justify-center">
-          <div class="w-full px-4">
+          <div class="w-full">
             <ul class="mb-12 flex flex-wrap justify-center gap-2 space-x-1">
               <li class="mb-1">
                 <button
@@ -110,6 +111,7 @@ import { onMounted, ref } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import { useRoute } from 'vue-router'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
+import BaseTopTitle from '@/components/BaseTopTitle.vue'
 
 const route = useRoute()
 const isLoading = ref(true)

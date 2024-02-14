@@ -1,12 +1,10 @@
 <template>
   <section class="relative bg-[#EFF7FFf] pb-[105px] pt-[40px]">
     <div class="container mx-auto w-full px-5">
-      <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="pb-[70px]">
-        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Working Process </span>
-        <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
-          Optimized Success
-        </h2>
-      </div>
+      <base-top-title data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="pb-[70px]">
+        <template v-slot:subtitle>Working Process</template>
+        <template v-slot:title> Optimized Success </template>
+      </base-top-title>
       <ul class="flex flex-wrap items-center justify-between gap-x-6 gap-y-10">
         <li
           v-for="project in projects"
@@ -34,6 +32,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getImageUrl } from '@/composables/getImgUrl'
+import BaseTopTitle from '@/components/BaseTopTitle.vue'
 
 const projects = ref([
   {

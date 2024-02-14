@@ -1,21 +1,22 @@
 <template>
-  <section class="our-blog relative bg-white pt-[135px]">
+  <section class="relative bg-white py-10">
     <div>
       <img class="absolute bottom-2 left-[2%]" src="@/assets/images/blog/blog_shape01.png" alt="" />
       <img class="absolute right-36 top-[20%]" src="@/assets/images/blog/blog_shape02.png" alt="" />
       <img class="absolute right-10 top-[40%]" src="@/assets/images/blog/blog_shape03.png" alt="" />
     </div>
     <div class="container relative z-10 mx-auto w-full px-5">
-      <div class="pb-[70px]">
-        <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Latest news updates </span>
-        <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
+      <base-top-title class="pb-[70px]">
+        <template v-slot:subtitle>Latest news updates</template>
+        <template v-slot:title>
           Check Our Company
           <br class="max-[500px]:hidden" />
           Inside Story
-        </h2>
-      </div>
+        </template>
+      </base-top-title>
+
       <ul v-if="isLoading" class="flex w-full flex-wrap justify-between max-[1200px]:flex-col">
-        <li v-for="blog in 5" class="w-1/2 px-4 max-[1200px]:w-auto" :key="blog">
+        <li v-for="blog in 4" class="w-1/2 px-4 max-[1200px]:w-auto" :key="blog">
           <div class="blog-inner mb-7 flex rounded-[10px] transition-all duration-300 max-[650px]:flex-col">
             <Skeleton width="318px" height="230px" :theme="ESkeletonTheme.LIGHT" />
             <div
@@ -93,14 +94,21 @@ import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
 import { formatTimestampToLocaleString } from '@/composables/formatTimestampToLocaleString'
+import BaseTopTitle from '@/components/BaseTopTitle.vue'
 
 const blogs = ref<any>([])
 const isLoading = ref(true)
 
 onMounted(async () => {
-  isLoading.value = true
-  blogs.value = await fetchData('blog')
-  isLoading.value = false
+  try {
+    blogs.value = await fetchData('blog', 'desc')
+  } catch {
+    isLoading.value = true
+    console.log('catch')
+  } finally {
+    isLoading.value = false
+    console.log('finally')
+  }
 })
 </script>
 

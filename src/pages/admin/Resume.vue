@@ -104,8 +104,13 @@ const allData = ref<any>([])
 const filteredAppliers = ref<any>([])
 
 onMounted(async () => {
-  await loadMore()
-  isLoading.value = false
+  try {
+    await loadMore()
+  } catch {
+    isLoading.value = false
+  } finally {
+    isLoading.value = false
+  }
 
   if (route.query.id) {
     allData.value = allData.value.filter((item: any) => item.vacancy.id === route.query.id)

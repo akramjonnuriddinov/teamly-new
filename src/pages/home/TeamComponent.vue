@@ -1,16 +1,16 @@
 <template>
-  <section class="pb-10 pt-20 lg:pb-20 lg:pt-[120px]">
-    <div class="container mx-auto">
+  <section class="py-10">
+    <div class="container mx-auto px-5">
       <div class="-mx-4 flex flex-wrap">
         <div class="w-full px-4">
-          <div class="mx-auto mb-[60px] max-w-[510px] text-center">
-            <span class="mb-3 flex justify-center text-center text-lg font-bold text-tg-indigo">Our Amazing Team </span>
-            <h2 class="text-center text-5xl font-bold leading-[1.2] text-tg-dark-blue-color max-sm:text-4xl">
+          <base-top-title class="pb-[70px]">
+            <template v-slot:subtitle>Our Amazing Team</template>
+            <template v-slot:title>
               Our Talented Team
               <br class="max-[500px]:hidden" />
               Players.
-            </h2>
-          </div>
+            </template>
+          </base-top-title>
         </div>
       </div>
       <ul v-if="isLoading" class="flex flex-wrap justify-center gap-4 gap-y-20">
@@ -225,6 +225,7 @@
 import { ref, onMounted } from 'vue'
 import { fetchData } from '@/composables/fetchData'
 import Skeleton, { ESkeletonTheme } from '@/components/Skeleton.vue'
+import BaseTopTitle from '@/components/BaseTopTitle.vue'
 
 const teams = ref<any>([])
 const isLoading = ref(true)

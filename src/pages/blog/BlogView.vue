@@ -1,5 +1,5 @@
 <template>
-  <section class="my-[86px] bg-tg-white bg-cover bg-no-repeat">
+  <section class="mt-[86px] bg-tg-white bg-cover bg-no-repeat">
     <div
       v-if="isLoading"
       class="container relative mx-auto px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
@@ -102,5 +102,15 @@ pre {
   border-radius: 10px;
   padding: 10px;
   overflow: auto;
+}
+
+.blog-inner h1,
+.blog-inner h2,
+.blog-inner h3 {
+  @apply mb-2 mt-10 text-xl font-semibold text-[#1C1C37];
+}
+
+.blog-inner a {
+  color: rgb(126 84 248) !important;
 }
 </style>
