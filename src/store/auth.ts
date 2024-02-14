@@ -1,51 +1,83 @@
-import { defineStore } from "pinia";
+import { defineStore } from "pinia"
 import {
   getAuth,
   onAuthStateChanged,
-} from "firebase/auth";
-import { storageRef, storage } from '@/firebase'
-import { getDownloadURL, } from 'firebase/storage'
+  signOut
+} from "firebase/auth"
+import { storage } from '@/firebase'
+import { getDownloadURL, ref } from 'firebase/storage'
+import { getDoc, doc } from 'firebase/firestore'
+import { db } from '@/firebase'
+import { router } from '@/router/index'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: <any>null,
     users: <any>[],
     resume: '',
-    token: localStorage.getItem('token')
+    token: localStorage.getItem('token'),
   }),
   actions: {
-    signIn(payload: any) {
-      localStorage.setItem('token', payload.accessToken)
-      this.token = payload.accessToken
-      this.user = { email: payload.email, id: payload.uid, name: payload.displayName };
+    async signIn(payload: any) {
+      const docRef = doc(db, 'users', payload.uid)
+      const userSnapshot = await getDoc(docRef)
+      const userInfo = userSnapshot.data()
+      if (userInfo?.verified) {
+        localStorage.setItem('token', payload.accessToken)
+        this.token = payload.accessToken
+        this.user = { email: payload.email, id: payload.uid, name: payload.displayName, photoURL: payload.photoURL, verified: payload.emailVerified }
+        router.go(-1)
+      } else if (userInfo) {
+        console.info(`Your account isn't verified please check your email (don't forget check spam)`)
+      }
     },
-    fetchProfile() {
-      const auth = getAuth();
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          this.user = { email: user.email, id: user.uid, name: user.displayName };
-          const userDirectory = `users/${user.uid}`
-          const fileReference = storageRef(storage, userDirectory)
-          try {
-            const url = await getDownloadURL(fileReference)
-            this.resume = url
-          } catch (error) {
-            console.error('Error fetching file: ', error)
-          }
-        } else {
-          this.user = null;
-          this.resume = ''
-        }
+    async fetchProfile() {
+      const auth = getAuth()
+      const user:any = await new Promise((resolve) => {
+      const unsubscribe =  onAuthStateChanged(auth, (user) => {
+          resolve(user)
+          unsubscribe()
+        })
       })
+      if (user?.emailVerified) {
+          const docRef = doc(db, 'users', user.uid)
+          const userSnapshot = await getDoc(docRef)
+          const userInfo = userSnapshot.data()
+          this.user = {
+            ...userInfo,
+            photoURL: user.photoURL
+          }
+          try {
+            const userRef = ref(storage, `users/${user.uid}`)
+            this.resume = await getDownloadURL(userRef)
+          } catch (error) {
+            console.error('Error:', error)
+          }
+        }
     },
     removeResume() {
       this.resume = ''
     },
-    logout() {
-      localStorage.removeItem('token')
-      this.token = ''
-      this.user = null;
-      this.resume = ''
+    async logout() {
+      const auth = getAuth()
+
+      try {
+        await signOut(auth)
+        localStorage.removeItem('token')
+        this.token = ''
+        this.user = null
+        this.resume = ''
+        return await new Promise<void>((resolve) => {
+          const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (!user) {
+              unsubscribe()
+              resolve()
+            }
+          })
+        })
+      } catch (error) {
+        console.error('Error during logout:', error)
+      }
     }
   }
 })

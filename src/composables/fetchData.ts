@@ -1,25 +1,19 @@
-import { ref } from 'vue'
-import { collection, query, getDocs } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
-import { toggleLoader } from '@/composables/loader'
+import { collection, query, getDocs, orderBy } from 'firebase/firestore'
+import { db } from '@/firebase'
 
-const db = useFirestore()
-
-export const fetchData = async (path: string, isLoading = true) => {
-  const options = ref<any>([])
+export const fetchData = async (path: string, order: any = 'asc') => {
   try {
-    toggleLoader(isLoading)
-    const q = query(collection(db, path))
+    const q = query(collection(db, path), orderBy('date', order))
     const querySnapshot = await getDocs(q)
-    querySnapshot.forEach(async (doc) => {
-      const item = ref()
-      item.value = doc.data()
-      await options.value.push({ ...item.value, id: doc.id })
-    })
-    return options.value
+    const options = await Promise.all(
+      querySnapshot.docs.map(async (doc) => {
+        const item = doc.data()
+        return { ...item, id: doc.id }
+      })
+    )
+    return options
   } catch (error) {
     console.error('Error fetching data: ', error)
-  } finally {
-    toggleLoader()
+    return []
   }
 }

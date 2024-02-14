@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* DM Sans */
   @font-face {
     font-family: 'DM Sans';
     src:
@@ -43,9 +44,49 @@
     font-display: swap;
   }
 
+  /* Bricolage Grotesque */
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    src:
+      url('@/assets/fonts/BricolageGrotesque-Bold.woff2') format('woff2'),
+      url('@/assets/fonts/BricolageGrotesque-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    src:
+      url('@/assets/fonts/BricolageGrotesque-Medium.woff2') format('woff2'),
+      url('@/assets/fonts/BricolageGrotesque-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    src:
+      url('@/assets/fonts/BricolageGrotesque-SemiBold.woff2') format('woff2'),
+      url('@/assets/fonts/BricolageGrotesque-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    src:
+      url('@/assets/fonts/BricolageGrotesque-Regular.woff2') format('woff2'),
+      url('@/assets/fonts/BricolageGrotesque-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   ::selection {
-    color: white;
-    background: #7e54f8;
+    @apply bg-tg-primary-color text-tg-white;
   }
 
   html {
@@ -53,8 +94,7 @@
   }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background-color: white;
+    @apply bg-tg-white font-font1;
   }
 
   ::-webkit-scrollbar {

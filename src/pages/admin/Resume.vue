@@ -1,145 +1,215 @@
 <template>
-  <div @click="statusExpanded.exp = null" class="flex flex-col w-full h-screen p-8 overflow-y-scroll">
+  <div class="flex h-screen w-full flex-col overflow-y-scroll p-8" @scroll="detectScroll">
     <div>
-      <ul>
-        <li
-          v-for="(applier, index) in appliers"
-          :key="index"
-          @click="toggleAccordion(index)"
-          class="relative flex flex-col mb-5"
-        >
-          <div class="flex items-center justify-between h-full p-5 border rounded-md bg-gray-50">
-            <button class="mr-4 duration-300 text-tg-paragraph-color transition-color hover:text-tg-heading-font-color">
-              <inline-svg title="Show history" class="w-5 h-5" src="history.svg" />
-            </button>
-            <button
-              @click.stop="openUserModal(applier.user_id)"
-              title="Click me"
-              class="flex justify-start w-1/6 mr-2 font-semibold text-tg-green hover:opacity-80"
-            >
-              {{ applier.resume.name }}
-            </button>
-            <a @click.stop class="w-1/5 mr-2" href="#">{{ getVacancyTitle(applier.vacancy_id) }}</a>
-            <a @click.stop class="w-1/6 mr-2" :href="`mailto://${applier.resume.email}`">{{
-              applier.resume.email || 'email undefined'
-            }}</a>
-            <div class="flex ml-auto space-x-5">
+      <div class="flex items-center justify-between">
+        <h2 class="mb-10 text-3xl capitalize">Appliers</h2>
+        <select class="rounded-md border border-gray-200 p-2 outline-blue-300" id="category" @change="setFilter">
+          <option value="all" selected>All</option>
+          <option v-for="option in statuses" :key="option.id" class="flex items-center" :value="option.id">
+            {{ option.title }}
+          </option>
+        </select>
+      </div>
+      <div v-if="isLoading" class="flex justify-center py-20">
+        <app-loader />
+      </div>
+      <ul v-else-if="filteredAppliers.length">
+        <template v-for="applier in filteredAppliers" :key="applier.id">
+          <li v-if="applier.user" class="relative mb-5 flex flex-col">
+            <div class="flex h-full items-center justify-between rounded-md border bg-gray-50 p-5">
               <button
-                @click.stop="openStatusModal(applier.id)"
-                :style="`
-                  background-color: ${applier?.applierStatus?.color}44;
-                  color: ${applier?.applierStatus?.color};
-                `"
-                class="px-3 text-sm opacity-90 rounded-full py-[2px]"
+                @click="toggleAccordion(applier.id, applier)"
+                class="transition-color mr-4 text-tg-paragraph-color duration-300 hover:text-tg-heading-font-color"
               >
-                <span v-if="applier.status">{{ applier.status.status }}</span>
-                <span v-else class="bg-yellow-300 px-3 text-yellow-900 rounded-full py-[2px]">submitted</span>
+                <inline-svg title="Show history" class="h-5 w-5" src="svg/history.svg" />
               </button>
-              <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
-                Remove
+              <button
+                @click.stop="openUserModal(applier.user)"
+                title="View Profile"
+                class="mr-2 flex w-1/5 justify-start overflow-hidden text-ellipsis whitespace-nowrap text-center font-semibold text-tg-green hover:opacity-80"
+              >
+                {{ applier.user.name }}
               </button>
+              <span @click.stop class="mr-2 w-1/5">{{ applier.vacancy.title }}</span>
+              <a @click.stop class="mr-2 w-1/6" :href="`mailto://${applier.user.email}`">{{
+                applier.user.email || 'email undefined'
+              }}</a>
+              <div class="ml-auto flex space-x-5">
+                <button
+                  v-if="applier.status?.title"
+                  @click.stop="openStatusModal(applier.id, applier.vacancy.id)"
+                  :style="`
+                    background-color: ${applier.status?.color}44;
+                    color: ${applier.status?.color};
+                  `"
+                  class="rounded-full px-3 py-[2px] text-sm opacity-90"
+                >
+                  {{ applier.status?.title }}
+                </button>
+                <button @click.stop="removeUser(applier.id)" class="font-medium text-red-500 hover:opacity-80">
+                  Remove
+                </button>
+              </div>
             </div>
-          </div>
-          <status-detail :applier_id="applier.id" :status_id="applier.status_id" :expanded="detailExpanded === index" />
-        </li>
+            <keep-alive>
+              <status-detail
+                v-if="detailExpanded === applier.id"
+                :applier_id="applier.id"
+                :status_id="applier.status_id"
+                :expanded="detailExpanded === applier.id"
+                :statuses="statuses"
+              />
+            </keep-alive>
+          </li>
+        </template>
+        <div v-if="false" class="flex justify-center">
+          <button-loader color="#7E54F8" width="50px" height="50px" />
+        </div>
       </ul>
+      <div v-else>Nothing found...</div>
     </div>
   </div>
-  <status-modal
-    v-if="isStatusModal"
-    @closeStatusModal="closeStatusModal"
-    :currentUser="currentUser"
-    :statuses="statuses"
-  />
-  <user-modal v-if="isUserModal" :appliers="appliers" @closeUserModal="closeUserModal" :user-id="userId" />
+  <status-modal v-if="isStatusModal" @close="closeStatusModal" :currentUser="currentUser" :statuses="statuses" />
+  <user-modal v-if="isUserModal" :user="selectedUser" @close="isUserModal = false" />
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { fetchData } from '@/composables/fetchData'
-import { doc, deleteDoc } from 'firebase/firestore'
-import { useFirestore } from 'vuefire'
-import { deleteObject } from 'firebase/storage'
-import { storageRef, storage } from '@/firebase'
-import StatusDetail from '@/components/admin/resume/StatusDetail.vue'
-import StatusModal from '@/components/admin/resume/StatusModal.vue'
-import InlineSvg from '@/components/reusables/InlineSvg.vue'
-import UserModal from '@/components/admin/resume/UserModal.vue'
+import { doc, deleteDoc, where } from 'firebase/firestore'
+import { db } from '@/firebase'
+import StatusDetail from '@/pages/admin/StatusDetail.vue'
+import StatusModal from '@/pages/admin/StatusModal.vue'
+import InlineSvg from '@/components/InlineSvg.vue'
+import UserModal from '@/pages/admin/UserModal.vue'
+import AppLoader from '@/components/AppLoader.vue'
+import { useRoute } from 'vue-router'
+import { collection, query, getDocs, orderBy } from 'firebase/firestore'
+import ButtonLoader from '@/components/ButtonLoader.vue'
 
-const db = useFirestore()
+const route = useRoute()
 const appliers = ref<any>([])
 const vacancies = ref<any>([])
-const applierStatuses = ref<any>([])
 const statuses = ref<any>([])
 const users = ref<any>([])
-
-const statusExpanded = ref({ exp: null })
+const isLoading = ref(true)
 const detailExpanded = ref(null)
 const isStatusModal = ref(false)
-const currentUser = ref({
-  applier_id: '',
-  vacancy_id: '',
-})
+const currentUser = ref<any>(null)
 const isUserModal = ref(false)
-const userId = ref('')
+const selectedUser = ref<any>(null)
+const isLoadMore = ref(true)
+const applier_id = ref(null)
+const loadMoreLoading = ref(false)
+const allData = ref<any>([])
+const filteredAppliers = ref<any>([])
 
 onMounted(async () => {
-  vacancies.value = await fetchData('vacancies')
-  statuses.value = await fetchData('statuses')
-  users.value = await fetchData('users')
-  applierStatuses.value = await fetchData('applier_statuses')
-  const allAppliers = await fetchData('appliers')
-  appliers.value = await allAppliers.map((item: any) => ({
-    ...item,
-    status: statuses.value.find((el: any) => el.id === item.status_id),
-    resume: users.value.find((el: any) => el.id === item.user_id),
-    vacancy: vacancies.value.find((el: any) => el.id === item.vacancy_id),
-    applierStatus: applierStatuses.value.find((el: any) => el.applier_id === item.id),
-  }))
+  try {
+    await loadMore()
+  } catch {
+    isLoading.value = false
+  } finally {
+    isLoading.value = false
+  }
+
+  if (route.query.id) {
+    allData.value = allData.value.filter((item: any) => item.vacancy.id === route.query.id)
+  }
 })
 
-const closeStatusModal = () => {
-  isStatusModal.value = false
-}
-const openStatusModal = (id: string) => {
-  isStatusModal.value = true
-  appliers.value.forEach((item: any) => {
-    if (item.id == id) {
-      currentUser.value.vacancy_id = item.vacancy_id
-      currentUser.value.applier_id = item.id
-    }
-  })
-}
-const toggleAccordion = (value: any) => {
-  detailExpanded.value = detailExpanded.value === value ? null : value
-}
-const getVacancyTitle = (id: string) => {
-  const list: any = vacancies.value.filter((item: any) => item.id === id)
-  if (list.length) {
-    return list[0].title
-  }
-}
-const removeUser = async (id: string) => {
-  await deleteDoc(doc(db, 'appliers', id))
-  appliers.value.forEach((item: any) => {
-    if (item.id == id) {
-      const applierRef = storageRef(storage, `users/${item.user_id}`)
-      deleteObject(applierRef)
-        .then(() => {
-          appliers.value = appliers.value.filter((item: any) => item.id !== id)
-        })
-        .catch(() => {
-          console.error('applier deleted error...')
-        })
-    }
-  })
+const loadMore = async () => {
+  loadMoreLoading.value = true
+
+  const appliersQuery = query(collection(db, 'appliers'), orderBy('date', 'desc'))
+  const appliersSnapshot = await getDocs(appliersQuery)
+
+  const userIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().user_id))]
+  const usersQuery = query(collection(db, 'users'), where('id', 'in', userIds))
+  const usersPromise = getDocs(usersQuery)
+
+  const vacancyIds = [...new Set(appliersSnapshot.docs.map((doc) => doc.data().vacancy_id))]
+  const vacanciesQuery = query(collection(db, 'vacancies'), where('id', 'in', vacancyIds))
+  const vacanciesPromise = getDocs(vacanciesQuery)
+
+  const statusesQuery = query(collection(db, 'statuses'))
+  const statusesPromise = getDocs(statusesQuery)
+
+  const [usersSnapshot, vacanciesSnapshot, statusesSnapshot] = await Promise.all([
+    usersPromise,
+    vacanciesPromise,
+    statusesPromise,
+  ])
+
+  appliers.value = appliersSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
+
+  users.value = usersSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }))
+
+  vacancies.value = vacanciesSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }))
+
+  statuses.value = statusesSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }))
+
+  allData.value = appliers.value.map((applier: any) => ({
+    id: applier.id,
+    user: users.value.find((user: any) => user.id === applier.user_id),
+    status: statuses.value.find((status: any) => status.id === applier.status_id),
+    vacancy: vacancies.value.find((vacancy: any) => vacancy.id === applier.vacancy_id),
+  }))
+  filteredAppliers.value = allData.value
 }
 
-const openUserModal = (id: string) => {
-  isUserModal.value = true
-  userId.value = id
+const detectScroll = async (event: any) => {
+  const element = event.target
+  const scrollHeight = element.scrollHeight - window.innerHeight
+  if (scrollHeight <= element.scrollTop && !loadMoreLoading.value && isLoadMore.value) {
+    await loadMore()
+  }
 }
-const closeUserModal = () => {
-  isUserModal.value = false
+
+const openStatusModal = (applier_id: string, vacancy_id: string) => {
+  isStatusModal.value = true
+  currentUser.value = {
+    applier_id,
+    vacancy_id,
+  }
+}
+
+const toggleAccordion = (value: any, applier: any) => {
+  detailExpanded.value = detailExpanded.value === value ? null : value
+  applier_id.value = applier.id
+}
+
+const removeUser = async (id: string) => {
+  allData.value = allData.value.filter((item: any) => item.id !== id)
+  filteredAppliers.value = filteredAppliers.value.filter((item: any) => item.id !== id)
+  await deleteDoc(doc(db, 'appliers', id))
+}
+
+const openUserModal = (user: object) => {
+  isUserModal.value = true
+  selectedUser.value = user
+}
+
+const closeStatusModal = (value: string) => {
+  isStatusModal.value = false
+  if (value) {
+    allData.value[allData.value.findIndex((item: any) => item.id === currentUser.value.applier_id)].status =
+      statuses.value.find((status: any) => status.id === value)
+  }
+}
+
+const setFilter = (value: any) => {
+  filteredAppliers.value =
+    value.target.value === 'all'
+      ? allData.value
+      : allData.value.filter((item: any) => item.status.id === value.target.value)
 }
 </script>
