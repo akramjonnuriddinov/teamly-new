@@ -70,6 +70,10 @@ const links = [
     icon: 'svg/admin/task.svg',
   },
   {
+    name: 'contribute',
+    icon: 'svg/admin/task.svg',
+  },
+  {
     name: 'Submitted Tasks',
     page: 'SubmittedTasks',
     icon: 'svg/admin/submitted.svg',
