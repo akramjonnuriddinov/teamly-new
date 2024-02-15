@@ -42,7 +42,7 @@
       </ul>
       <ul v-else class="flex w-full flex-wrap justify-between max-[1200px]:flex-col">
         <li v-for="blog in blogs" :key="blog" class="w-1/2 px-4 max-[1200px]:w-auto">
-          <div class="blog-inner mb-7 flex rounded-[10px] transition-all duration-300 max-[650px]:flex-col">
+          <div class="blog-inner mb-7 flex rounded-[10px] border transition-all duration-300 max-[650px]:flex-col">
             <img
               :src="blog.image"
               class="h-[230px] w-[240px] rounded-bl-[10px] rounded-tl-[10px] object-cover max-[650px]:h-full max-[650px]:w-full max-[650px]:rounded-bl-none max-[650px]:rounded-tr-[10px]"
@@ -51,7 +51,7 @@
               alt=""
             />
             <div
-              class="blog-content flex w-full flex-col items-start rounded-br-[10px] rounded-tr-[10px] border border-l-0 border-[#f5f2f2] bg-white px-[30px] py-[25px] transition-all duration-300 max-[1200px]:w-auto max-[650px]:rounded-bl-[10px] max-[650px]:rounded-tl-none max-[650px]:rounded-tr-none max-[650px]:border max-[650px]:border-t-0"
+              class="blog-content flex w-full flex-col items-start rounded-br-[10px] rounded-tr-[10px] bg-white px-[30px] py-[25px] transition-all duration-300 max-[650px]:rounded-bl-[10px] max-[650px]:rounded-tl-none max-[650px]:rounded-tr-none"
             >
               <span
                 class="mb-4 max-w-[250px] truncate rounded-[5px] bg-[#EEE8FF] px-[11px] py-[6px] text-xs font-semibold capitalize text-tg-primary-color-two transition-all duration-300 hover:bg-tg-primary-color-two hover:text-tg-white max-[1300px]:max-w-[200px]"
@@ -111,8 +111,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.blog-inner:hover .blog-content {
+.blog-inner:hover {
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
-  border-color: transparent;
 }
 </style>
