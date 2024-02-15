@@ -10,8 +10,8 @@
             {{ vacancy.title }}
           </h1>
           <div class="mb-5 flex items-center gap-3 font-bold tracking-[-0.3px] text-tg-primary-color">
-            <span>{{ vacancy.category }}</span>
-            <img width="8" height="8" src="@/assets/images/svg/circle.svg" alt="circle" />
+            <span class="max-sm:hidden">{{ vacancy.category }}</span>
+            <img class="max-sm:hidden" width="8" height="8" src="@/assets/images/svg/circle.svg" alt="circle" />
             <span>{{ vacancy.time }}</span>
             <img width="8" height="8" src="@/assets/images/svg/circle.svg" alt="circle" />
             <span>{{ formatTimestampToLocaleString(vacancy.date) }}</span>
@@ -32,5 +32,11 @@ defineProps(['vacancy'])
 <style scoped>
 .vacancy-detail {
   border-radius: 0px 0px 64px 64px;
+}
+
+@media (max-width: 700px) {
+  .vacancy-detail {
+    border-radius: 0px 0px 30px 30px;
+  }
 }
 </style>
