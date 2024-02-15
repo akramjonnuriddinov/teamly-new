@@ -27,48 +27,8 @@
           />
         </div>
         <div class="my-2 flex w-full items-center justify-between">
-          <label class="text-gray-700" for="username">Definition</label>
-          <textarea
-            v-model="portfolio.definition"
-            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
-            name=""
-            id="text"
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div>
-        <div class="my-2 flex w-full items-center justify-between">
-          <label class="text-gray-700" for="tech">Technologies</label>
-          <textarea
-            v-model="portfolio.technologies"
-            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
-            name="tech"
-            id="text"
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div>
-        <div class="my-2 flex w-full items-center justify-between">
-          <label class="text-gray-700" for="chal">Challenges</label>
-          <textarea
-            v-model="portfolio.challenge"
-            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
-            name="chal"
-            id="text"
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div>
-        <div class="my-2 flex w-full items-center justify-between">
-          <label class="text-gray-700" for="chal">Support</label>
-          <textarea
-            v-model="portfolio.support"
-            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
-            name="chal"
-            id="text"
-            cols="30"
-            rows="10"
-          ></textarea>
+          <label class="text-gray-700" for="text">Text</label>
+          <the-editor @input="handlePostFromChild" :edit-editor="portfolio.text" class="w-[80%]" />
         </div>
         <div class="relative flex w-[80%] items-center justify-center self-end overflow-hidden">
           <label
@@ -109,17 +69,22 @@
 import { ref } from 'vue'
 import InlineSvg from '@/components/InlineSvg.vue'
 import AdminBaseModal from '@/pages/admin/modals/AdminBaseModal.vue'
+import TheEditor from '@/components/TheEditor.vue'
 
 const props = defineProps(['input'])
 const initialPortfolio = {
   title: '',
   category: '',
-  definition: '',
-  support: '',
-  technologies: '',
-  challenge: '',
   link: '',
   image: null,
+  text: `<h2>Definition</h2>
+  <br />
+  <h2>Support 24/7</h2>
+  <br />
+  <h2>Used technologies</h2>
+  <br />
+  <h2>Challenges and Solutions</h2>
+  <br />`,
 }
 const portfolio = ref({
   ...initialPortfolio,
@@ -136,7 +101,9 @@ const uploadImage = (e: any) => {
     }
   }
 }
-
+const handlePostFromChild = (post: any) => {
+  portfolio.value.text = post
+}
 const deleteImage = () => {
   portfolio.value.image = null
 }
