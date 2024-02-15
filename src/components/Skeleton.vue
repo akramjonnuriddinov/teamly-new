@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue'
 
 export enum ESkeletonTheme {
   LIGHT = 'light',
@@ -23,7 +23,7 @@ export default defineComponent({
       default: ESkeletonTheme.LIGHT,
     },
   },
-});
+})
 </script>
 <template>
   <div
@@ -70,7 +70,7 @@ export default defineComponent({
     rgba(255, 255, 255, 0)
   );
   animation: shimmer 1.5s infinite;
-  content: "";
+  content: '';
   transform: translateX(-100%);
 }
 

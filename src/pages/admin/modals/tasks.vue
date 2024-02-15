@@ -1,39 +1,39 @@
 <template>
   <admin-base-modal :input="props.input" url="tasks" :old-value="task" modal_title="Tasks">
-    <form class="w-full h-auto overflow-y-auto">
-      <div class="flex flex-col w-full">
-        <div class="flex items-center justify-between w-full mb-3">
+    <form class="h-auto w-full overflow-y-auto">
+      <div class="flex w-full flex-col">
+        <div class="mb-3 flex w-full items-center justify-between">
           <label class="text-gray-700" for="title">Title</label>
           <input
             id="title"
             v-model="task.title"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
             type="text"
           />
         </div>
-        <div class="flex items-center justify-between w-full mb-3">
+        <div class="mb-3 flex w-full items-center justify-between">
           <label class="text-gray-700" for="link">Link</label>
           <input
             id="link"
             v-model="task.link"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
             type="text"
           />
         </div>
-        <div class="flex items-center justify-between w-full mb-3">
+        <div class="mb-3 flex w-full items-center justify-between">
           <label class="text-gray-700" for="dedline">Term</label>
           <input
             id="dedline"
             v-model="task.dedline"
-            class="w-[80%] p-2 mt-2 border border-gray-200 rounded-md outline-blue-300"
+            class="mt-2 w-[80%] rounded-md border border-gray-200 p-2 outline-blue-300"
             type="text"
           />
         </div>
-        <div class="flex items-center justify-between w-full mb-2">
+        <div class="mb-2 flex w-full items-center justify-between">
           <label class="text-gray-700" for="username">Definition</label>
           <textarea
             v-model="task.definition"
-            class="w-[80%] h-[180px] resize-none p-2 border border-gray-200 rounded-md outline-blue-300"
+            class="h-[180px] w-[80%] resize-none rounded-md border border-gray-200 p-2 outline-blue-300"
             name=""
             id="text"
             cols="30"
