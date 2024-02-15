@@ -1,6 +1,6 @@
 <template>
   <div>
-    <hero-banner :title="hero_content.title" :text="hero_content.text"  />
+    <hero-banner :title="hero_content.title" :text="hero_content.text" />
     <portfolio-component @openModal="openModal" />
     <portfolio-detail v-if="modalOpen" @close="closeModal" :option="option" />
   </div>
