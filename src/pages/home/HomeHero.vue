@@ -15,8 +15,8 @@
               <base-button>
                 <router-link to="/contact">Contact Us</router-link>
               </base-button>
-              <a href="https://t.me/teamly_uz" target="_blank">
-                <app-animation :options="telegramOptions1" :width="190" />
+              <a class="flex w-full max-w-[190px]" href="https://t.me/teamly_uz" target="_blank">
+                <app-animation :options="telegramOptions1" />
               </a>
             </div>
           </div>
