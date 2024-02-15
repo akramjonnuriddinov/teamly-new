@@ -36,18 +36,16 @@
     </template>
     <template v-else>
       <vacancy-detail-banner :vacancy="vacancy">
-        <div class="flex w-full max-[700px]:justify-center">
-          <ApplyButton
-            :applied="!!vacancy.status_id"
-            :vacancy="vacancy.id"
-            :color="status?.color"
-            @applied="vacancy.status_id = 'aplied'"
-          >
-            <template v-if="vacancy.status_id">
-              {{ status?.title }}
-            </template>
-          </ApplyButton>
-        </div>
+        <ApplyButton
+          :applied="!!vacancy.status_id"
+          :vacancy="vacancy.id"
+          :color="status?.color"
+          @applied="vacancy.status_id = 'aplied'"
+        >
+          <template v-if="vacancy.status_id">
+            {{ status?.title }}
+          </template>
+        </ApplyButton>
       </vacancy-detail-banner>
       <job-description :vacancy="vacancy">
         <div class="flex max-[700px]:justify-center">
