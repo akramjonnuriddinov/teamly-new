@@ -1,7 +1,6 @@
 <template>
   <section
     class="fixed left-0 top-0 z-[10000] flex h-full min-h-screen w-[100vw] items-center justify-center bg-[#00000080] p-10"
-    @click="$emit('close')"
   >
     <div
       @click.stop
@@ -16,13 +15,12 @@
       <div class="h-full overflow-y-auto pb-5">
         <div class="h-full overflow-y-auto px-10 pb-5">
           <div ref="modalContainer" class="rounded-[20px] bg-white py-[10px]">
-            <section class="mb-32">
+            <section class="portfolio-modal mb-32">
               <div class="flex w-full flex-col items-start gap-6">
                 <img :src="option.image" class="h-auto w-full rounded-lg border-2 object-cover max-2xl:mb-10" />
                 <div class="w-full">
-                  <!-- 1 -->
                   <div class="mb-12 flex">
-                    <div class="shrink-0">
+                    <!-- <div class="shrink-0">
                       <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
                         <inline-svg fill="none" src="svg/secure.svg" />
                       </div>
@@ -32,57 +30,9 @@
                       <p class="text-neutral-500 dark:text-neutral-300">
                         {{ option.definition }}
                       </p>
-                    </div>
+                    </div> -->
+                    <div v-html="option.text"></div>
                   </div>
-                  <!-- /1 -->
-
-                  <!-- 2 -->
-                  <div class="mb-12 flex">
-                    <div class="shrink-0">
-                      <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
-                        <inline-svg fill="none" src="svg/secure.svg" />
-                      </div>
-                    </div>
-                    <div class="ml-4 grow">
-                      <p class="mb-2 font-bold">Support 24/7</p>
-                      <p class="text-neutral-500 dark:text-neutral-300">
-                        {{ option.support }}
-                      </p>
-                    </div>
-                  </div>
-                  <!-- /2 -->
-
-                  <!-- 3 -->
-                  <div class="mb-12 flex">
-                    <div class="shrink-0">
-                      <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
-                        <inline-svg fill="none" src="svg/secure.svg" />
-                      </div>
-                    </div>
-                    <div class="ml-4 grow">
-                      <p class="mb-2 font-bold">Used technologies</p>
-                      <p class="text-neutral-500 dark:text-neutral-300">
-                        {{ option.technologies }}
-                      </p>
-                    </div>
-                  </div>
-                  <!-- /3 -->
-
-                  <!-- 4 -->
-                  <div class="flex">
-                    <div class="shrink-0">
-                      <div class="rounded-md bg-[hsl(231,52.6%,20%)] p-4 shadow-lg dark:bg-[hsl(231,52.6%,30%)]">
-                        <inline-svg fill="none" src="svg/secure.svg" />
-                      </div>
-                    </div>
-                    <div class="ml-4 grow">
-                      <p class="mb-2 font-bold">Challenges and Solutions</p>
-                      <p class="text-neutral-500 dark:text-neutral-300">
-                        {{ option.challenge }}
-                      </p>
-                    </div>
-                  </div>
-                  <!-- /4 -->
                 </div>
               </div>
             </section>
@@ -155,3 +105,13 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 </script>
+
+<style>
+.portfolio-modal h2 {
+  @apply mb-2 font-bold;
+}
+
+.portfolio-modal p {
+  @apply text-neutral-500 dark:text-neutral-300;
+}
+</style>
