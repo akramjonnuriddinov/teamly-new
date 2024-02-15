@@ -77,32 +77,32 @@
             <div class="absolute z-10 hidden h-full w-full items-center justify-center rounded-md backdrop-blur-md">
               Coming soon
             </div>
-            <h4 class="mb-3 font-medium text-gray-50">Our Newsletter</h4>
-            <p class="mb-5 text-gray-100">Subscribe to our newsletter to get our news &amp; deals delivered to you.</p>
+            <h4 class="mb-3 font-medium text-gray-50">Contribute by reporting</h4>
+            <p class="mb-5 text-gray-100">Did you find any errors here? Please, let us know about it 🫡</p>
             <div>
               <div id="mc_embed_signup2">
-                <form method="post">
+                <form @submit.prevent="sendMessage">
                   <div>
-                    <div class="relative flex" title="coming soon">
+                    <div class="relative flex items-center" title="Contribution">
                       <input
-                        type="email"
+                        v-model="message.text"
+                        type="text"
                         name="EMAIL"
                         placeholder=""
                         autocomplete="off"
-                        disabled
                         class="placeholder:opacity- focus:border-logo-text-color peer w-full cursor-text rounded-lg border border-[#4b5569] bg-transparent p-3 pr-24 text-tg-white outline-none disabled:cursor-not-allowed"
                       />
                       <label
                         class="absolute left-3 top-[20%] translate-y-[-50%] cursor-text pl-[1px] text-xs transition-all peer-placeholder-shown:top-[50%] peer-placeholder-shown:text-sm peer-focus:top-[20%] peer-focus:text-xs"
-                        >Email Address</label
+                        >Write here</label
                       >
                       <input
-                        value="Join"
+                        :value="input_text"
                         type="submit"
                         name="subscribe"
-                        disabled
                         class="absolute right-0 h-full w-20 cursor-pointer rounded-r-lg bg-tg-primary-color text-sm font-bold disabled:cursor-not-allowed"
                       />
+                      <button-loader v-if="isLoading" class="mr-6" />
                     </div>
                   </div>
                 </form>
@@ -117,6 +117,30 @@
 
 <script setup lang="ts">
 import TheLogo from '@/components/TheLogo.vue'
+import { ref } from 'vue'
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '@/firebase'
+import ButtonLoader from '@/components/ButtonLoader.vue'
+
+const message = ref<any>({
+  text: '',
+  date: Date.now(),
+})
+const input_text = ref('Send')
+const isLoading = ref(false)
+
+const sendMessage = async () => {
+  isLoading.value = true
+  input_text.value = ''
+  const messageRef = collection(db, 'contribute')
+  await addDoc(messageRef, message.value)
+  message.value = {
+    text: '',
+    date: Date.now(),
+  }
+  isLoading.value = false
+  input_text.value = 'Send'
+}
 </script>
 
 <style>
