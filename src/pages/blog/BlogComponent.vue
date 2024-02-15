@@ -104,10 +104,8 @@ onMounted(async () => {
     blogs.value = await fetchData('blog', 'desc')
   } catch {
     isLoading.value = true
-    console.log('catch')
   } finally {
     isLoading.value = false
-    console.log('finally')
   }
 })
 </script>

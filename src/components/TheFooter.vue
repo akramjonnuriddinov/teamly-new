@@ -44,7 +44,9 @@
             <div class="mb-5 xl:!pr-28">12 Ulitsa Khudzhant, Fergana, Uzbekistan</div>
             <a to="#" class="hover:text-[#6c63ff]" title="info@email.com" href="mailto:#" />
             <br />
-            +998 (33) 773 77 37
+            <a href="tel:+998337737737" class="whitespace-nowrap text-base font-semibold max-sm:text-sm">
+              +998 (33) 773-77-37
+            </a>
           </div>
 
           <div class="mb-6 basis-full md:!basis-4/12 md:pr-6 xl:!basis-3/12">

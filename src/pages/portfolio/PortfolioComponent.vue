@@ -56,7 +56,7 @@
         <div class="-mx-4 flex w-full flex-wrap justify-center">
           <div class="w-full">
             <ul class="mb-12 flex flex-wrap justify-center gap-2 space-x-1">
-              <li class="mb-1">
+              <li class="mb-1 flex overflow-y-auto">
                 <button
                   v-for="category in ['All', ...uniqueCategories]"
                   :key="category"
@@ -65,7 +65,7 @@
                     'bg-tg-primary-color text-white': selectedCategory === category,
                     'text-body-color  hover:bg-tg-primary-color hover:text-white': selectedCategory !== category,
                   }"
-                  class="mr-2 inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8"
+                  class="mb-1 mr-2 inline-block rounded-lg px-5 py-2 text-center text-base font-semibold transition md:py-3 lg:px-8"
                 >
                   {{ category }}
                 </button>
@@ -139,3 +139,9 @@ const filterItems = () => {
       : portfolioItems.value.filter((item: any) => item.category === selectedCategory.value)
 }
 </script>
+
+<style scoped>
+::-webkit-scrollbar {
+  height: 4px;
+}
+</style>

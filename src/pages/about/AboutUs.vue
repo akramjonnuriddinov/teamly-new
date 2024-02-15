@@ -49,5 +49,5 @@ const defaultOptions = {
   animationData: GrowAnimation,
 }
 
-const aboutContents = ref(['Web Development', '1C Development', 'App Development'])
+const aboutContents = ref(['Web Development', '1C Development (Automation)', 'Mobile Development'])
 </script>

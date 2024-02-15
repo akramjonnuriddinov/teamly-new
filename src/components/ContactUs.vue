@@ -30,7 +30,7 @@ import BaseButton from '@/components/BaseButton.vue'
 import { EThemes, ESize } from '@/types'
 import AppAnimation from '@/components/AppAnimation.vue'
 import ThinkAnimation from '@/assets/images/animation/contact1.json'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
 const anim = ref()
 const defaultOptions = {
@@ -39,10 +39,6 @@ const defaultOptions = {
   renderer: 'svg',
   animationData: ThinkAnimation,
 }
-
-onMounted(() => {
-  // anim.value.playSegments([20, 90], false)
-})
 
 const handleAnimation = (createdAnim: any) => {
   anim.value = createdAnim
