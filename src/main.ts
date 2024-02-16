@@ -11,7 +11,6 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import SwiperClass, { } from 'swiper'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css'
 import Vue3Lottie from 'vue3-lottie'
 
@@ -23,7 +22,6 @@ app.use(Vue3Lottie)
 AOS.init()
 app.component('inline-svg', InlineSvg)
 app.use(pinia)
-app.use(VueAwesomeSwiper)
 app.use(router)
 app.use(VueQuillEditor)
 router.isReady().then(() => {
