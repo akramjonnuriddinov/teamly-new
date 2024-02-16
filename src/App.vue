@@ -20,20 +20,23 @@ import TheFooter from '@/components/TheFooter.vue'
 import ScrollTop from '@/components/ScrollTop.vue'
 import ContactUs from '@/components/ContactUs.vue'
 import { useHead } from '@vueuse/head'
+import { getImageUrl } from './composables/getImgUrl'
 
 const meta = {
   title: 'Teamly UZ - Shaping Digital Dreams!',
   url: 'teamly.uz',
   description:
     'Custom software development company. We create world-class e-Commerce platforms, custom web portals, and enterprise-grade web apps',
-  image: './assets/images/logos/logo.png',
+  image: getImageUrl('logos/logo.png'),
 }
 
 useHead({
   title: 'Teamly UZ - Shaping Digital Dreams!',
   meta: [
     {
-      name: meta.description,
+      hid: 'description',
+      name: 'description',
+      content: meta?.description,
     },
     { hid: 'og:title', property: 'og:title', content: meta?.title },
     { hid: 'og:url', property: 'og:url', content: meta?.url },
