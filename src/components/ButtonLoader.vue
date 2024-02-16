@@ -20,8 +20,10 @@ defineProps({
 
 <style scoped>
 .btn-loader {
-  width: v-bind(width);
-  height: v-bind(height);
+  min-width: v-bind(width);
+  min-height: v-bind(height);
+  max-width: v-bind(width);
+  max-height: v-bind(height);
   border: 3px solid #fff;
   border-bottom-color: transparent;
   border-radius: 50%;
