@@ -14,24 +14,28 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
 import ScrollTop from '@/components/ScrollTop.vue'
 import ContactUs from '@/components/ContactUs.vue'
 import { useHead } from '@vueuse/head'
-import { getImageUrl } from './composables/getImgUrl'
+import { getImageUrl } from '@/composables/getImgUrl'
+import { useRoute } from 'vue-router'
+import { useSeo } from '@/composables/useSeo.ts'
 
+useSeo('home', '')
+
+const route = useRoute()
 const meta = {
   title: 'Teamly UZ - Shaping Digital Dreams!',
-  url: 'teamly.uz',
+  url: `teamly.uz${route.path}`,
   description:
     'Custom software development company. We create world-class e-Commerce platforms, custom web portals, and enterprise-grade web apps',
   image: getImageUrl('logos/logo.png'),
 }
 
 useHead({
-  title: 'Teamly UZ - Shaping Digital Dreams!',
+  title: meta.title,
   meta: [
     {
       hid: 'description',
@@ -46,7 +50,6 @@ useHead({
   ],
 })
 
-const route = useRoute()
 const isAdmin = computed(() => {
   return route.path.includes('admin')
 })
