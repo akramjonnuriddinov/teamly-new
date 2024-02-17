@@ -141,8 +141,34 @@ import SentMail from '@/assets/images/animation/success-failed-custom.json'
 import { useRoute } from 'vue-router'
 import { updateNumber } from '../../composables/usePone'
 import { useRouter } from 'vue-router'
+import { useHead } from '@vueuse/head'
+import { getImageUrl } from '@/composables/getImgUrl'
 
 const route = useRoute()
+const meta = {
+  title: 'Contact information | Teamly UZ',
+  url: `teamly.uz${route.path}`,
+  description:
+    'Teamly UZ is a software and web application development company. Contact us for a consultation about our software development services in the UZ',
+  image: getImageUrl('logos/logo.png'),
+}
+
+useHead({
+  title: meta.title,
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: meta?.description,
+    },
+    { hid: 'og:title', property: 'og:title', content: meta?.title },
+    { hid: 'og:url', property: 'og:url', content: meta?.url },
+    { hid: 'og:description', property: 'og:description', content: meta?.description },
+    { hid: 'og:type', property: 'og:type', content: 'website' },
+    { hid: 'og:image', property: 'og:image', content: meta?.image },
+  ],
+})
+
 const router = useRouter()
 const message = ref<any>({
   fullname: '',
