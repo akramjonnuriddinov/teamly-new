@@ -1,11 +1,11 @@
 import { useHead } from '@vueuse/head'
 import { getImageUrl } from '@/composables/getImgUrl'
-import { useRoute } from 'vue-router'
-import { HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, VACANCY_VIEW, CONTACT_VIEW } from '@/constant'
+// import { useRoute } from 'vue-router'
+// import { HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, VACANCY_VIEW, CONTACT_VIEW } from '@/constant'
 
-const route = useRoute()
+// const route = useRoute()
 
-const pages = [HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, VACANCY_VIEW, CONTACT_VIEW]
+// const pages = [HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, VACANCY_VIEW, CONTACT_VIEW]
 // logrocket, google console
 
 export const useSeo = (page: any, path: string) => {
@@ -33,7 +33,6 @@ export const useSeo = (page: any, path: string) => {
     ],
   })
 
-  console.log(pages)
-  return pages
+  return page
 }
 
