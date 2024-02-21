@@ -24,22 +24,21 @@ import { useSeo } from '@/composables/useSeo.ts'
 const route = useRoute()
 
 watch(
-  () => route.name,
-  () => {
-    useSeo(route.name, route.path)
+  () => route,
+  (value) => {
+    useSeo(value.name, value.path)
   },
   {
     immediate: true,
+    deep: true,
   },
 )
 const isAdmin = computed(() => {
   return route.path.includes('admin')
 })
-
 const isProfile = computed(() => {
   return route.path.includes('profile') || route.path.includes('login')
 })
-
 const isContact = computed(() => {
   return route.path.includes('contact')
 })

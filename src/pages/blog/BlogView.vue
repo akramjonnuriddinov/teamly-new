@@ -78,7 +78,7 @@ const isLoading = ref(true)
 onMounted(async () => {
   isLoading.value = true
   blogs.value = await fetchData('blog')
-  blog.value = await blogs.value.filter((item: any) => item.id === route.params.id)[0]
+  blog.value = blogs.value.filter((item: any) => item.id === route.params.id)[0]
   isLoading.value = false
 })
 </script>

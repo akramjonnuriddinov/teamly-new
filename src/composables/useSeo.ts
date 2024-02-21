@@ -1,15 +1,13 @@
 import { useHead } from '@vueuse/head'
 import { getImageUrl } from '@/composables/getImgUrl'
-import { HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, SERVICE_VIEW, VACANCY_VIEW, CONTACT_VIEW } from '@/constant'
-
-const pages = [HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, SERVICE_VIEW, VACANCY_VIEW, CONTACT_VIEW] as any
+import { seoTexts } from '@/constant'
 
 export const useSeo = (page: any, path: any) => {
   const meta = {
-    title: (pages.filter((item: any) => item.page === page))[0]?.title as any,
+    title: seoTexts[page]?.title,
     url: `teamly.uz${path}`,
     description:
-      (pages.filter((item: any) => item.page === page))[0]?.description,
+      seoTexts[page]?.description,
     image: getImageUrl('logos/logo.png'),
   }
 
