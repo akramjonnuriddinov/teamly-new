@@ -13,8 +13,8 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import 'swiper/css'
-// import LogRocket from 'logrocket';
-// LogRocket.init('5obype/teamly-uz');
+// import LogRocket from 'logrocket'
+// LogRocket.init('5obype/teamly-uz')
 
 const pinia = createPinia()
 const app = createApp(App)
