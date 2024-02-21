@@ -6,10 +6,10 @@ const pages = [HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, SERVICE_VIEW, VACANCY_VIEW
 
 export const useSeo = (page: any, path: any) => {
   const meta = {
-    title: (pages.filter((item: any) => item.page === page))[0].title as any,
+    title: (pages.filter((item: any) => item.page === page))[0]?.title as any,
     url: `teamly.uz${path}`,
     description:
-      (pages.filter((item: any) => item.page === page))[0].description,
+      (pages.filter((item: any) => item.page === page))[0]?.description,
     image: getImageUrl('logos/logo.png'),
   }
 

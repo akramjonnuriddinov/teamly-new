@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import HeroBanner from '@/components/HeroBanner.vue'
 import AboutComponent from '@/pages/about/AboutComponent.vue'
+import AboutUs from '@/pages/about/AboutUs.vue'
 
 const hero_content = {
   title: 'About Teamly',
