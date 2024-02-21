@@ -1,7 +1,7 @@
 <template>
   <admin-base-modal :input="props.input" url="about" :old-value="about" modal_title="About">
-    <form class="h-auto w-full overflow-y-auto">
-      <div class="flex w-full flex-col">
+    <form class="h-full w-full overflow-y-auto">
+      <div class="flex h-full w-full flex-col">
         <div class="flex w-full items-center justify-between">
           <label class="text-gray-700" for="username">Fullname</label>
           <input
@@ -29,7 +29,7 @@
           />
         </div>
 
-        <div class="relative flex w-[80%] items-center justify-center self-end overflow-hidden">
+        <div class="relative flex h-full w-[80%] items-center justify-center self-end overflow-hidden">
           <label
             for="dropzone-file"
             class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50"

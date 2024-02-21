@@ -11,7 +11,7 @@
         </button>
       </div>
       <div class="flex h-full flex-col overflow-y-auto pb-5">
-        <div class="px-10">
+        <div class="h-full px-10">
           <slot></slot>
         </div>
         <div class="mt-auto flex justify-end px-10 pt-5">
