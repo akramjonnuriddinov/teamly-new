@@ -272,8 +272,8 @@ const links = [
     url: '/service',
   },
   {
-    name: 'Portfolio',
-    url: '/portfolio',
+    name: 'Project',
+    url: '/project',
   },
   {
     name: 'Vacancy',

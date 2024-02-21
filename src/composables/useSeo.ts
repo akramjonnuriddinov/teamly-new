@@ -1,19 +1,15 @@
 import { useHead } from '@vueuse/head'
 import { getImageUrl } from '@/composables/getImgUrl'
-// import { useRoute } from 'vue-router'
-// import { HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, VACANCY_VIEW, CONTACT_VIEW } from '@/constant'
+import { HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, SERVICE_VIEW, VACANCY_VIEW, CONTACT_VIEW } from '@/constant'
 
-// const route = useRoute()
+const pages = [HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, SERVICE_VIEW, VACANCY_VIEW, CONTACT_VIEW] as any
 
-// const pages = [HOME_VIEW, ABOUT_VIEW, PORTFOLIO_VIEW, VACANCY_VIEW, CONTACT_VIEW]
-// logrocket, google console
-
-export const useSeo = (page: any, path: string) => {
+export const useSeo = (page: any, path: any) => {
   const meta = {
-    title: 'pages',
+    title: (pages.filter((item: any) => item.page === page))[0].title as any,
     url: `teamly.uz${path}`,
     description:
-      'Custom software development company. We create world-class e-Commerce platforms, custom web portals, and enterprise-grade web apps',
+      (pages.filter((item: any) => item.page === page))[0].description,
     image: getImageUrl('logos/logo.png'),
   }
 
@@ -32,7 +28,5 @@ export const useSeo = (page: any, path: string) => {
       { hid: 'og:image', property: 'og:image', content: meta?.image },
     ],
   })
-
-  return page
 }
 

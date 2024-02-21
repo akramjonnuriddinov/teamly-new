@@ -20,8 +20,8 @@ export const router = createRouter({
       component: () => import('@/pages/service/ServiceView.vue')
     },
     {
-      path: '/portfolio',
-      name: 'portfolio',
+      path: '/project',
+      name: 'project',
       component: () => import('@/pages/portfolio/PortfolioView.vue')
     },
     {

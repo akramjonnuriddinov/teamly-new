@@ -13,43 +13,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
 import ScrollTop from '@/components/ScrollTop.vue'
 import ContactUs from '@/components/ContactUs.vue'
-import { useHead } from '@vueuse/head'
-import { getImageUrl } from '@/composables/getImgUrl'
 import { useRoute } from 'vue-router'
 import { useSeo } from '@/composables/useSeo.ts'
 
-useSeo('home', '')
-
 const route = useRoute()
-const meta = {
-  title: 'Teamly UZ - Shaping Digital Dreams!',
-  url: `teamly.uz${route.path}`,
-  description:
-    'Custom software development company. We create world-class e-Commerce platforms, custom web portals, and enterprise-grade web apps',
-  image: getImageUrl('logos/logo.png'),
-}
 
-useHead({
-  title: meta.title,
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: meta?.description,
-    },
-    { hid: 'og:title', property: 'og:title', content: meta?.title },
-    { hid: 'og:url', property: 'og:url', content: meta?.url },
-    { hid: 'og:description', property: 'og:description', content: meta?.description },
-    { hid: 'og:type', property: 'og:type', content: 'website' },
-    { hid: 'og:image', property: 'og:image', content: meta?.image },
-  ],
-})
-
+watch(
+  () => route.name,
+  () => {
+    useSeo(route.name, route.path)
+  },
+  {
+    immediate: true,
+  },
+)
 const isAdmin = computed(() => {
   return route.path.includes('admin')
 })
