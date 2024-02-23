@@ -1,5 +1,5 @@
 <template>
-  <section id="vacancies" class="relative z-10 pb-[45px] pt-[115px]">
+  <section id="vacancies" class="relative z-10 pb-[45px] pt-[115px] max-[500px]:pt-[50px]">
     <div class="container relative mx-auto w-full px-5">
       <ul v-if="listLoading" class="flex flex-wrap justify-start">
         <li
@@ -49,7 +49,7 @@
               <span class="block h-2 w-2 rounded-full bg-tg-primary-color"></span>
               <span>{{ vacancy.time }}</span>
             </div>
-            <p class="mb-12 line-clamp-2 text-[#5B5A78]">{{ vacancy.text }}</p>
+            <p class="mb-12 line-clamp-2 font-medium text-[#5B5A78]">{{ vacancy.text }}</p>
             <ApplyButton :applied="!!vacancy.applied" :vacancy="vacancy.id" :isCard="true" />
           </div>
         </li>

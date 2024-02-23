@@ -15,28 +15,31 @@
     </div>
     <div class="container mx-auto w-full px-5">
       <swiper
-        class="swiper"
-        :modules="Pagination"
-        :loop="true"
+        :spaceBetween="30"
         :centered-slides="true"
-        :grab-cursor="true"
+        :loop="true"
+        :freeMode="true"
         :pagination="{
           clickable: true,
         }"
+        :modules="modules"
         :breakpoints="breakpoints"
+        class="mySwiper"
       >
-        <swiper-slide v-for="swiperContent in swiperContents" :key="swiperContent.id" class="slide">
-          <div
-            class="mx-[100px] flex items-center justify-center max-[1200px]:mx-[150px] max-[920px]:mx-[200px] max-[600px]:mx-[250px]"
-          >
-            <div style="" class="w-full min-w-[570px] max-w-[570px] rounded-[30px] bg-[#FAFCFF] px-11 py-12">
+        <swiper-slide v-for="swiperContent in swiperContents" :key="swiperContent.id">
+          <div class="flex items-center justify-center">
+            <div class="rounded-[30px] bg-[#FAFCFF] px-11 py-12">
               <div class="flex justify-center">
-                <div class="relative inline-block">
+                <div class="relative">
                   <img :src="getImageUrl(swiperContent.img_url)" alt="testimonial_img" />
                   <div
                     class="absolute -bottom-[3px] -right-[5px] flex h-[30px] w-[30px] items-center justify-center rounded-full bg-tg-primary-color"
                   >
-                    <img src="@/assets/images/testimonials/testimonial_icon.svg" alt="" />
+                    <img
+                      class="max-h-[14px] min-h-[14px] min-w-[14px] max-w-[14px]"
+                      src="@/assets/images/testimonials/testimonial_icon.svg"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
@@ -59,98 +62,74 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Pagination } from 'swiper'
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { getImageUrl } from '@/composables/getImgUrl'
 import BaseTopTitle from '@/components/BaseTopTitle.vue'
+import 'swiper/css/free-mode'
+import { FreeMode, Autoplay } from 'swiper'
 
+const modules = [FreeMode, Autoplay]
+const breakpoints = ref({
+  600: {
+    slidesPerView: 1,
+  },
+  1000: {
+    slidesPerView: 3,
+  },
+})
 const swiperContents = [
   {
     id: '1',
     img_url: 'testimonials/testi_avatar02.png',
-    text: 'I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.',
-    name: 'John Doe',
+    text: 'I was looking for a Web app that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The App feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs an app like this.',
+    name: 'Nicole',
     position: 'CTO',
   },
   {
     id: '2',
     img_url: 'testimonials/testi_avatar01.png',
-    text: 'Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem',
+    text: "I'm extremely pleased with the mobile app created by Teamly. The team's expertise and attention to detail resulted in a seamless and user-friendly application that exceeded my expectations. Their professionalism and commitment to timelines made the entire process smooth and enjoyable. Highly recommended!",
     name: 'Jenny Wilson',
-    position: 'Director of Content',
+    position: 'IT Project Manager',
   },
   {
-    id: '3',
+    id: '1',
     img_url: 'testimonials/testi_avatar02.png',
-    text: 'I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs a Website like this.',
-    name: 'John Doe',
-    position: 'CEO',
-  },
-  {
-    id: '4',
-    img_url: 'testimonials/testi_avatar01.png',
-    text: 'Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem',
-    name: 'Jenny Wilson',
-    position: 'Director of Content',
-  },
-  {
-    id: '5',
-    img_url: 'testimonials/testi_avatar02.png',
-    text: 'Teamly is the best company I have ever seen. It has everything I need to achieve a goal. It is very user-friendly and intuitive. The company project is awesome. It allows me solve my problem',
-    name: 'Jenny Wilson',
+    text: 'I was looking for a Web app that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The App feature was exactly what I needed. It saved me a lot of time and money. The customer support was also very friendly and helpful. I highly recommend Teamly to anyone who needs an app like this.',
+    name: 'Nicole',
     position: 'CTO',
   },
   {
-    id: '6',
+    id: '2',
     img_url: 'testimonials/testi_avatar01.png',
-    text: 'I was looking for a Website that could help me solve a problem. I came across Teamly and decided to give it a try. I was amazed by how easy and fast it was to get started. The Website feature was exactly what I needed. It saved me a lot of time and money.',
+    text: "I'm extremely pleased with the mobile app created by Teamly. The team's expertise and attention to detail resulted in a seamless and user-friendly application that exceeded my expectations. Their professionalism and commitment to timelines made the entire process smooth and enjoyable. Highly recommended!",
     name: 'Jenny Wilson',
-    position: 'Director of Content',
+    position: 'IT Project Manager',
   },
 ]
-
-const breakpoints = ref({
-  350: {
-    slidesPerView: 1,
-    spaceBetween: 320,
-  },
-  400: {
-    slidesPerView: 1,
-    spaceBetween: 220,
-  },
-  500: {
-    slidesPerView: 1,
-    spaceBetween: 120,
-  },
-  600: {
-    slidesPerView: 1,
-    spaceBetween: 40,
-  },
-  700: {
-    slidesPerView: 1,
-    spaceBetween: -20,
-  },
-  720: {
-    slidesPerView: 1,
-    spaceBetween: -20,
-  },
-  900: {
-    slidesPerView: 2,
-    spaceBetween: 320,
-  },
-  1000: {
-    slidesPerView: 2,
-    spaceBetween: 220,
-  },
-  1100: {
-    slidesPerView: 2,
-    spaceBetween: 120,
-  },
-  1200: {
-    slidesPerView: 2,
-    spaceBetween: 0,
-  },
-})
 </script>
+
+<style scoped>
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>

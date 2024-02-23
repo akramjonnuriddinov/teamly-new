@@ -2,7 +2,7 @@
   <section class="fixed left-0 top-0 z-50 flex h-full w-[100vw] items-start justify-center bg-[#00000080] p-10">
     <div
       @click.stop
-      class="container relative mx-auto flex h-full w-full max-w-[620px] flex-col overflow-y-hidden rounded-xl bg-white max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
+      class="container relative mx-auto flex h-full w-full max-w-full flex-col overflow-y-hidden rounded-xl bg-white"
     >
       <div class="sticky top-0 z-50 mb-5 flex w-full items-center justify-between bg-white px-10 py-5">
         <h1 class="text-center text-4xl">{{ modal_title }}</h1>
@@ -11,7 +11,7 @@
         </button>
       </div>
       <div class="flex h-full flex-col overflow-y-auto pb-5">
-        <div class="px-10">
+        <div class="h-full px-10">
           <slot></slot>
         </div>
         <div class="mt-auto flex justify-end px-10 pt-5">

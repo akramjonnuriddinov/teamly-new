@@ -22,7 +22,7 @@
         </div>
         <div class="mb-2 flex w-full items-center justify-between">
           <label class="text-gray-700" for="text">Text</label>
-          <editor @input="handlePostFromChild" :edit-editor="blog.text" class="w-[80%]" />
+          <the-editor @input="handlePostFromChild" :edit-editor="blog.text" class="w-[80%]" />
         </div>
         <div class="relative flex w-[80%] items-center justify-center self-end overflow-hidden">
           <label
@@ -63,7 +63,7 @@
 import { ref } from 'vue'
 import InlineSvg from '@/components/InlineSvg.vue'
 import AdminBaseModal from '@/pages/admin/modals/AdminBaseModal.vue'
-import Editor from '@/components/Editor.vue'
+import TheEditor from '@/components/TheEditor.vue'
 
 const props = defineProps(['input'])
 const initialBlog = {

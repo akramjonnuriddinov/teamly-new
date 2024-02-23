@@ -57,7 +57,7 @@
         </div>
         <div class="mt-2 flex w-full items-center justify-between">
           <label class="text-gray-700" for="text">Description</label>
-          <editor @input="handleDescriptionFromChild" :edit-editor="vacancy.description" class="w-[80%]" />
+          <the-editor @input="handleDescriptionFromChild" :edit-editor="vacancy.description" class="w-[80%]" />
         </div>
       </div>
     </form>
@@ -69,10 +69,9 @@ import { ref } from 'vue'
 import { Category } from '@/types'
 import type { Vacancy } from '@/types'
 import AdminBaseModal from '@/pages/admin/modals/AdminBaseModal.vue'
-import Editor from '@/components/Editor.vue'
+import TheEditor from '@/components/TheEditor.vue'
 
 const props = defineProps(['input'])
-
 const initialVacancy = {
   location: '',
   title: '',
@@ -81,7 +80,6 @@ const initialVacancy = {
   text: '',
   description: '',
 }
-
 const vacancy = ref<Vacancy>({
   ...initialVacancy,
   ...props.input,

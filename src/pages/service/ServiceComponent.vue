@@ -49,7 +49,7 @@
         >
           <div
             :class="{ 'shadow-service-inner': isHover[index] }"
-            class="service-item-inner hover-class flex h-full flex-col rounded-[20px] bg-[#F6F9FB1] px-[35px] py-[50px]"
+            class="service-item-inner hover-class flex h-full flex-col rounded-[20px] bg-[#F6F9FB1] px-[35px] py-[50px] max-[500px]:px-6 max-[500px]:py-7"
           >
             <router-link
               class="mb-[22px] whitespace-nowrap text-2xl font-bold transition-colors duration-300 hover:text-tg-primary-color"

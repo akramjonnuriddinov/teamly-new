@@ -14,15 +14,15 @@
           class="mr-3 transition-all hover:-translate-y-[2px]"
           target="_blank"
         >
-          <img src="@/assets/images/svg/linkedin.svg" alt="instagram icon" />
+          <img src="@/assets/images/svg/linkedin.svg" alt="linkedin icon" />
         </a>
-        <span class="mr-3 cursor-not-allowed transition-all">
+        <span class="mr-3 cursor-not-allowed transition-all max-[500px]:hidden">
           <img src="@/assets/images/svg/twitter.svg" alt="twitter icon" />
         </span>
-        <span class="mr-3 cursor-not-allowed transition-all">
+        <span class="mr-3 cursor-not-allowed transition-all max-[500px]:hidden">
           <img src="@/assets/images/svg/facebook.svg" alt="facebook icon" />
         </span>
-        <span class="mr-3 cursor-not-allowed transition-all">
+        <span class="mr-3 cursor-not-allowed transition-all max-[500px]:hidden">
           <img src="@/assets/images/svg/instagram.svg" alt="instagram icon" />
         </span>
       </div>
@@ -272,8 +272,8 @@ const links = [
     url: '/service',
   },
   {
-    name: 'Portfolio',
-    url: '/portfolio',
+    name: 'Project',
+    url: '/project',
   },
   {
     name: 'Vacancy',

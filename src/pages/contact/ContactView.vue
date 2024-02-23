@@ -1,5 +1,5 @@
 <template>
-  <section class="pb-[80px]">
+  <section class="pb-32 max-[990px]:pb-5">
     <div
       class="container relative mx-auto px-5 max-xl:max-w-[990px] max-[990px]:max-w-3xl max-[800px]:max-w-2xl max-[680px]:max-w-xl"
     >
@@ -13,9 +13,9 @@
           We always want to hear from you! Let us know how we can best help you and we'll do our very best.
         </p>
       </div>
-      <div class="flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[100px]">
-        <div class="w-full max-w-[600px] pt-10 max-[990px]:max-w-full">
-          <div class="flex items-center justify-center py-12 max-[580px]:pb-0">
+      <div class="flex max-[990px]:flex-col max-[990px]:items-center max-[990px]:justify-center max-sm:pt-[0px]">
+        <div class="w-full max-w-[600px] pt-10 max-[990px]:max-w-full max-sm:pt-[0px]">
+          <div class="flex items-center justify-center pt-12">
             <div class="w-full bg-white">
               <form @submit.prevent="sendMessage" method="POST">
                 <div class="mb-7">
@@ -111,7 +111,7 @@
             </div>
           </div>
         </div>
-        <div class="address flex w-full items-center justify-center max-[990px]:h-[600px]">
+        <div class="address flex w-full items-center justify-center max-[990px]:h-[600px] max-sm:h-[350px]">
           <div
             class="address__inner relative z-30 flex w-full max-w-[304px] flex-col items-center rounded-2xl bg-tg-white p-10 text-xl"
           >

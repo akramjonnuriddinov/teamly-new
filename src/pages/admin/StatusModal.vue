@@ -37,7 +37,7 @@
             </div>
             <div class="mb-2 mt-2 flex w-full items-center justify-between">
               <label class="text-gray-700" for="text">Comment</label>
-              <editor
+              <the-editor
                 @input="handleShortDescriptionFromChild"
                 :content="comment.shortDescription"
                 :edit-editor="comment.shortDescription"
@@ -58,7 +58,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import Editor from '@/components/Editor.vue'
+import TheEditor from '@/components/TheEditor.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { ESize } from '@/types'
 import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore'

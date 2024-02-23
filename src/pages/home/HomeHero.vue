@@ -15,16 +15,13 @@
               <base-button>
                 <router-link to="/contact">Contact Us</router-link>
               </base-button>
-              <a href="https://t.me/teamly_uz" target="_blank">
-                <app-animation :options="telegramOptions1" :width="190" />
+              <a class="flex w-full max-w-[190px]" href="https://t.me/teamly_uz" target="_blank">
+                <app-animation :options="telegramOptions1" />
               </a>
             </div>
           </div>
-          <div class="overflow-hidden max-[560px]:hidden">
-            <app-animation :options="defaultOptions" :width="600" />
-          </div>
-          <div class="hidden overflow-hidden max-[560px]:block">
-            <app-animation :options="defaultOptions" :width="400" />
+          <div class="w-full max-[600px]:w-auto">
+            <app-animation :options="defaultOptions" />
           </div>
         </div>
       </div>

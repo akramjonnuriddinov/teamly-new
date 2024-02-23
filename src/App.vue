@@ -13,22 +13,32 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, watch } from 'vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
 import ScrollTop from '@/components/ScrollTop.vue'
 import ContactUs from '@/components/ContactUs.vue'
+import { useRoute } from 'vue-router'
+import { useSeo } from '@/composables/useSeo.ts'
 
 const route = useRoute()
+
+watch(
+  () => route,
+  (value) => {
+    useSeo(value.name, value.path)
+  },
+  {
+    immediate: true,
+    deep: true,
+  },
+)
 const isAdmin = computed(() => {
   return route.path.includes('admin')
 })
-
 const isProfile = computed(() => {
   return route.path.includes('profile') || route.path.includes('login')
 })
-
 const isContact = computed(() => {
   return route.path.includes('contact')
 })
